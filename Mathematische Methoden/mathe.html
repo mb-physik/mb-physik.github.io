@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>
+  Mathematische Methoden
+</title>
+	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<h2>Mathematische Methoden</h2>
+<hr>
+<h3>Normal-/Tangentialkomponente</h3>
+Gesucht ist die Normalkomponente $\vec{a}_n$ des Vektors $\vec{a}$ oder in
+anderen Worten, die Projektion von $\vec{a}$ auf $\vec{n}$.<br>
+<p style="text-align:center;"><img src="Vektorprojektion.png" width="100" height="100" alt=""></p><br>
+
+Aus der Skizze lässt sich der Zusammenhang
+$$\cos{\varphi} = \frac{a_n}{a} \Leftrightarrow a_n = a\cos\varphi$$
+ableiten.<br>
+Nun erinnern wir uns an die Formel (allgemeine Form)
+$$\cos\theta = \frac{\vec{u}\ \vec{v}}{uv}\quad \text{mit}\quad u = |\vec{u}|,\ v = |\vec{v}|$$
+, mit der der Winkel zwischen zwei Vektoren errechnet werden kann.<br>
+Auf unsere obere Gleichung angewandt, ergibt sich der Betrag der Normalkomponente.
+$$a_n = a\frac{\vec{a}\ \vec{n}}{a\underbrace{n}_{=1}} = \vec{a}\ \vec{n}$$
+Wollen wir diese jetzt vektoriell darstellen, muss nur noch mit dem Normalvektor
+$\vec{n}$ multipliziert werden.
+$$\mathbf{\vec{a}_n} = a_n\vec{n} = \mathbf{(\vec{a}\ \vec{n})\vec{n}}$$
+Dies lässt sich analog für den Tangentialvektor $\vec{t}$ statt bzw. für jeden
+normierten Vektor an Stelle von $\vec{n}$ durchführen.
+
+</body>
+</html>
