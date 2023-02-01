@@ -1,0 +1,70 @@
+<html>
+<head>
+  <title>
+    Nabla Sätze
+  </title>
+  	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<h2>Nabla Sätze</h2>
+<hr>
+<h3></h3>
+$$\text{zz: }\vec{\nabla}\frac{1}{|\vec{r}-\vec{r}'|} = -\frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|^3}$$
+Wir beginnen mit der linken Seite der Gleichung und schreiben den Nablaoperator aus, sowie den Bruch um:
+
+$$\mathbf{\vec{\nabla}\frac{1}{|\vec{r}-\vec{r}'|}} =
+\begin{pmatrix}
+\frac{\partial}{\partial x}\\\frac{\partial}{\partial y}\\\frac{\partial}{\partial z}
+\end{pmatrix}
+|\vec{r}-\vec{r}'|^{-1}
+=
+\begin{pmatrix}
+\frac{\partial}{\partial x} |\vec{r}-\vec{r}'|^{-1}\\
+\frac{\partial}{\partial y} |\vec{r}-\vec{r}'|^{-1}\\
+\frac{\partial}{\partial z} |\vec{r}-\vec{r}'|^{-1}
+\end{pmatrix}$$
+
+Nun schauen wir uns die 1. Komponente des Vektors genauer an:
+\begin{align*}
+\frac{\partial}{\partial x} |\vec{r}-\vec{r}'|^{-1} &= \frac{\partial}{\partial x} [(x-x')^2 + (y-y')^2 + (z-z')^2]^{-1/2}\\
+&= -\frac{1}{2}[(x-x')^2 + (y-y')^2 + (z-z')^2]^{-3/2}\cdot 2(x-x')\\
+&= -\Big[\underbrace{[(x-x')^2 + (y-y')^2 + (z-z')^2]^{1/2}}_{=|\vec{r}-\vec{r}'|}\Big]^{-3}\cdot (x-x')\\
+&= \frac{x-x'}{|\vec{r}-\vec{r}'|^{3}}
+\end{align*}
+
+Analog ergibt sich für die anderen Komponenten:
+\begin{align*}\frac{\partial}{\partial y} |\vec{r}-\vec{r}'|^{-1} &= \frac{y-y'}{|\vec{r}-\vec{r}'|^{3}}\\
+\frac{\partial}{\partial z} |\vec{r}-\vec{r}'|^{-1} &= \frac{z-z'}{|\vec{r}-\vec{r}'|^{3}}
+\end{align*}
+
+Der obere Ausdruck vereinfacht sich also zu:
+$$
+\begin{pmatrix}
+\frac{\partial}{\partial x} |\vec{r}-\vec{r}'|^{-1}\\
+\frac{\partial}{\partial y} |\vec{r}-\vec{r}'|^{-1}\\
+\frac{\partial}{\partial z} |\vec{r}-\vec{r}'|^{-1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\frac{x-x'}{|\vec{r}-\vec{r}'|^{3}}\\
+\frac{y-y'}{|\vec{r}-\vec{r}'|^{3}}\\
+\frac{z-z'}{|\vec{r}-\vec{r}'|^{3}}\\
+\end{pmatrix}
+=
+\frac{1}{|\vec{r}-\vec{r}'|^3}
+\begin{pmatrix}
+x-x'\\
+y-y'\\
+z-z'
+\end{pmatrix}
+=
+\mathbf{\frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|^3}} \qquad\square
+$$
+
+<hr>
+
+</body>
+</html>

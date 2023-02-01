@@ -16,18 +16,18 @@
 <h3>Physikalischer Satz von Gauß</h3>
 Wir beginnen mit dem Zusammenhang zwischen der elektrischen Flussdichte und dem
 elektrischen Potential
-$$\vec{E} = -\nabla\Phi$$
+$$\vec{E} = -\vec{\nabla}\Phi$$
 und wenden den Nabla Operator auf beiden Seiten an.
-$$\nabla\vec{E} = -\Delta\Phi$$
+$$\vec{\nabla}\vec{E} = -\Delta\Phi$$
 Für das Potential setzen wir nun das Integral über die Ladungsdichte ein
 \begin{align}
-  \nabla\vec{E}(\vec{r}) &= -\Delta \Big(\frac{1}{4\pi\varepsilon_0}\int_V \frac{\rho(\vec{r}')}{|\vec{r} - \vec{r}'|}\ \text{d}V'\Big)\\
+  \vec{\nabla}\vec{E}(\vec{r}) &= -\Delta \Big(\frac{1}{4\pi\varepsilon_0}\int_V \frac{\rho(\vec{r}')}{|\vec{r} - \vec{r}'|}\ \text{d}V'\Big)\\
   &= -\frac{1}{4\pi\varepsilon_0}\int_V\rho(\vec{r}')\underbrace{\Delta\frac{1}{|\vec{r} - \vec{r}'|}}_{=-4\pi\delta(\vec{r} - \vec{r}')}\ \text{d}V'\\
   &= \frac{1}{\varepsilon_0}\int_V\rho(\vec{r}')\delta(\vec{r} - \vec{r}')\ \text{d}V'\\
   &= \frac{\rho(\vec{r})}{\varepsilon_0}
 \end{align}
 Die 1. Maxwell Gleichung lautet also:
-$$\mathbf{\nabla\vec{E} = \frac{\rho}{\varepsilon_0}}$$
+$$\mathbf{\vec{\nabla}\vec{E} = \frac{\rho}{\varepsilon_0}}$$
 
 <hr>
 
@@ -39,8 +39,12 @@ $$\mathbf{\nabla\vec{E} = \frac{\rho}{\varepsilon_0}}$$
 
 <hr>
 
-<h3>Erweitertes Durchflutungsgesetz</h3>
+Elektrostatische Felder sind wirbelfrei:
+$$\mathbf{\vec{\nabla}\times\vec{E} = \vec{0}}$$
 
+<hr>
+
+<h3>Erweitertes Durchflutungsgesetz</h3>
 
 
 </body>
