@@ -1,0 +1,45 @@
+<html>
+<head>
+  <title>
+    Magnetisches Vektorpotential
+  </title>
+  	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<h2>Magnetisches Vektorpotential</h2>
+<center><a href="../index.html">zurück</a></center>
+
+
+<hr>
+
+Wir beginnen mit der integralen Form des Biot-Savart-Gesetzes:
+$$\vec{B}(\vec{r}) = \frac{\mu_0}{4\pi}\int_V \vec{j}(\vec{r}')\times \frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|^3}\ \text{d}V'$$
+
+Den Bruch im Integral können wir mit dem Zusammenhang $\frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|^3} = -\vec{\nabla}_r \frac{1}{|\vec{r}-\vec{r}'|^3}$
+(hergeleitet in den <a href="../Mathematische Methoden/nabla.html">Nabla Sätzen</a>) umschreiben:
+$$\vec{B}(\vec{r}) = -\frac{\mu_0}{4\pi}\int_V \vec{j}(\vec{r}')\times \vec{\nabla}_r \frac{1}{|\vec{r}-\vec{r}'|^3}\ \text{d}V'$$
+
+Für den nächsten Schritt verwenden wir erneut einen Nabla Satz.<br>
+$$\vec{\nabla}\times (\phi\vec{A}) = \phi\vec{\nabla}\times \vec{A} - \vec{A}\times (\vec{\nabla}\phi)$$
+
+Wir erkennen, dass das Kreuzprodukt in unserer Gleichung die Form $\vec{A}\times (\vec{\nabla}\phi)$
+hat und stellen den Nabla Satz demnach um:
+$$\vec{A}\times (\vec{\nabla}\phi) = -\vec{\nabla}\times (\phi\vec{A}) + \phi\vec{\nabla}\times \vec{A}$$
+
+In unserem Fall ist $\vec{A} = \vec{j}(\vec{r}')$ und $\phi = \frac{1}{|\vec{r}-\vec{r}'|}$:
+$$\vec{j}(\vec{r}') \times\vec{\nabla}_r\frac{1}{|\vec{r}-\vec{r}'|} = -\vec{\nabla}_r\times \Big(\frac{1}{|\vec{r}-\vec{r}'|}\vec{j}(\vec{r}')\Big) + \underbrace{\frac{1}{|\vec{r}-\vec{r}'|}{\underbrace{\vec{\nabla}_r\times \vec{j}(\vec{r}')}_{=0}}}_{=0}$$
+
+Diesen Ausdruck setzen wir nun in unser $\vec{B}(\vec{r})$ ein:
+\begin{align*}
+\vec{B}(\vec{r}) &= \frac{\mu_0}{4\pi}\int_{V'} \vec{\nabla}_r\times \frac{\vec{j}(\vec{r}')}{|\vec{r}-\vec{r}'|}\ \text{d}V'\\
+&= \vec{\nabla}_r\times \underbrace{\frac{\mu_0}{4\pi}\int_{V'}\frac{\vec{j}(\vec{r}')}{|\vec{r}-\vec{r}'|}\ \text{d}V'}_{=:\vec{A}(\vec{r})}
+\end{align*}
+
+Die Beziehung zwischen der magnetischen Flussdichte und dem magnetischen Vektorpotential lautet also:
+$$\mathbf{\vec{B} = \vec{\nabla}\times \vec{A}} \qquad \text{mit}\qquad \mathbf{\vec{A}(\vec{r}) = \frac{\mu_0}{4\pi}\int_{V'}\frac{\vec{j}(\vec{r}')}{|\vec{r}-\vec{r}'|}\ \text{d}V'}$$
+
+</body>
+</html>

@@ -10,19 +10,22 @@
 <body>
 
 <h2>Herleitung der Maxwell Gleichungen</h2>
+<center><a href="../index.html">zurück</a></center>
 
 <hr>
 
 <h3>Physikalischer Satz von Gauß</h3>
 Wir beginnen mit dem Zusammenhang zwischen der elektrischen Flussdichte und dem
 elektrischen Potential
-$$\vec{E} = -\vec{\nabla}\Phi$$
+$$\vec{E} = -\vec{\nabla}\varphi$$
 und wenden den Nabla Operator auf beiden Seiten an.
-$$\vec{\nabla}\vec{E} = -\Delta\Phi$$
-Für das Potential setzen wir nun das Integral über die Ladungsdichte ein
+$$\vec{\nabla}\vec{E} = -\Delta\varphi$$
+Für das Potential setzen wir nun das Integral über die Ladungsdichte ein.<br>
+Der Index r am Laplace Operator $\Delta_r$ zeigt, dass der Operator nur auf $\vec{r}$,
+nicht aber auf $\vec{r}$' wirkt.
 \begin{align}
-  \vec{\nabla}\vec{E}(\vec{r}) &= -\Delta \Big(\frac{1}{4\pi\varepsilon_0}\int_V \frac{\rho(\vec{r}')}{|\vec{r} - \vec{r}'|}\ \text{d}V'\Big)\\
-  &= -\frac{1}{4\pi\varepsilon_0}\int_V\rho(\vec{r}')\underbrace{\Delta\frac{1}{|\vec{r} - \vec{r}'|}}_{=-4\pi\delta(\vec{r} - \vec{r}')}\ \text{d}V'\\
+  \vec{\nabla}\vec{E}(\vec{r}) &= -\Delta_r \Big(\frac{1}{4\pi\varepsilon_0}\int_V \frac{\rho(\vec{r}')}{|\vec{r} - \vec{r}'|}\ \text{d}V'\Big)\\
+  &= -\frac{1}{4\pi\varepsilon_0}\int_V\rho(\vec{r}')\underbrace{\Delta_r\frac{1}{|\vec{r} - \vec{r}'|}}_{=-4\pi\delta(\vec{r} - \vec{r}')}\ \text{d}V'\\
   &= \frac{1}{\varepsilon_0}\int_V\rho(\vec{r}')\delta(\vec{r} - \vec{r}')\ \text{d}V'\\
   &= \frac{\rho(\vec{r})}{\varepsilon_0}
 \end{align}
@@ -32,6 +35,8 @@ $$\mathbf{\vec{\nabla}\vec{E} = \frac{\rho}{\varepsilon_0}}$$
 <hr>
 
 <h3>Physikalischer Satz von Gauß für Magnetfelder</h3>
+
+$$\mathbf{\vec{\nabla}\vec{B} = 0}$$
 
 <hr>
 
@@ -46,6 +51,7 @@ $$\mathbf{\vec{\nabla}\times\vec{E} = \vec{0}}$$
 
 <h3>Erweitertes Durchflutungsgesetz</h3>
 
+$$\mathbf{\vec{\nabla}\times\vec{B} = \mu_0\vec{j}}$$
 
 </body>
 </html>
