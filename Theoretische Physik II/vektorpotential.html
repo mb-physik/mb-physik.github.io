@@ -16,11 +16,11 @@
 <hr>
 
 Wir beginnen mit der integralen Form des Biot-Savart-Gesetzes:
-$$\vec{B}(\vec{r}) = \frac{\mu_0}{4\pi}\int_V \vec{j}(\vec{r}')\times \frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|^3}\ \text{d}V'$$
+$$\vec{B}(\vec{r}) = \frac{\mu_0}{4\pi}\int_{V'} \vec{j}(\vec{r}')\times \frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|^3}\ \text{d}V'$$
 
 Den Bruch im Integral können wir mit dem Zusammenhang $\frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|^3} = -\vec{\nabla}_r \frac{1}{|\vec{r}-\vec{r}'|^3}$
 (hergeleitet in den <a href="../Mathematische Methoden/nabla.html">Nabla Sätzen</a>) umschreiben:
-$$\vec{B}(\vec{r}) = -\frac{\mu_0}{4\pi}\int_V \vec{j}(\vec{r}')\times \vec{\nabla}_r \frac{1}{|\vec{r}-\vec{r}'|^3}\ \text{d}V'$$
+$$\vec{B}(\vec{r}) = -\frac{\mu_0}{4\pi}\int_{V'} \vec{j}(\vec{r}')\times \vec{\nabla}_r \frac{1}{|\vec{r}-\vec{r}'|^3}\ \text{d}V'$$
 
 Für den nächsten Schritt verwenden wir erneut einen Nabla Satz.<br>
 $$\vec{\nabla}\times (\phi\vec{A}) = \phi\vec{\nabla}\times \vec{A} - \vec{A}\times (\vec{\nabla}\phi)$$
