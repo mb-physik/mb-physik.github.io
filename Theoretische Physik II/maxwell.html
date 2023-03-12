@@ -14,6 +14,35 @@
 
 <hr>
 
+<table border=1>
+  <tr>
+    <th>Vakuum</th>
+    <th>magn./diel. Medium</th>
+  </tr>
+  <tr>
+    <td>$$\vec{\nabla}\vec{E} = \frac{\rho}{\varepsilon_0}$$</td>
+    <td>$$\vec{\nabla}\vec{D} = \rho_\text{frei}$$</td>
+  </tr>
+  <tr>
+    <td>$$\vec{\nabla}\vec{B} = 0$$</td>
+    <td>$$\vec{\nabla}\vec{B} = 0$$</td>
+  </tr>
+  <tr>
+    <td>$$\vec{\nabla}\times\vec{E} = \color{blue}{-\frac{\partial \vec{B}}{\partial t}}$$</td>
+    <td>$$\vec{\nabla}\times\vec{E} = \color{blue}{-\frac{\partial \vec{B}}{\partial t}}$$</td>
+  </tr>
+  <tr>
+    <td>$$\vec{\nabla}\times\vec{B} = \mu_0\vec{j} + \color{red}{\varepsilon_0\mu_0\frac{\partial \vec{E}}{\partial t}}$$</td>
+    <td>$$\vec{\nabla}\times\vec{H} = \vec{j}_\text{frei} + \color{red}{\frac{\partial \vec{D}}{\partial t}}$$</td>
+  </tr>
+</table>
+mit $\vec{D} = \varepsilon_r\varepsilon_0\vec{E}$, $\vec{H} = \frac{1}{\mu_r\mu_0}\vec{B}$ für lineare Medien<br>
+<br>
+Statische Näherung: Ohne <font color="blue">blaue</font> und <font color="red">rote</font> Terme<br>
+Quasistatische Näherung: Ohne <font color="red">rote</font> Terme
+
+<hr>
+
 <h3>Physikalischer Satz von Gauß</h3>
 Wir beginnen mit dem Zusammenhang zwischen der elektrischen Flussdichte und dem
 elektrischen Potential
@@ -35,7 +64,27 @@ $$\mathbf{\vec{\nabla}\vec{E} = \frac{\rho}{\varepsilon_0}}$$
 <hr>
 
 <h3>Physikalischer Satz von Gauß für Magnetfelder</h3>
+Wir beginnen mit dem Zusammenhang zwischen der magnetischen Flussdichte und dem
+<a href="vektorpotential.html">magnetischen Vektorpotential</a>:
+$$\vec{B} = \vec{\nabla}\times \vec{A}$$
 
+Nun lassen wir den Nabla Operator auf beiden Seiten wirken:
+$$\vec{\nabla}\vec{B} = \vec{\nabla}(\vec{\nabla}\times\vec{A})$$
+
+Die Divergenz der Rotation eines Vektorfeldes ist 0, denn:
+\begin{align*}
+\vec{\nabla}(\vec{\nabla}\times\vec{A}) &=
+\begin{pmatrix}
+\frac{\partial}{\partial x}\\\frac{\partial}{\partial y}\\\frac{\partial}{\partial z}
+\end{pmatrix}
+\begin{pmatrix}
+\frac{\partial}{\partial y} A_z - \frac{\partial}{\partial z} A_y\\\frac{\partial}{\partial z} A_x - \frac{\partial}{\partial x} A_z\\\frac{\partial}{\partial x} A_y - \frac{\partial}{\partial y} A_x
+\end{pmatrix}\\
+&= \color{red}{\frac{\partial^2}{\partial x\partial y}A_z} \color{green}{- \frac{\partial^2}{\partial x\partial z}A_y} \color{blue}{+ \frac{\partial^2}{\partial y\partial z}A_x} \color{red}{- \frac{\partial^2}{\partial y\partial x}A_z} \color{green}{+ \frac{\partial^2}{\partial z\partial x}A_y} \color{blue}{- \frac{\partial^2}{\partial z\partial y}A_x}\\
+&= 0
+\end{align*}
+
+Somit erhalten wir unsere 2. Maxwell Gleichung:
 $$\mathbf{\vec{\nabla}\vec{B} = 0}$$
 
 <hr>
@@ -50,8 +99,23 @@ $$\mathbf{\vec{\nabla}\times\vec{E} = \vec{0}}$$
 <hr>
 
 <h3>Erweitertes Durchflutungsgesetz</h3>
+Wie auch schon bei der 2. Maxwell Gleichung beginnen wir mit dem Zusammenhang
+$$\vec{B} = \vec{\nabla}\times\vec{A}$$
 
-$$\mathbf{\vec{\nabla}\times\vec{B} = \mu_0\vec{j}}$$
+Nun lassen wir die Rotation auf beide Seiten wirken:
+$$\vec{\nabla}\times\vec{B} = \vec{\nabla}\times(\vec{\nabla}\times\vec{A})$$
+
+Auf der rechten Seite kann ein Nabla Satz angewendet werden:
+$$\vec{\nabla}\times(\vec{\nabla}\times\vec{A}) = \vec{\nabla}(\vec{\nabla}\vec{A}) - \Delta\vec{A}$$
+
+Die beiden neuen Terme sehen wir uns nun genauer an:
+\begin{align*}
+\vec{\nabla}(\vec{\nabla}\vec{A}) &= \vec{\nabla}\Bigg(\vec{\nabla}\frac{\mu_0}{4\pi}\int_{V'}\frac{\vec{j}(\vec{r}')}{|\vec{r}-\vec{r}'|}\ \text{d}V'\Bigg)\\
+&= \vec{\nabla}\Bigg(\frac{\mu_0}{4\pi}\int_{V'}\vec{j}(\vec{r}')\vec{\nabla}\frac{1}{|\vec{r}-\vec{r}'|}\ \text{d}V'\Bigg)\\
+&= ???
+\end{align*}
+
+<!--$$\mathbf{\vec{\nabla}\times\vec{B} = \mu_0\vec{j}}$$-->
 
 </body>
 </html>

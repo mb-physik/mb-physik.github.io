@@ -1,0 +1,98 @@
+<html>
+<head>
+  <title>
+    Taylor-Entwicklung
+  </title>
+  	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<h2>Taylor-Entwicklung</h2>
+<center><a href="../index.html">zurück</a></center>
+
+<hr>
+
+<h3>Taylor-Entwicklung für Funktionen mit einem Argument $f(x)$</h3>
+Ziel der Taylor-Entwicklung ist es, eine unendlich oft differenzierbare Funktion
+$f(x)$ durch ein Polynom $Tf(x)$ anzunähern.<br>
+Das Polynom soll dabei an einer Stelle $x_0$ den gleichen Wert, wie die Funktion
+haben: $Tf(x_0) = f(x_0)$. Diese Stelle $x_0$ ist der Entwicklungspunkt.<br>
+<br>
+
+<li>Annäherung durch Polynom 1. Grades</li>
+$$T_1f(x) = a_0 + a_1(x - x_0)$$
+Aus der Bedingung des Entwicklungspunktes folgt der Polynomkoeffizient $a_0$:
+\begin{align*}
+  T_1f(x_0) &= f(x_0)\\
+  \Leftrightarrow a_0 + a_1\underbrace{(x_0 - x_0)}_{=0} &= f(x_0)\\
+  \Rightarrow a_0 &= f(x_0)
+\end{align*}
+
+Aus der Ableitung der Bedingung folgt der Polynomkoeffizient $a_1$:
+\begin{align*}
+  T_1f'(x_0) &= f'(x_0)\\
+  \Leftrightarrow a_1 &= f'(x_0)
+\end{align*}
+
+Einsetzen der Koeffizienten in $T_1f(x)$ liefert die Tangente
+$$T_1f(x) = f(x_0) + f'(x_0)(x - x_0)$$
+
+
+<li>Annäherung durch Polynom 2. Grades</li>
+$$T_2f(x) = a_0 + a_1(x - x_0) + a_2(x - x_0)^2$$
+
+Die Koeffizienten $a_0$ und $a_1$ ergeben sich wie bei der Annäherung zuvor.<br>
+Der Koeffizient $a_2$ ergibt sich einfach durch die nächst höhere Ableitung:
+\begin{align*}
+  T_2f''(x_0) &= f''(x_0)\\
+  \Leftrightarrow 2 a_2 &= f''(x_0)\\
+  \Leftrightarrow a_2 &= \frac{1}{2}f''(x_0)\\
+\end{align*}
+
+Einsetzen der Koeffizienten in $T_2f(x)$ liefert die sogenannte Schmiegparabel
+$$T_2f(x) = f(x_0) + f'(x_0)(x - x_0) + \frac{1}{2}f''(x_0)(x - x_0)^2$$
+
+
+<li>Annäherung durch Polynom n-ten Grades</li>
+$$T_nf(x) = a_0 + a_1(x - x_0) + a_2(x - x_0)^2 + ... + a_n(x - x_0)^n$$
+
+Die Koeffizienten werden analog zu den Annäherungen davor errechnet
+\begin{align*}
+  T_nf(x) &= f(x_0) + f'(x_0)(x - x_0) + \frac{1}{2}f''(x - x_0)^2 + \frac{1}{6}f'''(x_0)(x - x_0)^3 + \frac{1}{24}f^{(4)}(x_0)(x - x_0)^4 + ...\\
+  &= \frac{1}{0!}f(x_0) + \frac{1}{1!}f'(x_0)(x - x_0) + \frac{1}{2!}f''(x - x_0)^2 + \frac{1}{3!}f'''(x_0)(x - x_0)^3 + \frac{1}{4!}f^{(4)}(x_0)(x - x_0)^4 + ...
+\end{align*}
+
+Dieser Ausdruck kann zur Taylor-Formel zusammengefasst werden:
+$$\mathbf{T_nf(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k}$$
+
+
+<hr>
+
+
+<h3>Taylor-Entwicklung für Funktionen mit zwei Argument $f(x_1,x_2)$</h3>
+Mehrdimensionale Taylor-Entwicklungen erhält man, indem die
+Taylor-Entwicklung zunächst, wie im Abschnitt zuvor, für ein Argument durchgeführt
+wird.
+$$\color{red}{f(x_1,x_2)\Big|_{x_{1,0}}} + \color{green}{\frac{\partial}{\partial x_1}f(x_1,x_2) \Big|_{x_{1,0}}(x_1 - x_{1,0})} + \color{blue}{\frac{1}{2}\frac{\partial^2}{\partial x_1^2} f(x_1,x_2) \Big|_{x_{1,0}}(x_1 - x_{1,0})^2} + ...$$
+
+Dann folgt eine Taylor-Entwicklung dieser Taylor-Entwicklung für das nächste
+nächste Argument, etc.
+\begin{alignat*}{2}
+  T_nf(x_1,x_2) &=\ && \color{red}{f(x_1,x_2) \Big|_{(x_{1,0},x_{2,0})} + \frac{\partial}{\partial x_2}f(x_1,x_2) \Big|_{(x_{1,0},x_{2,0})}(x_2 - x_{2,0}) + \frac{1}{2}\frac{\partial^2}{\partial x_2^2} f(x_1,x_2) \Big|_{(x_{1,0},x_{2,0})} (x_2 - x_{2,0})^2 + ...} + \\
+  & && \color{green}{\frac{\partial}{\partial x_1}f(x_1,x_2) \Big|_{(x_{1,0},x_{2,0})}(x_1 - x_{1,0}) + \frac{\partial^2}{\partial x_2 \partial x_1}f(x_1,x_2) \Big|_{(x_{1,0},x_{2,0})}(x_1 - x_{1,0})(x_2 - x_{2,0}) + \frac{1}{2}\frac{\partial^3}{\partial x_2^2 \partial x_1}f(x_1,x_2) \Big|_{(x_{1,0},x_{2,0})} (x_1 - x_{1,0})(x_2 - x_{2,0})^2 + ...} +\\
+  & && \color{blue}{\frac{1}{2}\frac{\partial^2}{\partial x_1^2}f(x_1,x_2) \Big|_{(x_{1,0},x_{2,0})}(x_1 - x_{1,0})^2 + \frac{1}{2}\frac{\partial^3}{\partial x_2\partial x^2}f(x_1,x_2) \Big|_{(x_{1,0},x_{2,0})}(x_1 - x_{1,0})^2(x_2 - x_{2,0}) + \frac{1}{4}\frac{\partial^4}{\partial x_2^2 \partial x_1^2}f(x_1,x_2) \Big|_{(x_{1,0},x_{2,0})}(x_1 - x_{1,0})^2(x_2 - x_{2,0})^2 + ...}\\
+  & = && f(x_1,x_2) \Big|_{(x_{1,0},x_{2,0})} + \sum_{i=1}^2 \frac{\partial}{\partial x_i}f(x_1,x_2) \Big|_{(x_{1,0},x_{2,0})}(x_i - x_{i,0}) + \frac{1}{2} \sum_{i=1}^2 \frac{\partial^2}{\partial x_1 \partial x_2} f(x_1,x_2) \Big|_{(x_{1,0},x_{2,0})} (x_i - x_{i,0})^2 + ...
+\end{alignat*}
+
+
+<hr>
+
+
+<h3>Taylor-Entwicklung für Funktionen mit drei Argumenten $f(x_1,x_2,x_3)$</h3>
+$$T_nf(x_1,x_2,x_3) = f(x_1,x_2,x_3) \Big|_{(x_{1,0}, x_{2,0}, x_{3,0})} + \sum_{i=1}^3 \frac{\partial}{\partial x_i}f(x_1,x_2,x_3) \Big|_{(x_{1,0}, x_{2,0}, x_{3,0})} (x_i - x_{i,0}) + \frac{1}{2} \sum_{i,j=1}^3 \frac{\partial^2}{\partial x_i \partial x_j} f(x_1,x_2,x_3) \Big|_{(x_{1,0}, x_{2,0}, x_{3,0})} (x_i - x_{i,0})(x_j - x_{j,0}) + ...$$
+
+
+</body>
+</html>
