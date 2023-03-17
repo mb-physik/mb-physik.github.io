@@ -13,7 +13,7 @@
 <center><a href="../index.html">zurück</a></center>
 
 <hr>
-
+<center>
 <table border=1>
   <tr>
     <th>Vakuum</th>
@@ -36,6 +36,8 @@
     <td>$$\vec{\nabla}\times\vec{H} = \vec{j}_\text{frei} + \color{red}{\frac{\partial \vec{D}}{\partial t}}$$</td>
   </tr>
 </table>
+</center>
+
 mit $\vec{D} = \varepsilon_r\varepsilon_0\vec{E}$, $\vec{H} = \frac{1}{\mu_r\mu_0}\vec{B}$ für lineare Medien<br>
 <br>
 Statische Näherung: Ohne <font color="blue">blaue</font> und <font color="red">rote</font> Terme<br>
@@ -73,15 +75,15 @@ $$\vec{\nabla}\vec{B} = \vec{\nabla}(\vec{\nabla}\times\vec{A})$$
 
 Die Divergenz der Rotation eines Vektorfeldes ist 0, denn:
 \begin{align*}
-\vec{\nabla}(\vec{\nabla}\times\vec{A}) &=
-\begin{pmatrix}
-\frac{\partial}{\partial x}\\\frac{\partial}{\partial y}\\\frac{\partial}{\partial z}
-\end{pmatrix}
-\begin{pmatrix}
-\frac{\partial}{\partial y} A_z - \frac{\partial}{\partial z} A_y\\\frac{\partial}{\partial z} A_x - \frac{\partial}{\partial x} A_z\\\frac{\partial}{\partial x} A_y - \frac{\partial}{\partial y} A_x
-\end{pmatrix}\\
-&= \color{red}{\frac{\partial^2}{\partial x\partial y}A_z} \color{green}{- \frac{\partial^2}{\partial x\partial z}A_y} \color{blue}{+ \frac{\partial^2}{\partial y\partial z}A_x} \color{red}{- \frac{\partial^2}{\partial y\partial x}A_z} \color{green}{+ \frac{\partial^2}{\partial z\partial x}A_y} \color{blue}{- \frac{\partial^2}{\partial z\partial y}A_x}\\
-&= 0
+  \vec{\nabla}(\vec{\nabla}\times\vec{A}) &=
+  \begin{pmatrix}
+  \frac{\partial}{\partial x}\\\frac{\partial}{\partial y}\\\frac{\partial}{\partial z}
+  \end{pmatrix}
+  \begin{pmatrix}
+  \frac{\partial}{\partial y} A_z - \frac{\partial}{\partial z} A_y\\\frac{\partial}{\partial z} A_x - \frac{\partial}{\partial x} A_z\\\frac{\partial}{\partial x} A_y - \frac{\partial}{\partial y} A_x
+  \end{pmatrix}\\
+  &= \color{red}{\frac{\partial^2}{\partial x\partial y}A_z} \color{green}{- \frac{\partial^2}{\partial x\partial z}A_y} \color{blue}{+ \frac{\partial^2}{\partial y\partial z}A_x} \color{red}{- \frac{\partial^2}{\partial y\partial x}A_z} \color{green}{+ \frac{\partial^2}{\partial z\partial x}A_y} \color{blue}{- \frac{\partial^2}{\partial z\partial y}A_x}\\
+  &= 0
 \end{align*}
 
 Somit erhalten wir unsere 2. Maxwell Gleichung:

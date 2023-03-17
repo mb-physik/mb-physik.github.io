@@ -14,15 +14,335 @@
 
 <hr>
 
-<h3></h3>
-$$\text{zz: }\vec{\nabla}\frac{1}{|\vec{r}-\vec{r}'|} = -\frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|^3}$$
-Wir beginnen mit der linken Seite der Gleichung und schreiben den Nablaoperator aus, sowie den Bruch um:
+<center>
+  <table border=1>
+    <th>
+      $\vec{\nabla} (\phi\psi) = \psi\vec{\nabla}\phi + \phi\vec{\nabla}\psi$
+    </th>
+  </table>
+</center>
 
-$$\mathbf{\vec{\nabla}\frac{1}{|\vec{r}-\vec{r}'|}} =
+
+$$\vec{\nabla} (\phi\psi) =
+  \begin{pmatrix}
+    \frac{\partial}{\partial x}(\phi\psi) \\
+    \frac{\partial}{\partial y}(\phi\psi) \\
+    \frac{\partial}{\partial z}(\phi\psi)
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \psi\frac{\partial}{\partial x}\phi + \phi\frac{\partial}{\partial x}\psi\\
+    \psi\frac{\partial}{\partial y}\phi + \phi\frac{\partial}{\partial y}\psi \\
+    \psi\frac{\partial}{\partial z}\phi + \phi\frac{\partial}{\partial z}\psi
+  \end{pmatrix}
+  =
+  \psi\vec{\nabla}\phi + \phi\vec{\nabla}\psi$$
+
+<hr>
+
+<center>
+  <table border=1>
+    <th>
+      $\vec{\nabla} (\phi\vec{A}) = \vec{A}\vec{\nabla}\phi + \phi\vec{\nabla}\vec{A}$
+    </th>
+  </table>
+</center>
+$$\vec{\nabla} (\phi\vec{A})
+  =
+  \begin{pmatrix}
+    \frac{\partial}{\partial x}(\phi A_x) \\
+    \frac{\partial}{\partial y}(\phi A_y) \\
+    \frac{\partial}{\partial z}(\phi A_z)
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    A_x\frac{\partial}{\partial x}\phi + \phi\frac{\partial}{\partial x}A_x \\
+    A_y\frac{\partial}{\partial y}\phi + \phi\frac{\partial}{\partial y}A_y \\
+    A_z\frac{\partial}{\partial z}\phi + \phi\frac{\partial}{\partial z}A_z
+  \end{pmatrix}
+  =
+  \vec{A}\vec{\nabla}\phi + \phi\vec{\nabla}\vec{A}
+$$
+
+
+
+<hr>
+
+<center>
+  <table border=1>
+    <th>
+      $\vec{\nabla} \times (\phi\vec{A}) = \phi\vec{\nabla} \times \vec{A} - \vec{A} \times (\vec{\nabla}\phi)$
+    </th>
+  </table>
+</center>
+\begin{align*}
+  \vec{\nabla} \times (\phi\vec{A}) &=
+  \begin{pmatrix}
+    \frac{\partial}{\partial x} \\
+    \frac{\partial}{\partial y} \\
+    \frac{\partial}{\partial z}
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+    \phi A_x \\
+    \phi A_y \\
+    \phi A_z
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \frac{\partial}{\partial y} (\phi A_z) - \frac{\partial}{\partial z} (\phi A_y) \\
+    \frac{\partial}{\partial z} (\phi A_x) - \frac{\partial}{\partial x} (\phi A_z) \\
+    \frac{\partial}{\partial x} (\phi A_y) - \frac{\partial}{\partial y} (\phi A_x)
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    A_z\frac{\partial}{\partial y} \phi + \phi\frac{\partial}{\partial y} A_z - A_y\frac{\partial}{\partial z} \phi - \phi\frac{\partial}{\partial z} A_y \\
+    A_x\frac{\partial}{\partial z} \phi + \phi\frac{\partial}{\partial z} A_x - A_z\frac{\partial}{\partial x} \phi - \phi\frac{\partial}{\partial x} A_z \\
+    A_y\frac{\partial}{\partial x} \phi + \phi\frac{\partial}{\partial x} A_y - A_x\frac{\partial}{\partial y} \phi - \phi\frac{\partial}{\partial y} A_x
+  \end{pmatrix}\\
+  &=
+  \begin{pmatrix}
+    \phi\frac{\partial}{\partial y} A_z - \phi\frac{\partial}{\partial z} A_y \\
+    \phi\frac{\partial}{\partial z} A_x - \phi\frac{\partial}{\partial x} A_z \\
+    \phi\frac{\partial}{\partial x} A_y - \phi\frac{\partial}{\partial y} A_x
+  \end{pmatrix}
+  +
+  \begin{pmatrix}
+    A_z\frac{\partial}{\partial y} \phi - A_y\frac{\partial}{\partial z} \phi \\
+    A_x\frac{\partial}{\partial z} \phi - A_z\frac{\partial}{\partial x} \phi \\
+    A_y\frac{\partial}{\partial x} \phi - A_x\frac{\partial}{\partial y} \phi
+  \end{pmatrix}
+  =
+  \phi
+  \underbrace{
+  \begin{pmatrix}
+    \frac{\partial}{\partial y} A_z - \frac{\partial}{\partial z} A_y \\
+    \frac{\partial}{\partial z} A_x - \frac{\partial}{\partial x} A_z \\
+    \frac{\partial}{\partial x} A_y - \frac{\partial}{\partial y} A_x
+  \end{pmatrix}}_{= \vec{\nabla} \times \vec{A}}
+  +
+  \underbrace
+  {\begin{pmatrix}
+    \frac{\partial}{\partial y}\phi \cdot A_z - \frac{\partial}{\partial z}\phi \cdot A_y \\
+    \frac{\partial}{\partial z}\phi \cdot A_x - \frac{\partial}{\partial x}\phi \cdot A_z \\
+    \frac{\partial}{\partial x}\phi \cdot A_y - \frac{\partial}{\partial y}\phi \cdot A_x
+  \end{pmatrix}}_{= (\vec{\nabla}\phi) \times \vec{A}}\\
+  &=
+  \phi(\vec{\nabla} \times \vec{A}) + (\vec{\nabla}\phi) \times \vec{A}\\
+  &= \phi(\vec{\nabla} \times \vec{A}) - \vec{A} \times (\vec{\nabla}\phi)
+\end{align*}
+
+<hr>
+
+<center>
+  <table border=1>
+    <th>
+      $\vec{\nabla}(\vec{A}\vec{B}) = (\vec{B}\vec{\nabla})\vec{A} + (\vec{A}\vec{\nabla})\vec{B} + \vec{B} \times (\vec{\nabla} \times \vec{A}) + \vec{A} \times (\vec{\nabla} \times \vec{B})$
+    </th>
+  </table>
+</center>
+
+<hr>
+
+<center>
+  <table border=1>
+    <th>
+      $\vec{\nabla}(\vec{A} \times \vec{B}) = \vec{B}(\vec{\nabla} \times \vec{A}) - \vec{A}(\vec{\nabla} \times \vec{B})$
+    </th>
+  </table>
+</center>
+\begin{alignat*}{2}
+  \vec{\nabla}(\vec{A} \times \vec{B}) &= &&
+  \begin{pmatrix}
+    \frac{\partial}{\partial x} \\
+    \frac{\partial}{\partial y} \\
+    \frac{\partial}{\partial z}
+  \end{pmatrix}
+  \begin{pmatrix}
+    A_y B_z - A_z B_y\\
+    A_z B_x - A_x B_z\\
+    A_x B_y - A_y B_x
+  \end{pmatrix}
+  =
+  \frac{\partial}{\partial x}(A_y B_z - A_z B_y) + \frac{\partial}{\partial y}(A_z B_x - A_x B_z) + \frac{\partial}{\partial z}(A_x B_y - A_y B_x)\\
+  &= && B_z\frac{\partial}{\partial x}A_y + B_z\frac{\partial}{\partial x}A_y - B_y\frac{\partial}{\partial x}A_z - A_z\frac{\partial}{\partial x}B_y + B_x\frac{\partial}{\partial y}A_z + A_z\frac{\partial}{\partial y}B_x - B_z\frac{\partial}{\partial y}A_x - A_x\frac{\partial}{\partial y}B_z\\
+  & && + B_y\frac{\partial}{\partial z}A_x + A_x\frac{\partial}{\partial z}B_z - B_x\frac{\partial}{\partial z}A_y - A_y\frac{\partial}{\partial z}B_x\\
+  &=&& \color{red}{B_x(\frac{\partial}{\partial y}A_z - \frac{\partial}{\partial z}A_y) + B_y(\frac{\partial}{\partial z}A_x - \frac{\partial}{\partial x}A_z) + B_z(\frac{\partial}{\partial x}A_y - \frac{\partial}{\partial y}A_x)}\\
+  & && \color{green}{- A_x(\frac{\partial}{\partial y}B_z - \frac{\partial}{\partial z}B_y) - A_y(\frac{\partial}{\partial z}B_x - \frac{\partial}{\partial x}B_z) - A_z(\frac{\partial}{\partial x}B_y - \frac{\partial}{\partial y}B_x)}\\
+  &= && \color{red}{\vec{B}(\vec{\nabla} \times \vec{A})} \color{green}{- \vec{A}(\vec{\nabla} \times \vec{B}})
+\end{alignat*}
+
+<hr>
+
+<center>
+  <table border=1>
+    <th>
+      $\vec{\nabla} \times (\vec{A} \times \vec{B}) = \vec{A}(\vec{\nabla}\vec{B}) - \vec{B}(\vec{\nabla}\vec{A}) + (\vec{B}\vec{\nabla})\vec{A} - (\vec{A}\vec{\nabla})\vec{B}$
+    </th>
+  </table>
+</center>
+
+<hr>
+
+<center>
+  <table border=1>
+    <th>
+      $\vec{A} \times (\vec{\nabla} \times \vec{B}) = \vec{\nabla}(\vec{A}\vec{B}) - (\vec{A}\vec{\nabla})\vec{B}$
+    </th>
+  </table>
+</center>
+
+<hr>
+
+<center>
+  <table border=1>
+    <th>
+      $\vec{\nabla}(\vec{\nabla}\phi) = (\vec{\nabla}\vec{\nabla})\phi = \Delta\phi$
+    </th>
+  </table>
+</center>
+\begin{align*}
+  \vec{\nabla}(\vec{\nabla}\phi) &=
+  \begin{pmatrix}
+    \frac{\partial}{\partial x}\\
+    \frac{\partial}{\partial y}\\
+    \frac{\partial}{\partial z}
+  \end{pmatrix}
+  \begin{pmatrix}
+    \frac{\partial}{\partial x}\phi \\
+    \frac{\partial}{\partial y}\phi \\
+    \frac{\partial}{\partial z}\phi
+  \end{pmatrix}
+  = \frac{\partial^2}{\partial x^2}\phi + \frac{\partial^2}{\partial y^2}\phi + \frac{\partial^2}{\partial z^2}\phi
+  = \Bigg( \underbrace{\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \frac{\partial^2}{\partial z^2}}_{=: \Delta} \Bigg)\phi
+  = \Delta\phi
+\end{align*}
+
+<hr>
+
+<center>
+  <table border=1>
+    <th>
+      $\vec{\nabla} \times (\vec{\nabla}\phi) = 0$
+    </th>
+  </table>
+</center>
+  $$\vec{\nabla} \times (\vec{\nabla}\phi) =
+  \begin{pmatrix}
+    \frac{\partial}{\partial x} \\
+    \frac{\partial}{\partial y} \\
+    \frac{\partial}{\partial z}
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+    \frac{\partial}{\partial x} \phi \\
+    \frac{\partial}{\partial y} \phi \\
+    \frac{\partial}{\partial z} \phi
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \frac{\partial}{\partial y} \frac{\partial}{\partial z} \phi - \frac{\partial}{\partial z} \frac{\partial}{\partial y} \phi \\
+    \frac{\partial}{\partial z} \frac{\partial}{\partial x} \phi - \frac{\partial}{\partial x} \frac{\partial}{\partial z} \phi \\
+    \frac{\partial}{\partial x} \frac{\partial}{\partial y} \phi - \frac{\partial}{\partial y} \frac{\partial}{\partial x} \phi
+  \end{pmatrix}
+  = 0$$
+
+<hr>
+
+<center>
+  <table border=1>
+    <th>
+      $\vec{\nabla} (\vec{\nabla} \times \vec{A}) = 0$
+    </th>
+  </table>
+</center>
+\begin{align*}
+  \vec{\nabla}(\vec{\nabla}\times\vec{A}) &=
+  \begin{pmatrix}
+  \frac{\partial}{\partial x}\\\frac{\partial}{\partial y}\\\frac{\partial}{\partial z}
+  \end{pmatrix}
+  \begin{pmatrix}
+  \frac{\partial}{\partial y} A_z - \frac{\partial}{\partial z} A_y\\\frac{\partial}{\partial z} A_x - \frac{\partial}{\partial x} A_z\\\frac{\partial}{\partial x} A_y - \frac{\partial}{\partial y} A_x
+  \end{pmatrix}\\
+  &= \color{red}{\frac{\partial^2}{\partial x\partial y}A_z} \color{green}{- \frac{\partial^2}{\partial x\partial z}A_y} \color{blue}{+ \frac{\partial^2}{\partial y\partial z}A_x} \color{red}{- \frac{\partial^2}{\partial y\partial x}A_z} \color{green}{+ \frac{\partial^2}{\partial z\partial x}A_y} \color{blue}{- \frac{\partial^2}{\partial z\partial y}A_x}\\
+  &= 0
+\end{align*}
+
+<hr>
+
+<center>
+  <table border=1>
+    <th>
+      $\vec{\nabla} \times (\vec{\nabla} \times \vec{A}) = \vec{\nabla}(\vec{\nabla}\vec{A}) - \Delta\vec{A}$
+    </th>
+  </table>
+</center>
+
+
+<hr>
+
+<center>
+  <table border=1>
+    <th>
+      $\vec{\nabla}r = \frac{\vec{r}}{r}$
+    </th>
+  </table>
+</center>
+$$\vec{\nabla}r
+=
 \begin{pmatrix}
-\frac{\partial}{\partial x}\\\frac{\partial}{\partial y}\\\frac{\partial}{\partial z}
-\end{pmatrix}
-|\vec{r}-\vec{r}'|^{-1}
+  \frac{\partial}{\partial x} r\\
+  \frac{\partial}{\partial y} r\\
+  \frac{\partial}{\partial z} r
+\end{pmatrix}$$
+
+Betrachte die 1. Komponente des Vektors.
+\begin{align*}
+  \frac{\partial}{\partial x} r &= \frac{\partial}{\partial x} (x^2 + y^2 + z^2)^{1/2}\\
+  &= \frac{1}{2}(x^2 + y^2 + z^2)^{-1/2}\cdot 2x\\
+  &= x [\underbrace{(x^2 + y^2 + z^2)^{1/2}}_{=r}]^{-1}\\
+  &= \frac{x}{r}
+\end{align*}
+
+Analog ergibt sich für die anderen Komponenten
+\begin{align*}
+  \frac{\partial}{\partial y} r &= \frac{y}{r}\\
+  \frac{\partial}{\partial z} r &= \frac{z}{r}
+\end{align*}
+
+Es folgt also
+$$\begin{pmatrix}
+  \frac{\partial}{\partial x} r\\
+  \frac{\partial}{\partial y} r\\
+  \frac{\partial}{\partial z} r
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+  \frac{x}{r}\\
+  \frac{y}{r}\\
+  \frac{z}{r}\\
+  \end{pmatrix}
+  =
+  \frac{1}{r}
+  \underbrace{
+  \begin{pmatrix}
+  x\\
+  y\\
+  z
+  \end{pmatrix}}_{=\vec{r}}
+  =
+  \frac{\vec{r}}{r}$$
+
+<hr>
+
+<center>
+  <table border=1>
+    <th>
+      $\vec{\nabla}\frac{1}{|\vec{r}-\vec{r}'|} = -\frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|^3}$
+    </th>
+  </table>
+</center>
+$$\vec{\nabla}\frac{1}{|\vec{r}-\vec{r}'|}
 =
 \begin{pmatrix}
 \frac{\partial}{\partial x} |\vec{r}-\vec{r}'|^{-1}\\
@@ -30,42 +350,50 @@ $$\mathbf{\vec{\nabla}\frac{1}{|\vec{r}-\vec{r}'|}} =
 \frac{\partial}{\partial z} |\vec{r}-\vec{r}'|^{-1}
 \end{pmatrix}$$
 
-Nun schauen wir uns die 1. Komponente des Vektors genauer an:
+Betrachte die 1. Komponente des Vektors.
 \begin{align*}
 \frac{\partial}{\partial x} |\vec{r}-\vec{r}'|^{-1} &= \frac{\partial}{\partial x} [(x-x')^2 + (y-y')^2 + (z-z')^2]^{-1/2}\\
 &= -\frac{1}{2}[(x-x')^2 + (y-y')^2 + (z-z')^2]^{-3/2}\cdot 2(x-x')\\
 &= -\Big[\underbrace{[(x-x')^2 + (y-y')^2 + (z-z')^2]^{1/2}}_{=|\vec{r}-\vec{r}'|}\Big]^{-3}\cdot (x-x')\\
-&= \frac{x-x'}{|\vec{r}-\vec{r}'|^{3}}
+&= -\frac{x-x'}{|\vec{r}-\vec{r}'|^{3}}
 \end{align*}
 
-Analog ergibt sich für die anderen Komponenten:
-\begin{align*}\frac{\partial}{\partial y} |\vec{r}-\vec{r}'|^{-1} &= \frac{y-y'}{|\vec{r}-\vec{r}'|^{3}}\\
-\frac{\partial}{\partial z} |\vec{r}-\vec{r}'|^{-1} &= \frac{z-z'}{|\vec{r}-\vec{r}'|^{3}}
+Analog ergibt sich für die anderen Komponenten
+\begin{align*}
+  \frac{\partial}{\partial y} |\vec{r}-\vec{r}'|^{-1} &= -\frac{y-y'}{|\vec{r}-\vec{r}'|^{3}}\\
+  \frac{\partial}{\partial z} |\vec{r}-\vec{r}'|^{-1} &= -\frac{z-z'}{|\vec{r}-\vec{r}'|^{3}}
 \end{align*}
 
-Der obere Ausdruck vereinfacht sich also zu:
-$$
-\begin{pmatrix}
-\frac{\partial}{\partial x} |\vec{r}-\vec{r}'|^{-1}\\
-\frac{\partial}{\partial y} |\vec{r}-\vec{r}'|^{-1}\\
-\frac{\partial}{\partial z} |\vec{r}-\vec{r}'|^{-1}
-\end{pmatrix}
-=
-\begin{pmatrix}
-\frac{x-x'}{|\vec{r}-\vec{r}'|^{3}}\\
-\frac{y-y'}{|\vec{r}-\vec{r}'|^{3}}\\
-\frac{z-z'}{|\vec{r}-\vec{r}'|^{3}}\\
-\end{pmatrix}
-=
-\frac{1}{|\vec{r}-\vec{r}'|^3}
-\begin{pmatrix}
-x-x'\\
-y-y'\\
-z-z'
-\end{pmatrix}
-=
-\mathbf{\frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|^3}} \qquad\square
-$$
+Es folgt also
+$$\begin{pmatrix}
+  \frac{\partial}{\partial x} |\vec{r}-\vec{r}'|^{-1}\\
+  \frac{\partial}{\partial y} |\vec{r}-\vec{r}'|^{-1}\\
+  \frac{\partial}{\partial z} |\vec{r}-\vec{r}'|^{-1}
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+  -\frac{x-x'}{|\vec{r}-\vec{r}'|^{3}}\\
+  -\frac{y-y'}{|\vec{r}-\vec{r}'|^{3}}\\
+  -\frac{z-z'}{|\vec{r}-\vec{r}'|^{3}}\\
+  \end{pmatrix}
+  =
+  -\frac{1}{|\vec{r}-\vec{r}'|^3}
+  \begin{pmatrix}
+  x-x'\\
+  y-y'\\
+  z-z'
+  \end{pmatrix}
+  =
+  -\frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|^3}$$
+
+Für $\vec{r}'=0$ folgt
+<center>
+  <table border=1>
+    <th>
+      $\vec{\nabla}\frac{1}{r} = -\frac{\vec{r}}{r^3}$
+    </th>
+  </table>
+</center>
 
 <hr>
 

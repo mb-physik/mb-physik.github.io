@@ -68,12 +68,20 @@ Eingesetzt in das elektrische Potential ergibt sich:
 <hr>
 
 Berechnung Quadrupolmoment:
-$$ Q_{ij} = \int_V \rho(\vec{r}') [3 x_i' x_j' - \delta_{ij}\vec{r}'^2]\ \text{d}V' = \int_V \rho(\vec{r}')
-\begin{pmatrix}
-  2 x_1'^2 - x_2'^2 - x_3'^2 & 3 x_1' x_2' & 3 x_1' x_3' \\
-  3x_2' x_1' & 2 x_2'^2 - x_1'^2 - x_3'^2 & 3 x_2' x_3' \\
-  3 x_3' x_1' & 3 x_3' x_2' & 2x_3' - x_1'^2 - x_2'^2
-\end{pmatrix}\ \text{d}V'$$
+  $$Q_{ij} =
+  \begin{pmatrix}
+    Q_{11} & Q_{12} & Q_{13} \\
+    Q_{21} & Q_{22} & Q_{23} \\
+    Q_{31} & Q_{32} & Q_{33}
+  \end{pmatrix}
+  =
+  \int_V \rho(\vec{r}') [3 x_i' x_j' - \delta_{ij}\vec{r}'^2]\ \text{d}V' =
+  \int_V \rho(\vec{r}')
+  \begin{pmatrix}
+    2 x_1'^2 - x_2'^2 - x_3'^2 & 3 x_1' x_2' & 3 x_1' x_3' \\
+    3x_2' x_1' & 2 x_2'^2 - x_1'^2 - x_3'^2 & 3 x_2' x_3' \\
+    3 x_3' x_1' & 3 x_3' x_2' & 2x_3' - x_1'^2 - x_2'^2
+  \end{pmatrix}\ \text{d}V'$$
 Wobei $x_1',x_2',x_3'$ die Komponenten von $\vec{r}'$ sind.
 
 </body>
