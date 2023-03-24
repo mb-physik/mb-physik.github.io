@@ -3,16 +3,24 @@
   <title>
     Herleitung der Maxwell Gleichungen
   </title>
-  	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
-  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="stylesheet" href="../css/style.css">
+
+  <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
 </head>
+
 <body>
 
-<h2>Herleitung der Maxwell Gleichungen</h2>
-<center><a href="../index.html">zurück</a></center>
+<div class="nav">
+  <h2>Herleitung der Maxwell Gleichungen</h2>
+  <center><button id="theme-switcher">Nachtmodus</button></center>
+  <br>
+  <center><a href="../index.html">zurück zur Startseite</a></center>
 
-<hr>
+  <hr>
+</div>
+
 <center>
 <table border=1>
   <tr>
@@ -43,81 +51,155 @@ mit $\vec{D} = \varepsilon_r\varepsilon_0\vec{E}$, $\vec{H} = \frac{1}{\mu_r\mu_
 Statische Näherung: Ohne <font color="blue">blaue</font> und <font color="red">rote</font> Terme<br>
 Quasistatische Näherung: Ohne <font color="red">rote</font> Terme
 
-<hr>
-
-<h3>Physikalischer Satz von Gauß</h3>
-Wir beginnen mit dem Zusammenhang zwischen der elektrischen Flussdichte und dem
-elektrischen Potential
-$$\vec{E} = -\vec{\nabla}\varphi$$
-und wenden den Nabla Operator auf beiden Seiten an.
-$$\vec{\nabla}\vec{E} = -\Delta\varphi$$
-Für das Potential setzen wir nun das Integral über die Ladungsdichte ein.<br>
-Der Index r am Laplace Operator $\Delta_r$ zeigt, dass der Operator nur auf $\vec{r}$,
-nicht aber auf $\vec{r}$' wirkt.
-\begin{align}
-  \vec{\nabla}\vec{E}(\vec{r}) &= -\Delta_r \Big(\frac{1}{4\pi\varepsilon_0}\int_V \frac{\rho(\vec{r}')}{|\vec{r} - \vec{r}'|}\ \text{d}V'\Big)\\
-  &= -\frac{1}{4\pi\varepsilon_0}\int_V\rho(\vec{r}')\underbrace{\Delta_r\frac{1}{|\vec{r} - \vec{r}'|}}_{=-4\pi\delta(\vec{r} - \vec{r}')}\ \text{d}V'\\
-  &= \frac{1}{\varepsilon_0}\int_V\rho(\vec{r}')\delta(\vec{r} - \vec{r}')\ \text{d}V'\\
-  &= \frac{\rho(\vec{r})}{\varepsilon_0}
-\end{align}
-Die 1. Maxwell Gleichung lautet also:
-$$\mathbf{\vec{\nabla}\vec{E} = \frac{\rho}{\varepsilon_0}}$$
 
 <hr>
 
-<h3>Physikalischer Satz von Gauß für Magnetfelder</h3>
-Wir beginnen mit dem Zusammenhang zwischen der magnetischen Flussdichte und dem
-<a href="vektorpotential.html">magnetischen Vektorpotential</a>:
-$$\vec{B} = \vec{\nabla}\times \vec{A}$$
 
-Nun lassen wir den Nabla Operator auf beiden Seiten wirken:
-$$\vec{\nabla}\vec{B} = \vec{\nabla}(\vec{\nabla}\times\vec{A})$$
+<h3>1. Maxwell-Gleichung</h3>
+Die 1. Maxwell-Gleichung ist der <b>Physikalische Satz von Gauß</b>.<br>
+Dieser besagt, dass der elektrische Fluss $\Phi_e$ durch
+die von einer beliebigen Oberfläche eingeschlossenen Ladung $q$ multipliziert
+mit $\frac{1}{\varepsilon_0}$ gegeben ist.
+  $$\text{zz: } \Phi_e = \frac{q}{\varepsilon_0}$$
 
-Die Divergenz der Rotation eines Vektorfeldes ist 0, denn:
+<li>Ladung innerhalb Volumen</li>
+Betrachte eine Punktladung $q$ in einem beliebigen Volumen, die das
+elektrische Feld
+  $$\vec{E} = \frac{q}{4\pi\varepsilon_0 r^2}\vec{e}_r$$
+erzeugt.<br>
+Betrachte weiterhin einen infinitesimal dünnen Kegel (pink), beginnend von der
+Punktladung, mit der Grundfläche $\text{d}\Omega$. $\text{d}\Omega$ ist dabei ein
+infinitesimales Oberflächenstück einer gedachten Einheitskugel, die hier um das
+betrachtete Volumen lila angedeutet ist.
+<center><image src="gauss gesetz.svg" width="400"></center>
+
+Das vom Kegel eingeschlossene Oberflächenelement $\text{d}\vec{A}$ (grün)
+ist aufgrund der infinitesimalen Größe des Kegels näherungsweise flach.<br>
+Um den elektrischen Fluss durch $\text{d}\vec{A}$ zu bestimmen, benötigen
+wir dessen Projektion entlang der elektrischen Feldlinie $\vec{E}$, die wir
+$\text{d}A_\perp$ nennen.
+<center><image src="gauss gesetz strahlensatz.svg" width="400"></center>
+
+Die Projektion ist aufgrund der Infinitesimalität näherungsweise eine
+Querschnittsfläche des pinken Kegels. Daher kann der Strahlungssatz angewendet
+werden, um den Radius $r_{\text{d}A_\perp}$ durch den Radius
+$r_{\text{d}\Omega}$ auszudrücken.
+
 \begin{align*}
-  \vec{\nabla}(\vec{\nabla}\times\vec{A}) &=
-  \begin{pmatrix}
-  \frac{\partial}{\partial x}\\\frac{\partial}{\partial y}\\\frac{\partial}{\partial z}
-  \end{pmatrix}
-  \begin{pmatrix}
-  \frac{\partial}{\partial y} A_z - \frac{\partial}{\partial z} A_y\\\frac{\partial}{\partial z} A_x - \frac{\partial}{\partial x} A_z\\\frac{\partial}{\partial x} A_y - \frac{\partial}{\partial y} A_x
-  \end{pmatrix}\\
-  &= \color{red}{\frac{\partial^2}{\partial x\partial y}A_z} \color{green}{- \frac{\partial^2}{\partial x\partial z}A_y} \color{blue}{+ \frac{\partial^2}{\partial y\partial z}A_x} \color{red}{- \frac{\partial^2}{\partial y\partial x}A_z} \color{green}{+ \frac{\partial^2}{\partial z\partial x}A_y} \color{blue}{- \frac{\partial^2}{\partial z\partial y}A_x}\\
-  &= 0
+  \frac{r}{r_{\text{d}A_\perp}} &= \frac{1}{r_{\text{d}\Omega}}\\
+  \Leftrightarrow r_{\text{d}A_\perp} &= r \cdot r_{\text{d}\Omega}
 \end{align*}
 
-Somit erhalten wir unsere 2. Maxwell Gleichung:
-$$\mathbf{\vec{\nabla}\vec{B} = 0}$$
+Dieser Ausdruck kann nun in die Formel für $\text{d}A_\perp$ eingesetzt werden.
+  $$\text{d}A_\perp = \pi r_{\text{d}A_\perp}^2 = \pi (r \cdot r_{\text{d}\Omega})^2 = r^2 \cdot \underbrace{\pi r_{\text{d}\Omega}^2}_{= \text{d}\Omega} = r^2 \text{d}\Omega$$
 
-<hr>
+$\text{d}A_\perp$ der u.U. komplizierten Oberfläche $V$ ist nun durch
+$\text{d}\Omega$ der einfachen Kugeloberfläche ausgedrückt. Dies wird bei der
+Berechnung des elektrischen Flusses durch die gesamte Oberfläche ausschlaggebend
+sein.<br>
+Der infinitesimale elektrische Fluss $\text{d}\Phi_e$ durch $\text{d}A_\perp$ ist
+  $$\text{d}\Phi_e = \vec{E} \cdot \text{d}\vec{A}_\perp = E \cdot \text{d}A_\perp = \frac{q}{4\pi\varepsilon_0 r^2} \cdot r^2\text{d}\Omega = \frac{q}{4\pi\varepsilon_0}\text{d}\Omega$$
 
-<h3>Induktionsgesetz</h3>
+Integriert über die gesamte Oberfläche der Einheitskugel $A$ ergibt sich
+  $$\Phi_e = \oint_A \text{d}\Phi_e = \oint_A \frac{q}{4\pi\varepsilon_0}\text{d}\Omega = \frac{q}{4\pi\varepsilon_0} \oint_A \text{d}\Omega = \frac{q}{4\pi\varepsilon_0}\cdot 4\pi = \frac{q}{\varepsilon_0}$$
 
-<hr>
+<li>Ladung außerhalb Volumen</li>
+Betrachte eine Ladung $q$ außerhalb des Volumens.
+<center><image src="gauss gesetz außerhalb.svg" width="400"></center>
 
-Elektrostatische Felder sind wirbelfrei:
-$$\mathbf{\vec{\nabla}\times\vec{E} = \vec{0}}$$
+Betrachte erneut einen infinitesimal kleinen Kegel, der diesmal durch zwei
+Oberflächenstücke des Volumens $\text{d}\vec{A}_1$ und $\text{d}\vec{A}_2$
+sticht.<br>
+Die infinitesimalen elektrischen Flüsse können analog zur vorherigen Betrachtung
+berechnet werden
 
-<hr>
-
-<h3>Erweitertes Durchflutungsgesetz</h3>
-Wie auch schon bei der 2. Maxwell Gleichung beginnen wir mit dem Zusammenhang
-$$\vec{B} = \vec{\nabla}\times\vec{A}$$
-
-Nun lassen wir die Rotation auf beide Seiten wirken:
-$$\vec{\nabla}\times\vec{B} = \vec{\nabla}\times(\vec{\nabla}\times\vec{A})$$
-
-Auf der rechten Seite kann ein Nabla Satz angewendet werden:
-$$\vec{\nabla}\times(\vec{\nabla}\times\vec{A}) = \vec{\nabla}(\vec{\nabla}\vec{A}) - \Delta\vec{A}$$
-
-Die beiden neuen Terme sehen wir uns nun genauer an:
 \begin{align*}
-\vec{\nabla}(\vec{\nabla}\vec{A}) &= \vec{\nabla}\Bigg(\vec{\nabla}\frac{\mu_0}{4\pi}\int_{V'}\frac{\vec{j}(\vec{r}')}{|\vec{r}-\vec{r}'|}\ \text{d}V'\Bigg)\\
-&= \vec{\nabla}\Bigg(\frac{\mu_0}{4\pi}\int_{V'}\vec{j}(\vec{r}')\vec{\nabla}\frac{1}{|\vec{r}-\vec{r}'|}\ \text{d}V'\Bigg)\\
-&= ???
+  \text{d}\Phi_{e,1} &= \vec{E}_1 \cdot \text{d}\vec{A}_{\perp ,1} = E_1 \underbrace{\vec{e}_r \cdot (-\vec{e}_r)}_{=-1} \text{d}A_{\perp ,1} = -E_1 \cdot \text{d}A_{\perp,1} = -E_1 \cdot r^2\text{d}\Omega = -\frac{q}{4\pi\varepsilon_0}\text{d}\Omega \\
+  \text{d}\Phi_{e,2} &= \vec{E}_2 \cdot \text{d}\vec{A}_{\perp ,2} = E_1 \underbrace{\vec{e}_r \cdot \vec{e}_r}_{=1} \text{d}A_{\perp ,2} = E_2 \cdot \text{d}A_{\perp,2} = E_2 \cdot r'^2\text{d}\Omega = \frac{q}{4\pi\varepsilon_0}\text{d}\Omega
 \end{align*}
 
-<!--$$\mathbf{\vec{\nabla}\times\vec{B} = \mu_0\vec{j}}$$-->
+Die beiden Flüsse heben sich auf
+  $$\text{d}\Phi_e = \text{d}\Phi_{e,1} + \text{d}\Phi_{e,2} = 0$$
+
+<li>Mehrere Ladungen oder Ladungsverteilung</li>
+Wie zuvor gezeigt, gilt für Einzelladungen $q_i$, dass der durch sie erzeugte
+elektrische Fluss $\Phi_{e,q_i} = \frac{q_i}{\varepsilon_0}$ ist, wenn die Ladung
+innerhalb des Volumens liegt und 0 falls außerhalb.<br>
+Gemäß des Superpositionsprinzips gilt dann für alle vom Volumen eingeschlossenen
+Ladungen/Ladungsverteilungen
+  $$\Phi_e = \sum_{i=1}^n \Phi_{e,q_i} = \sum_{i=1}^n \frac{q_i}{\varepsilon_0} = \frac{\int_V \rho\ \text{d}V}{\varepsilon_0} = \frac{q_\text{ges}}{\varepsilon_0}$$
+und
+  $$\Phi_e = \sum_{i=1}^n \Phi_{e,q_i} = \sum_{i=1}^n 0 = 0$$
+für alle Ladungen/Ladungsverteilungen außerhalb.<br>
+<br>
+<br>
+Umformung des Gauß'schen Satzes zur 1. Maxwell-Gleichung
+\begin{align*}
+  \Phi_e &= \frac{q}{\varepsilon_0} \\
+  \oint_A \vec{E}\ \text{d}\vec{A} &= \frac{1}{\varepsilon_0}\int_V\rho\ \text{d}V \\
+  \int_V \vec{\nabla}\vec{E}\ \text{d}V &= \frac{1}{\varepsilon_0}\int_V\rho\ \text{d}V \\
+  \mathbf{\vec{\nabla}\vec{E}} &= \mathbf{\frac{\rho}{\varepsilon_0}}
+\end{align*}
+
+
+<hr>
+
+
+<h3>2. Maxwell-Gleichung</h3>
+Die 2. Maxwell-Gleichung ist der <b>Physikalischer Satz von Gauß für Magnetfelder</b>.<br>
+Dieser besagt, dass keine magnetischen Monopole existieren. Äquivalente Formulierungen
+sind<br>
+<li>das Magnetfeld ist quellfrei</li>
+<li>Magnetfeldlinien sind geschlossen</li>
+<li>jede Feldlinie, die in ein Volumen eindringt, verlässt dieses auch wieder</li>
+Der Satz folgt aus empirischen Beobachtungen.<br>
+<br>
+Ein mathetmatischer Audruck dafür ist, dass der magnetische Fluss durch die
+Oberfläche eines Volumens 0 ist.
+  $$\Phi_m = \oint_{\partial V} \vec{B}\ \text{d}\vec{A} = 0$$
+
+Umformung zur 2. Maxwell-Gleichung:
+\begin{align*}
+  \oint_{\partial V} \vec{B}\ \text{d}\vec{A} &= 0 \\
+  \int_V \vec{\nabla}\vec{B}\ \text{d}V &= 0 \\
+  \mathbf{\vec{\nabla}\vec{B}} &= \mathbf{0}
+\end{align*}
+
+
+<hr>
+
+
+<h3>3. Maxwell-Gleichung</h3>
+Die 3. Maxwell-Gleichung ist das <b>Faraday'sche Induktionsgesetz</b>.<br>
+Dieses besagt, dass die in einer Leiterschleife induzierte Randspannung (EMK)
+$U_\text{ind}$ proportional zur negativen zeitlichen Änderung des magnetischen
+Flusses $-\frac{\partial \Phi_m}{\partial t}$ durch die Leiterschleife ist.
+  $$U_\text{ind} = -\frac{\partial \Phi_m}{\partial t}$$
+Faraday erkannte dieses Prinzip an folgenden Experimenten.<br>
+
+
+
+<br><br><br>
+Umformung zur 3. Maxwell-Gleichung:
+\begin{align*}
+  U_\text{ind} &= -\frac{\partial \Phi_m}{\partial t} \\
+  \oint_l \vec{E}\ \text{d}\vec{l} &= -\frac{\partial}{\partial t} \int_A \vec{B}\ \text{d}\vec{A} \\
+  \int_A \vec{\nabla} \times \vec{E}\ \text{d}\vec{A} &= -\int_A \frac{\partial \vec{B}}{\partial t}\ \text{d}\vec{A} \\
+  \mathbf{\vec{\nabla} \times \vec{E}} &= \mathbf{-\frac{\partial \vec{B}}{\partial t}}
+\end{align*}
+
+
+
+<hr>
+
+
+<h3>4. Maxwell-Gleichung</h3>
+Die 4. Maxwell-Gleichung ist das <b>Ampère-Maxwell'sche Gesetz</b> mit der
+Maxwell'schen Ergänzung.<br>
+
+
+<hr>
+
 
 </body>
 </html>

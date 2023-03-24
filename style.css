@@ -1,0 +1,46 @@
+:root {
+  --primary-color: white;
+  --secondary-color: black;
+}
+
+.dark-theme {
+  --primary-color: black;
+  --secondary-color: white;
+}
+
+body {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+table, th {
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
+}
+
+img {
+  background-color: rgb(255,255,255,.5);
+}
+
+.MathJax * {
+  color: var(--secondary-color);
+}
+
+h2 {
+  text-align: center;
+}
+
+.center {
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+}
+
+.nav {
+  background-color: var(--primary-color);
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+}
