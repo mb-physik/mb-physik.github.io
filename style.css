@@ -22,10 +22,6 @@ table, th {
   color: var(--secondary-color);
 }
 
-img {
-  background-color: rgb(255,255,255,.5);
-}
-
 .MathJax * {
   color: var(--secondary-color);
 }

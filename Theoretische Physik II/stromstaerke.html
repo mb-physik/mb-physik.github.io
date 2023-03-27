@@ -1,0 +1,49 @@
+<html>
+<head>
+  <title>
+    Stromstärke und Stromdichte
+  </title>
+
+	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<div class="nav">
+  <h2>Stromstärke und Stromdichte</h2>
+  <center><button id="theme-switcher">Nachtmodus</button></center>
+  <br>
+  <center><a href="#" onclick="goBack()">zur vorherigen Seite</a></center>
+  <center><a href="../index.html">zur Startseite</a></center>
+  <hr>
+</div>
+
+<h3>Stromstärke</h3>
+Die Stromstärke $\text{d}I$ ist definiert als die Ladung $\text{d}q$, die in einer Zeit $\text{d}t$
+durch eine Querschnittsfläche $\text{d}\vec{A}$ tritt.
+  $$\text{d}I = \frac{\text{d}q}{\text{d}t}$$
+
+<hr>
+
+<h3>Stromdichte</h3>
+Die Stromdichte $\vec{j}$ ist definiert als Stromstärke $\text{d}I$ pro senkrecht
+zur Stromdichte orientierter Fläche $\text{d}A_\perp = \text{d}\vec{A} \cdot \vec{e}_I$.
+Sie zeigt in Richtung des Stroms $\vec{e}_I$.
+  $$\vec{j} = \frac{\text{d}I}{\text{d}A_\perp} \vec{e}_I$$
+
+Somit ergibt sich für die infinitesiamle Stromstärke
+  $$\text{d}I = j \cdot \text{d}A_\perp = \vec{j} \cdot \text{d}\vec{A}$$
+
+Bezüglich einer Fläche $A$ ist die Stromstärke $I$
+  $$I = \int_A \vec{j}\ \text{d}\vec{A}$$
+oder einer geschlossenen Oberfläche
+  $$I = \oint_{\partial V} \vec{j}\ \text{d}\vec{A}$$
+
+<hr>
+
+</body>
+</html>
