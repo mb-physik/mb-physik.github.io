@@ -1,11 +1,15 @@
 :root {
   --primary-color: white;
   --secondary-color: black;
+  --tertiary-color: #1a0dab;    /* link */
+  --quaternary-color: #660199;  /* visited link */
 }
 
 .dark-theme {
-  --primary-color: black;
+  --primary-color: #202020;
   --secondary-color: white;
+  --tertiary-color: yellow;    /* link */
+  --quaternary-color: orange;  /* visited link */
 }
 
 body {
@@ -43,4 +47,12 @@ button {
   position: sticky;
   top: 0px;
   z-index: 1;
+}
+
+a:link {
+  color: var(--tertiary-color);
+}
+
+a:visited {
+  color: var(--quaternary-color);
 }

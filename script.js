@@ -12,3 +12,7 @@ themeSwitcher.onclick = function() {
   localStorage.setItem("theme", themeName);
   themeSwitcher.innerHTML = themeName === "dark-theme" ? "Tagmodus" : "Nachtmodus";
 }
+
+function goBack() {
+  window.history.back();
+}

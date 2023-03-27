@@ -1,0 +1,63 @@
+<html>
+<head>
+  <title>
+    Kontinuitätsgleichung
+  </title>
+  	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../script.js" defer></script>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div class="nav">
+  <h2>Kontinuitätsgleichung</h2>
+  <center><button id="theme-switcher">Nachtmodus</button></center>
+  <br>
+  <center><a href="#" onclick="goBack()">zur vorherigen Seite</a></center>
+  <center><a href="../index.html">zurück zur Startseite</a></center>
+  <hr>
+</div>
+
+Die Kontinuitätsgleichung ist eine mathematische Formulierung der Ladungserhaltung.<br>
+Der Gesamtstrom aus einem Volumen $I$ ist gleich der Abnahme der Gesamtladung
+$Q$ des Volumens.
+\begin{align*}
+  I &= -\frac{\partial Q}{\partial t} \\
+  \oint_{\partial V} \vec{j}\ \text{d}\vec{A} &= -\frac{\partial}{\partial t} \int_V \rho\ \text{d}V \\
+  \int_{V} \vec{\nabla}\vec{j}\ \text{d}V &= -\frac{\partial}{\partial t} \int_V \rho\ \text{d}V \\
+  \vec{\nabla}\vec{j} &= -\frac{\partial \rho}{\partial t} \\
+  \mathbf{\frac{\partial \rho}{\partial t} + \vec{\nabla}\vec{j}} &= \mathbf{0}
+\end{align*}
+
+<hr>
+
+<h3>Stationäre Ströme in metallischen Leitern</h3>
+Für stationäre (= zeitlich unveränderte) Ströme gilt
+  $$\frac{\partial}{\partial t}\vec{j} = 0$$
+Hier kann das <a href="ohm.html">Ohm'sche Gesetz</a> eingesetzt werden
+\begin{align*}
+  \frac{\partial}{\partial t}(\sigma_\text{el}\vec{E}) &= 0 \\
+  \frac{\partial}{\partial t} \vec{E} &= 0
+\end{align*}
+
+Nun betrachten wir die <a href="maxwell.html">1. Maxwell Gleichung</a>, die wir
+nach der Ladungsdichte $\rho$ umstellen und zeitlich ableiten.
+\begin{align*}
+  \vec{\nabla}\vec{E} &= \frac{\rho}{\varepsilon_0} \\
+  \rho &= \varepsilon_0 \vec{\nabla}\vec{E} \\
+  \frac{\partial \rho}{\partial t} &= \varepsilon_0 \frac{\partial}{\partial t} \vec{\nabla} \vec{E} \\
+  \frac{\partial \rho}{\partial t} &= \varepsilon_0  \vec{\nabla} \Big(\underbrace{\frac{\partial}{\partial t}\vec{E}}_{=0}\Big) \\
+  \frac{\partial \rho}{\partial t} &= 0
+\end{align*}
+Eingesetzt in die Kontiuitätsgleichung ergibt sich
+  $$\mathbf{\vec{\nabla}\vec{j} = 0}$$
+Die Divergenz der Stromdichte für stationäre Ströme verschwindet.
+
+
+
+<hr>
+
+</body>
+</html>

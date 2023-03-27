@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <link rel="stylesheet" href="../style.css">
   <script src="../script.js" defer></script>
+  <meta charset="UTF-8">
 </head>
 
 <body>
@@ -16,8 +17,8 @@
   <h2>Herleitung der Maxwell Gleichungen</h2>
   <center><button id="theme-switcher">Nachtmodus</button></center>
   <br>
+  <center><a href="#" onclick="goBack()">zur vorherigen Seite</a></center>
   <center><a href="../index.html">zurück zur Startseite</a></center>
-
   <hr>
 </div>
 
@@ -60,7 +61,7 @@ Die 1. Maxwell-Gleichung ist der <b>Physikalische Satz von Gauß</b>.<br>
 Dieser besagt, dass der elektrische Fluss $\Phi_e$ durch
 die von einer beliebigen Oberfläche eingeschlossenen Ladung $q$ multipliziert
 mit $\frac{1}{\varepsilon_0}$ gegeben ist.
-  $$\text{zz: } \Phi_e = \frac{q}{\varepsilon_0}$$
+  $$\Phi_e = \frac{q}{\varepsilon_0}$$
 
 <li>Ladung innerhalb Volumen</li>
 Betrachte eine Punktladung $q$ in einem beliebigen Volumen, die das
@@ -188,15 +189,24 @@ Umformung zur 3. Maxwell-Gleichung:
   \mathbf{\vec{\nabla} \times \vec{E}} &= \mathbf{-\frac{\partial \vec{B}}{\partial t}}
 \end{align*}
 
+Im Fall der statischen Näherung sind die physikalischen größen Konstant, weshalb
+die partielle Ableitung der magnetischen Flussdichte entfällt.
+  $$\vec{\nabla} \times \vec{E} = 0$$
 
 
 <hr>
 
 
 <h3>4. Maxwell-Gleichung</h3>
-Die 4. Maxwell-Gleichung ist das <b>Ampère-Maxwell'sche Gesetz</b> mit der
+Die 4. Maxwell-Gleichung ist das <b>Ampère'sche Gesetz</b> mit der
 Maxwell'schen Ergänzung.<br>
+Das Ampère'sche Gesetz besagt, dass stationäre Ströme $I$ ein magnetisches
+Wirbelfeld $\vec{B}$ erzeugen.
+  $$\oint_{\partial A} \vec{B}\ \text{d}\vec{l} = \mu_0 I$$
+Es folgt aus Experimenten von André-Marie Ampère.<br>
 
+<br><br><br>
+Die Maxwell'sche Ergänzung
 
 <hr>
 

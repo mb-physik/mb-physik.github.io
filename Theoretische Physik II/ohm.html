@@ -1,0 +1,65 @@
+<html>
+<head>
+  <title>
+    Ohm'sches Gesetz
+  </title>
+  	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../script.js" defer></script>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div class="nav">
+  <h2>Ohm'sches Gesetz</h2>
+  <center><button id="theme-switcher">Nachtmodus</button></center>
+  <br>
+  <center><a href="#" onclick="goBack()">zur vorherigen Seite</a></center>
+  <center><a href="../index.html">zur Startseite</a></center>
+  <hr>
+</div>
+
+Wirkt auf Leitungselektronen ein elektrisches Feld, so werden diese entgegen der
+Feldlinienrichtung beschleunigt. Jedoch sorgen Kollisionen mit Atomrümpfen dafür,
+dass sich die Leitungselekronen, statt mit einer stetig zunehmenden,
+mit einer konstanten Driftgeschwindigkeit
+  $$\vec{v}_\text{D} = \frac{q \cdot \tau}{m} \vec{E}$$
+im Leiter fortbewegen. $\tau$ ist hierbei die mittlere Zeit zwischen zwei Stößen.<br>
+Die Stromdichte ist demnach
+\begin{align*}
+  \vec{j} &= n \cdot q \cdot \vec{v}_\text{D} \\
+  &= \underbrace{\frac{n \cdot q^2 \cdot \tau}{m}}_{=\sigma} \vec{E} \\
+  &= \sigma_\text{el} \vec{E}
+\end{align*}
+
+mit elektrischer Leitfähigkeit $\sigma$, dessen Kehrwert als spezifischer
+Widerstand
+  $$\rho_\text{s} = \frac{1}{\sigma_\text{el}}$$
+
+definiert ist.
+
+<hr>
+
+Betrachte einen homogenen Leiter mit Länge $L$ und Querschnittsfläche $A$, der
+von einer konstanten Stromdichte $\vec{j}$ durchflossen wird.
+<center><img src="ohm.svg" width="400"></center>
+
+Da die Stromdichte $\vec{j}$ konstant ist, ist auch die elektrische Feldstärke
+$\vec{E}$ konstant.
+  $$\vec{E} = \frac{\vec{j}}{\sigma_\text{el}}$$
+
+Dies können wir uns bei der Berechnung der Spannung $U$ zu Nutze machen.
+  $$U = \int_l \vec{E}\ \text{d}\vec{l} = \int_l E\ \text{d}l = E \int_l \text{d}l = E L$$
+
+Einsetzen der elektrischen Feldstärke liefert
+\begin{align*}
+  \mathbf{U} &= E L \\
+  &= \frac{j}{\sigma_\text{el}} L \\
+  &= \underbrace{\frac{L}{A \sigma_\text{el}}}_{=R} I \\
+  &= \mathbf{RI}
+\end{align*}
+<hr>
+
+</body>
+</html>

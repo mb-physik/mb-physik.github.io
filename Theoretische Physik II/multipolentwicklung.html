@@ -51,7 +51,7 @@ $$T_nf(x_1',x_2',x_3') = \color{red}{f(x_1',x_2',x_3') \Big|_{(0,0,0)}} + \color
 \begin{align*}
   \frac{\partial^2}{\partial x_i' \partial x_j'} f(x_1',x_2',x_3') &= \frac{\partial}{\partial x_j'} \Big[\frac{\partial}{\partial x_i'}f(x_1',x_2',x_3')\Big]\\
   &= \frac{\partial}{\partial x_j'} \Big[ \frac{x_i - x_i'}{[(x_1 - x_1')^2 + (x_2 - x_2')^2 + (x_3 - x_3')^2]^{3/2}} \Big]\\
-  &\stackrel{\color{red}{?}}{=} -\frac{3}{2}\frac{(x_i - x_i') \cdot 2(x_j - x_j') \cdot (-1)}{[(x_1 - x_1')^2 + (x_2 - x_2')^2 + (x_3 - x_3')^2]^{5/2}} - \frac{\delta_{ij}}{[(x_1 - x_1')^2 + (x_2 - x_2')^2 + (x_3 - x_3')^2]^{3/2}}\\
+  &= -\frac{3}{2}\frac{(x_i - x_i') \cdot 2(x_j - x_j') \cdot (-1)}{[(x_1 - x_1')^2 + (x_2 - x_2')^2 + (x_3 - x_3')^2]^{5/2}} - \frac{\delta_{ij}}{[(x_1 - x_1')^2 + (x_2 - x_2')^2 + (x_3 - x_3')^2]^{3/2}}\\
   \Rightarrow \frac{\partial^2}{\partial x_i' \partial x_j'} f(x_1',x_2',x_3') \Big|_{(0,0,0)} &= \frac{3x_ix_j}{r^5} - \frac{\delta_{ij}}{r^3}\\
   &= \frac{3 x_i x_j - \delta_{ij}r^2}{r^5}\\
   \Rightarrow \frac{1}{2}\sum_{i,j=1}^3 \Bigg( \frac{3 x_i x_j - \delta_{ij}r^2}{r^5} \Bigg) x_i'x_j' &= \frac{1}{2} \sum_{i,j=1}^3 \Bigg( \frac{3 x_i x_j x_i' x_j' - \delta_{ij} x_i x_j x_i' x_j'}{r^5} \Bigg)\\
@@ -88,6 +88,8 @@ Berechnung Quadrupolmoment:
     3 x_3' x_1' & 3 x_3' x_2' & 2x_3' - x_1'^2 - x_2'^2
   \end{pmatrix}\ \text{d}V'$$
 Wobei $x_1',x_2',x_3'$ die Komponenten von $\vec{r}'$ sind.
+
+<hr>
 
 </body>
 </html>
