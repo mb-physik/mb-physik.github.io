@@ -15,7 +15,6 @@
   <h2>Grenzflächenbedingungen</h2>
   <center><button id="theme-switcher">Nachtmodus</button></center>
   <br>
-  <center><a href="#" onclick="goBack()">zur vorherigen Seite</a></center>
   <center><a href="../index.html">zur Startseite</a></center>
   <hr>
 </div>
@@ -39,13 +38,13 @@
     </tr>
     <tr>
       <td>$\vec{H}$</td>
-      <td></td>
+      <td>$$\mu_B H_A^t = \mu_A H_B^t$$</td>
       <td></td>
     </tr>
     <tr>
       <td>$\vec{B}$</td>
       <td></td>
-      <td></td>
+      <td>$$B_A^n = B_B^n$$</td>
     </tr>
 </table>
 </center>
@@ -56,39 +55,52 @@
 
 <h3>Tangentialkomponente E-Feld</h3>
 
-Zur Untersuchung der Tangentialkomponente, legen wir eine Stokes'sche Schleife um die Grenzfläche.<br>
-<center><img src="schleife.svg" width="400"></center><br>
+Wir platzieren eine Stokes'sche Schleife um die Grenzfläche, wobei die Breite $h$
+der Schleife verschwindend klein sein soll.<br>
+<center><img src="schleife.svg" width="250"></center><br>
 
-Die zweite Maxwell'sche Gleichung unter der statischen Näherung ist
-  $$\vec{\nabla}\times\vec{E} = 0$$
-Integrieren wir diesen Ausdruck, ergibt sich
-  $$\oint_A \vec{\nabla}\times\vec{E}\ \text{d}\vec{A} = 0$$
-Mit Hilfe des Stokes'schen Integralsatzes können wir das Integral zu
-  $$\oint_{\partial A}\vec{E}\ \text{d}\vec{l} = 0$$
-umschreiben.<br>
+Wir betrachten die <a href="maxwell.html">3. Maxwell-Gleichung</a>
+\begin{align*}
+  \vec{\nabla}\times\vec{E} &= -\frac{\partial \vec{B}}{\partial t} \\
+  \int_A \vec{\nabla}\times\vec{E}\ \text{d}\vec{A} &= - \int_A \frac{\partial \vec{B}}{\partial t}\ \text{d}\vec{A} \\
+  \oint_{\partial A} \vec{E}\ \text{d}\vec{l} &= -\frac{\partial}{\partial t} \int_A \vec{B}\ \text{d}\vec{A}
+\end{align*}
 
-Das Integral lässt sich über Integration der einzelnen Wegstücke lösen<br>
-<li>1. Weg: $\text{d}\vec{l}_1 = (1,0,0)^\text{T}\text{d}l = \vec{t}\text{d}l$</li>
+<div class="nr">
+<li>Das Integral auf der linken Seite lässt sich über Integration der einzelnen
+Wegstücke &#9312;, &#9313;, &#9314;, &#9315; (siehe Skizze) lösen.</li><br>
+Wegstück &#9312;: $\text{d}\vec{l}_1 = (1,0,0)^\text{T}\text{d}l = \vec{t}\text{d}l$
 $$\int_{\partial A}\vec{E}_A\ \text{d}\vec{l}_1 = \int_{\partial A}\underbrace{\vec{E}_A\vec{t}}_{=: E^t_A}\text{d}l
 = \int_{\partial A}E_A^t\ \text{d}l = E_A^t \int_{\partial A}\text{d}l = E_A^t L$$
 
-<li>2. Weg: $\text{d}\vec{l}_2 = (0,0,-1)^\text{T}\text{d}l = \vec{t}_2\text{d}l$</li>
+Wegstück &#9313;: $\text{d}\vec{l}_2 = (0,0,-1)^\text{T}\text{d}l = \vec{t}_2\text{d}l$
 $$\int_{\partial A}\vec{E}\ \text{d}\vec{l}_2 = \int_{h/2}^0\underbrace{\vec{E}_A\ \vec{t}_2}_{=: E_A^{t_2}}\text{d}l
 + \int_0^{-h/2}\underbrace{\vec{E}_B\ \vec{t}_2}_{=: E_B^{t_2}}\text{d}l
 =
 E_A^{t_2}(-h/2) + E_B^{t_2}(-h/2) \stackrel{h\rightarrow 0}{=} 0$$
 
-<li>3. Weg: $\text{d}\vec{l}_3 = - \text{d}\vec{l}_1 = -(1,0,0)^\text{T}\text{d}l = -\vec{t}\text{d}l$</li>
+Wegstück &#9314;: $\text{d}\vec{l}_3 = - \text{d}\vec{l}_1 = -(1,0,0)^\text{T}\text{d}l = -\vec{t}\text{d}l$
 $$\int_{\partial A}\vec{E}_B\ \text{d}\vec{l}_3 = -\int_{\partial A}\vec{E}_B\ \text{d}\vec{l}_1 =
 -\int_{\partial A}\underbrace{\vec{E}_B\vec{t}}_{=: E_B^t}
 \text{d}l
 = - E_B^t L$$
-<li>4. Weg: verschwindet analog zum 3. Weg</li>
 
-Es ergibt sich
-$$\oint_{\partial A}\vec{E}\ \text{d}\vec{l} = E_A^t L - E_B^t L = 0$$
-Dies können wir zu unserer finalen Bedingung umformen:
-$$\mathbf{E_A^t = E_B^t}$$
+Wegstück &#9315;: verschwindet analog zu Wegstück &#9313;
+  $$\Rightarrow \oint_{\partial A} \vec{E}\ \text{d}\vec{l} = E_A^t L - E_B^t L$$
+
+<br>
+<li>
+Das Integral auf der rechten Seite verschwindet, da $h\rightarrow 0$
+  $$-\frac{\partial}{\partial t} \int_A \vec{B}\ \text{d}\vec{A} = 0$$
+</li>
+</div>
+<br>
+
+Es bleibt
+\begin{align*}
+  E_A^t L - E_B^t L &= 0 \\
+  \mathbf{E_A^t} &= \mathbf{E_B^t}
+\end{align*}
 Die Tangentialkomponente des E-Felds ist an der Grenzfläche stetig.
 
 
@@ -97,39 +109,42 @@ Die Tangentialkomponente des E-Felds ist an der Grenzfläche stetig.
 
 <h3>Normalkomponente E-Feld</h3>
 
-Zur Untersuchung der Normalkomponente, betrachten wir eine Gauß'sche Pillendose
-an der Grenzfläche.<br>
-<p style="text-align:center;"><img src="pillendose.svg" width="400"></p><br>
-Für eine geladene Grenzfläche gilt die Maxwell Gleichung:
-$$\vec{\nabla}\vec{E} = \frac{\rho}{\varepsilon_0}$$
-Integrieren wir diesen Ausdruck:
-$$\int_V\vec{\nabla}\vec{E}\ \text{d}V = \frac{1}{\varepsilon_0}\int_V \rho\ \text{d}V$$
-Das Integral auf der linken Seite können wir mittels des Gauß'schen Integralsatzes
-vereinfachen. Rechts benutzen wir $q = \int_V\rho\ \text{d}V$:
+Wir platzieren eine Gauß'sche Pillendose um die Grenzfläche, wobei die Breite $h$
+der Pillendose verschwindend gering ist.<br>
+<p style="text-align:center;"><img src="pillendose.svg" width="250"></p><br>
 
-$$\oint_{\partial V}\vec{E}\ \text{d}\vec{A} = \frac{q}{\varepsilon_0}$$
-
+Wir betrachten die <a href="maxwell.html">1. Maxwell-Gleichung</a>
+\begin{align*}
+  \vec{\nabla}\vec{E} &= \frac{\rho}{\varepsilon_0} \\
+  \int_V\vec{\nabla}\vec{E}\ \text{d}V &= \frac{1}{\varepsilon_0}\int_V \rho\ \text{d}V \\
+  \oint_{\partial V}\vec{E}\ \text{d}\vec{A} &= \frac{q}{\varepsilon_0}
+\end{align*}
 <br>
-Das Integral lässt sich über Integration der einzelnen Oberflächen lösen:<br>
 
-<li>1. Fläche (Deckel): $\text{d}\vec{A}_1 = (0,0,1)^\text{T}\text{d}A_1 = \vec{n}\text{d}A_1$</li>
+<div class="nr">
+Das Integral lässt sich über Integration der einzelnen Oberflächen lösen.<br>
+
+&emsp; $\text{d}\vec{A}_1 = (0,0,1)^\text{T}\text{d}A_1 = \vec{n}\text{d}A_1$</li>
 $$\oint_{\partial V}\underbrace{\vec{E}_A\ \vec{n}}_{=: E_A^n}
 \text{d}A_1
 = E_A^n \oint_{\partial V}\text{d}A = E_A^n A$$
 
-<li>2. Fläche (Boden): $\text{d}\vec{A}_2 = - \text{d}\vec{A}_1 = -\vec{n}\text{d}A_1$</li>
+&emsp; $\text{d}\vec{A}_2 = - \text{d}\vec{A}_1 = -\vec{n}\text{d}A_1$</li>
 $$-\oint_{\partial V}\underbrace{\vec{E}_B\ \vec{n}}_{=: E_B^n}
 \text{d}A_1
 = -E_B^n \oint_{\partial V}\text{d}A_1 = -E_B^n A$$
 
-<li>3. Fläche (Mantel) verschwindet, weil $h\rightarrow 0$<br>
+&emsp; Die Mantelfläche verschwindet, da $h\rightarrow 0$
+  $$\Rightarrow \oint_{\partial V}\vec{E}\ \text{d}\vec{A} = E_A^nA - E^n_BA$$
+</div>
+<br>
 
-Es ergibt sich:
-$$\oint_{\partial V}\vec{E}\ \text{d}\vec{A} = E_A^nA - E^n_BA = \frac{q}{\varepsilon_0}$$
+Es ergibt sich
+  $$E_A^nA - E^n_BA = \frac{q}{\varepsilon_0}$$
+
 Schließlich teilen wir noch durch die Fläche $A$ und benutzen, dass $\sigma = \frac{q}{A}$
-die Flächenladungsdichte ist und erhalten unsere finale Bedingung:
-
-$$\mathbf{E_A^n - E_B^n = \frac{\sigma}{\varepsilon_0}}$$
+die Flächenladungsdichte ist und erhalten unsere finale Bedingung
+  $$\mathbf{E_A^n - E_B^n = \frac{\sigma}{\varepsilon_0}}$$
 
 Die Normalkomponente des E-Feldes erfährt an einer geladenen Grenzfläche also einen Sprung.
 
@@ -139,56 +154,109 @@ Die Normalkomponente des E-Feldes erfährt an einer geladenen Grenzfläche also 
 
 <h3>Tangentialkomponente D-Feld</h3>
 
-Zur Untersuchung der Tangentialkomponente des D-Feldes benutzen wir die Bedingung
-für die Tangentialkomponente des E-Feldes:
-  $$E_A^t = E_B^t$$
-Wir benutzen nun den Zusammenhang
+Für lineare, isotrope Medien kann der Zusammenhang
   $$D^t = \varepsilon_r\varepsilon_0 E^t \Leftrightarrow E^t = \frac{1}{\varepsilon_r\varepsilon_0}D^t$$
-und setzen ihn in die obere Gleichung ein
+in
+  $$E_A^t = E_B^t$$
+eingesetzt werden, wodurch sich
 \begin{align*}
   \frac{1}{\varepsilon_A\varepsilon_0}D_A^t &= \frac{1}{\varepsilon_B\varepsilon_0}D_B^t \\
   \mathbf{\varepsilon_B D_A^t} &= \mathbf{\varepsilon_A D_B^t}
 \end{align*}
+ergibt
+
 
 <hr>
 
 
 <h3>Normalkomponente D-Feld</h3>
 
-Zur Untersuchung der Normalkomponente, betrachten wir dieselbe Gauß'sche Pillendose
-wie beim E-Feld.<br>
-Für eine geladene Grenzfläche gilt die Maxwell Gleichung:
-
-$$\vec{\nabla}\vec{D} = \rho_\text{frei}$$
-
-Integrieren wir diesen Ausdruck über das Volumen der Dose ergibt sich:
-
-$$\int_V \vec{\nabla}\vec{D}\ \text{d}V = \int_V\rho_\text{frei}\ \text{d}V$$
-
-Mit Hilfe des Gauß'schen Integralsatzes können wir das Integral zu
-
-$$\oint_{\partial V}\vec{D}\ \text{d}\vec{A} = q_\text{frei}$$
-
-vereinfachen.<br>
-Das Integral lässt sich über Integration der einzelnen Oberflächen lösen:
-
-<li>1. Fläche (Deckel): $\text{d}\vec{A}_1 = (0,0,1)^\text{T}\text{d}A_1 = \vec{n}\text{d}A_1$</li>
-$$\int_{\partial V}\underbrace{\vec{D}_A\ \vec{n}}_{=: D_A^n}\text{d}A_1
-= D_A^n \int_{\partial V}\text{d}A_1 = D_A^n A$$
-
-<li>2. Fläche (Boden): $\text{d}\vec{A}_2 = - \text{d}\vec{A}_1 = -\vec{n}\text{d}A_1$</li>
-$$-\int_{\partial V}\underbrace{\vec{D}_B\ \vec{n}}_{=: D_B^n}\text{d}A_1
-= -D_B^n \int_{\partial V}\text{d}A_1 = -D_B^n A$$
-
-<li>3. Fläche (Mantel) verschwindet, weil $h\rightarrow 0$<br>
-Es ergibt sich:
-$$\oint_{\partial V}\vec{D}\ \text{d}\vec{A} = D_A^nA - D_B^nA = q_\text{frei}$$
-Schließlich teilen wir noch durch die Fläche $A$ und benutzen, dass $\sigma_\text{frei} = \frac{q_\text{frei}}{A}$
-die Flächenladungsdichte ist und erhalten unsere finale Bedingung
-
-$$\mathbf{D_A^n - D_B^n = \sigma_\text{frei}}$$
+Analog zur Untersuchung der Normalkomponente des E-Felds, wird eine Gauß'sche
+Pillendose genutzt.<br>
+Wir betrachten die <a href="maxwell.html">1. Maxwell-Gleichung</a> für
+dielektrische/magnetische Medien.
+\begin{align*}
+  \vec{\nabla}\vec{D} &= \rho_\text{frei} \\
+  \int_V \vec{\nabla}\vec{D}\ \text{d}V &= \int_V\rho_\text{frei}\ \text{d}V \\
+  \oint_{\partial V}\vec{D}\ \text{d}\vec{A} &= q_\text{frei} \\
+  D_A^nA - D_B^nA &= q_\text{frei} \\
+  \mathbf{D_A^n - D_B^n} &= \mathbf{\sigma_\text{frei}}
+\end{align*}
 
 Die Normalkomponente des D-Feldes erfährt an geladenen Grenzflächen einen Sprung.
+
+
+<hr>
+
+
+<h3>Tangentialkomponente H-Feld</h3>
+
+Analog zur Untersuchung der Tangentialkomponente des E-Felds wird eine Stokes'sche
+Schleife um die Grenzfläche genutzt. <br>
+Wir betrachten die <a href="maxwell.html">4. Maxwell-Gleichung</a> für
+dielektrische/magnetische Medien
+\begin{align*}
+  \vec{\nabla} \times \vec{H} &= \vec{j}_\text{frei} + \frac{\partial \vec{D}}{\partial t} \\
+  \int_A \vec{\nabla} \times \vec{H}\ \text{d}\vec{A} &= \int_A \vec{j}_\text{frei}\ \text{d}\vec{A} + \int_A \frac{\partial \vec{D}}{\partial t}\ \text{d}\vec{A} \\
+  \int_{\partial A} \vec{H}\ \text{d}\vec{A} &= \int_A \vec{j}_\text{frei}\ \text{d}\vec{A} + \int_A \frac{\partial \vec{D}}{\partial t}\ \text{d}\vec{A} \\
+\end{align*}
+
+<!-- RECHNUNG UNVOLLSTÄNDIG-->
+<div class="nr">
+<li>
+Für das Integral auf der linken Seite ergibt sich analog zur Betrachtung der
+Tangentialkomponente des E-Felds
+  $$\int_{\partial A} \vec{H}\ \text{d}\vec{A} = H_A^t L - H_B^t L$$
+</li>
+
+<li>
+Das zweite Integral der rechten Seite entfällt, da $h\rightarrow 0$
+  $$\int_A \frac{\partial \vec{D}}{\partial t}\ \text{d}\vec{A} = 0$$
+</li>
+
+<li>
+Das erste Integral der rechten Seite ?????
+</li>
+</div>
+
+?????
+
+
+<hr>
+
+
+<h3>Normalkomponente H-Feld</h3>
+
+Für lineare, isotrope Medien kann der Zusammenhang
+  $$B^t = \mu_r\mu_0 H^t \Leftrightarrow H^t = \frac{1}{\mu_r\mu_0}B^t$$
+in
+  $$B_A^t = B_B^t$$
+eingesetzt werden, wodurch sich
+\begin{align*}
+  \frac{1}{\mu_A\mu_0} H_A^t &= \frac{1}{\mu_B\mu_0} H_B^t \\
+  \mathbf{\mu_B H_A^t} &= \mathbf{\mu_A H_B^t}
+\end{align*}
+ergibt
+
+
+<hr>
+
+
+
+<h3>Normalkomponente B-Feld</h3>
+
+Analog zur Untersuchung der Normalkomponente des E-Felds wird eine Gauß'sche
+Pillendose an der Grenzfläche genutzt.<br>
+Wir betrachten die <a href="maxwell.html">2. Maxwell-Gleichung</a>
+\begin{align*}
+  \vec{\nabla}\vec{B} &= 0 \\
+  \int_V \vec{\nabla}\vec{B}\ \text{d}V &= 0 \\
+  \int_{\partial V} \vec{B}\ \text{d}\vec{A} &= 0 \\
+  B_A^n A - B_B^n A &= 0 \\
+  \mathbf{B_A^n} &= \mathbf{B_B^n}
+\end{align*}
+
+Die Normalkomponente des B-Felds ist stetig.
 
 <hr>
 

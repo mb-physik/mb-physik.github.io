@@ -29,7 +29,3 @@ themeSwitcher.onclick = function() {
   changeImageSources(themeName);
   themeSwitcher.innerHTML = themeName === "dark-theme" ? "Tagmodus" : "Nachtmodus";
 }
-
-function goBack() {
-  window.history.back();
-}

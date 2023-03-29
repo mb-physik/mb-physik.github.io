@@ -1,6 +1,6 @@
 :root {
-  --primary-color: white;
-  --secondary-color: black;
+  --primary-color: white;       /* Hintergrundfarbe */
+  --secondary-color: black;     /* Schriftfarbe */
   --tertiary-color: #1a0dab;    /* link */
   --quaternary-color: #660199;  /* visited link */
 }
@@ -51,4 +51,10 @@ a:link {
 
 a:visited {
   color: var(--quaternary-color);
+}
+
+.nr {
+  margin-left: 50px;
+  border-left: 2px solid #ccc;
+  padding-left: 10px;
 }
