@@ -22,20 +22,20 @@ table, th {
   color: var(--secondary-color);
 }
 
-.MathJax * {
-  color: var(--secondary-color);
-}
-
 h2 {
   text-align: center;
+}
+
+button {
+  cursor: pointer;
 }
 
 .center {
   text-align: center;
 }
 
-button {
-  cursor: pointer;
+.MathJax * {
+  color: var(--secondary-color);
 }
 
 .nav {

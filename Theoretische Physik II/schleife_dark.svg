@@ -25,9 +25,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="4.1366415"
-     inkscape:cx="29.976008"
-     inkscape:cy="64.665986"
+     inkscape:zoom="7.5119277"
+     inkscape:cx="54.247061"
+     inkscape:cy="51.052142"
      inkscape:window-width="1440"
      inkscape:window-height="777"
      inkscape:window-x="0"
@@ -42,12 +42,6 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-81.1661, -67.0322)">
-    <path
-       style="display:inline;fill:#cdcdcd;fill-opacity:0.37627116;stroke:none;stroke-width:0.377953;stroke-dasharray:none;stroke-dashoffset:0"
-       d="M 60.528395,34.931788 32.700573,62.75961 v 116.97982 l 27.827804,-27.8278 z"
-       id="path4776"
-       transform="matrix(0.26458333,0,0,0.26458333,88.528878,59.669422)"
-       inkscape:label="wand hinten" />
     <g
        transform="matrix(0.35277801,0,0,0.35277801,96.597824,73.519645)"
        ns1:version="1.8.2"
@@ -117,6 +111,12 @@
         </g>
       </g>
     </g>
+    <path
+       style="display:inline;fill:#aeaeae;fill-opacity:0.63728815;stroke:none;stroke-width:0.377953;stroke-dasharray:none;stroke-dashoffset:0"
+       d="M 60.528395,34.931788 32.700573,62.75961 v 116.97982 l 27.827804,-27.8278 z"
+       id="path4776"
+       transform="matrix(0.26458333,0,0,0.26458333,88.528878,59.669422)"
+       inkscape:label="wand hinten" />
     <path
        style="display:inline;fill:none;fill-opacity:0.711864;stroke:#ff0000;stroke-width:0.755906;stroke-dasharray:0.755906, 2.26772;stroke-dashoffset:0"
        d="m 65.8609,68.841396 11.963943,3.215035 v 52.000029 l -11.963946,-3.21503"
@@ -443,7 +443,7 @@
        transform="translate(-5.7932184,-6.0596624)"
        style="display:inline" />
     <path
-       style="display:inline;fill:#cdcdcd;fill-opacity:0.37627116;stroke:none;stroke-width:0.377953;stroke-dasharray:none;stroke-dashoffset:0"
+       style="display:inline;fill:#aeaeae;fill-opacity:0.63728815;stroke:none;stroke-width:0.377953;stroke-dasharray:none;stroke-dashoffset:0"
        d="M 60.528395,34.931788 32.700573,62.75961 v 116.97982 l 27.827804,-27.8278 z"
        id="path3370"
        transform="matrix(0.26458333,0,0,0.26458333,81.1661,67.0322)"

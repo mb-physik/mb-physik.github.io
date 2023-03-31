@@ -22,25 +22,80 @@
 </div>
 
 <h3>Stromstärke</h3>
-Die Stromstärke $\text{d}I$ ist definiert als die Ladung $\text{d}q$, die in einer Zeit $\text{d}t$
-durch eine Querschnittsfläche $\text{d}\vec{A}$ tritt.
-  $$\text{d}I = \frac{\text{d}q}{\text{d}t}$$
+
+Die Stromstärke $I$ ist die Ladung $\text{d}q$, die in einer Zeit $\text{d}t$
+durch eine senkrecht zur Stromrichtung orientierten Fläche $\text{d}\vec{A}_\perp$
+tritt.
+  $$\mathbf{I = \frac{\text{d}q}{\text{d}t}}$$
+<!-- \lim_{t\rightarrow 0} \frac{\Delta q}{\Delta t}= -->
+  <center><img src="stromstaerke.svg" width="250"></center>
+
+Für einen zeitlich konstanten und homogenen Strom ist die durch eine
+Querschnittsfläche tretende Ladung
+  $$\text{d}q = A_\perp \cdot v \cdot \text{d}t \cdot n \cdot q$$
+
+<div class="nr">
+  <table>
+    <tr>
+      <td>$A_\perp$</td>
+      <td>Querschnittsfläche</td>
+    </tr>
+    <tr>
+      <td>v</td>
+      <td>mittlere Teilchengeschwindigkeit</td>
+    </tr>
+    <tr>
+      <td>n</td>
+      <td>zeitlich konstante, homogene Teilchendichte $n = \frac{N}{V}$</td>
+    </tr>
+    <tr>
+      <td>q</td>
+      <td>Teilchenladung</td>
+    </tr>
+  </table>
+</div>
+<br>
+Woraus die Stromstärke
+  $$\mathbf{I = A_\perp\cdot v\cdot n\cdot q}$$
+folgt.
+
+
 
 <hr>
 
-<h3>Stromdichte</h3>
-Die Stromdichte $\vec{j}$ ist definiert als Stromstärke $\text{d}I$ pro senkrecht
-zur Stromdichte orientierter Fläche $\text{d}A_\perp = \text{d}\vec{A} \cdot \vec{e}_I$.
-Sie zeigt in Richtung des Stroms $\vec{e}_I$.
-  $$\vec{j} = \frac{\text{d}I}{\text{d}A_\perp} \vec{e}_I$$
 
-Somit ergibt sich für die infinitesiamle Stromstärke
-  $$\text{d}I = j \cdot \text{d}A_\perp = \vec{j} \cdot \text{d}\vec{A}$$
+<h3>Stromdichte</h3>
+Die Stromdichte $\vec{j}$ ist das Verhältnis der Stromstärke $\text{d}I$ und
+der senkrecht zur Stromrichtung $\vec{e}_I$ orientierten Fläche $\text{d}A_\perp$. <br>
+$\vec{j}$ zeigt in Richtung des Stroms $\vec{e}_I$.
+  $$\vec{j} = j \cdot \vec{e}_I = \frac{\text{d}I}{\text{d}A_\perp} \cdot \vec{e}_I$$
+
+  <center><img src="stromdichte.svg" width="250"></center>
+
+Eine weitere Formulierung ist
+  $$j = \frac{I}{A_\perp} = n\cdot q\cdot v$$
+
+
+
+<hr>
+
+
+<h3>Stromstärke aus Stromdichte berechnen</h3>
+
+Aus dem Ausdruck für die Stromdichte ergibt sich
+  \begin{align*}
+    j &= \frac{\text{d}I}{\text{d}A_\perp} \\
+    \text{d}I &= j \cdot \text{d}A_\perp \\
+    \text{d}I &= j \cdot \text{d}\vec{A} \cdot \vec{e}_I \\
+    \text{d}I &= \vec{j} \cdot \text{d}\vec{A}
+  \end{align*}
 
 Bezüglich einer Fläche $A$ ist die Stromstärke $I$
-  $$I = \int_A \vec{j}\ \text{d}\vec{A}$$
-oder einer geschlossenen Oberfläche
+  $$\mathbf{I = \int_A \vec{j}\ \text{d}\vec{A}}$$
+bzw. bezüglich einer geschlossenen Oberfläche
   $$I = \oint_{\partial V} \vec{j}\ \text{d}\vec{A}$$
+
+<!-- Quelle: Thomas Lohse Kap2.pdf -->
 
 <hr>
 

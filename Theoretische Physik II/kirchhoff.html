@@ -21,11 +21,78 @@
   <hr>
 </div>
 
-<h3>Kirchhoff'sche Knotenregel</h3>
-Aus der
+<h3>Knotenregel</h3>
+Betrachte ein Volumen um einen Knoten, in den und aus dem mehrere stationäre
+Ströme fließen.
+<center><img src="knotenregel.svg" width="250"></center>
+
+Für n in das Volumen einlaufende oder aus dem Volumen auslaufende stationäre
+Ströme gilt
+\begin{align*}
+  \sum_{i=1}^n I_i &= I \\
+  \sum_{i=1}^n \int_A \vec{j}_i\ \text{d}\vec{A}_i &= \oint_{\partial V} \vec{j}\ \text{d}\vec{A} \\
+  \sum_{i=1}^n I_i &= \int_V \vec{\nabla}\vec{j}\ \text{d}V \\
+  \mathbf{\sum_{i=1}^n I_i} &= \mathbf{0} \qquad \text{mit} \qquad I_i = \begin{cases}+I_i & \text{auslaufender Strom}\\ -I_i & \text{einlaufender Strom}\end{cases}\\
+\end{align*}
+
+<div class="nr">
+Ein in das Volumen einlaufender Strom $I_i$ ist negativ, da für diesen Fall der
+Winkel zwischen Stromdichte $\vec{j}_i$ und Flächenelement $\text{d}\vec{A}_i$
+$\frac{\pi}{2} < \theta < \frac{3\pi}{2}$ sein muss.
+<center><img src="knotenregel vektor.svg" width="250"></center>
+
+Der Kosinus, der durch den Kosinussatz bei der Multiplikation von $\vec{j}_i$ und $\text{d}\vec{A}_i$
+entsteht, wird für eben diesen Winkelbereich negativ.
+  $$I_i = \int_A \vec{j}_i\ \text{d}\vec{A}_i = \int_A j_i \cdot \cos{\theta} \cdot \text{d}A_i$$
+
+Analog sind aus dem Volumen auslaufende Ströme immer positiv.
+</div>
 
 
 <hr>
 
+
+<h3>Maschenregel</h3>
+Betrachte einen geschlossenen Weg entlang einer Leiterbahn, eine sogenannte Masche,
+mit $n$ Bauteilen (Widerständen, Spannungsquellen, Kondensatoren).<br>
+Im Fall von stationären Strömen entlang dieser Masche trifft die statische
+Näherung der <a href="maxwell.html">Maxwell-Gleichungen</a> zu.<br>
+Wir nutzen die 3. Maxwell-Gleichung
+\begin{align*}
+  \vec{\nabla} \times \vec{E} &= 0 \\
+  \int_{A} \vec{\nabla} \times \vec{E}\ \text{d}\vec{A} &= 0 \\
+  \oint_{\partial A} \vec{E}\ \text{d}\vec{l} &= 0 \\
+  \mathbf{\sum_{i=1}^n U_i} &= \mathbf{0}
+\end{align*}
+
+Die Spannungsformeln für die Bauteile sind
+
+<center>
+<table border=1>
+  <tr>
+    <td>Widerstand $R$</td>
+    <td>$$U = RI$$</td>
+  </tr>
+  <tr>
+    <td>Spannungsquelle* $U$</td>
+    <td>$$U$$</td>
+  </tr>
+  <tr>
+    <td>Kondensator $C$</td>
+    <td>$$U = \frac{Q}{C}$$</td>
+  </tr>
+  <tr>
+    <td>Spule $L$</td>
+    <td>$$U = -L\dot{I}$$</td>
+  </tr>
+</table>
+</center>
+
+* Die Spannung zeigt immer vom höheren zum niedrigeren Potential. Sollte im
+Umlauf der Masche eine Spannungsquelle zuerst mit dem niedrigeren Potential
+auftauchen, so muss diese negativ gezählt werden, also $-U$.
+
+
+<hr>
 </body>
 </html>
