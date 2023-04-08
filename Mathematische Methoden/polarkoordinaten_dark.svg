@@ -26,10 +26,10 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="3.5782063"
-     inkscape:cx="91.107101"
+     inkscape:cx="72.662104"
      inkscape:cy="83.002481"
      inkscape:window-width="824"
-     inkscape:window-height="780"
+     inkscape:window-height="778"
      inkscape:window-x="0"
      inkscape:window-y="23"
      inkscape:window-maximized="0"
@@ -895,13 +895,13 @@
       </g>
     </g>
     <path
-       style="opacity:1;fill:none;stroke:#ff0000;stroke-width:0.755906;stroke-dasharray:0.755906, 0.755906;stroke-dashoffset:0"
+       style="opacity:1;fill:none;stroke:#ff0000;stroke-width:0.755906;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 369.36959,181.32204 h 37.79522"
        id="path35071"
        transform="scale(0.26458333)"
        sodipodi:nodetypes="cc" />
     <path
-       style="opacity:1;fill:none;stroke:#0000ff;stroke-width:0.755906;stroke-dasharray:0.755906, 0.755906;stroke-dashoffset:0"
+       style="opacity:1;fill:none;stroke:#0000ff;stroke-width:0.755906;stroke-dasharray:none;stroke-dashoffset:0"
        id="path35181"
        transform="scale(0.26458333)"
        sodipodi:type="arc"

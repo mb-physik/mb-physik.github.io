@@ -26,12 +26,12 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="4.8294029"
-     inkscape:cx="103.73953"
-     inkscape:cy="71.126805"
+     inkscape:cx="81.997714"
+     inkscape:cy="71.023273"
      inkscape:window-width="978"
-     inkscape:window-height="781"
-     inkscape:window-x="462"
-     inkscape:window-y="23"
+     inkscape:window-height="778"
+     inkscape:window-x="100"
+     inkscape:window-y="27"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1" />
   <defs
@@ -893,13 +893,13 @@
       </g>
     </g>
     <path
-       style="opacity:1;fill:none;stroke:#ff0000;stroke-width:0.755906;stroke-dasharray:0.755906, 0.755906;stroke-dashoffset:0"
+       style="opacity:1;fill:none;stroke:#ff0000;stroke-width:0.755906;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 369.36959,181.32204 h 37.79522"
        id="path35071"
        transform="scale(0.26458333)"
        sodipodi:nodetypes="cc" />
     <path
-       style="opacity:1;fill:none;stroke:#0000ff;stroke-width:0.755906;stroke-dasharray:0.755906, 0.755906;stroke-dashoffset:0"
+       style="opacity:1;fill:none;stroke:#0000ff;stroke-width:0.755906;stroke-dasharray:none;stroke-dashoffset:0"
        id="path35181"
        transform="scale(0.26458333)"
        sodipodi:type="arc"
