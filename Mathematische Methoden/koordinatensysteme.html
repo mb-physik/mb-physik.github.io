@@ -1,0 +1,167 @@
+<html>
+<head>
+  <title>
+    Koordinatensysteme
+  </title>
+
+	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<div class="nav">
+  <h2>Koordinatensysteme</h2>
+  <center><button id="theme-switcher">Nachtmodus</button></center>
+  <br>
+  <center><a href="../index.html">zur Startseite</a></center>
+  <hr>
+</div>
+
+<h3>Kartesische Koordinaten</h3>
+
+In kartesischen Koordinaten wird ein Punkt $P$ durch die Längen $x$, $y$ und $z$
+beschrieben.
+  <center><img src="kartesisch.svg" width="400"></center>
+
+<hr>
+
+<h3>Polarkoordinaten</h3>
+In Polarkoordinaten wird ein Punkt $P$ durch eine Länge $r$ und einen Winkel $\varphi$
+beschrieben. <br>
+Es können jedoch nur Punkte in der Ebene beschrieben werden.
+  <center><img src="polarkoordinaten.svg" width="400"></center>
+
+Der Zusammenhang zwischen Polar- und kartesische Koordinaten kommt aus folgenden
+geometrischen Überlegungen.
+  <center><img src="polarkartesisch.svg" width="400"></center><br>
+
+Ein infinitesimales Flächenstück $\text{d}A$, das unter einem infinitesimal
+kleinem Winkel $\text{d}\varphi$ und einer infinitesimal kleinen Länge $\text{d}r$
+entsteht, ist näherungsweise quadratisch.
+  <center><img src="polarflaeche.svg" width="400"></center>
+
+Somit ergibt sich
+  $$\text{d}A = r\text{d}\varphi \cdot \text{d}r$$
+
+Zusammenfassend sind die Koordinatentransformationen
+<center>
+<table border=1>
+  <tr>
+    <th>polar zu kartesisch</th>
+    <th>kartesisch zu polar</th>
+  </tr>
+  <tr>
+    <td>$$x = r \cos\varphi$$</td>
+    <td>$$r = \sqrt{x^2 + y^2}$$</td>
+  </tr>
+  <tr>
+    <td>$$y = r \sin\varphi$$</td>
+    <td>$$\varphi = \arctan \frac{y}{x}$$</td>
+  </tr>
+  <tr>
+    <td>$$\text{d}x\text{d}y = r\ \text{d}r\text{d}\varphi$$</td>
+    <td>$$r\ \text{d}r\text{d}\varphi = \text{d}x\text{d}y$$</td>
+  </tr>
+</table>
+</center>
+
+
+<hr>
+
+
+<h3>Zylinderkoordinaten</h3>
+
+In Zylinderkoordinaten wird ein Punkt $P$ durch die Längen $r$ und $z$, sowie
+den Winkel $\varphi$ beschrieben. <br>
+Im Grunde sind sie Polarkoordinaten mit einer zusätzlichen $z$-Komponente, um
+Punkte im dreidimensionalen Raum zu beschreiben.
+  <center><img src="zylinder.svg" width="400"></center>
+
+Die $r$- und $\varphi$-Komponente in kartesischen Koordinaten wird wie bei den
+Polarkoordinaten übersetzt. <br>
+Die $z$-Komponente bleibt unverändert. <br>
+<br>
+Ein infinitesimales Volumenelement $\text{d}V$ ist näherungsweise würfelförmig. <br>
+Wir benutzen hierfür das Flächenelement $\text{d}A$ aus den Polarkoordinaten und multiplizieren
+es mit einer infinitesimal kleinen Länge $\text{d}z$.
+  <center><img src="zylindervolumen.svg" width="450"></center>
+
+  $$\text{d}V = \text{d}A \cdot \text{d}z = r \text{d}r\text{d}\varphi \cdot \text{d}z$$
+
+Zusammenfassend sind die Koordinatentransformationen
+<center>
+<table border=1>
+  <tr>
+    <th>Zylinder zu kartesisch</th>
+    <th>kartesisch zu Zylinder</th>
+  </tr>
+  <tr>
+    <td>$$x = r \cos\varphi$$</td>
+    <td>$$r = \sqrt{x^2 + y^2}$$</td>
+  </tr>
+  <tr>
+    <td>$$y = r \sin\varphi$$</td>
+    <td>$$\varphi = \arctan \frac{y}{x}$$</td>
+  </tr>
+  <tr>
+    <td>$$z = z$$</td>
+    <td>$$z = z$$</td>
+  </tr>
+  <tr>
+    <td>$$\text{d}x\text{d}y\text{d}z = r\ \text{d}r\text{d}\varphi\text{d}z$$</td>
+    <td>$$r\ \text{d}r\text{d}\varphi\text{d}z = \text{d}x\text{d}y\text{d}z$$</td>
+  </tr>
+</table>
+</center>
+
+
+<hr>
+
+
+<h3>Kugelkoordinaten</h3>
+
+In Kugelkoordinaten wird ein Punkt $P$ durch die Länge $r$, sowie die Winkel $\theta$
+und $\varphi$ beschrieben.
+  <center><img src="kugel.svg" width="300"></center>
+
+Der Zusammenhang zu kartesischen Koordinaten kommt aus folgenden geometrischen
+Überlegungen.
+  <center><img src="kugelkartesisch.svg" width="700"></center>
+
+Ein infinitesimales Volumenelement $\text{d}V$ ergibt sich wie folgt.
+  <center><img src="kugelvolumen.svg" width="600"></center>
+  $$\text{d}V = r\sin\theta\text{d}\varphi \cdot r\text{d}\theta \cdot \text{d}r = r^2\sin\theta\ \text{d}\varphi\text{d}\theta\text{d}r$$
+
+Zusammenfassend sind die Koordinatentransformationen
+<center>
+<table border=1>
+  <tr>
+    <th>Kugel zu kartesisch</th>
+    <th>kartesisch zu Kugel</th>
+  </tr>
+  <tr>
+    <td>$$x = r\sin\theta\cos\phi$$</td>
+    <td>$$r = \sqrt{x^2 + y^2 + z^2}$$</td>
+  </tr>
+  <tr>
+    <td>$$y = r\sin\theta\sin\phi$$</td>
+    <td>$$\varphi = \arctan \frac{y}{x}$$</td>
+  </tr>
+  <tr>
+    <td>$$z = r\cos\theta$$</td>
+    <td>$$\theta = \arctan \Bigg( \frac{\sqrt{x^2 + y^2}}{z^2} \Bigg)$$</td>
+  </tr>
+  <tr>
+    <td>$$\text{d}x\text{d}y\text{d}z = r^2\sin\theta\ \text{d}\varphi\text{d}\theta\text{d}r$$</td>
+    <td>$$r^2\sin\theta\ \text{d}\varphi\text{d}\theta\text{d}r = \text{d}x\text{d}y\text{d}z$$</td>
+  </tr>
+</table>
+</center>
+
+<hr>
+</body>
+</html>
