@@ -1,0 +1,93 @@
+<html>
+<head>
+  <title>
+    Kastenpotential
+  </title>
+
+	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<div class="nav">
+  <h2>Teilchen im Kastenpotential</h2>
+  <center><button id="theme-switcher">Nachtmodus</button></center>
+  <br>
+  <center><a href="../index.html">zur Startseite</a></center>
+  <hr>
+</div>
+
+Ein Teilchen befinde sich in dem Potential
+  $$V =
+  \begin{cases}
+    0, & 0\leq x\leq L \\
+    \infty, & \text{sonst}
+  \end{cases}$$
+Aufgrund des unendlich hohen Potentials, kann sich das Teilchen nicht außerhalb
+des Topfes aufhalten. An den Grenzen wirkt auf das Teilchen eine unendlich große
+ Kraft, weshalb die Randbedingungen
+  $$\phi(0) = \phi(L) = 0$$
+gelten müssen. <br>
+Innerhalb des Topfes (wo $V=0$ herscht) gilt die zeitunabh. Schrödinger-Gleichung
+  \begin{align*}
+    -\frac{\hbar^2}{2m}\frac{\text{d}^2\phi}{\text{d}x^2} &= E\phi \\
+    \Leftrightarrow \frac{\text{d}^2\phi}{\text{d}x^2} &= -\underbrace{\frac{2mE}{\hbar^2}}_{=:k^2}\phi
+  \end{align*}
+
+Die Lösung dieser DGL (klassischer harmonischer Oszillator) ist
+  $$\phi(x) = A\sin(kx) + B\cos(kx)$$
+
+in die die Randbedingungen eingesetzt werden
+  \begin{align*}
+    \phi(0) &= A\sin(0) + B\cos(0) = B = 0 \\
+    \phi(L) &= A\sin(kL) + 0\cdot \cos(kL) = A\sin(kL) = 0
+  \end{align*}
+
+Aus der zweiten Gleichung folgt für $k$
+  $$k_n = \frac{n\pi}{L}$$
+mit $n=1,2,3,...$ <br>
+Die Normierung von $\phi$ ergibt dann den Faktor $A$
+  \begin{align*}
+    1 &\stackrel{!}{=} \int_0^L |\phi(x)|^2\ \text{d}x \\
+    &= |A|^2 \int_0^L \sin^2 (kx)\ \text{d}x \\
+    &= |A|^2 \frac{1}{k} \int_0^{kL} \sin^2(u)\ \text{d}u \\
+    &= |A|^2 \frac{1}{k} \int_0^{kL} 1-\cos^2(u)\ \text{d}u \\
+    &= |A|^2 \frac{1}{k} \Bigg\{ \int_0^{kL}\ \text{d}u - \int_0^{kL} \frac{1}{2}[\cos(2u) - 1]\ \text{d}u \Bigg\} \\
+    &= |A|^2 \frac{1}{k} \Bigg\{ kL - \frac{1}{2}\int_0^{2kL}\cos(v)\ \text{d}v - \frac{1}{2} \int_0^{kL}\ \text{d}u \Bigg\} \\
+    &= |A|^2 \frac{1}{k} \Bigg\{ kL - \frac{1}{4}\int_0^{2kL}\cos(v)\ \text{d}v - \frac{kL}{2} \Bigg\} \\
+    &= |A|^2 \frac{1}{k} \Bigg\{ \frac{kL}{2} - \underbrace{\frac{1}{4}\sin(v)\Big|_0^{2kL}}_{=0} \Bigg\} \\
+    &= |A|^2 \frac{L}{2} \\
+    \Leftrightarrow A &= \sqrt{\frac{2}{L}}
+  \end{align*}
+
+Für die Energie folgen außerdem noch die diskreten Werte
+  \begin{align*}
+    k^2 &= \frac{2mE}{\hbar^2} \\
+    \Leftrightarrow E &= \frac{k^2\hbar^2}{2m} \\
+    \Rightarrow E_n &= \frac{n^2\pi^2\hbar^2}{2mL}
+  \end{align*}<br>
+
+Die Lösung der zeitunabh. Schrödinger Gleich ist somit
+    $$\mathbf{\phi_n(x,t)} = \mathbf{\sqrt{\frac{2}{L}}\sin \Big(\frac{n\pi}{L}x\Big)}$$
+
+Die stationären Lösungen sind
+    $$\Psi_n(x,t) = \phi_n(x)\theta_n(t) = \sqrt{\frac{2}{L}}\sin \Big(\frac{n\pi}{L}x\Big) e^{-i\frac{n^2\pi^2\hbar}{2mL}t}$$
+
+Die allgemeine Lösung ist
+    $$\Psi(x,t) = \sum_{n=1}^\infty c_n \sqrt{\frac{2}{L}}\sin \Big(\frac{n\pi}{L}x\Big) e^{-i\frac{n^2\pi^2\hbar}{2mL}t}$$
+
+<center><embed src="kastenpotential.svg"></center>
+
+
+
+<!-- <hr align="center" width="10%"> -->
+
+
+<hr>
+
+</body>
+</html>

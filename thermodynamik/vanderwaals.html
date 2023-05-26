@@ -1,0 +1,84 @@
+<html>
+<head>
+  <title>
+    Van der Waals Gleichung
+  </title>
+
+	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<div class="nav">
+  <h2>Van der Waals Gleichung</h2>
+  <center><button id="theme-switcher">Nachtmodus</button></center>
+  <br>
+  <center><a href="../index.html">zur Startseite</a></center>
+  <hr>
+</div>
+
+Die van-der-Waals-Gleichung ist eine Modifizierung des idealen Gas Gesetzes
+  $$p\cdot V = n\cdot R\cdot T$$
+um statt idealen auch reale Gase beschreiben zu können. <br>
+Dabei werden Druck und Volumen zu sogenannten effektiven (=modifizierten) Größen. <br>
+  $$p_\text{eff}\cdot V_\text{eff} = n\cdot R\cdot T$$
+<br>
+<div class="nr">
+Die Korrektur des Volumens besteht darin, dass das Eigenvolumen der Teilchen
+berücksichtigt wird. Dafür wird das von den Teilchen belegte Volumen vom
+Gesamtvolumen abgezogen
+  $$V_\text{eff} = V - n\cdot b$$
+mit Stoffmenge $n$ und Eigenvolumen $b$. <br>
+  <hr align="left" width="10%">
+Der effektive Druck ist
+  $$p_\text{eff} = p + a\frac{n^2}{V^2}$$
+mit einer gaspezifischen Materialkonstante $a$.
+</div>
+  $$\mathbf{\Big(p + a\frac{n^2}{V^2}\Big)(V - n\cdot b)} = \mathbf{n\cdot R\cdot T}$$
+
+<hr>
+
+<h3>Maxwell-Konstruktion</h3>
+Betrachtet man einige, mit der van-der-Waals-Gleichung errechnete, isotherme
+Kurven in einem p-V-Diagramm, so fällt auf, dass die Gleichung für kleine Temperaturen
+unphysikalisch wird.
+  <center><img src="maxwellkonstruktion.png" width="400"></center>
+Das Problem besteht darin, dass die Kurve bei einer Vergrößerung
+des Volumens eine Druckabnahme beschreibt, was den realen Messungen widerspricht. <br>
+In diesem Bereich wird die Kurve durch eine Horizontale ersetzt, die so gewählt ist,
+dass die Fläche ober- und unterhalb gleichgroß ist (Maxwellkonstruktion).
+
+<hr>
+
+<h3>Kritische Punkte</h3>
+<!-- Was beschreiben kritische Punkt? -->
+<!-- Wie kommt man aus der vorherigen Überlegung darauf?
+Stichwort: zusammenlaufende Punkte der Maxwell-Konstruktion -->
+
+Die kritischen Größen sind
+  \begin{align*}
+    V_c &= 3n\cdot b \\
+    p_c &= \frac{a}{27b^2} \\
+    RT_c &= \frac{8a}{27b}
+  \end{align*}
+
+Das Verhältnis der Größen zur entsprechenden kritischen Größe ist definiert als
+die reduzierte Größe
+  \begin{align*}
+    \pi &= \frac{p}{p_c} \\
+    \tau &= \frac{T}{T_c} \\
+    \phi &= \frac{V}{V_c}
+  \end{align*}
+
+Eingesetzt in die van-der-Waals-Gleichung ergibt sich das sogenannte Gesetz der
+korrespondierenden Zustände
+  $$\Big(\pi + \frac{3}{\phi^2}\Big)(3\phi - 1) = 8\tau$$
+
+<hr>
+<!-- <hr align="center" width="10%"> -->
+</body>
+</html>

@@ -1,0 +1,83 @@
+<html>
+<head>
+  <title>
+    Elektromagnetische Welle
+  </title>
+
+	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<div class="nav">
+  <h2>Elektromagnetische Welle</h2>
+  <center><button id="theme-switcher">Nachtmodus</button></center>
+  <br>
+  <center><a href="../index.html">zur Startseite</a></center>
+  <hr>
+</div>
+
+<h3>Wellengleichung E-Feld</h3>
+In einem ladungs- und stromfreien Vakuum
+folgen aus den Maxwell-Gleichungen. <br>
+Ladungs- und stromfrei bedeutet, dass $\rho = \vec{j} = 0$ ist, weshalb sich die
+Maxwell-Gleichungen zu
+  \begin{align*}
+    \vec{\nabla}\vec{E} &= 0 \\
+    \vec{\nabla}\vec{B} &= 0 \\
+    \vec{\nabla} \times \vec{E} &= -\frac{\partial \vec{B}}{\partial t} \\
+    \vec{\nabla} \times \vec{B} &= \varepsilon_0\mu_0 \frac{\partial \vec{E}}{\partial t}
+  \end{align*}
+vereinfachen. <br>
+Wir differenzieren die 4. Gleichung nach der Zeit und setzen anschließend die 3.
+Gleichung ein
+  \begin{align*}
+    \vec{\nabla} \times (\frac{\partial}{\partial t}\vec{B}) &= \varepsilon_0\mu_0 \frac{\partial^2 \vec{E}}{\partial t^2} \\
+    - \vec{\nabla} \times (\vec{\nabla} \times \vec{E}) &= \varepsilon_0\mu_0 \frac{\partial^2 \vec{E}}{\partial t^2} \\
+    - \vec{\nabla}(\underbrace{\vec{\nabla}\vec{E}}_{=0}) + \Delta\vec{E} &= \varepsilon_0\mu_0 \frac{\partial^2 \vec{E}}{\partial t^2} \\
+    \Delta\vec{E} &= \varepsilon_0\mu_0 \frac{\partial^2 \vec{E}}{\partial t^2} \\
+    \mathbf{\Delta\vec{E}} &= \mathbf{\frac{1}{c^2} \frac{\partial^2 \vec{E}}{\partial t^2}} \\
+  \end{align*}
+
+mit der Phasengeschwindigkeit der Welle $c = \frac{1}{\sqrt{\varepsilon_0\mu_0}}$
+(Vakuumlichtgeschwindigkeit) <br>
+
+<hr align="left" width="10%">
+
+Für ein lineares Medium gelten die Maxwell-Gleichungen
+  \begin{align*}
+    \vec{\nabla}\vec{D} &= 0 \\
+    \vec{\nabla}\vec{B} &= 0 \\
+    \vec{\nabla} \times \vec{E} &= -\frac{\partial \vec{B}}{\partial t} \\
+    \vec{\nabla} \times \vec{H} &= \frac{\partial \vec{D}}{\partial t}
+  \end{align*}
+
+Analog zur vorherigen Rechnung ergibt sich die Wellengleichung
+  \begin{align*}
+    \Delta\vec{E} &= \varepsilon_r\mu_r\varepsilon_0\mu_0 \frac{\partial^2 \vec{E}}{\partial t^2} \\
+    \mathbf{\Delta\vec{E}} &= \mathbf{\frac{1}{c^2} \frac{\partial^2 \vec{E}}{\partial t^2}}
+  \end{align*}
+
+mit der Lichtgeschwindigkeit im Medium $c = \frac{1}{\sqrt{\varepsilon_r\mu_r\varepsilon_0\mu_0}}$
+
+<hr>
+
+<h3>Wellengleichung B-Feld</h3>
+In einem ladungs- und stromfreien Vakuum
+folgen ergibt sich analog zu den vorherigen Rechnungen. <br>
+  \begin{align*}
+    \vec{\nabla} \times \vec{E} &= -\frac{\partial \vec{B}}{\partial t} \\
+    \vec{\nabla} \times \frac{\partial \vec{E}}{\partial t} &= -\frac{\partial^2 \vec{B}}{\partial t^2} \\
+    \frac{1}{\varepsilon_0\mu_0} \vec{\nabla} \times (\vec{\nabla} \times \vec{B}) &= -\frac{\partial^2 \vec{B}}{\partial t^2} \\
+    \mathbf{\Delta\vec{B}} &= \mathbf{\frac{1}{c^2}\frac{\partial^2 \vec{B}}{\partial t^2}} \\
+  \end{align*}
+
+Erneut gilt diese Gleichung auch für ein lineares Medium mit $c =  \frac{1}{\sqrt{\varepsilon_r\mu_r\varepsilon_0\mu_0}}$.
+
+<hr>
+</body>
+</html>

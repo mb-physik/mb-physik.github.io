@@ -62,6 +62,8 @@ die von einer beliebigen Oberfläche eingeschlossenen Ladung $q$ multipliziert
 mit $\frac{1}{\varepsilon_0}$ gegeben ist.
   $$\Phi_e = \frac{q}{\varepsilon_0}$$
 
+
+<div class="nr">
 <li>Ladung innerhalb Volumen</li>
 Betrachte eine Punktladung $q$ in einem beliebigen Volumen, die das
 elektrische Feld
@@ -130,9 +132,9 @@ Ladungen/Ladungsverteilungen
   $$\Phi_e = \sum_{i=1}^n \Phi_{e,q_i} = \sum_{i=1}^n \frac{q_i}{\varepsilon_0} = \frac{\int_V \rho\ \text{d}V}{\varepsilon_0} = \frac{q_\text{ges}}{\varepsilon_0}$$
 und
   $$\Phi_e = \sum_{i=1}^n \Phi_{e,q_i} = \sum_{i=1}^n 0 = 0$$
-für alle Ladungen/Ladungsverteilungen außerhalb.<br>
-<br>
-<br>
+für alle Ladungen/Ladungsverteilungen außerhalb.
+</div><br>
+
 Umformung des Gauß'schen Satzes zur 1. Maxwell-Gleichung
 \begin{align*}
   \Phi_e &= \frac{q}{\varepsilon_0} \\
@@ -176,10 +178,7 @@ $U_\text{ind}$ proportional zur negativen zeitlichen Änderung des magnetischen
 Flusses $-\frac{\partial \Phi_m}{\partial t}$ durch die Leiterschleife ist.
   $$U_\text{ind} = -\frac{\partial \Phi_m}{\partial t}$$
 Faraday erkannte dieses Prinzip an folgenden Experimenten.<br>
-
-
-
-<br><br><br>
+<br>
 Umformung zur 3. Maxwell-Gleichung:
 \begin{align*}
   U_\text{ind} &= -\frac{\partial \Phi_m}{\partial t} \\
@@ -203,9 +202,55 @@ Das Ampère'sche Gesetz besagt, dass stationäre Ströme $I$ ein magnetisches
 Wirbelfeld $\vec{B}$ erzeugen.
   $$\oint_{\partial A} \vec{B}\ \text{d}\vec{l} = \mu_0 I$$
 Es folgt aus Experimenten von André-Marie Ampère.<br>
-<br><br>
+<br>
+Umgeformung zur differentiellen Schreibweise:
+  \begin{align*}
+    \oint_{\partial A} \vec{B}\ \text{d}\vec{l} &= \mu_0 I \\
+    \int_A \vec{\nabla} \times \vec{B}\ \text{d}\vec{A} &= \mu_0 \int_A \vec{j}\ \text{d}\vec{A} \\
+    \vec{\nabla} \times \vec{B} &= \mu_0 \vec{j}
+  \end{align*}
+<br>
+Die Maxwell'sche Ergänzung besagt, dass auch sich zeitlich ändernde E-Felder
+magnetische Wirbelfelder erzeugen können. <br>
+Ein Experiment, das mit dem Ampère'schen Gesetz allein nicht erklärt werden kann,
+ist ein sich aufladender Plattenkondensator.
+  <center><img src="verschiebungsstrom.svg" width="300"></center>
+Zwischen den Platten fließt kein Strom, also sollte dort kein B-Feld entstehen.
+Dies wird jedoch im Experiment beobachtet. <br>
 
-Die Maxwell'sche Ergänzung
+<div class="nr">
+Wir machen den Ansatz, dass neben der Stromdichte $\vec{j}_\text{frei}$ eine
+weitere Größe $\vec{u}$ existieren muss, die ein magnetisches Wirbelfeld
+erzeugt.
+
+  \begin{align*}
+    \vec{\nabla} \times \vec{H} &= \vec{j}_\text{frei} + \vec{u} \\
+    \vec{\nabla}(\vec{\nabla} \times \vec{H}) &= \vec{\nabla}(\vec{j}_\text{frei} + \vec{u}) \\
+    0 &= \vec{\nabla}\vec{j}_\text{frei} + \vec{\nabla}\vec{u} \\
+  \end{align*}
+
+Mit Hilfe der Kontinuitätsgleichung $\vec{\nabla}\vec{j}_\text{frei} + \frac{\partial}{\partial t} \rho_\text{frei} = 0$
+erkennen wir
+  $$\vec{\nabla}\vec{u} = \frac{\partial}{\partial t}\rho_\text{frei}$$
+
+Des Weiteren benutzen wir die 1. Maxwell-Gleichung $\vec{\nabla}\vec{D} = \rho_\text{frei}$
+  \begin{align*}
+    \vec{\nabla}\vec{u} &= \frac{\partial}{\partial t}\rho_\text{frei} \\
+    \vec{\nabla}\vec{u} &= \frac{\partial}{\partial t}(\vec{\nabla}\vec{D}) \\
+    \vec{\nabla}\vec{u} &= \vec{\nabla}\frac{\partial \vec{D}}{\partial t}
+  \end{align*}
+
+Das gefundene $\vec{u} = \frac{\partial \vec{D}}{\partial t}$ setzen wir nun in den Ansatz
+ein.
+</div><br>
+
+Die 4. Maxwell-Gleichung lautet also
+  $$\mathbf{\vec{\nabla} \times \vec{H} = \vec{j}_\text{frei} + \frac{\partial \vec{D}}{\partial t}}$$
+
+bzw.
+  $$\mathbf{\vec{\nabla} \times \vec{B} = \mu_0\vec{j} + \varepsilon_0\mu_0 \frac{\partial \vec{E}}{\partial t}}$$
+
+
 
 <hr>
 

@@ -1,0 +1,60 @@
+<html>
+<head>
+  <title>
+    Normierung
+  </title>
+
+	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<div class="nav">
+  <h2>Normierung</h2>
+  <center><button id="theme-switcher">Nachtmodus</button></center>
+  <br>
+  <center><a href="../index.html">zur Startseite</a></center>
+  <hr>
+</div>
+
+Die Normierung einer Wellenfunktion $\Psi(x)$ ist das Verfahren, bei dem ein Faktor
+bestimmt wird, der, multipliziert mit $\Psi(x)$, den Flächeninhalt unter der Wahrscheinlichkeitsdichte
+$|\Psi(x)|^2$ auf 1 bringt.
+  $$1 \stackrel{!}{=} \int_{-\infty}^{+\infty}|\Psi(x)|^2\ \text{d}x$$
+
+Sie ist notwendig, um Größen wie Erwartungswert, Aufenthaltswahrscheinlichkeit
+oder Varianz zu bestimmen. <br><br>
+
+<div class="nr">
+  Bsp.: <br>
+  geg:
+  $\Psi(x;t=0) =
+  \begin{cases}
+    A\frac{x}{a} & 0\leq x\leq a \\
+    A\frac{b-x}{b-a} & a\leq x \leq b \\
+    0 & \text{sonst}
+  \end{cases}$ <br>
+  ges: Normierung von $\Psi$ (d.h. A finden) <br>
+  Lös:
+    \begin{align*}
+      1 &\stackrel{!}{=} \int_{-\infty}^{+\infty} |\Psi(x;t=0)|^2\ \text{d}x \\
+      &= \frac{A^2}{a^2}\int_0^a x^2\ \text{d}x + \frac{A^2}{|(b-a)|^2} \int_a^b |(b-x)|^2\ \text{d}x \\
+      &= \frac{A^2}{3a^2}x^3 \Big|_0^a + \frac{A^2}{(b-a)^2}\int_a^b (b-x)^2\ \text{d}x \\
+      &= \frac{A^2 a}{3} - \frac{A^2 (b-a)}{3} \\
+      &= \frac{A^2 b}{3} \\
+      \Leftrightarrow A &= \sqrt{\frac{3}{b}}
+    \end{align*}
+</div>
+
+
+<!-- <hr align="center" width="10%"> -->
+
+
+<hr>
+
+</body>
+</html>

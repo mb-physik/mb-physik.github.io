@@ -1,0 +1,80 @@
+<html>
+<head>
+  <title>
+    Schrödinger-Gleichung
+  </title>
+
+	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<div class="nav">
+  <h2>Schrödinger-Gleichung</h2>
+  <center><button id="theme-switcher">Nachtmodus</button></center>
+  <br>
+  <center><a href="../index.html">zur Startseite</a></center>
+  <hr>
+</div>
+
+Die Schrödinger-Gleichung beschreibt die zeitliche Veränderung des quantenmechanischen
+Zustands eines Teilchens, der durch die Wellenfunktion $\Psi(\vec{x},t)$ ausgedrückt wird. <br>
+  $$\begin{align*}
+    i\hbar\frac{\partial \Psi}{\partial t} &= \hat{H}\Psi \\
+    &= \Big(\frac{\hat{p}^2}{2m} + V \Big)\Psi \\
+    &= -\frac{\hbar^2}{2m}\Delta_r\Psi + V\Psi
+  \end{align*}$$
+
+mit Potential $V$
+
+<hr>
+
+<h3>Zeitunabhängige Schrödinger-Gleichung</h3>
+Die zeitunabhängige Schrödinger-Gleichung tritt beim Lösungsverfahren der Schrödinger-Gleichung
+auf. <br> <br>
+Ansatz: Die Wellenfunktion wird in einen zeit- und einen ortsabhängigen Teil separiert
+  $$\Psi(x,t) = \phi(x)\theta(t)$$
+
+und in die Schrödinger-Gleichung eingesetzt
+  \begin{align*}
+    i\hbar \phi\frac{\partial \theta}{\partial t} &= -\frac{\hbar^2}{2m}\theta\frac{\partial^2 \phi}{\partial x^2} + V\phi\theta \\
+    \Leftrightarrow i\hbar \frac{1}{\theta}\frac{\partial \theta}{\partial t} &= -\frac{\hbar^2}{2m}\frac{1}{\phi}\frac{\partial^2 \phi}{\partial x^2} + V
+  \end{align*}
+
+Falls <u>V zeitunabhängig</u> ist, sind beide Seiten konstant und können mit der Seperationskonstante
+$E$ gleichgesetzt werden <br><br>
+<div class="nr">
+  <li>Betrachte die linke Seite</li>
+    \begin{align*}
+      i\hbar \frac{1}{\theta}\frac{\partial \theta}{\partial t} &= E \\
+      \Leftrightarrow \frac{\partial \theta}{\partial t} &= -\frac{iE}{\hbar}\theta \\
+      \Rightarrow \theta &= e^{-\frac{i}{\hbar}Et}
+    \end{align*}
+
+  <li>Betrachte die rechte Seite</li>
+    \begin{align*}
+      -\frac{\hbar^2}{2m}\frac{1}{\phi}\frac{\partial^2 \phi}{\partial x^2} + V &= E\\
+      \Leftrightarrow -\frac{\hbar^2}{2m}\frac{\partial^2 \phi}{\partial x^2} + V\phi &= E\phi
+    \end{align*}
+
+    Das ist die zeitunabh. Schrödinger-Gleichung
+      $$\mathbf{\hat{H}\phi} = \mathbf{E\phi}$$
+    die gelöst werden muss, um die Lösungen $\phi_n(x)$ zu gewinnen.
+</div><br>
+
+Eingesetzt in die Wellenfunktion ergibt sich
+  $$\Psi_n(x,t) = \phi_n(x)e^{-\frac{i}{\hbar}E_nt}$$
+
+Die allg. Lösung der zeitunabh. Schrödinger-Gleichungen ist dann die Linearkombination
+aller partiellen Lösungen
+  $$\Psi(x,t) = \sum_{n=1}^{\infty} c_n\Psi_n(x,t) = \sum_{n=1}^{\infty} c_n\phi_n e^{-\frac{i}{\hbar}E_nt}$$
+
+
+<hr>
+<!-- <hr align="center" width="10%"> -->
+</body>
+</html>

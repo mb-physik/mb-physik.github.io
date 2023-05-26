@@ -1,0 +1,113 @@
+<html>
+<head>
+  <title>
+    Erwartungswert, Wahrscheinlichkeit, Varianz und Standardabweichung
+  </title>
+
+	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<div class="nav">
+  <h2>Erwartungswert, Wahrscheinlichkeit, Varianz und Standardabweichung</h2>
+  <center><button id="theme-switcher">Nachtmodus</button></center>
+  <br>
+  <center><a href="../index.html">zur Startseite</a></center>
+  <hr>
+</div>
+
+<h3>Wahrscheinlichkeit (klassisch)</h3>
+<h4>Diskrete Variable</h4>
+Der Erwartungswert ist ein Synonym für den Mittelwert einer Größe
+  $$\langle x \rangle = \frac{\sum_{n=0}^{\infty} x\cdot N(x)}{N} = \sum_{n=0}^{\infty} x\cdot P(x)$$
+
+mit Größe $x$, Anzahl der Größe $N(x)$, Gesamtanzahl $N$ und Wahrscheinlichkeit der Größe $P(x)$<br><br>
+
+<div class="nr">
+  Bsp.: Altersverteilung <br>
+  geg: Eine 14-köpfige Personengruppe besteht aus einem 14-Jährigen, einem 15-Jährigem, drei 16-Jährigen, zwei 22-Jährigen, zwei 24-Jährigen, fünf 25-Jährigen <br><br>
+
+  Das Alter sei die Größe $j$ und die Anzahl der Personen eines Alters $N(j)$
+    $$N(14) = 1,\ N(15) = 1,\ N(16) = 3,\ N(22) = 2,\ N(24) = 2,\ N(25) = 5$$
+
+  Der Erwartungswert des Alters ist dann
+    $$\langle j \rangle = \frac{\sum_{n=0}^{\infty} j\cdot N(j)}{N} = \frac{14 + 15 + 3\cdot 16 + 2\cdot 22 + 2\cdot 24 + 5\cdot 25}{14} = 21$$
+</div>
+
+<h4>Kontinuierliche Variable</h4>
+Bei kontinuierlichen Variablen beschreibt die Wahrscheinlichkeitsdichte $\rho(x)$
+die Wahrscheinlichkeit der Größe $x$. <br>
+Die entscheidende Eigenschaft, die $\rho(x)$ erfüllen muss, ist die Normierung
+  $$1 \stackrel{!}{=} \int_{-\infty}^{+\infty} \rho(x)\ \text{d}x$$
+
+d.h. dass das Teilchen im gesamten Raum eine Aufenthaltswahrscheinlichkeit von
+100% besitzt. <br><br>
+
+Dann ist die Wahrscheinlichkeit, dass $x$ in dem Intervall $[a;b]$ liegt
+  $$P = \int_a^b \rho(x)\ \text{d}x$$
+
+und der Erwartungswert von $x$
+  $$\langle x\rangle = \int_{-\infty}^{\infty} x\cdot \rho(x)\ \text{d}x$$
+
+bzw. einer Funktion $f(x)$ im Allgemeinen
+  $$\langle f(x)\rangle = \int_{-\infty}^{\infty} f(x)\cdot \rho(x)\ \text{d}x$$
+
+<hr>
+
+<h3>Wahrscheinlichkeit (quantenmechanisch)</h3>
+In der Quantemechanik interpretiert man die Wahrscheinlichkeitsdichte als
+  $$\rho(x) = |\Psi(x)|^2$$
+
+Analog zum Klassischen ist die <b>Wahrscheinlichkeit</b>, dass sich ein Teilchen
+in einem Bereich $[a;b]$ befindet über
+  $$\mathbf{P} = \mathbf{\int_a^b |\Psi(x)|^2\ \text{d}x}$$
+
+gegeben. <br>
+Der <b>Erwartungswert</b> für quantenmechanische Größen (Operatoren) berechnet sich mittels
+  $$\mathbf{\langle Q(x,p)\rangle} = \mathbf{\int \Psi^\star \hat{Q}(x,\hat{p})\Psi\ \text{d}x}$$
+
+<div class="nr">
+  Bsp.: Mittelwert der kinetischen Energie $\langle T\rangle$ <br>
+  \begin{align*}
+    \langle T\rangle &= \int \Psi^\star\hat{T}\Psi\ \text{d}x \\
+    &= \int \Psi^\star \Big( \frac{\hat{p}^2}{2m} \Big) \Psi\ \text{d}x \\
+    &= -\frac{\hbar^2}{2m} \int \Psi^\star \frac{\partial^2\Psi}{\partial x^2}\ \text{d}x \\
+  \end{align*}
+</div>
+
+
+<hr>
+
+<h3>Varianz und Standardabweichung</h3>
+Varianz/Standardabweichung beschreiben die Verschmiertheit einer Verteilungen. <br>
+Die Grundidee besteht darin, den Abstand aller Werte zum Erwartungswert zu berechnen und zu mitteln -
+je größer dieser Wert, desto verschmierter die Verteilung und desto größer die Varianz. <br>
+  $$\text{Var}(x) \equiv \mathbf{(\Delta x)^2} = \langle (x - \langle x \rangle)^2 \rangle = \langle x^2 - 2x\langle x\rangle + \langle x^2\rangle \rangle = \mathbf{\langle x^2\rangle - \langle x\rangle ^2}$$
+
+Die Standardabweichung ist definiert als
+  $$\mathbf{\sigma} = \sqrt{\text{Var}(x)} = \Delta x = \mathbf{\sqrt{\langle x^2\rangle - \langle x\rangle ^2}}$$
+
+<div class="nr">
+  Bsp.: Varianz zweier Wahrscheinlichkeitsdichten <br>
+  Betrachte die normierten Funktionen
+    $$\rho_1(x) = (5\pi)^{-1/2}\cdot e^{-\frac{x^2}{5}},\ \rho_2(x) = (50\pi)^{-1/2}\cdot e^{-\frac{x^2}{50}}$$
+    <center><embed src="varianz.svg" width="400"></center>
+  Beide Funktionen haben zwar denselben Erwartungswert von $\langle x\rangle = 0$, unterscheiden
+  sich jedoch in den Varianzen
+    $$(\Delta x)_1^2 = 2,5;\ (\Delta x)_2^2 = 25$$
+  da sie unterschiedlich stark verschmiert sind.
+</div>
+
+
+<!-- <hr align="center" width="10%"> -->
+
+
+<hr>
+
+</body>
+</html>
