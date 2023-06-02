@@ -29,19 +29,35 @@ Ein Teilchen befinde sich in dem Potential
   \end{cases}$$
 Aufgrund des unendlich hohen Potentials, kann sich das Teilchen nicht außerhalb
 des Topfes aufhalten. An den Grenzen wirkt auf das Teilchen eine unendlich große
- Kraft, weshalb die Randbedingungen
+Kraft, weshalb die Randbedingungen
   $$\phi(0) = \phi(L) = 0$$
+
 gelten müssen. <br>
 Innerhalb des Topfes (wo $V=0$ herscht) gilt die zeitunabh. Schrödinger-Gleichung
   \begin{align*}
     -\frac{\hbar^2}{2m}\frac{\text{d}^2\phi}{\text{d}x^2} &= E\phi \\
-    \Leftrightarrow \frac{\text{d}^2\phi}{\text{d}x^2} &= -\underbrace{\frac{2mE}{\hbar^2}}_{=:k^2}\phi
+    -\frac{\hbar^2}{2m}\frac{\text{d}^2\phi}{\text{d}x^2} - E\phi &= 0\\
+    \Leftrightarrow \frac{\text{d}^2\phi}{\text{d}x^2} +\underbrace{\frac{2mE}{\hbar^2}}_{=:k^2}\phi &= 0
   \end{align*}
 
-Die Lösung dieser DGL (klassischer harmonischer Oszillator) ist
+<div class="nr">
+Lösen der DGL (klassischer harmonischer Oszillator)
+  $$\phi'' + k^2\phi = 0$$
+charakteristisches Polynom
+  $$\begin{align*}
+  \lambda^2 + k^2 &= 0\\
+  \Leftrightarrow \lambda_{1,2} &= \pm ik
+  \end{align*}$$
+Fundamentalsystem
+  $$\varphi_1 = e^{ikx},\quad \varphi_2 = e^{-ikx}$$
+allgemeine Lösung
+  $$\phi(x) = \tilde{A}e^{ikx} + \tilde{B}e^{-ikx}$$
+</div>
+
+Die Lösung der DGL ist (umgeschrieben mit der Euler-Formel)
   $$\phi(x) = A\sin(kx) + B\cos(kx)$$
 
-in die die Randbedingungen eingesetzt werden
+Einsetzen der Randbedingungen liefert
   \begin{align*}
     \phi(0) &= A\sin(0) + B\cos(0) = B = 0 \\
     \phi(L) &= A\sin(kL) + 0\cdot \cos(kL) = A\sin(kL) = 0
