@@ -46,9 +46,11 @@ mit einer gaspezifischen Materialkonstante $a$.
 Betrachtet man einige, mit der van-der-Waals-Gleichung errechnete, isotherme
 Kurven in einem p-V-Diagramm, so fällt auf, dass die Gleichung für kleine Temperaturen
 unphysikalisch wird.
-  <center><img src="maxwellkonstruktion.png" width="400"></center>
+  <center><img src="maxwellkonstruktion.svg" width="400px"></center>
 Das Problem besteht darin, dass die Kurve bei einer Vergrößerung
-des Volumens eine Druckabnahme beschreibt, was den realen Messungen widerspricht. <br>
+des Volumens eine Druckabnahme beschreibt
+  $$\Big(\frac{\partial p}{\partial V}\Big)_T > 0$$
+was den realen Messungen widerspricht. <br>
 In diesem Bereich wird die Kurve durch eine Horizontale ersetzt, die so gewählt ist,
 dass die Fläche ober- und unterhalb gleichgroß ist (Maxwellkonstruktion).
 
@@ -59,7 +61,12 @@ dass die Fläche ober- und unterhalb gleichgroß ist (Maxwellkonstruktion).
 <!-- Wie kommt man aus der vorherigen Überlegung darauf?
 Stichwort: zusammenlaufende Punkte der Maxwell-Konstruktion -->
 
-Die kritischen Größen sind
+Die mathematische Bedingung für den kritischen Punkt ist
+  $$\Big(\frac{\partial p}{\partial V}\Big)_{T_\text{c}} = \Big(\frac{\partial^2 p}{\partial V^2}\Big)_{T_\text{c}} = 0$$
+
+Formt man die van-der-Waals-Gleichung nach p um und errechnet die Ableitungen aus
+den Bedingungen, ergibt sich ein Gleichungssystem (bestehend aus p, p' und p''). <br>
+Lösen ergibt dann die kritischen Größen
   \begin{align*}
     V_c &= 3n\cdot b \\
     p_c &= \frac{a}{27b^2} \\
@@ -74,8 +81,8 @@ die reduzierte Größe
     \phi &= \frac{V}{V_c}
   \end{align*}
 
-Eingesetzt in die van-der-Waals-Gleichung ergibt sich das sogenannte Gesetz der
-korrespondierenden Zustände
+Eingesetzt in die van-der-Waals-Gleichung ergibt sich das sogenannte <b>Gesetz der
+korrespondierenden Zustände</b>
   $$\Big(\pi + \frac{3}{\phi^2}\Big)(3\phi - 1) = 8\tau$$
 
 <hr>

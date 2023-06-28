@@ -1,0 +1,49 @@
+<html>
+<head>
+  <title>
+    Erster Hauptsatz der Thermodynamik
+  </title>
+
+	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<div class="nav">
+  <h2>Erster Hauptsatz der Thermodynamik</h2>
+  <center><button id="theme-switcher">Nachtmodus</button></center>
+  <br>
+  <center><a href="../index.html">zur Startseite</a></center>
+  <hr>
+</div>
+
+Jedes System hat eine innere Energie $U$, die sich durch den Transport von Energie,
+in Form von Wärme $Q$ oder Arbeit $W$, über die Grenze des Systems ändert.
+  $$U_2 - U_1 = Q + W$$
+oder in differentieller Form
+  $$\text{d}U = \delta Q + \delta W$$
+mit der Konvention
+  \begin{cases}
+    Q>0 & \text{System nimmt Wärme auf} \\
+    W>0 & \text{am System wird Arbeit geleistet}
+  \end{cases}
+
+<div class="nr">
+    Bsp.: mechanische Arbeit <br>
+      <center><embed src="kolben.png" width="300px"></center>
+    Betrachte die Arbeit, die an dem Stempel verrichtet wird
+      $$\delta W = F\text{d}x = -p_aA\text{d}x \approx -pA\text{d}x = -p\text{d}V$$
+    wobei $p_a$ nur infinitesimal größer ist als $p$, weshalb die obige Näherung
+    gemacht werden kann.
+</div>
+
+
+<hr>
+
+</body>
+<!-- <hr align="center" width="10%"> -->
+</html>
