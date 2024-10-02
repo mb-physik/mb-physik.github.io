@@ -1,13 +1,18 @@
-<html>
+<!DOCTYPE html>
+<html lang="de">
 <head>
-  <title>
-    Analysis I Zusammenfassung
-  </title>
+    <meta charset="UTF-8">
+    <title>Analysis I Zusammenfassung</title>
     <style>
-        /* Stellt sicher, dass das PDF die gesamte Bildschirmhöhe einnimmt */
+        html, body {
+            height: 100%; /* Stellt sicher, dass html und body die volle Höhe haben */
+            margin: 0;    /* Entfernt jegliche Außenabstände */
+            padding: 0;   /* Entfernt jegliche Innenabstände */
+        }
         embed {
             width: 100%;
-            height: 100vh;
+            height: 100%;
+            border: none; /* Entfernt jegliche Ränder um das eingebettete PDF */
         }
     </style>
 </head>
