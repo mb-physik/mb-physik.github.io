@@ -1,22 +1,16 @@
 #!/usr/bin/env bash
 
-# === Pfad-Abkürzugen ===
-# Pfad zum geklonten Repository
-REPO="~/mb-physik.github.io"
+# Pfade ohne Anführungszeichen um die Tilde, oder $HOME verwenden
+REPO="$HOME/mb-physik.github.io"
+SOURCE="$HOME/Seafile/Physik"
 
-# Quellordner mit den Zusammenfassungen
-SOURCE="~/Seafile/Physik"
+# Kopieren – Leerzeichen einfach in Anführungszeichen lassen
 
-# === Dateien kopieren ===
-# Format: cp "Quelle" "Ziel im Repo"
+cp "$SOURCE/Bachelor/Theo I: Analytische Mechanik/Zusammenfassung/Theo I Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
+cp "$SOURCE/Bachelor/Theo II: Elektrodynamik/Zusammenfassung/Theo II Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
+cp "$SOURCE/Bachelor/Theo III: Quantenmechanik/Zusammenfassung/Theo III Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
+cp "$SOURCE/Bachelor/Theo IV: Fortgeschrittene Quantenmechanik/Zusammenfassung/Theo IV Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
 
-cp "$SOURCE/Theo\ III/Zusammenfassung/Theo\ III\ Zusammenfassung.pdf" "$REPO/docs/modul1/Zusammenfassung1.pdf"
-cp "$SOURCE/Zusammenfassung2.pdf" "$REPO/docs/modul2/Zusammenfassung2.pdf"
-cp "$SOURCE/Elektrotechnik.pdf"   "$REPO/assets/pdfs/Elektrotechnik.pdf"
-
-# Weitere Zeilen nach Bedarf hinzufügen ...
-
-# === Optional: Status anzeigen ===
 echo "Dateien wurden kopiert."
 echo "Jetzt im Repo committen und pushen:"
 echo "  cd \"$REPO\""
