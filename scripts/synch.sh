@@ -22,6 +22,14 @@ cp "$SOURCE/Bachelor/Theo III: Quantenmechanik/Zusammenfassung/Theo III Zusammen
 cp "$SOURCE/Bachelor/Theo IV: Fortgeschrittene Quantenmechanik/Zusammenfassung/Theo IV Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
 cp "$SOURCE/Bachelor/Theo V: Phänomenologische Thermodynamik/Zusammenfassung/Theo V Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
 
+
+cp "$SOURCE/Master/Theo VI: Statistische Physik/Zusammenfassung/Theo VI Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
+cp "$SOURCE/Master/ART/Zusammenfassung/ART Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
+cp "$SOURCE/Master/Nano/Zusammenfassung/Nano Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
+cp "$SOURCE/Master/TFK/Zusammenfassung/TFK Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
+cp "$SOURCE/Master/LAS/Zusammenfassung/Laser Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
+cp "$SOURCE/Master/QMA/Zusammenfassung/Quantenmaterialien Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
+
 echo "Dateien wurden kopiert."
 echo "Jetzt im Repo committen und pushen:"
 echo "  cd \"$REPO\""
