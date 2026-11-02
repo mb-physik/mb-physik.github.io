@@ -29,6 +29,7 @@ cp "$SOURCE/Master/Nano/Zusammenfassung/Nano Zusammenfassung.pdf" "$REPO/docs/zu
 cp "$SOURCE/Master/TFK/Zusammenfassung/TFK Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
 cp "$SOURCE/Master/LAS/Zusammenfassung/Laser Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
 cp "$SOURCE/Master/QMA/Zusammenfassung/Quantenmaterialien Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
+cp "$SOURCE/Master/NLD/Zusammenfassung/Nichtlineare Dynamik Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
 
 echo "Dateien wurden kopiert."
 echo "Jetzt im Repo committen und pushen:"
