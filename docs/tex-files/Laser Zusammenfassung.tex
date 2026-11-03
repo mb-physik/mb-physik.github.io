@@ -1,0 +1,2843 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{lscape}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\lrschweif}[1]{\left\{#1\right\}}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\allowdisplaybreaks
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Laser Physics}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section{Overview}
+A Laser (\textit{Light Amplification by Stimulated Emission of Radiation}) is an optical instrument which has the properties:
+	\begin{itemize}
+		\item \textbf{monochromaticity}
+
+
+		\item \textbf{time coherence}\\
+		Measure of the correlation of a wave with itself at a later time considering a fixed point in time.\\
+		Laser light is temporaly coherent, meaning it has a large coherence time/length.
+
+
+		\item \textbf{spatial coherence}\\
+		Measure of the correlation of a wave at point $\vec{r}_1$ and wave at point $\vec{r}_2$ considering the same point in time.\\
+		Laser light is spatialy coherent, meaning it has a large coherence plane.
+
+
+		\item \textbf{high intensity} \textcolor{gruen}{(can be reached)}
+
+
+		\item \textbf{short pulse duration} \textcolor{gruen}{(can be reached)}
+	\end{itemize}
+
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+	\includegraphics[width=0.6\textwidth]{Grafiken/laser overview.pdf}
+	}
+	\caption{Simplified depiction of a laser}
+\end{figure}
+
+
+A laser consists of a
+	\begin{itemize}
+		\item \textbf{gain medium}\\
+		Converts energy to light with a intensity dependend gain coefficient
+			\begin{equation}
+				g(I) = \frac{g_0}{1 + \frac{I}{I_\text{sat}}}
+			\end{equation}
+
+
+		\item \textbf{optical resonator}\\
+		Recycles the light and choses one specific frequency
+
+
+		\item \textbf{pump}\\
+		Acts as an energy source of the system
+	\end{itemize}
+
+
+\newpage
+
+
+The basic light amplification in a laser can be described by turning the change in intensity after one roundtrip of the light inside the resonator
+			\begin{align}
+				I(t+t_r) &= R_1R_2G(I) \cdot I,
+			\end{align}
+
+where $G(I) = 1 + g(I)$ into a differential equation
+			\begin{align}
+				\frac{\diff I}{\diff t} &= \lreck{ \frac{ \lr{ 1 + \frac{g_0}{1 + I/I_\text{sat}} } R_1 R_2 - 1 }{\tau_\text{rt}} } I(t),
+			\end{align}
+
+which has to be solved numerically.\\
+\\
+From figure \ref{overview intensity} one can see, that after a certain time, the intensity converges to a \textbf{steady state intensity}
+			\begin{equation}
+				I_\text{ss} = \frac{ (g_0 + 1)R_1 R_2 - 1 }{ 1 - R_1 R_2 } I_\text{sat}.
+			\end{equation}
+		
+The laser output is then described by
+	\begin{equation}
+		I_\text{out} = (1 - R_2) I_\text{ss}.
+	\end{equation}
+
+\begin{figure}[h]
+	\centering
+	\label{overview intensity}
+	\includegraphics[width=0.6\textwidth]{Grafiken/steady state intensity.pdf}
+	\caption{Qualitative plot of the light intensity over time}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Derivation}\\
+	Assume that the lights' intensity has increased/decreased by the factor $G(I) R_1 R_2$ after one roundtrip between the mirrors. Here, $G(I) = 1 + \frac{g_0}{1 + I/I_\text{sat}}$ describes the intensity dependent effect of the gain medium and $R_1, R_2$ the reflectivities of the mirrors.\\
+	Thus, the intensity after the time of a roundtrip $t_\text{rt}$ is
+		\begin{align*}
+			I(t + t_\text{rt}) = \lr{ 1 + \frac{g_0}{1 + I/I_\text{sat}} } R_1 R_2 I(t).
+		\end{align*}
+	
+	Assuming negligeably small round trip times, the left hand side can be taylor expanded, which yields the following differential equation
+		\begin{align*}
+			I(t + t_\text{rt}) \approx I(t) + \frac{\diff I}{\diff t} t_\text{rt} &= \lr{ 1 + \frac{g_0}{1 + I/I_\text{sat}} } R_1 R_2 I(t) \\
+			\Leftrightarrow \frac{\diff I}{\diff t} &= \lreck{ \frac{ \lr{ 1 + \frac{g_0}{1 + I/I_\text{sat}} } R_1 R_2 - 1 }{ t_\text{rt} } } I(t), \qquad \blacksquare
+		\end{align*}
+	
+	which can be solved numerically.\\
+	\\
+	The steady state intensity is convergence value of the intensity for $t\to\infty$ and can be found by inserting $\frac{\diff I}{\diff t}$ into the previously found differential equation:
+		\begin{align*}
+			0 &= \lreck{ \frac{ \lr{ 1 + \frac{g_0}{1 + I(t)/I_\text{sat}} } R_1 R_2 - 1 }{ t_\text{rt} } } I(t) \\
+			\stackrel{\comment{\cdot t_\text{rt} (1 + I/I_\text{sat})}}{\Leftrightarrow} 0 &= ((1 + I/I_\text{sat}) + g_0) R_1 R_2 I - I (1 + I/I_\text{sat}) = \\
+			&= R_1 R_2 I + \frac{R_1 R_2}{I_\text{sat}} I + g_0 R_1 R_2 I - I - I^2 \frac{1}{I_\text{sat}} = \\
+			&= I^2 \lr{ \frac{R_1R_2}{I_\text{sat}} - \frac{1}{I_\text{sat}} } + I \lr{ R_1 R_2 + g_0 R_1 R_2 - 1 } = \\
+			&= I^2 + I \cdot \frac{(g_0 + 1)R_1 R_2 - 1}{R_1 R_2 - 1} I_\text{sat} \\
+			\Rightarrow I_\pm &= - \frac{ \frac{(g_0 + 1)R_1 R_2 - 1}{R_1 R_2 - 1} I_\text{sat} }{2} \pm \sqrt{ \lr{ \frac{ \frac{(g_0 + 1)R_1 R_2 - 1}{R_1 R_2 - 1} I_\text{sat} }{2} }^2 } \\
+			\Rightarrow I_\text{ss} &\equiv I_- = - \frac{(g_0 + 1)R_1 R_2 - 1}{R_1 R_2 - 1} I_\text{sat} = \frac{(g_0 + 1)R_1 R_2 - 1}{1 - R_1 R_2} I_\text{sat} \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Light-Matter Interaction}
+\subsection{Classical Description}
+The classical description describes
+	\begin{enumerate}
+		\item light as an electromagnetic wave
+		\item matter as polarisable particles\\
+		Precisely: The \textbf{driven harmonic oscillator} to model an electron bound to its nucleus
+	\end{enumerate}
+
+
+\begin{table}[h]
+	\centering
+	\caption{Overview results classical description}
+	\begin{tabularx}{\textwidth}{X|X}
+		\hline\hline
+			Successes & Failures \\
+		\hline
+			- describes the amplification of the E-field in a doped medium & - doesn't describe a saturation intensity \\
+		\hline
+			& - needs phenomenological damping parameter \\
+		\hline\hline	
+	\end{tabularx}
+\end{table}
+
+
+Auxiliary assumptions are, that the medium is
+	\begin{itemize}
+		\item \textbf{linear}
+		
+		
+		\item \textbf{isotropic}
+		
+		
+		\item \textbf{non-magnetic}
+		
+		
+		\item \textbf{no free charges/currents}
+	\end{itemize}
+
+as well that the E-field is
+	\begin{itemize}
+		\item \textbf{slowly varying}
+		
+		
+		\item \textbf{paraxial}\\
+		The field is close and almost parallel to the optical axis
+		
+		
+		\item \textbf{monochromatic}
+	\end{itemize}
+
+The wave equation for the E-field under these assumptions is called the \textbf{inhomogeneous, paraxial wave equation}
+	\begin{align*}
+		\Delta_t \vec{E}_0(\vec{r},t) + 2 i n k_0 \lr{ \partial_z + \frac{\alpha}{2} + \frac{\kappa}{2} + \frac{1}{c_g}\partial_t } \vec{E}_0(\vec{r},t) &= \exp\lrschweif{ i(\omega t - n k_0 t) } \mu_0 \partial_t^2 \vec{P}_A
+	\end{align*}
+
+with the \textbf{absorption coefficient} $\alpha := k \cdot \Im\chi_M$, \textbf{gain coefficient} $g := k \cdot \Im\chi_A$, and a loss factor for additional losses $\kappa$ \textcolor{gruen}{(added phenomenologically)}.\\
+\\
+The solution for a \textbf{monochromatic wave} takes the form
+	\begin{equation}
+		\vec{E}(z,t) \propto \exp \lrschweif{ - \frac{1}{2}\lr{ \alpha + \kappa - g } \cdot z }.
+	\end{equation}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Derivation}\\
+	Strategy:\\
+	1) Use the driven harmonic oscillator to model the motion of an electron around its nucleus.\\
+	2) Formulate the polarisation of the medium.\\
+	3) Then, derive the wave equation for the electric field in the medium.\\
+	4) Use a lot of approximation as well as phenomenological terms to arrive at the defining equation of the E-field.\\
+	\\
+	The equation of motion for an electron which moves in the atom's harmonic potential, experiences friction as well as the force due to an external electric field is
+		\begin{align*}
+			\frac{\diff^2\vec{x}}{\diff t^2} + \frac{1}{\tau} \frac{\diff \vec{x}}{\diff t} + \omega_R^2 \vec{x} &= \frac{e}{m} \vec{E}_0 e^{-i\omega t}.
+		\end{align*}
+	
+	The solution to this differential equation is known from classical mechanics
+		\begin{align*}
+			\vec{x}(t) &= \frac{e/m}{ (\omega_R^2 - \omega^2) - i\frac{\omega}{\tau} } \vec{E}_0 e^{-i\omega t}.
+		\end{align*}
+
+	Thus, the induced dipole moment of the atom is
+		\begin{align*}
+			\vec{p} &= e\vec{x} = \frac{e^2/m}{ (\omega_R^2 - \omega^2) - i\frac{\omega}{\tau} } \vec{E}_0 e^{-i\omega t}.
+		\end{align*}
+
+	Since the medium consists of multiple atoms, the macroscopic polarisation can be formulated using the atomic density $n_0$
+		\begin{align*}
+			\vec{P} &= n_0 \cdot \vec{p} = n_0 \cdot e\vec{x} = \frac{e^2/m}{ (\omega_R^2 - \omega^2) - i\frac{\omega}{\tau} } \vec{E}_0 e^{-i\omega t} \equiv \\
+			&\equiv \varepsilon_0 \chi \vec{E},
+		\end{align*}
+
+	where in the last step, the assumption of a linear medium was used and the susceptibility defined as
+		\begin{align*}
+			\chi &:= \frac{n_0 e^2}{\varepsilon_0 m} \frac{1}{ (\omega_R^2 - \omega^2) - i\frac{\omega}{\tau} } = \\
+			&\stackrel{\comment{1}}{=} \frac{n_0 e^2}{\varepsilon_0 m} \frac{1}{ (\omega_R^2 - \omega^2) - i\frac{\omega}{\tau} } \cdot \frac{ (\omega_R^2 - \omega^2) + i\frac{\omega}{\tau} }{ (\omega_R^2 - \omega^2) + i\frac{\omega}{\tau} } = \\
+			&= \frac{n_0 e^2}{\varepsilon_0 m} \frac{ (\omega_R^2 - \omega^2) + i\frac{\omega}{\tau} }{ (\omega_R^2 - \omega^2)^2 + (\frac{\omega}{\tau})^2 } = \\
+			&= \frac{n_0 e^2}{\varepsilon_0 m} \frac{ (\omega_R^2 - \omega^2)}{ (\omega_R^2 - \omega^2)^2 + (\frac{\omega}{\tau})^2 } + i\frac{n_0 e^2}{\varepsilon_0 m} \frac{\frac{\omega}{\tau} }{ (\omega_R^2 - \omega^2)^2 + (\frac{\omega}{\tau})^2 } \equiv \\
+			&\equiv \chi_R + i \chi_I
+		\end{align*}
+
+
+\newpage
+
+
+	Now, derive the wave equation for the linear, isotropic, free-charge and free-current-free medium.\\
+	The Maxwell equations under these assumptions simplify to
+		\begin{align*}
+			\vec{\nabla} \vec{D} &= 0 \\
+			\vec{\nabla} \times \vec{E} &= -\partial_t \vec{B} \\
+			\vec{\nabla} \vec{B} &= 0 \\
+			\vec{\nabla} \times \vec{H} &= \partial_t \vec{D}
+		\end{align*}
+
+	First express $\vec{D}, \vec{H}$ through $\vec{E}, \vec{B}$.\\
+	From electrodynamics, we know that $\vec{D} := \varepsilon_0\vec{E} + \vec{P}$ \textcolor{gruen}{(in general)} and $\vec{H} := \frac{1}{\mu_0}\vec{B}$ \textcolor{gruen}{(for linear, non-magnetic medii)}, which yields
+		\begin{align*}
+			\varepsilon_0\vec{\nabla} \vec{E} + \vec{\nabla}\vec{P} &= 0 \\
+			\vec{\nabla} \times \vec{E} &= -\partial_t \vec{B} \\
+			\vec{\nabla} \vec{B} &= 0 \\
+			\frac{1}{\mu_0}\vec{\nabla} \times \vec{B} &= \partial_t (\varepsilon_0 \vec{E} + \vec{P}).
+		\end{align*}
+	
+	Use the nabla theorem $\vec{\nabla} \times (\vec{\nabla} \times \vec{A}) = \vec{\nabla} (\vec{\nabla} \cdot \vec{A}) - \Delta \vec{A}$ on the second equation to decouple $\vec{E}$ and $\vec{B}$:
+		\begin{align*}
+			\vec{\nabla} \times (\vec{\nabla} \times \vec{E}) &= \vec{\nabla} (\vec{\nabla} \cdot \vec{E}) - \Delta \vec{E} \stackrel{!}{=} -\partial_t (\vec{\nabla} \times \vec{B}) = \\
+			&= -\partial_t(\mu_0\partial_t(\varepsilon_0\vec{E} + \vec{P})) = \\
+			&= -\mu_0\varepsilon_0 \partial_t^2 \vec{E} - \mu_0 \partial_t^2 \vec{P} \\
+			\Leftrightarrow \Delta \vec{E} - \vec{\nabla} (\vec{\nabla} \vec{E}) - \mu_0\varepsilon_0 \partial_t^2 \vec{E} &= \mu_0 \partial_t^2 \vec{P}
+		\end{align*}
+	
+	To simplify this equation, use the approximation, that the electric field \textbf{slowly varies in space and time}. Precisely, that the envelope varies  This is equivalent to $\partial_z |\vec{E}_0| \ll k_z |\vec{E}_0|$ and $\partial_t |\vec{E}_0| \ll \omega |\vec{E}_0|$ \textcolor{gruen}{(the relative change of the envelope is smaller than the relative change of the exponential)}, which lets us neglect the $\vec{\nabla}\vec{E}$ term:
+		\begin{align*}
+			\Delta \vec{E} - \mu_0\varepsilon_0 \partial_t^2 \vec{E} &= \mu_0 \partial_t^2 \vec{P}
+		\end{align*}
+
+	Separate the polarisation into the polarisation of the medium $\vec{P}_M$ and the polarisation of the doped atoms $\vec{P}_A$:
+		\begin{align*}
+			\Delta \vec{E} - \mu_0\varepsilon_0 \partial_t^2 \vec{E} &= \mu_0 \partial_t^2 (\vec{P}_A + \vec{P}_M) \\
+			\Leftrightarrow \Delta \vec{E} - \mu_0\varepsilon_0 \partial_t^2 \vec{E} &= \mu_0 \partial_t^2 (\vec{P}_A + \chi_M\varepsilon_0\vec{E}) \\
+			\Leftrightarrow \Delta \vec{E} -  \mu_0\varepsilon_0 \lr{ 1 + \chi_M }\partial_t^2 \vec{E} &= \mu_0 \partial_t^2 \vec{P}_A \\
+		\end{align*}
+
+	The factor $1 + \chi_M = \varepsilon_M$ is equal to the refractive index squared $n^2$.\\
+	Use the approximation that $|\chi_{M,I}| \ll \chi_{M,R}$. The Taylor expansion of $n$ thus yields:
+		\begin{align*}
+			n &= \sqrt{ 1 + \chi_M } = \sqrt{ 1 + \chi_{M,R} + i\chi_{M,I}} \approx \sqrt{ 1 + \chi_{M,R} } - \frac{i \chi_{M,I}}{2\sqrt{ 1 + \chi_{M,R}}} \equiv n_R + i\frac{\chi_{M,I}}{2n_R} \\
+			\Rightarrow n^2 &= n_R^2 + i\chi_{M,I} + \mathcal{O}(\chi_{M,I}^2)
+		\end{align*}
+	
+
+\newpage
+
+
+	Inserting $n^2$ into the wave equation yields:
+		\begin{align*}
+			\Delta \vec{E} -  \mu_0\varepsilon_0 \lr{ n_R^2 + i\chi_{M,I} }\partial_t^2 \vec{E} &= \mu_0 \partial_t^2 \vec{P}_A
+		\end{align*}
+	
+	Further approximations as well as the use of the ansatz of a monochromatic wave results in the inhomogeneous paraxial wave equation. $\qquad \blacksquare$
+\hrule
+}
+
+
+
+\newpage
+
+
+\subsection{Semi-classical Description}
+The semi-classical description describes
+	\begin{enumerate}
+		\item light as a classical electromagnetic wave
+
+		\item matter as a system of two-state atoms
+	\end{enumerate}
+
+
+\begin{table}[h]
+	\centering
+	\caption{Overview results semi-classical description}
+	\begin{tabularx}{\textwidth}{X|X}
+		\hline\hline
+			Successes & Failures \\
+		\hline
+			- describes the amplification of the E-field & - needs phenomenological damping parameters \\
+		\hline
+			- describes the effect of a saturation intensity &  \\
+		\hline\hline	
+	\end{tabularx}
+\end{table}
+
+
+\subsubsection{Maxwell-Bloch Equations}
+The equations of motions of the system, describing the
+	\begin{itemize}
+		\item \textbf{polarization of atomic states}
+			\begin{equation}
+				\frac{\partial}{\partial t}\vec{P}_0 = \lr{ i(\omega_0 - \omega) - \frac{1}{\tau_P} } \vec{P}_0 + \frac{i\cdot|\vec{d}_{12}|^2}{\hbar} \Delta n \cdot \vec{E}_0,
+			\end{equation}
+
+		where $\vec{P}_0 := \varepsilon_0\chi_A \vec{E}_0$.
+
+
+		\item \textbf{population of the atomic states}
+			\begin{equation}
+				\frac{\partial}{\partial t} \Delta n = \frac{1}{\hbar} \Im\lrschweif{ \vec{E}_0^* \vec{P}_0 } - \frac{\Delta n - n_0}{\tau}
+			\end{equation}
+
+
+		\item \textbf{electric field}
+			\begin{equation}
+				\lr{ \frac{\partial}{\partial z} + \frac{1}{c_g}\frac{\partial}{\partial t} }\vec{E}_0 = \frac{i}{2}\mu_0 \omega c_p \vec{P}_0
+			\end{equation}
+	\end{itemize}
+
+are called \textbf{Maxwell-Bloch equations} and include the \textbf{population inversion} $\Delta n := n_2 - n_1$ \textcolor{gruen}{(and the population densities $n_i = |c_i|^2$)}, \textbf{transition frequency} (between the two states) $\omega_0$, \textbf{damping time} $\tau_P$ \textcolor{gruen}{(phenomenological)}, group velocity $c_g$, phase velocity $c_p$.
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Derivation}\\
+	Strategy:\\
+	1) Determine the occupation coefficients $c_1$ and $c_2$ for the two-state atom\\
+	2) Using $c_1$ and $c_2$, calculate the polarisation \\
+	3) Calculate the dynamic of the polarisation and the population inversion \\
+	4) Add phenomenological damping parameters \\
+	\\
+	zz: Equation of motion for the population of the atomic states \\
+	\\
+	Consider the Hamiltonian of the semi-classical system under \textbf{slowly varying E-field approximation}
+		\begin{align*}
+			\hat{H} &= \hat{H}_0 + \hat{H}_\text{int} = \\
+			&= \hat{H}_0 + \hat{\vec{d}}\vec{E}(\vec{x}, t) \approx \\
+			&\approx \hat{H}_0 + \hat{\vec{d}}\vec{E}(t).
+		\end{align*}
+	
+	with the dipole moment operator $\hat{\vec{d}} = -e\vec{x}$.\\
+	\\
+	As an ansatz for the wave function, consider
+		\begin{align*}
+			\ket{\psi(t)} &= C_1(t) \ket{\phi_1} + C_2(t) \ket{\phi_2} = \\
+			&\equiv c_1(t) e^{-i\omega_1 t} \ket{\phi_1} + c_2(t) e^{-i\omega_2 t} \ket{\phi_2}.
+		\end{align*}
+	
+	To determine the time evolution, plug both into the time dependent Schrödinger equation:
+		\begin{align*}
+			i\hbar \partial_t \ket{\psi(t)} &= \hat{H} \ket{\psi(t)} \\
+			\Leftrightarrow i\hbar \partial_t \lr{ c_1(t) e^{-i\omega_1 t} \ket{\phi_1} + c_2(t) e^{-i\omega_2 t} \ket{\phi_2} } &= \lr{ \hat{H}_0 + \hat{H}_\text{int} } [ c_1(t) e^{-i\omega_1 t} \ket{\phi_1} + \\
+			&\phantom{=}+ c_2(t) e^{-i\omega_2 t} \ket{\phi_2} ] \\
+			\Leftrightarrow i\hbar \lr{ \dot{c_1} e^{-i\omega_1 t} - i\omega_1 c_1 e^{-i\omega_1 t} } \ket{\phi_1} + i\hbar \lr{ \dot{c_2} e^{-i\omega_2 t} - i\omega_2 c_2 e^{-i\omega_2 t} } \ket{\phi_2} &= \lr{ c_1 e^{-i\omega_1 t} E_1 + \hat{H}_\text{int} c_1 e^{-i\omega_1 t} } \ket{\phi_1} + \\
+			&\phantom{=} + \lr{ c_2 e^{-i\omega_2 t} E_2 + \hat{H}_\text{int} c_2 e^{-i\omega_2 t} } \ket{\phi_2},
+		\end{align*}
+
+	where in the last step, the eigenvalue equations $\hat{H}_0 \ket{\phi_i} = E_i \ket{\phi_i}$ with $i\in\{1,2\}$ were used.\\
+	\\
+	Multiply the last equation with $\bra{\phi_1}$ and $\bra{\phi_2}$ respectively.\\
+	Begin with $\bra{\phi_1}$:
+		\begin{align*}
+			i\hbar \lr{ \dot{c_1} e^{-i\omega_1 t} - i\omega_1 c_1 e^{-i\omega_1 t} } + 0 &= \lr{ c_1 e^{-i\omega_1 t} E_1 + c_1 e^{-i\omega_1 t} \underbrace{ \braket{ \phi_1 | \hat{H}_\text{int} | \phi_1 }}_{=0} } + \lr{ 0 + c_2 e^{-i\omega_2 t} \braket{ \phi_1 | \hat{H}_\text{int} | \phi_2 } } \\
+			\Leftrightarrow i\hbar \dot{c}_1 e^{-i\omega_1 t} + \cancel{ \underbrace{ \hbar\omega_1 }_{\comment{= E_1}} c_1 e^{-i\omega_1 t} } &= \cancel{ c_1 e^{-i\omega_1 t} E_1 } + c_2 e^{-i\omega_2 t} \braket{ \phi_1 | \hat{H}_\text{int} | \phi_2 } \\
+			\stackrel{\comment{\cdot e^{+i\omega_1 t}}}{\Leftrightarrow} i\hbar \dot{c_1} &= c_2 e^{-i(\omega_2 - \omega_1) t} \braket{ \phi_1 | \hat{H}_\text{int} | \phi_2 }
+		\end{align*}
+
+	Define the \textbf{dipole matrix element} $\vec{d}_{ij} := \braket{ \phi_i | (-e\vec{x}) | \phi_j }$ as well as the \textbf{transition frequency} $\omega_0 := \omega_2 - \omega_1$, which simplifies the equation above to
+		\begin{align*}
+			i\hbar \dot{c}_1 &= c_2 e^{-i\omega_0 t} \vec{d}_{12}\vec{E}(t).
+		\end{align*}
+	
+	Multiplication with $\bra{\phi_2}$ yields analogously
+		\begin{align*}
+			i\hbar\dot{c}_2 &= c_1 e^{+i\omega_0 t} \vec{d}_{12}^\star \vec{E}(t).
+		\end{align*}
+
+
+	An expression, that will turn up later, is the time derivative of the product of $c_1$ and $c_2$:
+		\begin{align*}
+			\partial_t (c_1^\star c_2) &= \dot{c}_1^\star c_2 + c_1^\star \dot{c}_2 = c_2 \lr{ -\frac{1}{i\hbar} c_2 e^{+i\omega_0 t} \vec{d}_{12} \vec{E}(t) } + c_1^\star \lr{ \frac{1}{i\hbar} e^{i\omega_0 t} \vec{d}_{12} \vec{E}(t) } = \\
+			&= \frac{1}{i\hbar} \vec{d}_{12}^\star \vec{E} \lr{ |c_1|^2 - |c_2|^2 } e^{i\omega_0 t}
+		\end{align*}
+	
+	Now, introduce the \textbf{macroscopic polarisation}
+		\begin{align*}
+			\vec{P}(t) := n_0 \cdot \braket{ \psi(t) | \vec{d} | \psi(t) }
+		\end{align*}
+	
+	which becomes in this two-state atom system
+		\begin{align*}
+			\vec{P} &= n_0 \lr{ c_1^\star e^{+i\omega_1 t} \bra{\phi_1} + c_2^\star e^{+i\omega_2 t} \bra{\phi_2} } \vec{d} \lr{ c_1 e^{-i\omega_1 t} \ket{\phi_1} + c_1^\star e^{-i\omega_2 t} \ket{\phi_2} } = \\
+			&= n_0 \lr{ 0 + c_1^\star c_2 e^{-i(\omega_2 - \omega_1)t} \braket{ \phi_1 | \vec{d} | \phi_2 } + c_1 c_2^\star e^{-i(\omega_1 - \omega_2)t} \braket{ \phi_2 | \vec{d} | \phi_1} + 0 } \equiv \\
+			&\equiv \vec{P}^+ + \vec{P}^-,
+		\end{align*}
+	
+	with the definitions
+		\begin{align*}
+			\vec{P}^+ &= n_0 c_1^\star c_2 e^{-i\omega_0 t} \vec{d}_{12} \\
+			\vec{P}^- &= n_0 c_1 c_2^\star e^{+i\omega_0 t} \vec{d}_{12}^\star.
+		\end{align*}
+	
+	Now, after these auxiliary calculations, we can consider the equation of motion for the \textbf{population inversion} $\Delta n := n_2 - n_1$.\\
+	Calculate $\partial_t n_2$ and $\partial_t n_1$ seperately:
+		\begin{align*}
+			\bullet \ \partial_t n_2 &= \partial_t (n_0 |c_2|^2) = n_0 \dot{c}_2^\star c_2 + n_0 c_2^\star \dot{c}_2 = \\
+			&= n_0 c_2 \lr{ -\frac{1}{i\hbar} \vec{d}_{12} \vec{E} e^{+i\omega_0 t} } + n_0 c_2^\star \lr{ \frac{1}{i\hbar} \vec{d}_{12}^\star \vec{E} c_1 e^{-i\omega_0 t} } c_2^\star \equiv \\
+			&\equiv -\frac{1}{i\hbar} \vec{P}^+ \vec{E} + \frac{1}{i\hbar} \vec{E}\vec{P}^- \approx \\
+			&\stackrel{\commenttext{RWA}}{\approx} -\frac{1}{i\hbar} \vec{P}^+ \vec{E}^- + \frac{1}{i\hbar} \vec{E}^+\vec{P}^- = -\frac{1}{i\hbar} \lr{ \vec{E}^- \vec{P}^+ - \vec{E}^+ \vec{P}^- } = \\
+			&\stackrel{\textcolor{red}{Wieso +?}}{=} \frac{2}{\hbar} \Im \lrschweif{ \vec{E}^-\vec{P}^+ } \equiv \\
+			&\equiv \frac{2}{\hbar} \Im \lrschweif{ \lr{ E_0^\star e^{+i\omega t} } \lr{ \frac{1}{2} \vec{P}_0 e^{-i\omega t} } } = \frac{1}{2} \frac{1}{\hbar} \Im \lrschweif{ \vec{E}_0^\star \vec{P}_0 } \\
+			\bullet \ \partial_t n_1 &= ... = - \frac{1}{2} \frac{1}{\hbar} \Im \lrschweif{ \vec{E}_0^\star \vec{P}_0 } \\
+			\Rightarrow \partial_t \Delta n &= \partial_t n_2 - \partial_t n_1 = \frac{1}{\hbar}  \Im \lrschweif{ \vec{E}_0^\star \vec{P}_0 } \lr{ \frac{1}{2} - \lr{-\frac{1}{2}} } = \frac{1}{\hbar} \Im \lrschweif{ \vec{E}_0^\star \vec{P}_0 }
+		\end{align*}
+
+	Finally, add the phenomenological term $-\frac{\Delta n - n_0}{\tau}$ to arrive at the desired equation
+		\begin{align*}
+			\partial_t \Delta n &= \frac{1}{\hbar} \Im \lrschweif{ \vec{E}_0^\star \vec{P}_0 } - \frac{\Delta n - n_0}{\tau}. \qquad \blacksquare
+		\end{align*}
+
+	
+	\fbox{Derivation}\\
+	zz: Equation of motion for the polarization fo the atomic states\\
+	\\
+	Calculate the partial derivative of $\vec{P}^\pm$ respective the time $t$:
+		\begin{align*}
+			\bullet \ \partial_t \vec{P}^+ &= \partial_t \lr{ n_0 c_1^\star c_2 e^{-i\omega_0 t} \vec{d}_{12} } = n_0 \partial_t\lr{ c_1^\star c_2 } e^{-i\omega_0 t} \vec{d}_{12} + (-i\omega_0) n_0 c_1^\star c_2 e^{-i\omega_0 t} \vec{d}_{12}
+		\intertext{Insert $\partial_t(c_1^\star c_2)$, as calculated in the derivation of the equation of motion for the atomic population, and recognize $\vec{P}^+$ in the second term:}
+			&= n_0 \lreck{ \frac{\vec{d}_{12}^\star \vec{E}}{i\hbar} \lr{ |c_1|^2 - |c_2|^2 } e^{+i\omega_0 t} } e^{-i\omega_0 t} \vec{d}_{12} -i\omega_0 \vec{P}^+ =
+		\intertext{Use, that $\vec{d}_{12}$ and $\vec{E}$ point in the same direction \textcolor{red}{(Warum?)}, which yields $(\vec{d}_{12}^\star \vec{E}) \vec{d}_{12} = |\vec{d}_{12}|^2 \vec{E}$ as well as $n_i = n_0 |c_i|^2$:}
+			&= \frac{|\vec{d}_{12}|^2 \vec{E}}{i\hbar} ( n_1 - n_2) - i\omega_0 \vec{P}^+ =
+		\intertext{Finally, insert the \textbf{phenomenlogical damping term} $-\vec{P}^+ / \tau_P$ and recognise the population inversion $\Delta n$}
+			&= \lr{ -i\omega_0 - \frac{1}{\tau_P} } \vec{P}^+ + i\frac{|\vec{d}_{12}|^2 \vec{E}}{\hbar} \Delta n.
+		\end{align*}
+	
+	Completely analogous, it follows that
+		\begin{align*}
+			\bullet \ \partial_t \vec{P}^- &= \lr{ + i\omega_0 - \frac{1}{\tau_P} } \vec{P}^- + i\frac{|\vec{d}_{12}|^2\vec{E}}{\hbar} \Delta n.
+		\end{align*}
+	
+	By inserting $\vec{P}^\pm = \vec{P}_0 e^{\mp\omega t}$ \textcolor{red}{(Woher kommt das?)} into both equations, one finds one equation of motion for $\vec{P}_0$:
+		\begin{align*}
+			\partial_t \vec{P}_0 &= \lr{ i(\omega - \omega_0) } \vec{P}_0 + i\frac{|\vec{d}_{12}|^2 \vec{E}}{\hbar} \Delta n \qquad \blacksquare
+		\end{align*}
+
+	\fbox{Derivation}\\
+	zz: Equation of motion for the electric field\\
+	See classical description of light-matter interaction for the case of no losses $\alpha = \kappa = 0$. $\qquad \blacksquare$\\
+	\textcolor{red}{Wieso  $\alpha = \kappa = 0$?}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection*{Coherent Regime}
+In the coherent regime, the damping terms $\frac{1}{\tau_P}$ and $-\frac{\Delta n - n_0}{\tau}$ in the Maxwell-Bloch equations are neglected.\\
+The Maxwell-Bloch equations can be written as
+	\begin{equation}
+		\frac{\diff}{\diff t}\vec{\mu} = \vec{\mu} \times \vec{R} = 
+		\begin{pmatrix}
+			\frac{\Re P_0}{n_0 \cdot |d_{12}|} \\
+			\frac{\Im P_0}{n_0 \cdot |d_{12}|} \\
+			\frac{\Delta n}{n_0}
+		\end{pmatrix}
+		\times
+		\begin{pmatrix}
+			\Re \Omega_R \\
+			\Im \Omega_R \\
+			-\Delta
+		\end{pmatrix}
+	\end{equation}
+
+with the \textbf{Rabi-frequency} $\Omega_R := \frac{|d_{12}|}{\hbar}E_0$ and the \textbf{detuning} $\Delta := \omega - \omega_0$.
+
+
+\subsubsection*{Incoherent Regime}
+In the incoherent regime, the time derivates $\partial_t \vec{P}_0$ is neglected:
+	\begin{equation}
+		0 = \lr{ i(\omega_0 - \omega) - \frac{1}{\tau_P} } \vec{P}_0 + \frac{i\cdot|\vec{d}_{12}|^2}{\hbar} \Delta n \cdot \vec{E}_0
+	\end{equation}
+
+Thus, the polarization $\vec{P}$ instantaneously follows the electric field $\vec{E}$.
+
+
+\subsubsection{Absorption, Amplification and Saturation Intensity}
+The comparison between the semi-classically and classically derived susceptibility yields the semi-classical gain coefficient, which depends on the population inversion $\Delta n$:
+	\begin{equation}
+		g(\Delta n,\omega) = \Delta n \cdot \sigma(\omega)
+		\Bigg\{
+			\begin{matrix}
+				<0, & \Delta n<0, & \text{absorption} \\
+				>0, & \Delta n>0, & \text{amplification} 
+			\end{matrix}
+	\end{equation}
+
+with the cross section $\sigma(\omega)$.\\
+\\
+A consequence of the 3rd MBE is the intensity dependend and restricted population inversion and thus gain factor
+	\begin{equation}
+		\Delta n = \frac{n_0}{ 1 + \frac{2\sigma(\omega)\tau}{\hbar\omega} I } \equiv \frac{n_0}{ 1 + \frac{I}{I_\text{sat}} }.
+	\end{equation}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Absorption coefficient $\alpha$\\
+	\\
+	The first Maxwell-Bloch equation in the incoherent regime reads
+		\begin{align*}
+			0 &= \lr{ i(\omega_0 - \omega) - \frac{1}{\tau_P} } \vec{P}_0 + \frac{i\cdot|\vec{d}_{12}|^2}{\hbar} \Delta n \cdot \vec{E}_0 \\
+			\Leftrightarrow \vec{P}_0 &= -\frac{i \cdot |\vec{d}_{12}|^2}{\hbar} \Delta n \cdot \frac{1}{ \lr{ i(\omega_0 - \omega) - \frac{1}{\tau_P} } }\cdot \vec{E}_0.
+		\end{align*}
+
+	Since a linear medium is assumed in the semi-classical description of light-matter interaction, the relationship between polarisation and electric field is
+		\begin{align*}
+			\vec{P}_0 &= \varepsilon_0 \chi_A \cdot \vec{E}_0.
+		\end{align*}
+	
+	Comparing both equations yields the semi-classical susceptibility
+		\begin{align*}
+			\chi_A &= \Delta n \cdot \frac{ |\vec{d}_{12}|^2 / (\varepsilon_0 \hbar) }{(\omega_0 - \omega) + \frac{i}{\tau_P}} 
+		\end{align*}
+
+	Finally, we compare this susceptibility with the classical one, which introduces the absorption coefficient $\alpha$:
+		\begin{align*}
+			\Im \lrschweif{ \Delta n \cdot \frac{ |\vec{d}_{12}|^2 / (\varepsilon_0 \hbar) }{(\omega_0 - \omega) + \frac{i}{\tau_P}} } &\stackrel{!}{=} \frac{\alpha}{k_0} \\
+			\Leftrightarrow \Im \lrschweif{ \Delta n \cdot \frac{ |\vec{d}_{12}|^2 / (\varepsilon_0 \hbar) }{ (\omega_0 - \omega)^2 + \frac{1}{\tau_P^2} } \lr{ (\omega_0 - \omega) - \frac{i}{\tau_P} } } &= \frac{\alpha}{k_0} \\
+			\Leftrightarrow -\Delta n \cdot \frac{ |\vec{d}_{12}|^2 / (\varepsilon_0 \hbar) }{(\omega_0 - \omega)^2 + \frac{1}{\tau_P^2}} \cdot \frac{1}{\tau_P} &= \frac{\alpha}{k_0} \\
+			\Leftrightarrow \alpha(\Delta n) &= -\Delta n \cdot \frac{ |\vec{d}_{12}|^2 / (\varepsilon_0 \hbar) }{(\omega_0 - \omega)^2 + \frac{1}{\tau_P^2}} \cdot \frac{1}{\tau_P} \equiv \\
+			&\equiv -\Delta n \cdot \sigma(\omega) \qquad \blacksquare
+		\end{align*}
+
+
+	\fbox{Derivation}
+	zz: $\Delta n = -\frac{n_0}{ 1 + \frac{I}{I_\text{sat}} }$\\
+	\\
+	Consider the 2nd MBE in the incoherent regime
+		\begin{align*}
+			0 &= \frac{1}{\hbar} \Im\{ \vec{E}_0^\star \vec{P}_0 \} - \frac{\Delta n - n_0}{\tau}
+		\intertext{Insert $\vec{P_0} = \varepsilon_0 \chi_{A,I} \vec{E}_0$:}
+			0 &= \frac{1}{\hbar} |\vec{E}_0|^2 \varepsilon_0 \chi_{A,I} - \frac{\Delta n - n_0}{\tau} \\
+			\intertext{Insert the intensity $I = \frac{1}{2} \varepsilon_0 |\vec{E}_0|^2 c$}
+			0 &= \frac{1}{\hbar} \frac{2}{c} I \chi_{A,i} - \frac{\Delta n - n_0}{\tau}
+			\intertext{Rearrange $\alpha = k \chi_{A,i} = -\Delta n \sigma(\omega)$ for $\chi_{A,i}$ and insert it into the equation:}
+			0 &= - \frac{1}{\hbar} \frac{2}{c} I \lr{ -\frac{\Delta n \sigma(\omega)}{k} } - \frac{\Delta n - n_0}{\tau} \\
+			0 &= + \frac{1}{\hbar} \frac{2}{\omega} I \Delta n \sigma(\omega) - \frac{\Delta n - n_0}{\tau} \\
+			\Leftrightarrow 0 &= -\Delta n \lr{ \frac{1}{\hbar} \frac{2}{\omega} I \sigma(\omega) + \frac{1}{\tau} } + \frac{n_0}{\tau} \\
+			\Leftrightarrow \Delta n &= \frac{n_0}{ \frac{2\tau \sigma(\omega)}{\hbar\omega} I + 1 } \equiv \frac{n_0}{1 + \frac{I}{I_\text{sat}}} \qquad\blacksquare
+		\end{align*}
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Spontaneous Emission, Stimulated Emission and Absorption}
+\begin{figure}[h]
+	\centering
+	\fbox{
+	\includegraphics[width=0.6\textwidth]{Grafiken/spontaneous emission.pdf}
+	}
+	\caption{Figure of spontaneous emission, stimulated emission and absorption with their respective Einstein coefficients}
+\end{figure}
+
+The transition rates of these processes are describes by the \textbf{Einstein coefficients}
+	\begin{align*}
+		A &= \frac{2}{3} \frac{\omega^3}{h \varepsilon_0 c^3} \cdot |\vec{d}_{12}|^2 \\
+		B_{21} \cdot u(\omega_{21}) &= \frac{2}{3} \frac{\pi^2}{h^2 \varepsilon_0} \cdot |d_{12}|^2 \cdot u(\omega_{21}) \\
+		B_{12} \cdot u(\omega_{21}) &= B_{21} \cdot u(\omega_{21}).
+	\end{align*}
+
+The relation between the coefficients is
+	\begin{align*}
+		A &= \frac{\hbar \omega_{21}^3}{\pi^2 c^3} \cdot B.
+	\end{align*}
+
+	\textbf{Phenomenologically, one finds a connection between the rates described by the Einstein coefficients and the cross section $\sigma(\nu)$.}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Derivation}\\
+	ges: Einstein coefficients $B_{21}, B_{12}$\\
+	\\
+	The Einstein coefficients can be derived from \underline{Fermi's Golden rule}
+		\begin{align*}
+			P_{n\to k} &= |a_k^{(1)}|^2 = \frac{ | \braket{ k | \hat{H}' | n } |^2 }{\hbar^2} \cdot \frac{ \sin^2\lr{ \frac{\omega_{kn}}{2} T } }{ \lr{ \frac{\omega_{kn}}{2} }^2 },
+		\end{align*}
+	
+	where $\omega_{kn} := \omega_k - \omega_n$.\\
+	\\
+	In the case of a periodic perturbation 
+		\begin{align*}
+			\hat{H}' &= \vec{d} \cdot \vec{E} = \vec{d} \cdot \vec{E}_0 \cdot \cos(\omega t) = \vec{d} \cdot \frac{\vec{E}_0}{2} \lr{ e^{i\omega t} + e^{-i\omega t} } = \\
+			&= d \cdot \frac{E_0}{2} \lr{ e^{i\omega t} + e^{-i\omega t} }
+		\end{align*}
+
+	with the dipole moment $\vec{d}$, the formula becomes (see advanced quantum mechanics lecture):
+		\begin{align*}
+			P_{n\to k} &= \frac{2\pi}{\hbar} \cdot T \cdot \lreck{ |\braket{ k | \frac{d \cdot E_0}{2} | n }|^2 \cdot \delta ( E_k - E_n - \hbar\omega ) + | \braket{ k | \frac{d \cdot E_0}{2} | n }|^2 \cdot \delta ( E_k - E_n + \hbar\omega ) } = \\
+			&= \frac{2\pi}{\hbar} \cdot T \cdot \frac{E_0^2}{4} \cdot \lreck{ |\braket{ k | d | n }|^2 \cdot \delta ( E_k - E_n - \hbar\omega ) + | \braket{ k | d | n }|^2 \cdot \delta ( E_k - E_n + \hbar\omega ) } \equiv \\
+			&\equiv \frac{\pi \cdot E_0^2 \cdot |d_{kn}|^2}{2\hbar} \cdot T \cdot \lreck{ \delta ( E_k - E_n - \hbar\omega ) + \delta ( E_k - E_n + \hbar\omega ) } = \\
+			&= \frac{\pi \cdot E_0^2 \cdot |d_{kn}|^2}{2\hbar^2} \cdot T \cdot \lreck{ \delta ( \omega_k - \omega_n - \omega ) + \delta ( \omega_k - \omega_n + \omega ) }
+		\end{align*}
+
+	For a \underline{two-state atom}, the transition probability become:
+		\begin{align*}
+			P_{1\to 2} &= \frac{\pi \cdot E_0^2 \cdot |d_{21}|^2}{2\hbar^2} \cdot T \cdot \delta(\omega_2 - \omega_1 - \omega) \\
+			P_{2\to 1} &= \frac{\pi \cdot E_0^2 \cdot |d_{12}|^2}{2\hbar^2} \cdot T \cdot \delta(\omega_1 - \omega_2 + \omega)
+		\end{align*}
+	
+	Thus, the transition rates are:
+		\begin{align*}
+			\Gamma_{1\to 2} &= \frac{\pi \cdot E_0^2 \cdot |d_{21}|^2}{2\hbar^2} \cdot \delta(\omega_2 - \omega_1 - \omega) \\
+			\Gamma_{2\to 1} &= \frac{\pi \cdot E_0^2 \cdot |d_{12}|^2}{2\hbar^2} \cdot \delta(\omega_1 - \omega_2 + \omega)
+		\end{align*}
+
+	For \underline{non-monochromatic light}, one ''adds'' the rates of every frequency. There, the amplitudes can vary from frequency to frequency. The distribution of amplitudes is described by $u(\omega) = \frac{\varepsilon_0 \cdot E_0(\omega)^2}{2}$:
+		\begin{align*}
+			\Gamma_{1\to 2}^\text{total} &= \int_0^\infty \diff\omega \, \frac{\pi \cdot |d_{21}|^2}{\varepsilon_0\hbar^2} \cdot u(\omega) \cdot \delta(\omega_2 - \omega_1 - \omega) = \\
+			&= \frac{\pi \cdot |d_{21}|^2}{\varepsilon_0\hbar^2} \cdot u(\omega_{21}) \equiv\\
+			&\equiv B_{12} \cdot \omega_{21} \\
+			\Gamma_{2\to 1}^\text{total} &= \int_0^\infty \diff\omega \, \frac{\pi \cdot |d_{21}|^2}{\varepsilon_0\hbar^2} \cdot u(\omega) \cdot \delta(\omega_1 - \omega_2 + \omega) = \\
+			&= \frac{\pi \cdot |d_{12}|^2}{\varepsilon_0\hbar^2} \cdot u(\omega_{12}) \equiv \\
+			&\equiv B_{12} \cdot u(\omega_{12})
+		\end{align*}
+	
+	\textcolor{blue}{In the case of non-perpendicular $\vec{d}$ and $\vec{E}$ vectors, the transition rate depends on the angle $\theta$ between both vectors. Averageing over these vectors yields the factor $\frac{2}{3}$.}\\
+	\\
+	\fbox{Derivation}\\
+	ges: Einstein coefficient $A$\\
+	\\
+	The Einstein coefficient for spontaneous emission $A$ has to be derived using quantum electrodynamics.\\
+	One can however use Einstein's thermodynamical argument.\\
+	\\
+	1) Formulate rate equations\\
+	2) Calculate $N_2/N_1$ and set it equal to the Boltzmann distribution\\
+	3) Use $\rho\to\infty$ for $T\to\infty$ to find $B$ coefficients \\
+	4) Consider small frequencies \\
+	5) Compare with Rayleigh-Jeans law\\
+	\\
+	\textcolor{red}{ERGÄNZEN}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Quantum Mechanical Description}
+The quantum mechanical description describes
+	\begin{enumerate}
+		\item light as a quantized electromagnetic wave
+		\item matter as two-state atoms\\
+		A typical assumptions (\textbf{laser medium}): linear, isotropic, non-magnetic
+	\end{enumerate}
+
+
+\begin{table}[h]
+	\centering
+	\caption{Overview results quantum mechanical description}
+	\begin{tabularx}{\textwidth}{X|X}
+		\hline\hline
+			Successes & Failures \\
+		\hline
+			 &  \\
+		\hline
+			&  \\
+		\hline\hline	
+	\end{tabularx}
+\end{table}
+
+
+\newpage
+
+
+\subsubsection{Quantization of the Electromagnetic Field}
+\subsubsection*{Single-Mode Field}
+The quantization of the electromagnetic field yields the following expressions for the E- and B-field and the Hamiltonian
+	\begin{align}
+		\hat{\vec{E}}_n(z,t) &= \vec{E}_0 \cdot \lr{ \hat{a}_n(0) \cdot e^{-i\omega_n t} + \hat{a}_n^\dagger(0) \cdot e^{+i\omega t} } \cdot \sin(k_n z) \\
+		\hat{\vec{B}}_n(z,t) &= \frac{\vec{B}_0}{i} \cdot \lr{ \hat{a}_n(0) e^{-i\omega_n t} - \hat{a}_n^\dagger(0) \cdot e^{+i\omega_n t} } \cdot \sin(k_n z) \\
+		\vec{H}_n &= \hbar\omega \lr{ \hat{a}_n^\dagger \hat{a}_n + \frac{1}{2} },
+	\end{align}
+
+where $k_n := \frac{\pi}{L} n$ with $n = 1,2,...$ and the ladder operators
+	\begin{align}
+		\hat{a}_j \ket{\tilde{n}} &= \sqrt{\tilde{n}} \cdot \ket{\tilde{n}-1} \\
+		\hat{a}_j^\dagger \ket{\tilde{n}} &= \sqrt{\tilde{n}+1} \cdot \ket{\tilde{n}+1} \\
+		\hat{a}_j \ket{0} &= 0,
+	\end{align}
+
+where the kets are eigenstates of the Hamiltonian.
+
+
+\subsubsection*{Multi-Mode Field}
+For multi-mode fields, the second quantization yields:
+	\begin{align}
+		\hat{\vec{E}}(\vec{x},t) &= i \sum_{\vec{k},s} \sqrt{ \frac{\hbar \omega_k }{ 2\varepsilon_0 V } } \vec{e}_{\vec{k},s} \lr{ \hat{a}_{\vec{k},s}(0) \cdot e^{i(\vec{k}\vec{r} - \omega_k t)} - \hat{a}_{\vec{k},s}^\dagger(0) \cdot e^{-i(\vec{k}\vec{r} - \omega_k t)} } \\
+		\hat{\vec{B}}(\vec{x},t) &= \frac{i}{c} \sum_{\vec{k},s} \sqrt{ \frac{\hbar \omega_k }{ 2\varepsilon_0 V } } \lr{ \frac{\vec{k}}{|\vec{k}|} \times \vec{e}_{\vec{k},s} } \cdot \lr{ \hat{a}_{\vec{k},s}(0) \cdot e^{i(\vec{k}\vec{r} - \omega_k t)} - \hat{a}_{\vec{k},s}^\dagger(0) \cdot e^{-i(\vec{k}\vec{r} - \omega_k t)} } \\
+		\vec{H} &= \sum_{\vec{k},s} \hbar\omega_{\vec{k}}\lr{ \hat{a}_{\vec{k},s}^\dagger \hat{a}_{\vec{k},s} + \frac{1}{2} }.
+	\end{align}
+
+with the ladder operators
+	\begin{align}
+		\hat{a}_j \ket{ n_1, n_2, ..., n_j, ...} &= \sqrt{n_j} \cdot \ket{ n_1, n_2, ..., n_j - 1, ...} \\
+		\hat{a}_j^\dagger \ket{ n_1, n_2, ..., n_j, ...} &= \sqrt{n_j + 1} \cdot \ket{ n_1, n_2, ..., n_j + 1, ...} \\
+		\hat{a}_j \ket{..., 0_j, ...} &= 0,
+	\end{align}
+
+where the kets are eigenstates of the Hamiltonian.
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Derivation Single-Mode Quantization}\\
+	Strategy:\\
+	1) Formulate the E- and B-field classically \underline{with} boundary condition \\
+	2) Formulate the classical Hamilton function\\
+	3) Recognize terms in the Hamiltonian as position and momentum\\
+	4) Replace position and momentum with their respective operators $\hat{p}, \hat{q}$\\
+	5) Express $\hat{p}, \hat{q}$ with the ladder operators $\hat{a}, \hat{a}^\dagger$\\
+	\\
+	Consider an electromagnetic field between two mirrors, which are located at $z=0$ and $z=L$.\\
+	The Maxwell equations in the vacuum are
+		\begin{align*}
+			\vec{\nabla} \cdot \vec{E} &= 0 \\
+			\vec{\nabla} \cdot \vec{B} &= 0 \\
+			\vec{\nabla} \times \vec{E} &= - \partial_t \vec{B} \\
+			\vec{\nabla} \times \vec{B} &= \varepsilon_0\mu_0 \partial_t \vec{E}.
+		\end{align*}
+	
+	The boundary conditions enforce
+		\begin{align*}
+			\vec{E}(z=0,t) &= \vec{E}(z=L,t) = \vec{0}.
+		\end{align*}
+	
+	Two solution to the Maxwell equations together with the boundary conditions are
+		\begin{align*}
+			\vec{E}(z,t) &= \sqrt{ \frac{2\omega_n^2}{V\varepsilon_0} } \cdot q_n(t) \cdot \sin(k_n z) \cdot \vec{e}_x \\
+			\vec{B}(z,t) &= \frac{ \mu_0 \varepsilon_0 }{k_n} \sqrt{ \frac{2\omega_n^2}{V\varepsilon_0} } \cdot \dot{q}_n(t) \cdot \cos(k_n z) \cdot \vec{e}_y,
+		\end{align*}
+
+	with the amplitude $q_n(t)$ and where $k_n := \frac{\pi}{L} \cdot n$, $\omega_n = c \cdot k_n$ and the mode index $n = 1,2,...$.\\
+	\\
+	The Hamilton funcion is the total energy of the system, so in this case the integral of the electric and magnetic energy densities from $z=0$ to $z=L$:
+		\begin{align*}
+			H &= \int_0^L \diff z \, \lr{ \frac{\varepsilon_0 }{2} \vec{E}^2(z,t) + \frac{1}{2\mu_0} \vec{B}(z,t)^2 } = \\
+			&= \int_0^L \diff z \, \lreck{ \frac{\varepsilon_0}{2} \lr{ \sqrt{ \frac{2\omega_n^2}{V\varepsilon_0} } \cdot q_n(t) \cdot \sin(k_n z) \cdot \vec{e}_x }^2 + \frac{1}{2\mu_0} \lr{ \frac{ \mu_0 \varepsilon_0 }{k_n} \sqrt{ \frac{2\omega_n^2}{V\varepsilon_0} } \cdot \dot{q}_n(t) \cdot \cos(k_n z) \cdot \vec{e}_y }^2 } = \\
+			&= \int_0^L \diff z \, \lreck{ \frac{\varepsilon_0}{2} \cdot \frac{2\omega_n^2}{V\varepsilon_0} \cdot q_n^2(t) \cdot \sin_n^2(k_n z) + \frac{1}{2\mu_0} \cdot \frac{\mu_0^2\varepsilon_0^2}{k_n^2} \cdot \frac{2\omega_n^2}{V\varepsilon_0} \cdot \dot{q}_n^2(t) \cdot \cos^2(k_n z) } = \\
+			&= \int_0^L \diff z \, \lr{ \frac{\omega_n^2}{V} \cdot q_n^2(t) \cdot \sin_n^2(k_n z) + \underbrace{ \frac{\mu_0\varepsilon_0}{k_n^2} }_{= 1 / \omega_n^2}\cdot \frac{\omega_n^2}{V} \cdot \dot{q}^2_n(t) \cdot \cos^2(k_n z) } = \\
+			&= \frac{\omega_n^2}{V} \cdot q_n^2(t) \cdot \int_0^L \diff z \, \sin_n^2(k_n z) + \frac{1}{V} \cdot \dot{q}_n(t) \cdot \int_0^L \diff z \, \cos^2(k_n z) = \\
+			&= \frac{\omega_n^2}{V} \cdot q_n^2(t) \cdot \frac{V}{2} + \frac{1}{V} \cdot \dot{q}^2_n(t) \cdot \frac{V}{2} = \\
+			&= \frac{1}{2} \lreck{ \omega_n^2 \cdot q_n^2(t) + \dot{q}^2_n(t) } = \\
+			&= \frac{1}{2} \lreck{ \omega_n^2 \cdot q_n^2(t) + p_n^2(t) }
+		\end{align*}
+
+	Recognise this Hamilton function as the Hamilton function of the harmonic oscillator.\\
+	Thus, $q_n(t)$ and $p_n(t)$ can be interpreted as the position and momentum.\\
+	\\
+	Replace $q_n(t)$ and $p_n(t)$ with their respective operators $\hat{q}_n(t)$ and $\hat{p}_n(t)$.\\
+	\\
+	The relation between these operators and the ladder operators are
+		\begin{align*}
+			\hat{q}_n(t) &= \sqrt{ \frac{\hbar}{2\omega_n} } \lr{ \hat{a}_n + \hat{a}^\dagger_n } \\
+			\hat{p}^\dagger_n(t) &= -i\sqrt{ \frac{\hbar\omega_n}{2} } \lr{ \hat{a}_n - \hat{a}^\dagger_n }.
+		\end{align*}
+
+	Inserting these back into E- and B-field yields:
+		\begin{align*}
+			\hat{\vec{E}}(z,t) &= \sqrt{ \frac{2\omega_n^2}{V\varepsilon_0} } \cdot \sqrt{ \frac{\hbar}{2\omega_n} } \lr{ \hat{a}_n + \hat{a}^\dagger_n } \cdot \sin(k_n z) \cdot \vec{e}_x = \\
+			&= \sqrt{ \frac{ \hbar\omega_n }{V \varepsilon_0 } } \cdot ( \hat{a}_n + \hat{a}^\dagger ) \cdot \sin(k_n z) \cdot \vec{e}_x \equiv \\
+			&\equiv \vec{E}_0 \cdot ( \hat{a}_n + \hat{a}^\dagger ) \cdot \sin(k_n z) \qquad \blacksquare \\
+			\hat{\vec{B}}(z,t) &= \frac{ \mu_0 \varepsilon_0 }{k_n} \sqrt{ \frac{2\omega_n^2}{V\varepsilon_0} } \cdot \lr{ -i\sqrt{ \frac{\hbar\omega_n}{2} } \lr{ \hat{a}_n - \hat{a}^\dagger_n } } \cdot \cos(k_n z) \cdot \vec{e}_y \equiv \\
+			&\equiv \frac{B_0}{i} \cdot (\hat{a}_n - \hat{a}^\dagger) \cdot \sin(k_n z) \qquad \blacksquare
+		\end{align*}
+	
+	The time evolution of the ladder operators can be calculated from the Heisenberg equation.
+	
+
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Derivation Multi-Mode Quantization}\\
+	Strategy:\\
+	1) Solve Maxwell's eqs. for the vector potential $\vec{A}$\\
+	2) Write a general solution that respects all wave vectors and polarities\\
+	3) Calculate E- and B-field from $\vec{A}$\\
+	4) Calculate the Hamilton function\\
+	5) Recognize terms in the Hamiltonian as position and momoentum\\
+	5) Replace position and momentum with their respective operators\\
+	6) Express the operators through the ladder operators $\hat{\alpha}_{\vec{k},s}^{(\dagger)}$\\
+	\\
+	Consider the two following equations known from electrodynamics:
+		\begin{align*}
+			-\Delta \phi - \partial_t\vec{\nabla}\vec{A} &= 0 \\
+			\lr{ \frac{1}{c^2} \partial_t^2 - \Delta } \vec{A} + \vec{\nabla} \lr{ \frac{1}{c^2}\partial_t \phi + \vec{\nabla}\vec{A} } &= 0
+		\end{align*}
+	
+	The first one follows from $\vec{\nabla}\cdot\vec{E}=0$ and the definition of the vector potentials $\vec{E} := -\vec{\nabla}\phi - \partial_t\vec{A}$. The second term arises from $\vec{\nabla}\times\vec{\nabla}\times\vec{A}$, the forth Maxwell equation and the definition of potentials.\\
+	\\
+	Because of the Coulomb gauge, we are free to choose
+		\begin{align*}
+			\phi &= 0 \\
+			\vec{\nabla} \cdot \vec{A} &= 0,
+		\end{align*}
+	
+	which simplifies the equations from before to
+		\begin{align*}
+			\phi &= 0 \\
+			\lr{ \frac{1}{c^2} \partial_t^2 - \Delta } \vec{A} &= 0
+		\end{align*}
+
+	The latter is the wave equation for $\vec{A}$ and has the known solutions
+		\begin{align*}
+			\vec{A} &\propto e^{i\vec{k}_{m_x,m_y,m_z}\vec{x}}
+		\end{align*}
+
+	where $k_i = \frac{2\pi}{L} \cdot m_i$ with $m_i \in \mathbb{Z}$.\\
+	\\
+	The general solution then sums over all possible $\vec{k}_{m_x,m_y,m_z} \equiv \vec{k}$ and polarisations $s$.
+		\begin{align*}
+			\vec{A}(\vec{x},t) &= \sum_{\vec{k}} \sum_{s=1}^2 \vec{e}_{\vec{k},s} \vec{e}_{\vec{k},s} \lr{ A_{\vec{k},s}(t) \cdot e^{i\vec{k}\vec{x}} + A_{\vec{k},s}^\star(t) \cdot e^{-i\vec{k}\vec{x}} }
+		\end{align*}
+
+	Insert $\alpha$ into the equations that connect it to the B- and E-field:
+		\begin{align*}
+			\bullet \vec{E}(\vec{x},t) &= -\partial_t \vec{A} = \\
+			&= -\partial_t \lreck{ \sum_{\vec{k}} \sum_{s=1}^2 \vec{e}_{\vec{k},s} \vec{e}_{\vec{k},s} \lr{ A_{\vec{k},s}(t) \cdot e^{i\vec{k}\vec{x}} + A_{\vec{k},s}^\star(t) \cdot e^{-i\vec{k}\vec{x}} } } = \\
+			&= +i \sum_{\vec{k}} \sum_{s=1}^2 \vec{e}_{\vec{k},s} \vec{e}_{\vec{k},s} \lr{ A_{\vec{k},s}(t) \cdot e^{i\vec{k}\vec{x}} + A_{\vec{k},s}^\star(t) \cdot e^{-i\vec{k}\vec{x}} } \qquad \blacksquare \\
+			\bullet \vec{B}(\vec{x},t) &= \vec{\nabla} \times \vec{A} = \vec{\nabla} \times \lreck{ \sum_{\vec{k}} \sum_{s=1}^2 \vec{e}_{\vec{k},s} \vec{e}_{\vec{k},s} \lr{ A_{\vec{k},s}(t) \cdot e^{i\vec{k}\vec{x}} + A_{\vec{k},s}^\star(t) \cdot e^{-i\vec{k}\vec{x}} } } = \\
+			&{\color{red}= ... = } \\
+			&= \frac{i}{c} \sum_{\vec{k},s} \omega_k \lr{ \frac{\vec{k}}{|\vec{k}|} \times \vec{e}_{\vec{k},s} } \lr{ A_{\vec{k},s} e^{ i(\vec{k}\vec{r} - \omega_k t) } - A_{\vec{k},s}^\star e^{ -i(\vec{k}\vec{r} - \omega_k t) } } \qquad \blacksquare
+		\end{align*}
+
+	The Hamilton function is then
+		\begin{align*}
+			H &= \int_V \diff V \, \lr{ \frac{\varepsilon_0}{2} \vec{E}^2(\vec{x},t) + \frac{1}{2\mu_0} \vec{B}^2(\vec{x},t) } {\color{red}= ... =} \sum_{\vec{k},s} \omega_k^2 A_{\vec{k},s} A_{\vec{k},s}^\star.
+		\end{align*}
+
+	Redefining the amplitudes as
+		\begin{align*}
+			A_{\vec{k},s} &:= \frac{1}{2\omega_k \sqrt{\varepsilon_0 V}} (\omega_k q_{\vec{k},s} + ip_{\vec{k},s} ) \\
+			A_{\vec{k},s}^\star &= \frac{1}{2\omega_k \sqrt{\varepsilon_0 V}} (\omega_k q_{\vec{k},s} - ip_{\vec{k},s} ) \\
+		\end{align*}
+	
+	allows us to recognise the Hamilton function of the harmonic oscillator.\\
+	\\
+	Once again, use the ladder operators to express the position and momentum operators:
+		\begin{align*}
+			\hat{a}_{\vec{k},s} &:= \frac{1}{ \sqrt{2\hbar\omega_{\vec{k}}} } \lr{ \omega_{\vec{k}} q_{\vec{k},s} + i p_{\vec{k},s} } \\
+			\hat{a}^\dagger_{\vec{k},s} &= \frac{1}{ \sqrt{2\hbar\omega_{\vec{k}}} } \lr{ \omega_{\vec{k}} q_{\vec{k},s} - i p_{\vec{k},s} }
+		\end{align*}
+
+	\textcolor{red}{ERGÄNZEN Einsetzen}\\
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{States of the Quantized Electromagnetic Field}
+\begin{itemize}
+	\item \textbf{Fock state}\\
+	Fock states are the eigenstates $\ket{n}$ or $\ket{n_1, n_2, ...}$ of the single- or multi-mode Hamiltonian, thus fulfilling
+		\begin{align}
+			\hat{H}_n \ket{n} &= \hbar\omega_n \lr{ n + \frac{1}{2} } \ket{n} \\
+			\hat{H}\ket{n_1, n_2, ...} &= \sum_{\vec{k},s} \hbar\omega_{\vec{k}} \lr{ n_{\vec{k},s} + \frac{1}{2} } \ket{n_1, n_2, ...},
+		\end{align}
+
+
+	\item \textbf{Thermal state}\\
+	The thermal state is a mixed state with the Boltzmann statistic describing the classical probabilities.\\
+	It describes a state coupled to a thermal reservoir.
+		\begin{align}
+			\hat{\rho}_\text{th,sm} &= \frac{1}{Z} e^{ -\frac{\hat{H}}{k_B T} } \\
+			\hat{\rho}_\text{th,mm} &= \prod_{i=1}^N \frac{1}{Z}_i e^{ -\frac{\hat{H}_i}{k_B T} }.
+		\end{align}
+	
+	
+	\item \textbf{Coherent state}\\
+	A coherent state $\ket{\alpha}$ is an eigenstate of the annihilation operator $\hat{a}$ with the eigenvalue $\alpha$.\\
+	They are motivated by the search for states with non-vanishing E-fields at high photon occupations.\\
+	Due to their constant minmal variance in the quadrature operators, they can also be seen as displaced vacuum states.
+		\begin{align}
+			\hat{a} \ket{\alpha} &= \alpha \ket{\alpha} \\
+			\ket{\alpha} &= e^{-\frac{1}{2}|\alpha|^2} \sum_n \frac{\alpha^n}{\sqrt{n!}} \ket{n} \\
+			\ket{\alpha} &= \hat{D}(\alpha) \ket{0}
+		\end{align}
+	
+	with $\hat{D}(\alpha) := e^{\alpha \hat{a}^\dagger - \alpha^\star \hat{a}}$.
+
+
+	\item \textbf{Squeezed state}\\
+	Squeezed states, where the variance of one quadrature is reduced below the variance of the vacuum state at the expense of the variance of the other quadrature.
+		\begin{equation}
+			\ket{\xi} = \hat{S}(\xi) \ket{0},
+		\end{equation}
+	
+	with the \textbf{squeezing operator} $\hat{S}(\xi) := e^{\frac{\xi^\star}{2} \hat{a}^2 - \frac{\xi}{2} (\hat{a}^\dagger)^2}$.
+
+
+	\item \textbf{Squeezed coherent states}\\
+	A squeezed coherent state is a displaced squeezed state
+		\begin{equation}
+			\ket{\alpha,\xi} = \hat{D}(\alpha) \hat{S}(\xi) \ket{0}.
+		\end{equation}
+\end{itemize}
+
+
+\newpage
+
+
+\begin{landscape}
+\begin{table}[h]
+	\centering
+	\caption{Properties of single-mode Fock-, single-mode thermal, coherent, squeezed states and squeezed coherent states}
+	\begin{tabular}{p{1.5cm}|c|c|c|c}
+		\hline\hline
+			State & $\braket{\hat{X}_1}$ & $\braket{\hat{X}_2}$ & $\Delta\hat{X}_1$ & $\Delta\hat{X}_2$ \\
+		\hline\hline
+			Fock & $0$ & $0$ & $\frac{1}{2}\sqrt{2n+1}$ & $\frac{1}{2}\sqrt{2n+1}$ \\
+		\hline
+			Thermal & $0$ & $0$ & $\frac{1}{2}\sqrt{2\braket{\hat{n}}+1}$ & $\frac{1}{2}\sqrt{2\braket{\hat{n}}+1}$ \\
+		\hline
+			Coherent & $\Re\lrschweif{\alpha}$ & $\Im\lrschweif{\alpha}$ & $1/2$ & $1/2$ \\
+		\hline
+			Squeezed & $0$ & $0$ & $\frac{1}{2} \sqrt{  e^{-2|\xi|} \cos^2( \frac{\phi}{2} ) + e^{+2|\xi|} \sin^2( \frac{\phi}{2} ) }$ & $\frac{1}{2} \sqrt{ e^{+2|\xi|} \cos^2( \frac{\phi}{2} ) + e^{-2|\xi|} \sin^2( \frac{\phi}{2} ) }$ \\
+		\hline
+			Squeezed Coherent & $\Re\lrschweif{\alpha}$ & $\Im\lrschweif{\alpha}$ & -''- & -''- \\
+		\hline\hline
+		\\
+		\hline\hline
+			State & $\braket{\hat{n}}$ & $\Delta \hat{n}$ & $\braket{\hat{E}}$ & $P(\tilde{n})$ \\
+		\hline\hline
+			Fock & $n$ & $0$ & $0$ & $\delta_{\tilde{n},n}$ \\
+		\hline
+			Thermal & $\frac{1}{ e^{\frac{\hbar\omega}{k_BT}}  - 1 }$ & $\sqrt{ \braket{\hat{n}}^2 + \braket{\hat{n}} }$ & $0$ & $\frac{1}{Z} \cdot e^{-\frac{E_n}{k_B T}}$ \\
+		\hline
+			Coherent & $|\alpha|^2$ & $|\alpha|$ & $2|\alpha| \sqrt{\frac{\hbar\omega}{2\varepsilon_0 V}} \sin\lr{ \omega t - \vec{k}\vec{x} - \varphi }$ & $e^{-|\alpha|^2} \cdot \frac{|\alpha|^{2\tilde{n}}}{\tilde{n}!}$ \\
+		\hline
+			Squeezed & $\sinh^2(|\xi|)$ & $2\braket{\hat{n}}( 1 + \braket{\hat{n}} )$ &  & $P(2\tilde{n}+1) = 0,\ P(2\tilde{n}) \neq 0$ \\
+		\hline
+			Squeezed Coherent & $|\alpha|^2 + \sinh^2(|\xi|)$ &  &  &  \\
+		\hline\hline
+	\end{tabular}
+\end{table}
+
+\end{landscape}
+
+
+\newpage
+
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+	\includegraphics[width=\textwidth]{Grafiken/quantum states.pdf}
+	}
+	\caption{Graphical overview of the quadrature operator's expectation values and standard deviations}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Derivation Coherent States}\\
+	zz: $\ket{\alpha} = e^{-\frac{1}{2}|\alpha|^2} \sum_n \frac{\alpha^n}{\sqrt{n!}} \ket{n}$\\
+	\\
+	Strategy:\\
+	1) Expand $\alpha$ in the Fock states\\
+	2) Find a recursive relation between the coefficients\\
+	3) Find the coefficients $c_m(c_0)$ via proof of induction\\
+	4) Find $c_0$ via normalisation condition\\
+	\\
+	The expansion of the coherent state in the fock basis is
+		\begin{align*}
+			\ket{\alpha} &= \sum_n c_n \ket{n}.
+		\end{align*}
+	
+	Insertion into the defining eigenvalue function of the coherent states yields:
+		\begin{align*}
+			\hat{a} \ket{\alpha} &= \hat{a} \sum_n c_n \ket{n} = \sum_n c_n \sqrt{n} \ket{n-1} = \\
+			= \alpha \ket{\alpha} &= \alpha \sum_n c_n \ket{n} \\
+			\stackrel{\comment{\cdot \bra{m}}}{\Leftrightarrow} c_{m+1} \cdot \sqrt{m+1} &= \alpha \cdot c_m
+		\end{align*}
+
+	Consider the first few values for $m$:
+		\begin{align*}
+			\bullet \ c_1 &= \frac{\alpha}{\sqrt{1}} \cdot c_0 \\
+			\bullet \ c_2 &= \frac{\alpha}{\sqrt{2}} \cdot c_1 = \frac{\alpha}{\sqrt{2}} \cdot \frac{\alpha}{\sqrt{1}} c_0 = \frac{\alpha^2}{\sqrt{2\cdot 1}} c_0 \\
+			\bullet \ c_3 &= \frac{\alpha}{\sqrt{3}} \cdot c_2 = \frac{\alpha}{\sqrt{3}} \cdot \frac{\alpha^2}{\sqrt{2\cdot 1}}c_0 = \frac{\alpha^3}{\sqrt{3\cdot2\cdot1}}c_0
+		\end{align*}
+		
+	Thus, assume
+		\begin{align*}
+			c_m &= \frac{\alpha^m}{\sqrt{m!}}c_0.
+		\end{align*}
+	
+	Proof this via induction.\\
+	IA: $m=1$
+		\begin{align*}
+			c_1 &= \alpha \cdot c_0 \stackrel{!}{=} \frac{\alpha^1}{\sqrt{1!}} \cdot c_0 = \alpha \cdot c_0 \qquad \checkmark
+		\end{align*}
+	
+	IS: $c_{m+1} = \frac{\alpha}{\sqrt{m+1}} c_m \stackrel{!}{=} \frac{\alpha^{m+1}}{\sqrt{(m+1)!}} \cdot c_0$	
+		\begin{align*}
+			c_{m+1} &= \frac{\alpha}{\sqrt{m+1}} \cdot c_m = \frac{\alpha}{\sqrt{m+1}} \cdot \frac{\alpha^m}{\sqrt{m!}} \cdot c_0 = \frac{\alpha^{m+1}}{\sqrt{(m+1)!}} \cdot c_0 \qquad \blacksquare
+		\end{align*}
+
+	\textcolor{red}{ERGÄNZEN}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Coherence}
+The \textbf{$m$-th order coherence} function is defined as
+	\begin{equation}
+		G^{(m)}(x_1, ..., x_m; x_1', ..., x_m') := \text{Sp} \lrschweif{ \hat{\rho} \hat{\vec{E}}^-(x_1) ... \hat{\vec{E}}^-(x_m) \hat{\vec{E}}^+(x_1') ... \hat{\vec{E}}^+(x_m') },
+	\end{equation}
+
+where $x_i = (\vec{x}_i,t_i)$ and $x_i = (\vec{x}_i',t_i')$.\\
+\\
+Two physical applications are:
+	\begin{itemize}
+		\item \textbf{capability of interference}\\
+		$|g^{(1)}|$ is equivalent to the \textbf{visibility} $V$ of an interference pattern.
+			\begin{align}
+				G^{(1)}(x_1,x_1') &= \text{Sp} \lrschweif{ \hat{\rho} \hat{\vec{E}}^-(x_1) \hat{\vec{E}}^+(x_1') } \\
+				|g^{(1)}(x_1,x_1')| &= \frac{ G^{(1)}(x_1,x_1') }{ \sqrt{ G^{(1)}(x_1,x_1) \cdot G^{(1)}(x_1',x_1') } }
+			\end{align}
+		
+		
+		\item \textbf{classicality of the state}\\
+		The measurement of the $g^{(2)}$ parameter in the \textbf{Hanbury-Brown-Twiss interferometer} yields the Mandel $Q$ parameter.
+			\begin{align}
+				G^{(2)}(x_1,x_2,x_1',x_2') &= \text{Sp} \lrschweif{ \hat{\rho} \hat{\vec{E}}^-(x_1) \hat{\vec{E}}^-(x_2) \hat{\vec{E}}^+(x_1) \hat{\vec{E}}^+(x_2) } \\
+				|g^{(2)}(x_1,x_2)| &= \frac{G^{(2)}(x_1,x_2)}{ G^{(1)}(x_1,x_1) \cdot G^{(1)}(x_2,x_2) } \\
+				g^{(2)}(\tau) &= \frac{ \braket{ \hat{\vec{E}}^-(t) \hat{\vec{E}}^-(t+\tau) \hat{\vec{E}}^+(t+\tau) \hat{\vec{E}}^+(t) } }{ \braket{ \hat{\vec{E}}^-(t) \hat{\vec{E}}^+(t) } }
+			\end{align}
+	\end{itemize}
+
+\textcolor{blue}{$g^{(2)}$ is a measure for single photon sources.}
+
+
+\newpage
+
+
+\subsubsection{Quantum Mechanical Light-Matter Interaction}
+\subsubsection*{Jaynes Cummings Hamiltonian}
+The simplest, fully quantum mechanical model for light-matter interaction considers a
+	\begin{itemize}
+		\item \textbf{two-level atom}
+		
+		\item \textbf{single mode} the quantized em. field
+		
+		\item \textbf{dipole approximation}\\
+		Assumes $\vec{A}(\vec{x},t) \approx \vec{A}(t)$ due to $\vec{k} \cdot \vec{x} \ll 1$.\\
+		Used in the derivation of the interaction Hamiltonian.
+		
+		\item \textbf{rotating wave approximation (RWA)}\\
+		Negelects fast oscillating terms $\omega+\omega_0$.\\
+		\textcolor{red}{Good approximation for long timescales and for small interaction energies.}\\
+		Also removes non energy conserving processes ($\ket{e}\ket{n} \to \ket{g}\ket{n-1}$ and $\ket{g}\ket{n} \to \ket{e}\ket{n+1}$)
+
+
+		\item \textbf{non-relativistic}
+	\end{itemize}
+
+which leads to the Jaynes-Cummings-Hamiltonian
+	\begin{align}
+		\hat{H}_\text{JC} &= \hat{H}_\text{atom} + \hat{H}_\text{field} + \hat{H}_\text{int},
+	\end{align}
+
+which can be written in numerous ways, using:
+\begin{itemize}
+	\item \textbf{•}
+		\begin{equation}
+			\hat{H}_\text{JC} = \frac{\hbar\omega_0}{2} ( - \ket{g}\bra{g} + \ket{e}\bra{e} )
+		+
+		\hbar\omega \hat{a}^\dagger\hat{a} 
+		+
+		\hbar\lambda \lr{ \ket{e}\bra{g} + \ket{g}\bra{e} } \lr{ \hat{a} + \hat{a}^\dagger }
+		\end{equation}
+	\item \textbf{Pauli matrices}\\
+		\begin{equation}
+			\hat{H}_\text{JC} = \frac{\hbar\omega_0}{2} \hat{\sigma}_3
+			+
+			\hbar\omega \hat{a}^\dagger\hat{a}
+			+
+			\hbar\lambda \lr{ \ket{e}\bra{g} + \ket{g}\bra{g} } \lr{ \hat{a} + \hat{a}^\dagger }
+		\end{equation}
+	
+	
+	
+	\item \textbf{conserved quantities}\\
+	Conserved quantities in this simplified systems are the atomic population $\hat{P}_e := \ket{e}\bra{e} + \ket{g}\bra{g}$ and number of excitation $\hat{N}_e := \hat{a}^\dagger\hat{a} + \ket{e}\bra{e}$
+		\begin{equation}
+			\hat{H}_\text{JC} = \lreck{ \hbar\omega_e \hat{N}_e + \hbar\lr{ \frac{\omega_0}{2} - \omega } \hat{P}_e } + \lreck{ -\hbar \Delta \ket{g}\bra{g} + \hbar\lambda \lr{ \hat{\sigma}_+ \hat{a} + \hat{\sigma}_- \hat{a}^\dagger } }
+		\end{equation}
+	
+	
+	\item \textbf{sum of subspaces}\\
+	Since the Jaynes-Cummings-Hamiltonian couples the bare states $\{\ket{g,n}, \ket{e,n-1}\}$ for arbitrary excitations of the mode $n$, one can express the Hamiltonian the following way
+		\begin{align}
+			\hat{H}_\text{JC} &= \sum_n \hat{H}_n = \\
+			&= \sum_n \lrschweif{ \hbar\omega\lr{ n + \frac{1}{2} }
+		\begin{pmatrix}
+			1 & 0 \\
+			0 & 1
+		\end{pmatrix}
+		+
+		\frac{\hbar}{2}
+		\begin{pmatrix}
+			-\Delta & 2\lambda\sqrt{ n+1 } \\
+			2\lambda\sqrt{ n+1 } & \Delta
+		\end{pmatrix}
+		 },
+		\end{align}
+	
+	with the detuning $\Delta := \omega - \omega_0$.
+\end{itemize}
+
+
+
+The eigenvalues and eigenstates (\textbf{dressed states}) of the $\hat{H}_n$ Hamiltonian are
+	\begin{align}
+		E_{\pm,n} &= \hbar\omega \lr{ n + \frac{1}{2} } \pm \frac{\hbar}{2}\Omega_n \\
+		\ket{+,n} &= \cos\theta_n \ket{e,n} + \sin\theta_n \ket{g,n+1} \\
+		\ket{-,n} &= -\sin\theta_n \ket{e,n} + \cos\theta_n \ket{g,n+1}
+	\end{align}
+
+with the \textbf{generalized Rabi frequency} $\Omega_n := \sqrt{ \Delta^2 + 4\lambda^2(n+1) }$ and the rotation angles $\cos\theta_n := \frac{ 2\lambda\sqrt{n+1} }{ \sqrt{ (\Omega_n - \Delta )^2 + 4\lambda^2(n+1) } }$, $\sin\theta_n := \frac{ \Omega_n - \Delta }{ \sqrt{ (\Omega_n - \Delta )^2 + 4\lambda^2(n+1) } }$.\\
+\\
+Two significant results are:
+	\begin{itemize}
+		\item \textbf{vacuum Rabi oscillations}\\
+		Even if the mode has zero excitations $n=0$, the probability for the excited state oscillates
+		
+		
+		\item \textbf{oscillation rivival}\\
+		If the mode is in a superposition of Fock states, the probability for the excited state can die out and revive again after a characteristic revival time
+	\end{itemize}
+
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+	\includegraphics[width=\textwidth]{Grafiken/jaynes cummings rabi oscillations.png}
+	}
+	\caption{Plot of the revival of a Rabi oscillation}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Derivation}\\
+	Strategy:\\
+	1) Formulate the Hamiltonian in the electromagnetic field \\
+	2) Use the dipole approximation ($\vec{A} \neq \vec{A}(t)$) \\
+	3) Gauge transformation and choice of gauge \\
+	4) Use operator representations of E and d\\
+	\\
+	Consider the Hamiltonian of a particle in an electromagnetic field. Due to minimal substitution, it reads
+		\begin{align*}
+			\hat{H} &= \frac{1}{2m} \lreck{ \hat{\vec{p}} - q\vec{A}(\vec{x},t) }^2 + q\varphi(\vec{x},t) + V(\vec{x})
+		\end{align*}
+	
+	Consider a \underline{charge-free} space, which implies a vanishing electric potential $\varphi=0$.\\
+	The solution of the vector potential are plane waves $\vec{A}(\vec{x},t) = \vec{A}_0 e^{i(\vec{k}\vec{x} - \omega t)} + c.c.$\\
+	\\
+	This solution can be approximated by realizing that $\vec{k}\vec{x} \ll 1$, which is called the \textbf{dipole approximation}, yielding $\vec{A}(\vec{x},t) \approx \vec{A}(t) = e^{i\omega t} + c.c.$\\
+	\\
+	It can be shown, that the Hamiltonian is invariant under the Gauge transformations
+		\begin{alignat*}{2}
+			\varphi(\vec{x},t) & \to \varphi'(\vec{x},t) &&= \varphi(\vec{x},t) - \partial_t \varphi(\vec{x},t) \\
+			\vec{A}(\vec{x},t) & \to \vec{A}'(\vec{x},t) &&= \vec{A}(\vec{x},t) + \vec{\nabla} \chi(\vec{x},t)
+		\end{alignat*}
+
+	Choose the gauge $\chi(\vec{x},t) = -\vec{A}(t) \cdot \vec{x}$.\\
+	Thus, $\vec{\nabla} \chi(\vec{x},t) = -\vec{A}(t)$.\\
+	The transformed Hamiltonian then becomes:
+		\begin{align*}
+			\hat{H}' &= \frac{1}{2m} \lreck{ \hat{\vec{p}} - q\vec{A}'(t) }^2 + q \varphi'(\vec{x},t) + V(\vec{x}) = \\
+			&= \frac{1}{2m} \lreck{ \hat{\vec{p}} - q \lr{ \vec{A}(\vec{x},t) + \vec{\nabla} \chi(\vec{x},t) } }^2 + q \lr{ \varphi(\vec{x},t) - \partial_t \chi(\vec{x},t) } + V(\vec{x}) = \\
+			&\stackrel{\comment{\chi}}{=} \frac{1}{2m} \lreck{ \hat{\vec{p}} - q \lr{ \cancel{ \vec{A}(\vec{x},t) } - \cancel{ \vec{A}(t) } } }^2 + q \lr{ \cancel{ \varphi(\vec{x},t) } - \partial_t (-\vec{x} \cdot \vec{A}(t)) } + V(\vec{x}) = \\
+			&= \frac{1}{2m} \hat{\vec{p}}^2 + q \cdot \vec{x} \cdot \partial_t \vec{A}(t) + V(\vec{x}) =
+			\intertext{Use the definition of the electromagnetic potentials $\vec{E} = -\vec{\varphi} - \partial_t \vec{A} = -\partial_t \vec{A}$.}
+			&= \frac{1}{2m} \hat{\vec{p}}^2 - q \cdot \vec{x} \cdot \vec{E} + V(\vec{x}) \equiv \\
+			&\equiv \hat{H}_0 - \vec{d} \cdot \vec{E}(t),
+		\end{align*}
+	
+	where $\vec{d} := q \cdot \vec{x}$. $\qquad \blacksquare$
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection*{Single Mode with Reservoir}
+Consider a system a single mode that is coupled to a reservoir
+	\begin{equation}
+		\hat{H} = \hat{H}_S + \hat{H}_R + \hat{H}_\text{int} = \hbar\omega \hat{a}^\dagger\hat{a} + \sum_j \hbar\omega_j \hat{b}_j^\dagger \hat{b}_j + \sum_j \hbar\lambda_j \lr{ \hat{a}^\dagger\hat{b}_j + \hat{b}_j^\dagger\hat{a} },
+	\end{equation}
+
+where the states of the system and the reservoir are described by $\hat{\rho}_{RS}$.
+
+	\begin{itemize}
+		\item \textbf{no correlation}\\
+		At $t=0$ system and reservoir state can be regarded as uncorrelated
+			$$\hat{\rho}_{RS}(t) = \hat{\rho}_R(t) \otimes \hat{\rho}_S(t)$$
+		
+		
+		\item \textbf{thermal state}\\
+		The density matrix for the reservoir is assumed to be described by a thermal state
+		
+		
+		\item \textbf{Born approximation}\\
+		The density matrix for the reservoir is assumed to be time independent
+		
+		
+		\item \textbf{continuum transition}\\
+		Consider the frequencies of the reservoir as a continuum
+	\end{itemize}
+
+This leads to the \textbf{master equation}
+	\begin{equation}
+		\frac{\diff \hat{\rho}_S,I}{\diff t} = - \frac{\gamma}{2} \lr{ \hat{\rho}_{S,I}(t) \hat{a}^\dagger \hat{a} + \hat{a}\hat{a}^\dagger \hat{\rho}_{S,I}(t) - 2 \hat{a} \hat{\rho}_{S,I}(t) \hat{a}^\dagger }.
+	\end{equation}
+
+Important results for a single omde coupled to a reservoir are
+	\begin{align}
+		\lim\limits_{t\to\infty} \braket{ \hat{a}_\omega^\dagger \hat{a}_\omega }(t) &= \braket{ \hat{b}^\dagger \hat{b} }(\omega) \\
+		\lim\limits_{t\to\infty} \Delta\hat{X}_1 \Delta\hat{X}_2 &= \frac{\hbar}{2} \lr{ 2\braket{\hat{n}} + 1 }
+	\end{align}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Derivation}\\
+	Strategy:\\
+	1) Consider $\hat{\rho}_{RS}$ in the interaction picture \\
+	2) Calculate the Heisenberg equation\\
+	3) Integrate the Heisenberg equation\\
+	4) Make a few approximations\\
+	\\
+	\textcolor{red}{ERGÄNZEN}
+\hrule
+}
+
+
+%\newpage
+%
+%
+%\subsubsection{Quantum Mechanical Laser Oscillations}
+%\textcolor{red}{ERGÄNZEN}
+
+
+
+
+\newpage
+
+
+\section{Linewidth}
+The cross section is an important property because it is directly tied to the gain coefficient of the medium as well as the Einstein coefficients.
+	\begin{itemize}
+		\item \textbf{cross section} $\sigma(\nu)$
+		
+		
+		\item \textbf{oscillator strength} $S$\\
+		Area beneath the cross section
+			\begin{equation}
+				S := \int_0^\infty \sigma(\nu) \, \diff \nu
+			\end{equation}
+		
+
+		\item \textbf{line shape function} $l(\nu)$\\
+		Normalized cross section
+			\begin{equation}
+				l(\nu) := \frac{\sigma(\nu)}{S}
+			\end{equation}
+
+		
+		\item \textbf{linewidth} $\Delta\nu$\\
+		Full width half maximum (FWHM) of the lineshape function
+			\begin{equation}
+				\Delta\nu := \text{FWHM} \lreck{ l(\nu) }
+			\end{equation}
+	\end{itemize}
+
+
+\subsection{Phenomenological Connection to Einstein Coefficients}
+For the emission/absorption into/from a single mode, the relation between the rates $p_i$ and the cross section $\sigma(\nu)$ are derived phenomenologically:
+	\begin{align}
+		p_A &= \frac{c}{V} \sigma(\nu) \\
+		p_{B_{21}} &= n \cdot \frac{c}{V} \sigma(\nu) \\
+		p_{B_{21}} &= p_{B_{12}},
+	\end{align}
+
+where $n$ indicates the number of photons already present in the mode.\\
+\\
+For the emission/absorption into/from any mode, one derives from the previous equations:
+	\begin{align*}
+		A &= \int_0^\infty \diff\nu \, \lr{ \frac{c}{V} \sigma(\nu) } \cdot \lr{ V \cdot M(\nu) } \\
+		B_{21} u(\nu) &= \int_0^\infty \diff\nu \, \lr{ n \cdot \frac{c}{V} \sigma(\nu) } \cdot \lr{ V \cdot M(\nu) }\\
+		B_{12} u(\nu) &= B_{21} u(\nu)
+	\end{align*}
+
+
+\newpage
+
+
+\subsection{Linewidth Broadening}
+Line width broadening is the phenomenon that emission or absorption lines widen, indicating that a range of frequencies are involved in the process, not just a single one.\\
+\\
+Causes for line width broadening are:
+	\begin{itemize}
+		\item \textbf{lifetime broadening}\\
+		Fundamental broadening $\Delta\nu$ of spectral lines caused by the finite lifetime of an excited state
+			\begin{equation}
+				\Delta E \cdot \Delta t \geq h
+			\end{equation}
+
+		{\color{violet}The Einstein coefficient connects life time and cross section.}
+
+
+		\item \textbf{collisional broadening}\\
+		Broadening mechanism due to collisions between atoms or molecules
+
+
+		\item \textbf{Doppler broadening}\\
+		The Doppler effect shifts the frequencies of emitted light, thus widening the linewidth
+			\begin{equation}
+				\bar{l}(\nu) = \int_{-\infty}^{+\infty} l\lr{ \nu - \nu_0\frac{v}{c} } p(v) \, \diff v
+			\end{equation}
+			
+		
+		\item \textbf{variation of dopants} (in semiconductor lasers)
+	\end{itemize}
+
+These causes can be classified into \textbf{homogeneous} and \textbf{inhomogeneous broadening}. The first subsumes broadenings, that affects all atom types equally and the latter all broadenings that differ from atom type to atom type.\\
+\\
+Homogeneous broadenings are described by the \textbf{Lorentz profile}
+	\begin{equation}
+		L(\nu; \gamma) = \frac{\gamma}{\pi \lr{ \nu^2 + \gamma^2 }}
+	\end{equation}
+
+whereas inhomogeneous broadenings are described by \textbf{Gaussian profiles}
+	\begin{equation}
+		G(\nu; \sigma, \nu_0) = \frac{1}{\sqrt{2\pi} \sigma} e^{- \frac{ (\nu - \nu_0)^2 }{ 2\sigma^2 } }.
+	\end{equation}
+
+If both broadenings occur, the lineshape is described by a \textbf{Voigt profile}
+	\begin{equation}
+		V(\nu; \gamma, \sigma) = \int_{-\infty}^{+\infty} \diff \tau \, G(\tau) \cdot L(\nu - \tau).
+	\end{equation}
+
+
+\newpage
+
+
+\section{Resonator Optics}
+A resonator is an instrument that can store light at specific frequencies which are defined by the condition for positive feedback for the phase $\phi$
+	\begin{equation}
+		\phi(z=2d) \stackrel{!}{=} \phi(z=0) + 2\pi \cdot n,
+	\end{equation}
+
+where $\phi(z=2d)$ can accumulate additional phases due to e.g. mirror reflections and $n\in\mathbb{N}$.\\
+\\
+Important properties of the resonator are:
+	\begin{itemize}
+		\item \textbf{resonance frequencies}\\
+		Resonance frequencies are the specific frequencies of a resonator $\nu_n$.\\
+		\textcolor{blue}{Example Fabry-Pérot: $\nu_n = \frac{c}{2d}, n\in\mathbb{N}$}
+
+	
+		\item \textbf{free spectral range (FSR)}\\
+		Distance between the modes in frequency space $\nu_F$.\\
+		\textcolor{blue}{Example Fabry-Pérot: $\nu_F = \frac{c}{2d}$}
+
+
+		\item \textbf{spectral width of the modes} $\delta\nu$
+
+
+		\item \textbf{finesse}\\
+		Measure of the maximum number of roundtrips unamplified light can take inside a resonator:
+			\begin{equation}
+				\mathcal{F} := \frac{\nu_F}{ \delta\nu }
+			\end{equation}
+		
+		with the free spectral range $\nu_F$ and the spectral width of the modes $\delta\nu$.
+
+
+		\item \textbf{quality factor}\\
+		The quality factor is proportional to the storage time of the photons in units of the optical period
+			\begin{equation}
+				Q := 2\pi \frac{\text{stored energy}}{\text{energy loss per period}} {\color{red}=} \frac{\nu_0}{\nu_F} \mathcal{F}
+			\end{equation}
+
+
+		\item \textbf{intensity}\\
+		\textcolor{blue}{Example Fabry-Pérot: $I = \frac{I_0}{1 - 2|r|\cos\phi + |r|^2} \equiv \frac{I_\text{max}}{1 + \lr{ \frac{2\mathcal{F}}{\pi} }^2 \sin^2(\phi/2)}$ with $I_\text{max} = \frac{I_0}{1 - |r|^2}$.}
+
+
+		\item \textbf{mode density}\\
+		Indicates the number of modes per frequency per resonator width $M(\nu)$
+
+
+		\item \textbf{mode volume}\\
+		Ratio between the energy of a mode devided by the maximum energy density
+			\begin{equation}
+				V_\text{vol} = \frac{U}{u_\text{max}}
+			\end{equation}
+	\end{itemize}
+
+
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.4\textwidth]{Grafiken/resonator intensity.pdf}
+%	\includegraphics[width=0.4\textwidth]{Grafiken/resonator intensity 2.pdf}
+%	\caption{Intensity of a resonator for two different finesses; the left intensity spectrum has a higher finesse than the right}
+%\end{figure}
+
+
+\newpage
+
+
+\subsection{Resonator Types}
+\begin{itemize}
+	\item \textbf{Fabry-Pérot resonator}\\
+	Resonator consisting of two plane mirrors facing each other
+
+
+	\item \textbf{spherical resonators}\\
+	Resonators with curved mirror surfaces
+
+
+	\item \textbf{ring resonators}\\
+	Circular resonators, that do not reflect light back onto itself
+	
+	
+	\item \textbf{bow-tie resonators}\\
+	Ring resonators, that are folded into themselves
+	
+	
+	\item \textbf{whispering gallery mode resonators}\\
+	Resonator that makes use of total internal reflection to trap light at the border
+
+
+	\item \textbf{distributed-feedback resonators}\\
+	Resonators that create a positive feedback using periodic structures
+	
+	
+	\item \textbf{photonic crystal resonators}\\
+	Periodic structure that creates bandgaps for light, thus trapping it
+\end{itemize}
+
+
+\subsection{Stability Condition of Spherical Resonators}
+A resonator is stable, when the light ray stays close to the optical axis after many revolutions, which is equivalent to
+	\begin{equation}
+		0 \leq g_1 g_2 \leq 1
+	\end{equation}
+
+where $g_i := 1 + \frac{d}{R_i}$ and $R_i$ is the radius of curvature.
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+	\includegraphics[width=\textwidth]{Grafiken/stability condition.pdf}
+	}
+	\caption{Stability diagram $g_2(g_1)$ with the corresponding mirror geometries}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Derivation}\\
+	zz: $0\leq g_1 g_2 \leq 1$\\
+	\\
+	Strategy:\\
+	1) Describe the round trip via ABCD formalism\\
+	2) Solve for $m$ roundtrips\\
+	3)Establish a condition for which the solution doesn't diverge\\
+	\\
+	The roundtrip light ray after one roundtrip in a spherical resonator can be described by the following matrix multiplication
+		\begin{align*}
+			\begin{pmatrix}
+				x' \\ \theta'
+			\end{pmatrix}
+			&=
+			\begin{pmatrix}
+				1 & 0 \\
+				\frac{2}{R_2} & 1
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				1 & d \\
+				0 & 1
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				1 & 0 \\
+				\frac{2}{R_2} & 1
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				1 & d \\
+				0 & 1
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				x \\ \theta
+			\end{pmatrix}
+			=\\
+			&= 
+			\begin{pmatrix}
+				1 + \frac{2d}{R_2} & d + d \lr{ 1 + \frac{2d}{R_2} } \\
+				\frac{2}{R_1} + \frac{2}{R_2} \lr{ 1 + \frac{2d}{R_1} } & 1 + \frac{2d}{R_1} + d \lr{ \frac{2d}{R_1} + \frac{2}{R_2} \lr{ 1 + \frac{2d}{R_1} } }
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				x \\ \theta
+			\end{pmatrix}
+			\equiv \\
+			&\equiv
+			\begin{pmatrix}
+				A & B \\
+				C & D
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				x \\ \theta
+			\end{pmatrix}
+		\end{align*}
+	
+	$m$ roundtrips correspond to
+		\begin{align*}
+			\begin{pmatrix}
+				x_{m+1} \\ \theta_{m+1}
+			\end{pmatrix}
+			&=
+			\begin{pmatrix}
+				A & B \\
+				C & D
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				x_m \\ \theta_m
+			\end{pmatrix} \\
+			\Leftrightarrow
+			&
+			\begin{cases}
+				x_{m+1} &= A x_m + B \theta_m \\
+				\theta_{m+1} &= C x_m + D \theta_m
+			\end{cases}
+		\end{align*}
+	
+	Rearranging both equations for $\theta_m$ and setting these relations equal to each other yields:
+		\begin{align*}
+			\theta_{m+1} &= \frac{x_{m+1} - A y_m}{B} D + C x_m
+		\end{align*}
+	
+	Then, use the equation $x_m+1 = A x_m + B \theta_m$, shift $m\to m+1$, rearrange for $\theta_{m+1}$ and insert it into the previous expression:
+		\begin{align*}
+			\frac{x_{m+2} - A x_{m+1}}{B} &= \frac{x_{m+1} - A x_m}{B}D + C x_m \\
+			\Leftrightarrow x_{m+2} &= (A+D) x_{m+1} + (BC - AD) x_m
+		\end{align*}
+	
+	Define $F := AD-BC$ and $b := \frac{A+D}{2}$:
+		\begin{align*}
+			x_{m+2} &= 2b x_{m+1} - F^2 x_m
+		\end{align*}
+	
+	Insert the ansatz $x_m = x_0 h^m$:
+		\begin{align*}
+			\cancel{x_0} h^{m+2} &= 2b \cancel{x_0} h^{m+1} - F^2 \cancel{x_0} h^m \\
+			\Leftrightarrow h^2 - 2b \cdot h + F^2 &= 0
+		\end{align*}
+
+
+\newpage
+
+
+	The solution to this quadratic equation is
+		\begin{align*}
+			h_\pm &= b \pm \sqrt{F^2 - b^2} = b \pm i F \sqrt{ 1 - \lr{ \frac{b}{F} }^2 } = b \pm i F \sqrt{ 1 - \cos^2\varphi } = F\cos\varphi \pm i F \sin\varphi =  
+			&= F e^{\pm i \varphi}
+		\end{align*}
+	
+	Insert this into the solution of $x_m$:
+		\begin{align*}
+			x_m &= x_0 F^m e^{\pm i m \varphi}
+		\end{align*}
+	
+	The general solution is then a linear combination, thus:
+		\begin{align*}
+			x_m &= x_\text{max} F^m \sin(m\varphi + \varphi_0)
+		\end{align*}
+		
+	In our case $F=1$ \textcolor{gruen}{(see the result of the matrix multiplication in the first step)} and $b$ becomes
+		\begin{align*}
+			b &= \frac{A+D}{2} = 2 + \frac{4d}{R_1} + \frac{4d}{R_2} + \frac{4d^2}{R_1R_2} = ...  = 2 \lr{ 1 + \frac{d}{R_1} } \lr{ 1 + \frac{d}{R_2} } - 1
+		\end{align*}
+	
+	$x_m$ does not diverge if the sine stays a sine, which means that the argument has to stay real. This is the case if $|b|$ doesnt exceed 1, because $b$ is the $\arccos$ function, which will return imaginary values for $|b|>1$, thus turning sine into sinh. The latter would be a divergent case.\\
+	Using this condition:
+		\begin{align*}
+			-1 &\leq |b| \leq 1 \\
+			\Leftrightarrow -1 &\leq 2 \lr{ 1 + \frac{d}{R_1} } \lr{ 1 + \frac{d}{R_2} } - 1 \leq 1 \\
+			\Leftrightarrow 0 &\leq 2 \lr{ 1 + \frac{d}{R_1} } \lr{ 1 + \frac{d}{R_2} } 2 \\
+			\Leftrightarrow 0 &\leq \lr{ 1 + \frac{d}{R_1} } \lr{ 1 + \frac{d}{R_2} } 1 \\
+			\Leftrightarrow -1 &\leq g_1 g_2 \leq 1 \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Resonator Losses}
+The loss in a resonator roundtrip arises from imperfect mirrors $R_1$, $R_2$ and absorption through the medium described by the absorption coefficient $\alpha_s$
+	\begin{equation}
+		|r|^2 = R_1 \cdot R_2 \cdot e^{-2\alpha_s d} \equiv e^{-2\alpha_R d},
+	\end{equation}
+
+where $d$ is the length of the resonator and $\alpha_R := \alpha_s + \alpha_{R_1} + \alpha_{R_2}$.\\
+\\
+In this context, one makes the definition of the photon lifetime
+	\begin{equation}
+		\tau_P := \frac{1}{c\alpha_R},
+	\end{equation}
+
+which is the decaying constant for $I(t)$.
+
+
+
+
+
+
+\newpage
+
+
+\subsection{Gaussian Beam}
+The Gaussian beam is a solution to the paraxial Helmholtz equation and occur in spherical resonators and can be expressed as
+
+	\begin{align}
+		U(\rho,z) &= \frac{A(z)}{q(z)} \cdot \exp \lrschweif{ -ik \frac{\rho^2}{2q(z)} } \cdot \exp\lrschweif{ -ikz } \\
+		U(\rho,z) &= A_0 \frac{W_0}{W(z)} \cdot \exp \lrschweif{ -\frac{\rho^2}{W^2(z)} } \cdot \exp \lrschweif{ -ikz - ik\frac{\rho^2}{2R(z)} + i\zeta(z) },
+	\end{align}
+	
+with the terms $q(z) := z + i z_0$,
+	\begin{itemize}
+		\item \textbf{beam radius}
+			\begin{equation}
+				W(z) = W_0 \sqrt{ 1 + \lr{ \frac{z}{z_0} }^2 }
+			\end{equation}
+
+
+		\item \textbf{waist/waist radius}
+			\begin{equation}
+				W_0 = \sqrt{ \frac{ \lambda z_0 }{\pi} }
+			\end{equation}
+
+
+		\item \textbf{distance from the optical axis}
+			\begin{equation}
+				\rho = \sqrt{ x^2 + y^2 }
+			\end{equation}
+
+
+		\item \textbf{curvature}
+			\begin{equation}
+				R(z) = z \lreck{ 1 + \lr{\frac{z_0}{z}}^2}
+			\end{equation}
+
+
+		\item \textbf{Gouy phase}
+			\begin{equation}
+				\zeta(z) = \arctan\lr{\frac{z}{z_0}}
+			\end{equation}
+	\end{itemize}
+
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+	\includegraphics[width=0.4\textwidth]{Grafiken/gaussian beam electric field.pdf}
+	\includegraphics[width=0.4\textwidth]{Grafiken/gaussian beam intensity.pdf}
+	}
+	\caption{Qualitative plots of the electric field $\Re\lrschweif{U}$ and intensity $I = |U|^2$ of a gaussian beam}
+\end{figure}
+
+
+\newpage
+
+
+The Gaussian beam has the following properties:
+	\begin{itemize}
+		\item \textbf{intensity}\\
+		The intensity for a fixed $z$ follows a Gaussian distribution is
+			\begin{equation}
+				I(\rho,z) \propto \exp \lrschweif{-2 \frac{\rho^2}{W^2(z)} }
+			\end{equation}
+
+
+		\item \textbf{half-opening angle}\\
+			\begin{equation}
+				\theta_0 = \sqrt{ \frac{\lambda}{\pi z_0} }
+			\end{equation}
+
+
+		\item \textbf{focus length/confocal parameter}\\
+		Axial distance within which the beam radius is smaller than $\sqrt{2}W_0$
+			\begin{equation}
+				z_0 = \frac{\pi W^2}{\lambda}
+			\end{equation}
+		
+		\textcolor{blue}{Beispiel: $\lambda = 633 \, \text{nm}$, $2W_0 = 2 \, \text{cm}$ $\Rightarrow 2z_0= 1km$}
+
+
+		\item \textbf{curvature}\\
+		- The wavefront has curvature $R\to\infty$ at $z=0$ and $z\to\pm\infty$\\
+		- The wavefront is most curved at the focal length
+			\begin{equation}
+				R(z=z_0) = 2 z_0.
+			\end{equation}
+	\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Grafiken/gaussian beam.jpg}
+	\caption{Scheme properties of the Gaussian beam}
+\end{figure}
+
+
+
+\newpage
+
+
+Properties concerning a Gaussian beam inside a spherical resonator are:
+	\begin{itemize}
+		\item \textbf{''reflection points''}\\
+		At the positions of the mirrors $z_1$, $z_2$, the curvature of the Gaussian matches with the mirror curvatures $R(z_1) = R_1$, $R(z_2) = R_2$
+		
+		
+		\item \textbf{resonance frequency}
+			\begin{equation}
+				\nu_n = \lr{ n + \frac{\Delta\zeta}{\pi} } \cdot \frac{c}{2d},
+			\end{equation}
+		
+		where $n\in\mathbb{N}$.
+		
+
+		\item \textbf{free spectral range}
+			\begin{equation}
+				\nu_F = \frac{c}{2d}
+			\end{equation}
+	\end{itemize}
+
+
+\subsubsection*{Beam Transformation}
+The transformation of a Gaussian beam due to an optical system described by the ABCD formalism changes the parameter $q(z)$ in the following way:
+	\begin{equation}
+		q(z) \to q'(z) = \frac{A \cdot q(z) + B}{C \cdot q(z) + D}
+	\end{equation}
+
+
+\newpage
+
+
+\section{Pumping}
+Pumping is the mechanism of exciting the electrons in the doped atoms to create a population inversion, thus providing the energy for the amplification process. There, multiple states apart from the two-states can be involved.
+
+
+\subsection{Pump Types}
+	\begin{itemize}
+		\item \textbf{electrical discharge (DC or AC)}
+		
+		
+		\item \textbf{flash lamp}
+		
+		
+		\item \textbf{optical pumping}
+	\end{itemize}
+
+
+\subsection{Laser Rate Equations \& Pumping Schemes}
+The rate equations for the populations involved in the spontaneous emission due to pumping are called \textbf{laser rate equations}.\\
+\\
+Different pumping schemes are
+	\begin{itemize}
+		\item \textbf{two-level pumping} (without light)
+			\begin{equation}
+				\Delta n_0 := \Delta n = R_1\tau_1 + R_2\tau_2 \lr{ 1 - \frac{\tau_1}{\tau_{21}} }
+			\end{equation}
+		
+		with the pumping rate filling state 2 $R_2$ and depleting state 1 $R_1$ as well as the life times $\tau_i$.
+		
+		
+		\item \textbf{two-state laser} (with light)\\
+			\begin{equation}
+				\Delta n = \frac{ \Delta n_0 }{ 1 + \tau_s W_\text{ind} },
+			\end{equation}
+		
+		with the rate for stimulated emission $W_\text{ind}$, $\tau_s := \tau_1 + \tau_2 - \frac{\tau_1\tau_2}{\tau_{21}}$
+		
+		
+		\item \textbf{three-state laser}\\
+			\begin{equation}
+				\Delta n \approx \frac{ \lr{ \frac{n_{at}(\tau_2 W - 1)}{ 1 + \tau_2 W } } }{ 1 + \lr{ \frac{2\tau_2}{ 1 + \tau_2 W } } W_\text{ind} },
+			\end{equation}
+		
+		
+		
+		\item \textbf{four-state laser}\\
+		Doesn't need pumping for a population inversion to exist:
+			\begin{equation}
+				\Delta n \approx \frac{ \lr{ \frac{\tau_2 n_{at} W }{ 1 + \tau_2 W } } }{ 1 + \lr{ \frac{\tau_2}{ 1 + \tau_2 W } } W_\text{ind} },
+			\end{equation}
+		
+		with $n_{at} := n_0 + n_1 + n_2 + n_3$, the pump rate $W$.
+	\end{itemize}
+
+
+
+\newpage
+
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+	\includegraphics[width=\textwidth]{Grafiken/pump scheme.pdf}
+	}
+	\caption{Pump scheme of a four- and three-state laser}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Derivation: Empty Pumped Resonator}\\
+	\begin{figure}[h]
+		\centering
+		\fbox{
+		\includegraphics[width=0.4\textwidth]{Grafiken/rate equations.png}
+		}
+		\caption{Scheme for the processes in a two-state system}
+	\end{figure}
+	
+	The rate equations for the states 1 and 2 are described by:
+		\begin{align*}
+			\frac{\diff N_1}{\diff t} &= -\frac{N_2}{\tau_{21}} - \frac{N_1}{\tau_1} - R_1 \\
+			\frac{\diff N_2}{\diff t} &= -\frac{N_2}{\tau_2} + R_2
+		\end{align*}
+	
+	In the stationary state $\frac{\diff N_1}{\diff t} = \frac{\diff N_2}{\diff t} = 0$, the equations become
+		\begin{align*}
+			0 &= -\frac{N_2}{\tau_{21}} - \frac{N_1}{\tau_1} - R_1 \\
+			0 &= -\frac{N_2}{\tau_2} + R_2.
+		\end{align*}
+	
+	The second equation yields $N_2 = R_2 \tau_2$.\\
+	Inserting into the first equation gives
+		\begin{align*}
+			0 &= -\frac{R_2\tau_2}{\tau_{21}} - \frac{N_1}{\tau_1} - R_1 \\
+			\Leftrightarrow N_1 &= -\tau_1 \lr{ \frac{R_2\tau_2}{\tau_{21}} + R_1 }.
+		\end{align*}
+	
+	Thus, the population inversion is
+		\begin{align*}
+			\Delta N &= N_2 - N_1 = R_2\tau_2 + \tau_1 \lr{ \frac{R_2\tau_2}{\tau_{21}} - R_1 } = \\
+			&= R_2\tau_2 \lr{ 1 - \frac{\tau_1}{\tau_{21}} } + R_1\tau_1
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Laser Oscillations \& Dynamics}
+A laser is lasing at a frequency $\nu$, when two conditions are being met:
+	\begin{itemize}
+		\item \textbf{threshold condition}\\
+		The gain must be greater or equal to the loss.\\
+		This can also be formulated in terms of population inversion:
+			\begin{align*}
+				g(\nu) &\stackrel{!}{\geq} \alpha \\
+				\Leftrightarrow \Delta n &\stackrel{!}{\geq} \Delta n_\text{thr} := \frac{\alpha}{\sigma(\nu)}
+			\end{align*}
+		
+		
+		\item \textbf{phase condition}\\
+		The resonator geometrie leads to a phase shift in the electric field of $2\pi \cdot n$ after one roundtrip.
+	\end{itemize}
+
+
+\subsection{Single Mode Lasing}
+\begin{figure}[h]
+	\centering
+	\fbox{
+	\includegraphics[width=\textwidth]{Grafiken/single mode lasing.png}
+	}
+	\caption{Scheme of hole burning}
+\end{figure}
+
+
+\newpage
+
+
+\subsection{Hole Burning}
+\begin{figure}[h]
+	\centering
+	\fbox{
+	\includegraphics[width=0.5\textwidth]{Grafiken/hole burning.png}
+	}
+	\caption{Scheme of hole burning}
+\end{figure}
+
+
+\subsection{Mode Selection}
+\begin{figure}[h]
+	\centering
+	\fbox{
+	\includegraphics[width=0.6\textwidth]{Grafiken/mode selection.png}
+	}
+	\caption{Scheme of mode selection}
+\end{figure}
+
+
+\newpage
+
+
+\subsection{Gain Switching}
+\begin{figure}[h]
+	\centering
+	\fbox{
+	\includegraphics[width=\textwidth]{Grafiken/population inversion dynamics.pdf}
+	}
+	\caption{Qualitative scheme of the dynamics of the population inversion $\Delta n$ and photon flux $\phi$ reacting to the activation and switch-off of a pump}
+\end{figure}
+
+
+\newpage
+
+
+In the following discussion, we focus on the properties population inversion $\Delta n$, population inversion without light in the resonator $\Delta n_0$, the threshold population inversion $\Delta n_\text{thr}$ as well as the photon flux $\phi$.
+\begin{enumerate}
+	\item \textbf{initial state}\\
+		\begin{align*}
+			\Delta n_0 &= 0 \\
+			\Delta n(t) &= 0 \\
+			\phi &= 0
+		\end{align*}
+	
+	
+	\item \textbf{pump is switched on}\\
+	The pump with rate $W$ is being switched on, which is described by $\Delta n_0(W)$ (see pumping chapter).\\
+	The rate equations lead to a rise in the population inversion, which creeps towards $\Delta n_0$
+		\begin{align*}
+			\Delta n_0 &= \text{konst.} > 0\\
+			\Delta n(t) &> 0\\
+			\phi &= 0
+		\end{align*}
+	
+	
+	\item \textbf{lasing begins}\\
+	Spontaneous emission creates light in the resonator, which gets amplified due to the population inversion.\\
+	Since $\Delta n(t) = \frac{1}{1 + \frac{I}{I_\text{sat}}}$, the amplification of light decreases $\Delta n(t)$.\\
+	Due to light amplification, the photon flux rises.
+		\begin{align*}
+			\Delta n_0 &= \text{konst.} \\
+			\Delta n(t)& > 0 \\
+			\phi &> 0
+		\end{align*}
+	
+	
+	\item \textbf{steady state}\\
+	When the population inversion reaches the threashold population inversion, no further light amplification occurs.\\
+	Thus, the population as well as the photon flux inversion stays constant.
+		\begin{align*}
+			\Delta n_0 &= \text{konst.} \\
+			\Delta n(t)&= \text{konst.} \\
+			\phi &= \text{konst.}
+		\end{align*}
+	
+	
+	\item \textbf{pump switch-off}\\
+	When the pump is beeing switched off, the decaying processes for state 2 in the pumping scheme dominates.\\
+	Thus, the population inversion converges to its initial value again. Specifically, it falls below the threashold population inversion.\\
+	From the latter it follows, that the absorption dominates the gain and the photon flux reduces as well.
+\end{enumerate}
+
+
+\newpage
+
+
+\subsection{Q Switching}
+\begin{figure}[h]
+	\centering
+	\fbox{
+	\includegraphics[width=\textwidth]{Grafiken/q switching.pdf}
+	}
+	\caption{Scheme of q switching}
+\end{figure}
+
+
+\subsection{Mode Locking}
+\textcolor{gruen}{Das Pferd von hinten aufzäumen: Auf den ''glücklichen Zufall'' hoffen; Absorber für nieder intensives Licht einbauen}
+
+
+\newpage
+
+
+\section{Laser Types}
+\subsection{Amplification Types}
+	\begin{itemize}
+		\item \textbf{solid-state laser}\\
+		Laser that uses a solid gain medium\\
+		\textcolor{blue}{Example: Ruby laser}
+		
+		
+		\item \textbf{gas laser}\\
+		Laser that uses gases of molecules or ions as a gain medium\\
+		\textcolor{blue}{Example: CO$_2$ laser}	
+		
+		
+		\item \textbf{dye laser}\\
+		Laser that uses a fluorescent molecule solution as a gain medium \\
+		Have a broad tuning range
+		
+		
+		\item \textbf{semi-conductor laser}\\
+		DC pumped pn-junction with mirrors at the end\\
+		Electron hole recombination creates laser radiation
+	\end{itemize}
+
+
+\subsection{Temporal Operation Types}
+	\begin{itemize}
+		\item \textbf{cw lasers}\\
+		Output an uninterrupted beam of light with a constant ouput power over time
+		
+		
+		\item \textbf{pulsed lasers}\\
+		Output short intense bursts of light.\\
+		Realized through \textbf{gain-switching}, \textbf{Q-switching} or \textbf{mode-locking}
+	\end{itemize}
+
+
+\newpage
+
+
+\section*{Appendix A: Two-state atom}
+The Hamiltonian of the two-state atom is
+	\begin{equation}
+		\hat{H} = \hbar\omega_g \ket{g}\bra{g} + \hbar\omega_e \ket{e}\bra{e} + \vec{E}(t) \cdot \vec{d} \lr{ \ket{g}\bra{e} + \ket{e}\bra{g} }
+	\end{equation}
+	
+with the electric field $\vec{E}(t) = E_0 \cos(\omega t) \vec{e}$.\\
+\\
+An ansatz for the wave function is the superposition of the ground and exited state
+	\begin{equation}
+		\ket{\psi(t)} = C_g(t) \ket{g} + C_e(t) \ket{e}
+	\end{equation}
+
+which leads to a system of differential equations for $C_g(t), C_e(t)$.\\
+The occupation probability of the ground and excited state are then
+	\begin{alignat}{2}
+		P_e &:= |C_e(t)|^2 &&= \lr{ \frac{\Omega_0}{\Omega} }^2 \sin^2\lr{ \frac{\Omega t}{2} } \\
+		P_g &:= |C_g(t)|^2 &&= \cos^2\lr{ \frac{\Omega t}{2} } + \lr{ \frac{\Delta}{\Omega} }^2 \sin^2\lr{ \frac{\Omega t}{2} },
+	\end{alignat}
+
+with the \textbf{Rabi frequency} $\Omega_0 := \frac{\vec{d}\vec{e}}{\hbar}$, \textbf{detuning} $\Delta := \omega_0 - \omega$ and the \textbf{general Rabi frequency} $\Omega := \sqrt{ \Omega_0^2 + \Delta^2 }$.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Grafiken/two state atom.pdf}
+	\caption{Occupation probabilities for the two-state atom and $\Omega_0 = 1$, $\Delta=0,5$}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Derivation}\\
+	Insert the ansatz $\ket{\psi(t)} = C_g(t) \ket{g} + C_e(t) \ket{e}$ into the Schrödinger equation:
+		\begin{align*}
+			i\hbar \partial_t \ket{\psi(t)} &= \hat{H} \ket{\psi(t)} \\
+			\Leftrightarrow i\hbar \partial_t \lr{ C_g(t) \ket{g} + C_e(t) \ket{e} } &= \lr{ \hbar\omega_g \ket{g}\bra{g} + \hbar\omega_e \ket{e}\bra{e} + \vec{E}\vec{d} \lr{ \ket{g}\bra{g} + \ket{e}\bra{e} } } \lr{ C_g(t) \ket{g} + C_e(t) \ket{e} } \\
+			\Leftrightarrow \lr{ i\hbar \partial_t C_g(t) } \ket{g} + \lr{ i\hbar \partial_t C_e(t) } \ket{e} &= \hbar\omega_g \ket{g} C_g(t) + \hbar\omega_e \ket{e} C_e(t) + \vec{E}\vec{d} \ket{e} C_g(t) + \vec{E}\vec{d} \ket{g} C_e(t)
+		\end{align*}
+	
+	Insert the electric field $\vec{E}(t) = E_0 \cos(\omega t) \vec{e}$ and use the abbreviation $d_0 := \vec{d}\vec{e}$.\\
+	Coefficient comparison regarding \fbox{$\ket{g}$}, \fbox{$\ket{e}$} yields:
+		\begin{align*}
+			i\hbar \partial_t C_g(t) &= \hbar\omega_g C_g(t) + E_0 \cos(\omega t) d_0 C_e(t) \\
+			i\hbar \partial_t C_e(t) &= \hbar\omega_e C_e(t) + E_0 \cos(\omega t) d_0 C_g(t)
+		\end{align*}
+
+	To solve this system of differential equations, introduce the substitutions $c_e(t) := C_e(t) e^{i\omega_e t}, c_g(t) := C_g(t) e^{i\omega_g t}$ as well as $\omega_0 := \omega_e - \omega_g$.\\
+	Rearrange those expressions to isolate $C_g(t), C_e(t)$ and insert them into both equations. Begin with $i\hbar \partial_t C_g(t)$:
+		\begin{align*}
+			i\hbar \partial_t C_g(t) &= i\hbar \partial_t \lr{ c_g(t) e^{-i\omega_g t} } = i\hbar \lr{ \frac{\diff}{\diff t} c_g(t) } e^{-i\omega_g t} + i\hbar(-i\omega_g) c_g(t) e^{-i\omega_g t} = \\
+			&= i\hbar \lr{ \frac{\diff}{\diff t} c_g(t) } e^{-i\omega_g t} + \hbar\omega_g c_g(t) e^{-i\omega_g t} \stackrel{!}{=} \\
+			&\stackrel{!}{=} \hbar\omega_g C_g(t) + E_0 \cos(\omega t) d_0 C_e(t) = \hbar\omega_g \lr{ c_g(t) e^{-i\omega_g t} } + \\
+			&\phantom{=} + E_0 \cos(\omega t) d_0 \lr{ c_e(t) e^{-i\omega_e t} } = \\
+			\stackrel{\comment{\cdot e^{i\omega_g t}}}{\Leftrightarrow} i\hbar \lr{ \frac{\diff}{\diff t} c_g(t) } + \cancel{ \hbar\omega_g c_g(t) } &= \cancel{ \hbar\omega_g c_g(t) } + E_0 \underbrace{ \cos(\omega t) }_{=\frac{1}{2} \lr{ e^{i\omega t} + e^{-i\omega t} } } d_0 c_e(t) \underbrace{ e^{-i(\omega_e - \omega_t)t} }_{\equiv e^{-i\omega_0 t}} \\
+			\Leftrightarrow i\hbar \frac{\diff}{\diff t} c_g(t) &= \frac{E_0}{2} d_0 \lr{ e^{i(\omega - \omega_0)t} + e^{-i(\omega + \omega_0)t} }
+		\end{align*}
+
+	Analogously for $i\hbar\partial_t C_e(t)$:
+		\begin{align*}
+			\Rightarrow i\hbar \frac{\diff}{\diff t} c_e(t) &= \frac{E_0}{2}d_0 \lr{ e^{i(\omega + \omega_0)t} + e^{-i(\omega - \omega_0)t} }
+		\end{align*}
+	
+	Now, use another substitution $\tilde{c}_g(t) := e^{i\Delta t/2} c_g(t)$, $\tilde{c}_e(t) := e^{-i\Delta t/2} c_e(t)$, $\Delta := \omega_0 - \omega$ and $\Omega_0 := \frac{E_0d_0}{\hbar}$ to simplify the equations. Again, rearrange for $c_e(t)$, $c_g(t)$ and insert them into the previous equations.
+	
+
+\newpage
+	
+	
+	Begin with $i\hbar\frac{\diff}{\diff t}c_g(t)$:
+		\begin{align*}
+			i\hbar\frac{\diff}{\diff t}c_g(t) &= i\hbar\frac{\diff}{\diff t} \lr{ c_g(t) e^{-i\Delta t/2} } = i\hbar \lr{ \frac{\diff}{\diff t} c_g(t) } e^{-i\Delta t/2} + i\hbar(-i\Delta/2) c_g(t) e^{-i\Delta t/2} = \\
+			&= i\hbar \lr{ \frac{\diff}{\diff t} c_g(t) } e^{-i\Delta t/2} + i\hbar(-i\Delta/2) c_g(t) e^{-i\Delta t/2} = \\
+			&= i\hbar \lr{ \frac{\diff}{\diff t} c_g(t) } e^{-i\Delta t/2} + \hbar\Delta/2 c_g(t) e^{-i\Delta t/2} \stackrel{!}{=} \\
+			&\stackrel{!}{=} \frac{E_0}{2}d_0 \lr{ \tilde{c}_e(t) e^{i\Delta t/2} } \lr{ e^{i(-\omega_0 + \omega)t} + e^{-i(\omega_0 + \omega)t} } \\
+			\stackrel{\comment{\cdot e^{i\Delta t/2}}}{\Leftrightarrow} i\hbar \frac{\diff}{\diff t} \tilde{c}_g(t) + \frac{\hbar\Delta}{2} \tilde{c}_g(t) &= \frac{E_0}{2}d_0 \tilde{c}_e(t) e^{i\Delta t} \lr{ e^{-i\Delta t} + e^{-i(\omega_0 +\omega)t } } \\
+			\Leftrightarrow i\hbar \frac{\diff}{\diff t} \tilde{c}_g(t) + \frac{\hbar\Delta}{2} \tilde{c}_g(t) &= \frac{E_0}{2}d_0 \tilde{c}_e(t) \lr{ 1 + e^{-i2\omega t} }
+		\stackrel{\commenttext{RWA}}{\approx} \frac{E_0}{2}d_0 \tilde{c}_g(t)
+		\intertext{where in the last step, the \underline{rotating wave approximation} (RWA) was made.}
+			\stackrel{\comment{\cdot i/\hbar}}{\Leftrightarrow} \frac{\diff}{\diff t} \tilde{c}_g(t) &= - \lr{ -\frac{i}{\hbar} } \frac{\hbar\Delta}{2} \tilde{c}_g(t) + \lr{ -\frac{i}{\hbar} } \underbrace{ \frac{E_0}{2}d_0 }_{\equiv \Omega_0} \tilde{c}_e(t) \\
+			\Leftrightarrow \frac{\diff}{\diff t} \tilde{c}_g(t) &= \lr{ -\frac{i}{2} } \lr{ -\Delta \tilde{c}_g(t) + \Omega_0 \tilde{c}_e(t) }
+		\end{align*}
+		
+	Analogously:
+		\begin{align*}
+			\frac{\diff}{\diff t} \tilde{c}_e(t) &= \lr{ -\frac{i}{2} } \lr{ \Omega_0 \tilde{c}_g(t) + \Delta \tilde{c}_e(t) }
+		\end{align*}
+	
+	The new system of equations can be formulated using matrix multiplication:
+		\begin{align*}
+			\begin{pmatrix}
+				\frac{\diff}{\diff t} \tilde{c}_g(t)\\
+				\frac{\diff}{\diff t} \tilde{c}_e(t)
+			\end{pmatrix}
+			&=
+			\lr{ -\frac{i}{2} }
+			\begin{pmatrix}
+				-\Delta & \Omega_0 \\
+				\Omega_0 & \Delta
+			\end{pmatrix}
+			\begin{pmatrix}
+				\tilde{c}_g(t) \\
+				\tilde{c}_e(t)
+			\end{pmatrix}
+		\end{align*}
+	
+	Compute the second derivative of the coefficients $\tilde{c}_g(t), \tilde{c}_e(t)$, because this will decouple the differential equations:
+		\begin{align*}
+			\begin{pmatrix}
+				\frac{\diff^2}{\diff t^2} \tilde{c}_g(t)\\
+				\frac{\diff^2}{\diff t^2} \tilde{c}_e(t)
+			\end{pmatrix}
+			&=
+			\frac{\diff}{\diff t}
+			\begin{pmatrix}
+				\frac{\diff}{\diff t} \tilde{c}_g(t)\\
+				\frac{\diff}{\diff t} \tilde{c}_e(t)
+			\end{pmatrix}
+			=
+			\frac{\diff}{\diff t}
+			\lr{ -\frac{i}{2} }
+			\begin{pmatrix}
+				-\Delta & \Omega_0 \\
+				\Omega_0 & \Delta
+			\end{pmatrix}
+			\begin{pmatrix}
+				\tilde{c}_g(t) \\
+				\tilde{c}_e(t)
+			\end{pmatrix}
+			= \\
+			&=
+			\lr{ -\frac{i}{2} }
+			\begin{pmatrix}
+				-\Delta & \Omega_0 \\
+				\Omega_0 & \Delta
+			\end{pmatrix}
+			\begin{pmatrix}
+				\frac{\diff}{\diff t} \tilde{c}_g(t) \\
+				\frac{\diff}{\diff t} \tilde{c}_e(t)
+			\end{pmatrix}
+			=
+			\lr{ -\frac{i}{2} }^2
+			\begin{pmatrix}
+				-\Delta & \Omega_0 \\
+				\Omega_0 & \Delta
+			\end{pmatrix}^2
+			\begin{pmatrix}
+				\tilde{c}_g(t) \\
+				\tilde{c}_e(t)
+			\end{pmatrix}
+			= \\
+			&= -\frac{1}{4}
+			\begin{pmatrix}
+				\Delta^2 + \Omega_0^2 & 0 \\
+				0 & \Delta^2 + \Omega_0^2
+			\end{pmatrix}
+			\begin{pmatrix}
+				\tilde{c}_g(t) \\
+				\tilde{c}_e(t)
+			\end{pmatrix} \equiv
+			-\frac{1}{4}
+			\begin{pmatrix}
+				\Omega^2 & 0 \\
+				0 & \Omega^2
+			\end{pmatrix}
+			\begin{pmatrix}
+				\tilde{c}_g(t) \\
+				\tilde{c}_e(t)
+			\end{pmatrix},
+		\end{align*}
+	
+	where in the last step, the generalized Rabi oscillation $\Omega$ was used.\\
+	\\
+	It can be shown, that these equations are solved by
+		\begin{align*}
+			\tilde{c}_g(t) = -i\frac{\Omega_0}{\Omega} \sin\lr{ \frac{\Omega t}{2} } \tilde{c}_e(0) + \lreck{ \cos\lr{ \frac{\Omega t}{2} } + i \frac{\Delta}{\Omega} \sin\lr{ \frac{\Omega t}{2} } } \tilde{c}_g(0) \\
+			\tilde{c}_e(t) = -i\frac{\Omega_0}{\Omega} \sin\lr{ \frac{\Omega t}{2} } \tilde{c}_g(0) + \lreck{ \cos\lr{ \frac{\Omega t}{2} } - i \frac{\Delta}{\Omega} \sin\lr{ \frac{\Omega t}{2} } } \tilde{c}_e(0).
+		\end{align*}
+
+	The occupation probabilities can be calculated by plugging in the substitutions $c, \tilde{c}$:
+		\begin{align*}
+			P_e(t) &:= |C_e(t)|^2 = |c_e(t) e^{-i\omega_e t}|^2 = |c_e(t)|^2 = |\tilde{c}_e e^{i\Delta t/2}|^2 = |\tilde{c}_e(t)|^2 \\
+			P_g(t) &:= |C_g(t)|^2 = ... = |\tilde{c}_g(t)|^2
+		\end{align*}
+
+	Using the initial conditions $C_g(0)=1$ and $C_e(0)=0$ yields:
+		\begin{align*}
+			P_e(t) &= |\tilde{c}_e(t)|^2 = \left|-i\frac{\Omega_0}{\Omega} \sin\lr{ \frac{\Omega t}{2} } \right|^2 = \lr{ \frac{\Omega_0}{\Omega} }^2 \sin^2 \lr{ \frac{\Omega t}{2} } \qquad \blacksquare \\
+			P_g(t) &= |\tilde{c}_g(t)|^2 = ... = \cos^2\lr{ \frac{\Omega t}{2} } + \lr{ \frac{\Delta}{\Omega} }^2 \sin^2\lr{ \frac{\Omega t}{2} } \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section*{Appendix B: ABCD Formalism}
+The ABCD formalism is a formalism to describe light rays and the effect of optical systems on them.\\
+\\
+The light ray is described by the vector
+	\begin{equation}
+		\begin{pmatrix}
+			x \\ \theta
+		\end{pmatrix},
+	\end{equation}
+
+where $x$ is the distance to the optical axis and $\theta$ the angle between the light ray and the optical axis.\\
+\\
+\underline{Convention}: Light rays, that travel away from the optical axis have an angle $\theta > 0$ and those who travel towards the axis $\theta < 0$.\\
+Concave mirrors have a negative curvature $R<0$ and convex mirrors a positive one $R>0$.\\
+\\
+Important matrices are:
+	\begin{itemize}
+		\item \textbf{Propagation}\\
+		The propagation of a light ray in a dielectric medium by the length $d$ is described by the matrix
+			\begin{equation}
+				\begin{pmatrix}
+					1 & d \\
+					0 & 1
+				\end{pmatrix}.
+			\end{equation}
+
+
+		\item \textbf{Refraction}\\
+		The refraction of a light beam that travels in the medium $n_1$ and enters medium $n_2$ is:
+			\begin{equation}
+				\begin{pmatrix}
+					1 & 0 \\
+					0 & \frac{n_1}{n_2}
+				\end{pmatrix}
+			\end{equation}
+
+
+		\item \textbf{Refraction at a sphere with curvature $R$}	\\
+		The refraction at a sphere with curvature $R$ is described by
+			\begin{equation}
+				\begin{pmatrix}
+					1 & 0 \\
+					-\frac{n_2 - n_1}{n_2 \cdot R} & \frac{n_1}{n_2}
+				\end{pmatrix},
+			\end{equation}
+		where $R>0$ for a convex and $R<0$ for a concave mirror.
+
+
+		\item \textbf{Mirror}\\
+		The reflection off a mirror is described by
+			\begin{equation}
+				\begin{pmatrix}
+					1 & 0 \\
+					\frac{2}{R} & 1
+				\end{pmatrix},
+			\end{equation}
+		
+		where $R>0$ for a convex and $R<0$ for a concave mirror.
+
+
+		\item \textbf{Lens}\\
+		A thick lens of width $d$ and curvatures $R_1$ and $R_2$, where $n_1$ is the refractive index of the medium outside the lens and $n_2$ inside the lens, is described by the matrix
+			\begin{equation}
+				\begin{pmatrix}
+					1 - d \frac{n_2-n_1}{n_1}\frac{1}{R_1} & d \frac{n_1}{n_2} \\
+					\frac{n_2-n_1}{n_1} \lr{ \frac{1}{R_2} - \frac{1}{R_1} - \frac{n_2-n_1}{n_1}\frac{d}{R_1 R_2} } & 1 + \frac{n_2-n_1}{n_1}\frac{d}{R_2}
+				\end{pmatrix}
+				\stackrel{\comment{d\to 0}}{\longrightarrow}
+				\begin{pmatrix}
+					1 & 0 \\
+					\frac{n_2-n_1}{n_1} \lr{ \frac{1}{R_2} - \frac{1}{R_1} } & 1
+				\end{pmatrix}
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Derivation}\\
+	ges: Propagation matrix\\
+	\\
+	A light beam inside a dielectric medium propagates without refraction, so
+		\begin{align*}
+			\theta' &= \theta.
+		\end{align*}
+	
+	Let $x$ be the distance from the optical axis at the beginning of the propagation and $x'$ the distance after propagation.\\
+	Consider the triangle spanned by the propagated light beam as well as the line perpendicular and paralel to the optical axis. Formulate the tangent for the incident angle $\theta$:
+		\begin{align*}
+			\tan\theta &\approx \theta = \frac{x'-x}{d} \\
+			\Leftrightarrow x' &= x + d \cdot \theta
+		\end{align*}
+	
+	Reformulate the found equations for $x'(x,\theta)$ and $\theta'(x,\theta)$ as matrix multiplication:
+		\begin{align*}
+			\begin{pmatrix}
+				x' \\ \theta'
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				1 & d \\
+				0 & 1
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				x \\ \theta
+			\end{pmatrix}
+			\qquad \blacksquare
+		\end{align*}
+
+
+	\fbox{Derivation}\\
+	ges: Refraction\\
+	\\
+	A light beam, that gets refracted at a medium border, keeps its immediate distance to the optical axis
+		\begin{align*}
+			x' &= x.
+		\end{align*}
+	
+	The change of angle is described by Snell's law, which in the paraxial approximation simplifies to
+		\begin{align*}
+			n_1 \sin\theta &= n_2 \sin\theta' \\
+			\Leftrightarrow n_1 \theta &= n_2 \theta' \\
+			\Leftrightarrow \theta' &= \frac{n_1}{n_2} \cdot \theta.
+		\end{align*}
+
+	Reformulate the found equations for $x'(x,\theta)$ and $\theta'(x,\theta)$ as matrix multiplication:
+		\begin{align*}
+			\begin{pmatrix}
+				x' \\ \theta'
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				1 & 0 \\
+				0 & \frac{n_1}{n_2}
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				x \\ \theta
+			\end{pmatrix}
+			\qquad \blacksquare
+		\end{align*}
+
+
+	\fbox{Derivation}\\
+	ges: Mirror\\
+	\\
+	A light beam, that gets refracted at a medium border, keeps its immediate distance to the optical axis
+		\begin{align*}
+			x' &= x.
+		\end{align*}
+	
+
+\newpage
+
+
+	Picture a light ray that falls onto a spherical mirror.\\
+	Let the angle between the light ray and the optical axis be $\theta$, $\varphi$ the angle of incidence at the mirror, $\alpha$ the angle between the normal and the optical axis and $\theta'$ the angle between the reflected ray and the optical axis.\\
+	\\
+	Formulate angle equations to connect $\theta'$ with $x$ and $\theta$.\\
+	Notice, that the incoming ray moves away from the optical axis, thus $\theta > 0$ and that the outgoing ray moves towards the optical axis, thus $0>\theta' \equiv -\theta'$:
+		\begin{align*}
+			\alpha &= \varphi - \theta \\
+			\theta' &= 2\varphi - \theta
+		\end{align*}
+	
+	Rearranging the first equation for $\varphi$, inserting it into the second one and making use of $\tan\alpha \approx \alpha = \frac{x}{-R}$ yields:
+		\begin{align*}
+			\theta' &= 2\lr{ -\frac{x}{R} + \theta } - \theta = -\frac{2}{R} \cdot x + 1 \cdot \theta
+		\end{align*}
+
+	Reformulate the found equations for $x'(x,\theta)$ and $\theta'(x,\theta)$ as matrix multiplication:
+		\begin{align*}
+			\begin{pmatrix}
+				x' \\ \theta'
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				1 & 0 \\
+				-\frac{2}{R} & 1
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				x \\ \theta
+			\end{pmatrix}
+			\qquad \blacksquare
+		\end{align*}
+
+
+	\fbox{Derivation}\\
+	zz: Refraction at a sphere with curvature $R$\\
+	\\
+	Consider a concave spherical border between the medii $n_1$ and $n_2$ with the curvature $R$.\\
+	Let the angle between the light ray and the optical axis be $\theta$, $\varphi$ the angle of incidence at the mirror, $\varphi'$ the angle between the normal and the optical axis and $\theta'$ the angle between the reflected ray and the optical axis.\\
+	\\
+	Snell's law, under paraxial approximation, yields the relation between $\varphi$ and $\varphi'$:
+		\begin{align*}
+			n_1 \sin \varphi &= n_2 \sin \varphi' \\
+			\Leftrightarrow n_1 \cdot \varphi &= n_2 \cdot \varphi' \\
+			\Leftrightarrow \varphi' &= \frac{n_1}{n_2} \cdot \varphi
+		\end{align*}
+
+	Formulate angle equations to connect $\theta'$ with $x$ and $\theta$:
+		\begin{align*}
+			\alpha &= \theta' + \varphi' \\
+			\alpha &= \theta + \varphi \\
+			\alpha &\approx -\frac{x}{R}
+		\end{align*}
+
+
+\newpage
+
+
+	Rearrange the first equation for $\theta'$ and insert $\alpha, \varphi'$ and $\varphi$:
+		\begin{align*}
+			\theta' &= \alpha - \varphi' = \\
+			&= -\frac{x}{R} - \lreck{ \frac{n_1}{n_2} \cdot \varphi } = \\
+			&= -\frac{x}{R} - \lreck{ \frac{n_1}{n_2} \cdot \lr{ \alpha - \theta } } = \\
+			&= -\frac{x}{R} - \lreck{ \frac{n_1}{n_2} \cdot \lr{ -\frac{x}{R} - \theta } } = \\
+			&= - \frac{x}{R} + \frac{n_1}{n_2} \cdot \frac{x}{R} + \frac{n_1}{n_2} \cdot \theta = \\
+			&= -\frac{(n_2 - n_1)}{n_2 \cdot R} \cdot x + \frac{n_1}{n_2} \cdot \theta
+		\end{align*}
+	
+	Reformulate the found equations for $x'(x,\theta)$ and $\theta'(x,\theta)$ as matrix multiplications:
+		\begin{align*}
+			\begin{pmatrix}
+				x' \\ \theta'
+			\end{pmatrix}
+			&=
+			\begin{pmatrix}
+				1 & 0 \\
+				-\frac{(n_2 - n_1)}{n_2 \cdot R} & \frac{n_1}{n_2}
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				x \\ \theta
+			\end{pmatrix}
+			\qquad \blacksquare
+		\end{align*}
+
+
+
+
+
+
+	\fbox{Derivation}\\
+	zz: Thin lens\\
+	\\
+	The matrix for a thin lens can be described as a diffraction at a sphere with curvature $R_1$, a translation of length $d$ and another diffraction at a sphere with curvature $R_2$. Notice, that the order of matrices is ''reversed'':
+		\begin{align*}
+			&
+			\begin{pmatrix}
+				1 & 0 \\
+				-\frac{(n_1 - n_2)}{-n_1 R_2} & \frac{n_2}{n_1}
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				1 & d \\
+				0 & 1
+			\end{pmatrix}
+			\cdot 
+			\begin{pmatrix}
+				1 & 0 \\
+				-\frac{(n_2 - n_1)}{n_2 R_1} & \frac{n_1}{n_2}
+			\end{pmatrix} = \\
+			&=
+			\begin{pmatrix}
+				1 & 0 \\
+				\frac{(n_1 - n_2)}{n_1 R_2} & \frac{n_1}{n_2}
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				1 - d \cdot \frac{n_2 - n_1}{n_2 R_1} & d \cdot \frac{n_1}{n_2} \\
+				- \frac{n_2 - n_1}{n_2 R_1} & \frac{n_1}{n_2}
+			\end{pmatrix} = \\
+			&=
+			\begin{pmatrix}
+				1 - d \cdot \frac{n_2 - n_1}{n_2 R_1} & d \cdot \frac{n_1}{n_2} \\
+				\frac{n_1 - n_2}{n_1 R_2} \cdot \lr{ 1 - d \cdot \frac{n_2 - n_1}{n_2 R_1} } - \frac{n_2}{n_1} \cdot \frac{n_2 - n_1}{n_2 R_1} & \frac{n_1 - n_2}{n_1 R_2} \cdot d \cdot \frac{n_1}{n_2} + 1
+			\end{pmatrix} \longrightarrow \\
+			&\stackrel{\comment{d\to\infty}}{\longrightarrow}
+			\begin{pmatrix}
+				1 & 0 \\
+				\frac{n_1 - n_2}{n_1 R_2} - \frac{n_2}{n_1} \cdot \frac{n_2 - n_1}{n_2 R_1} & 1
+			\end{pmatrix} = \\
+			&=
+			\begin{pmatrix}
+				1 & 0 \\
+				\lr{ 1 - \frac{n_2}{n_1} } \lr{ \frac{1}{R_1} + \frac{1}{R_2} } & 0
+			\end{pmatrix} \equiv \\
+			&\equiv
+			\begin{pmatrix}
+				1 & 0 \\
+				-\frac{1}{f} & 0
+			\end{pmatrix}
+			\qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Stichwortverzeichnis}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		bare states & Eigenstates $\{\ket{g,n}, \ket{e,n-1}\}$ of the Jaynes-Cummings-Hamiltonian without the interaction term $\hat{H}_0$ \\
+	\hline
+		cavity dumping & Removal of one of the cavity mirros, which outputs all photons at once \\
+	\hline
+		coherent regime &  \\
+	\hline
+		coherence function, temporal & Autocorrelation function of the electromagnetic wave at a fixed point
+			$$G(\vec{r},\tau) := \lim\limits_{T\to\infty} \frac{1}{2T} \int_{-T}^{+T} \diff t \, U(t) \cdot U(t+\tau)$$ \\
+	\hline
+		coherence length & Length $L_\text{coh}$ that relates to the coherence time $\tau_\text{coh}$ via
+			$$L_\text{coh} = c_m \cdot \tau_\text{coh}$$ \\
+	\hline
+		coherence time & Shift $\tau_\text{coh}$ for which the degree of temporal coherence drops to $1/2$:
+			$$g(\tau_\text{coh}) = \frac{1}{2}$$ \\
+	\hline
+		complex spatial coherence & Standardised spatial coherence function \\
+	\hline
+		complex temporal coherence & Standardised coherence function
+			$$\gamma(\vec{r},\tau) := \frac{G(\vec{r},\tau)}{G(\vec{r},0)}$$ \\
+	\hline
+		cross section & \\
+	\hline
+		dipole approximation &  \\
+	\hline
+		degree of spatial coherence & Absolute value of the complex spatial coherence
+			$$|\gamma(\vec{r}_1,\vec{r}_2,t)|$$ \\
+	\hline
+		degree of temporal coherence & Absolute value of the complex temporal coherence
+			$$g(\tau) := |\gamma(\vec{r},\tau)|$$ \\
+	\hline
+		dressed states & Eigenstates of the Jaynes-Cummings-Hamiltonian's subspace $\hat{H}_n$ 
+			$$\ket{+,n}, \ket{-,n}$$ \\
+	\hline
+		Einstein coefficients & Coefficients $A, B_{21}, B_{12}$ that describe the rate of the processes spontaneous emission, stimulated emission and absorption \\
+	\hline
+		frequency pulling &  \\
+	\hline
+		gain-switchting &  \\
+	\hline
+		Glauber-Sudarshan P-function & The P-function
+			$$P(\alpha) := e^{|\alpha|^2 / 2} \int \diff^2 u \, e^{|u|^2} \braket{ -u | \hat{\rho} | u } e^{u \alpha^\star - u \alpha^\star}$$ 
+		serves as a classification for non-classical light.\\
+		& If 
+			$$P<0$$,
+		the state $\hat{\rho}$ has no classical equivalent \\
+	\hline
+		Gouy-phase & Term $\zeta(z)$ in the phase of a Gaussian beam \\
+	\hline
+		Hanburry-Brown-Twiss Interferometer &  \\
+	\hline
+		Helmholtz equation & Wave equation under the assumption of a monochromatic wave $U(\vec{r},t) = U(\vec{r}) \cdot e^{i\omega t}$:
+			$$\lr{ \vec{\nabla}^2 + k^2 } U(r) = 0$$ \\
+	\hline
+		Helmholtz equation, paraxial & Helmholtz equation under the assumptions \\
+		& - a field near and almost parallel to the optical axis $z$ \\
+		& - slowly varying envelope approximation $\partial_z A$
+			$$\lr{ \vec{\nabla}_x^2 + \vec{\nabla}_y^2 -2ik \partial_z } A(\vec{r}) = 0$$ \\
+	\hline
+		hole burning &  \\
+	\hline
+		incoherent regime &  \\
+	\hline
+		inhomogeneous, paraxial wave equation & eq. that describes the E-field in the classical description of the light-matter interaction under paraxial and slowly varying E-field approximation \\
+	\hline
+		Kerr lensing &  \\
+	\hline
+		laser medium & Linear, isotropic, non-magnetic medium which can contain dopants (e.g. atoms) for amplification \\
+	\hline
+		length gauge & Gauge, which keeps the vector potential in the quantum mechanical light matter interaction Hamiltonian \\
+	\hline
+		line shape function &  \\
+	\hline
+		line width &  \\
+	\hline
+		Lorenz function & Factor in the absorption coefficent in the semi-classical description of light-matter interaction
+			$$L(\omega) := \frac{1/\tau_P}{ (\omega - \omega_0)^2 + 1/\tau_P^2 }$$ \\
+	\hline
+		Mandel Q parameter & Measure for the deviation of the photon statistic of a state from the Poisson distribution
+			$$Q := \frac{(\Delta n)^2}{\braket{\hat{n}}} - 1$$ \\
+			& - If $Q<0$, one calls the state as \textbf{sub-Poissonian} \\
+			& - If $Q=0$, one calls the state \textbf{poissonian} \\
+			& - If $Q>0$, one calls the state \textbf{super-poissonian} and classical \\
+	\hline
+		master equation &  \\
+	\hline
+		master equation, optical &  \\
+	\hline
+		mode locking &  \\
+	\hline
+		mode pulling & Shift of the lasing frequency from the resonator frequency towards the atomic transition frequency \\
+	\hline
+		mode selection & Process of isolating a specific mode from multi-mode lasing through e.g.\\
+		& - grating \\
+		& - Littrow arrangement (prism + mirror) \\
+		& - Fabry-Pérot etalon \\
+		& - waveplate + polarisers \\
+	\hline
+		multi-mode lasing &  \\
+	\hline
+		optical oscillator & Amplifier combined with a positive feedback \\
+		& A laser is an optical oscillator if the threshold and phase condition are met \\
+	\hline
+		oscillator strength &  \\
+	\hline
+		population inversion & Difference between the population densities of the two-state atom
+			$$\Delta n := n_2 - n_1$$
+		where $n_i := n_0 \cdot |c_i|^2$ with the density of atoms $n_0$ and the probability for state $i$ $|c_i|^2$\\
+		& It appears in the gain coefficient of a laser\\
+	\hline
+		Q-switching & cavity modulation which reduces the losses in the laser medium for a short time, thus creating pulsed light \\
+	\hline
+		quadrature operators & Linear combinations of the annhilation and creation operator that are proportional to the position/momentum operator
+			{
+			\begin{align*}
+				\hat{X}_1 &:= \frac{\hat{a} + \hat{a}^\dagger}{2} \propto \hat{q} \\
+				\hat{X}_2 &:= \frac{\hat{a} - \hat{a}^\dagger}{2i} \propto \hat{p}
+			\end{align*}
+			}
+			\\
+	\hline
+		resonator, cold & Resonator with a population inversion far below the threshold
+			$$\Delta n \ll \Delta n_\text{thr}$$ \\
+	\hline
+		resonator, hot & Resonator with a population inversion far above the threshold
+			$$\Delta n \gg \Delta n_\text{thr}$$ \\
+	\hline
+		rotating wave approximation (RWA) &  \\
+	\hline
+		saturation intensity & \\
+	\hline
+		Shawlow-Townes Limit & Expression for the laser linedwidth above the threshold condition
+			$$\Delta\nu_L \propto \frac{1}{P}$$
+		with the pump power $P$ \\
+	\hline
+		single-mode lasing & \\
+	\hline
+		stability diagramm &  \\
+	\hline
+		threshold condition & Population inversion that has to be exceeded for the gain to be greater than the losses and thus laser oscillations to occur
+			$$\Delta n_\text{thr} = \frac{\alpha}{\sigma(\nu)}$$ \\
+	\hline
+		total gain & The total gain is the relation between the intensity after propagation and the initial intensity
+			$$G := \frac{I(z=d)}{I(z=0)}$$ \\
+	\hline
+		velocity gauge & Gauge, which keeps the E-field term \\
+	\hline
+		wave front & Surface of constant phase \\
+	\hline
+		Wiener-Khinchin theorem & The power spectrum of a light field $W(\nu)$ is the Fourier Transform of the temporal coherence $\Gamma(\tau)$
+			$$W(\nu) = \int_{-\infty}^\infty \diff\tau \, \Gamma(\tau) \cdot e^{i\nu\tau}$$ \\
+	\hline
+		visibility & Property of an interference pattern
+			$$V = \frac{ I_\text{max} - I_\text{min} }{ I_\text{max} + I_\text{min} }$$ \\
+	\hline\hline
+\end{xltabular}
+\end{document}

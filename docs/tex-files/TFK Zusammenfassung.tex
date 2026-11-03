@@ -1,0 +1,1908 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\lrschweif}[1]{\left\{#1\right\}}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Theoretische Festkörperphysik}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section*{Anschauliche Übersicht}
+This course describes
+	\begin{itemize}
+		\item the relationship between elastic constants and lattice vibrations
+		
+		
+		\item an introduction to superconductivity
+		
+		
+		\item multiple quantum mechanical models to describe the electronic band structure of materials
+		
+		
+		\item an introduction to Density Functional Theory
+	\end{itemize}
+
+
+\newpage
+
+
+\section{Mathematical Concepts}
+\subsection{Functional and Functional Derivative}
+A functional is a mathematical object, that takes a function $f$ as an input and outputs a number, e.g. $F[f] = \int_0^2 \diff x \, f(x)$, which for $f(x)=x^2$ becomes $F[f] = \int_0^2 \diff x \, x^2 = \frac{4}{3}$.\\
+\\
+The functional derivative $\frac{\delta F[f]}{\delta f}$ is defined through the relation
+	\begin{equation}
+		\lim_{\varepsilon\to 0} \frac{F[f(\vec{r}) + \varepsilon \delta f(\vec{r})] - F[f(\vec{r})]}{\varepsilon} = \int \diff^3 r' \, \frac{\delta F[f]}{\delta f(\vec{r}')} \cdot \delta f(\vec{r}').
+	\end{equation}
+
+Many functional derivatives make use of a \textbf{Taylor expansion} around $\varepsilon=0$ and neglect higher terms.\\\\
+Useful functional derivatives are
+	\begin{itemize}
+		\item External potential functional
+			$$\frac{\delta}{\delta f(\vec{r})} \lr{ \int \diff^3r \, f(\vec{r}) u(\vec{r}) } = u(\vec{r})$$
+
+
+		\item Thomas-Fermi kinetic energy functional
+			$$\frac{\delta}{\delta f(\vec{r}')} \lr{ \int \diff^3r \, f^{5/3}(\vec{r}) } = \frac{5}{3}f^{2/3}(\vec{r}')$$
+
+
+		\item Hartree energy functional
+			$$\frac{\delta}{\delta f(\vec{r}')} \lr{ \int \diff^3r \, \diff^3r' \, \frac{ f(\vec{r}) f(\vec{r}') u(\vec{r}) u(\vec{r}') }{ |\vec{r} - \vec{r}'| } } = 2u(\vec{r}') \int \diff^3r \, \frac{f(\vec{r})u(\vec{r})}{|\vec{r} - \vec{r}'|}$$
+
+
+		\item Von-Weizäcker kinetic energy functional
+			$$\frac{\delta}{\delta f(\vec{r})} \lr{ \int \diff^3r \, \frac{\vec{\nabla}f(\vec{r}) \cdot \vec{\nabla}f(\vec{r})}{ f(\vec{r})} } = ... $$
+		
+		\item Delta function
+			\begin{equation}
+				\frac{\delta}{\delta f(\vec{r})} f(\vec{r}') = \delta(\vec{r}-\vec{r}')
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $F[f] = \int \diff^3 r\, f^{5/3}(\vec{r})$\\
+	ges: $\frac{\delta F[f]}{\delta f(\vec{r})}$
+		\begin{align*}
+			& \lim_{\varepsilon\to 0} \frac{\int \diff^3 r\, ( f(\vec{r}) + \varepsilon \delta f(\vec{r}) )^{5/3} - \int \diff^3 r \, f^{5/3}(\vec{r})}{\varepsilon} \approx \\
+			& \stackrel{ \comment{ T_{(f + \varepsilon \delta f)^{5/3}, \varepsilon = 0}(\varepsilon) } }{\approx} \lim_{\varepsilon\to 0} \frac{\int \diff^3 r\, \lreck{ \cancel{ f^{5/3}(\vec{r}) } + \frac{5}{3} \varepsilon f^{2/3} \delta f + \mathcal{O}(\varepsilon^2) } - \int \diff^3 r\, \cancel{ f^{5/3}(\vec{r})} }{\varepsilon} = \\
+			&= \lim_{\varepsilon\to 0} \frac{\int \diff^3 r\, \frac{5}{3} \cancel{\varepsilon} f^{2/3}(\vec{r}) \delta f(\vec{r}) }{ \cancel{\varepsilon} } = \frac{5}{3} \int \diff^3r \, f^{2/3}(\vec{r}) \delta f(\vec{r}) \stackrel{!}{=} \int \diff^3 r' \, \frac{\delta F[f]}{\delta f(\vec{r}')} \cdot \delta f(\vec{r}') \\
+			\Rightarrow \frac{\delta F[f]}{\delta f(\vec{r})} &= \frac{5}{3} f^{2/3}(\vec{r})
+		\end{align*}
+\hrule
+}
+
+
+\subsection{Bosonic and Fermionic Commutators}
+For fermionic operators the $i$-th number operator as well as useful commutators are
+	\begin{align}
+		\hat{n}_i &= \hat{c}_i^\dagger \hat{c}_i \\
+		[\hat{c}_i, \hat{c}_j^\dagger] &= \delta_{ij} \\
+		[\hat{c}_i^\dagger, \hat{c}_j^\dagger]_+ &= 0 \\
+		[\hat{c}_i, \hat{c}_j]_+ &= 0.
+	\end{align}
+
+For bosonic ladder operators the $i$-th number operator as well as useful commutators are
+	\begin{align}
+		\hat{n}_i &= \hat{a}_i^\dagger \hat{a}_i \\
+		[\hat{a}_i, \hat{a}_j^\dagger] &= \delta_{ij} \\
+		[\hat{a}_i^\dagger, \hat{a}_j^\dagger] &= 0 \\
+		[\hat{a}_i, \hat{a}_j] &= 0.
+	\end{align}
+
+
+\newpage
+
+
+\section{Elastic Properties}
+The deformation of a solid body can be described by the \textbf{strain matrix} $\underline{\varepsilon}$
+	\begin{equation}
+		\vec{r}_i' = (\mathbb{1} + \underline{\varepsilon}) \vec{r}_i,
+	\end{equation}
+
+where $\vec{r}$ is the position of the $i$-th atom before and $\vec{r}'$ the position after deformation.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.2\textwidth]{Grafiken/x strain.pdf}
+	\includegraphics[width=0.2\textwidth]{Grafiken/y strain.pdf}\\
+	\includegraphics[width=0.2\textwidth]{Grafiken/shere strain.pdf}
+	\includegraphics[width=0.2\textwidth]{Grafiken/volume strain.pdf}
+	\caption{Deformation examples; top left: strain in $x$ direction; top right: strain in $y$ direction; bottom left: shere strain; bottom right: volume strain}
+\end{figure}
+
+
+A \textcolor{blue}{thermodynamically consistent} formulation of the deformation is the \textbf{Lagrange strain tensor}
+	\begin{equation}
+		\underline{\eta} = \underline{\varepsilon} + \frac{1}{2}\underline{\varepsilon}\underline{\varepsilon}
+	\end{equation}
+
+With this, the deviation of the $i$-th atom from its equilibrium position can be calculated by
+	\begin{equation}
+		|\vec{r}_i'|^2 - |\vec{r}_i|^2 = 2 \vec{r}_i'^T \underline{\eta} \vec{r}_i.
+	\end{equation}
+
+The energy of a crystal depends on the displacement of the nuclei from their equilibrium positions
+	\begin{equation}
+		E(\vec{\eta}) = E_0 + \frac{1}{2} \vec{\eta}^T \underline{c}^{(2)} \vec{\eta} + ...
+	\end{equation}
+
+where $\vec{\eta} := ( \eta_{xx}, \eta_{yy}, \eta_{zz}, \eta_{yz//zy}, \eta_{xz//zx}, \eta_{yx//xy} )^T \equiv (\eta_1, ..., \eta_6 )^T$ is the voigt notation of $\underline{\eta}$ and $c_{ij}^{(2)} = \left. \frac{\partial^2 \tilde{E}}{\partial \eta_i \partial \eta_j} \right|_0$ are the \textbf{second-order elastic constants}, where $\tilde{E}$ is the energy density.
+
+
+\newpage
+
+
+\section{Lattice vibrations}
+The position of the $k$-th atom in a 3d lattice is
+	\begin{equation}
+		\vec{R}_k(t) = \vec{R}_k^{(0)} + \vec{w}_k \cdot e^{i(\vec{q}\vec{a}k - \omega t)}
+	\end{equation}
+
+where $\vec{R}_k^{(0)}$ is the equilibrium position and the second term the deviation from that position.\\
+The amplitude vector $\vec{w}$ is determined by the eigenvalue eq.
+	\begin{equation}
+		\label{eigenvalue d matrix}
+		\underline{D}(\vec{q}) \cdot \vec{w} = \omega^2 \cdot \vec{w}
+	\end{equation}
+
+with the \textbf{dynamical matrix element}
+	\begin{equation}
+		D_{kj}(\vec{q}) = \frac{1}{m} \sum_{j=1}^{3N} \phi_{kj} \cdot e^{i\vec{q}\vec{a}(j-k)},
+	\end{equation}
+	
+where $\phi_{kj} := \frac{\partial^2 V}{\partial S_k \partial S_j}$ are the \textbf{interatomic force constants}.
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel: Schallgeschwindigkeit in Kristallen}\\
+	For small wave vectors $|\vec{q}|\to 0$ the following relation between the dynamical matrix $\underline{D}$ and the second-order elastic constants can be derived
+		\begin{align*}
+			D_{\alpha\beta}(\vec{q}) = \frac{1}{\rho} \sum_{\gamma\sigma} C_{\alpha\gamma,\beta\sigma} q_\sigma q_\gamma,
+		\end{align*}
+
+	where $\Omega$ is the unit cell volume.\\
+	Calculate the eigenvalues of the $\underline{D}$ matrix and use eq. (\ref{eigenvalue d matrix}) to establish the dispersion relation.\\
+	\\
+	Discuss the case of a cubic crystal where $C_{11} \equiv C_{xx,xx} = C_{yy,yy} = C_{zz,zz}$, $C_{12} \equiv C_{xx,yy} = C_{xx,zz} = C_{yy,zz} = ...$ und $C_{44} \equiv C_{xy,xy} = C_{xy,yx} = C_{xz,xz} = ...$.\\
+	The dynamical matrix then takes the form
+		\begin{align*}
+			\bullet \ D_{xx} &= \frac{1}{\rho} \sum_{\gamma\sigma} C_{x\gamma,x\sigma} q_\sigma q_\gamma = \frac{1}{\rho} \lr{ C_{xx,xx} q_x^2 + C_{xy,xy} q_y^2 + C_{xz,xz} q_z^2 } \equiv \\
+			&\equiv \frac{1}{\rho} \lr{ C_{11} q_x^2 + C_{44}( q_y^2 + q_z^2 ) } \\
+			\bullet \ D_{yy} &= \frac{1}{\rho} \lr{ C_{11} q_y^2 + C_{44}( q_x^2 + q_z^2 ) } \\
+			\bullet \ D_{zz} &= \frac{1}{\rho} \lr{ C_{11} q_z^2 + C_{44}( q_x^2 + q_y^2 ) } \\
+			\bullet \ D_{xy} &= \frac{1}{\rho} \lr{ C_{12} + C_{44} } q_x q_y \\
+			\bullet \ D_{xz} &= \frac{1}{\rho} \lr{ C_{12} + C_{44} } q_x q_z \\
+			\bullet \ D_{yz} &= \frac{1}{\rho} \lr{ C_{12} + C_{44} } q_y q_z
+		\end{align*}
+		\begin{align*}
+			\Rightarrow \underline{D} &= \frac{1}{\rho}
+			\begin{pmatrix}
+				C_{11} q_x^2 + C_{44}( q_y^2 + q_z^2 ) & \lr{ C_{12} + C_{44} } q_x q_y & \lr{ C_{12} + C_{44} } q_x q_z \\
+				\lr{ C_{12} + C_{44} } q_x q_y & C_{11} q_y^2 + C_{44}( q_x^2 + q_z^2 ) & \lr{ C_{12} + C_{44} } q_y q_z \\
+				\lr{ C_{12} + C_{44} } q_x q_z & \lr{ C_{12} + C_{44} } q_y q_z & C_{11} q_z^2 + C_{44}( q_x^2 + q_y^2 )
+			\end{pmatrix}
+		\end{align*}
+
+	\fbox{Case i} $\vec{q} = (0,0,1)^T q$\\
+	The dynamical matrix simplifies to
+		\begin{align*}
+			\underline{D} &= \frac{1}{\rho}
+			\begin{pmatrix}
+				C_{44} & 0 & 0 \\
+				0 & C_{44} & 0 \\
+				0 & 0 & C_{11}
+			\end{pmatrix}
+			q,
+		\end{align*}
+	
+	which obviously has the eigenvalues
+		\begin{align*}
+			\lambda_1 &= \frac{C_{44}}{\rho}q^2, \qquad \lambda_2 = \frac{C_{11}}{\rho}q^2.
+		\end{align*}
+	
+	Setting this equal to $\omega^2$ leads to the dispersion relations
+		\begin{align*}
+			\omega(q) = \sqrt{\frac{C_{44}}{\rho}}q, \qquad \omega(q) = \sqrt{\frac{C_{11}}{\rho}}q
+		\end{align*}
+	
+	from which the sound velocities
+		\begin{align*}
+			v = \frac{\partial\omega}{\partial q} = \sqrt{\frac{C_{44}}{\rho}}, \qquad v = \frac{\partial\omega}{\partial q} = \sqrt{\frac{C_{11}}{\rho}}.
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Let there be a 3d lattice of $N$ atoms where the position of the i-th atom is described by
+		$$R_i(t) = R_i^{(0)} + S_i(t).$$
+	
+	with the equilibrium position of the atom $R_i^{(0)}$ and the deviation from that equilibrium position $S_i(t)$.\\
+\\
+	Use the Euler-Lagrange equations to describe the motion.\\
+	The kinetic energy is
+		\begin{align*}
+			T &= \sum_{i=1}^N \frac{m_i}{2} \cdot \dot{R}_i(t)^2 \stackrel{ \comment{R_i(t)} }{=} \sum_{i=1}^N \frac{m_i}{2} \cdot \dot{S}_i(t)^2.
+		\end{align*}	
+
+	The potential is expanded around small deviations $S_i(t)$:
+		\begin{align*}
+			V(\{R_i(t) = R_i^{(0)} + S_i(t) | i=1,...,N\}) &= \underbrace{ \left. V(\{R_i(t)\}) \right|_{\vec{S}_i(t) = \vec{0}} }_{\equiv E_0} + \\
+			&\phantom{=} + \sum_{i=1}^N \underbrace{ \left. \frac{\partial V(\{\vec{R}_i(t)\})}{\partial(\vec{R}_i(t))} \right|_{\vec{S}_i(t) = \vec{0}} }_{=0} \cdot \vec{S}_i(t) + \\
+			&\phantom{=} + \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \underbrace{ \left. \frac{\partial^2 V(\{\vec{R}_i(t)\})}{\partial(\vec{R}_i(t)) \partial(\vec{R}_j(t))} \right|_{\vec{S}_i(t) = \vec{0}} }_{\equiv \phi_{ij}} \cdot \vec{S}_i(t) \vec{S}_j(t) + \\
+			&\phantom{=} + \mathcal{O}(\vec{S}_i(t)^3) \approx \\
+			&\approx E_0 + \frac{1}{2} \sum_{i,j} \phi_{ij} \vec{S}_i(t) \vec{S}_j(t) \equiv V^\text{HA}(\{R_i(t)\})
+		\end{align*}
+	
+	where HA stands for \underline{harmonic approximation}.\\
+	\\
+	Thus, the Lagrange function is
+		\begin{align*}
+			L &= T - V^\text{HA} = \sum_{i=1}^N \frac{m_i}{2} \cdot \dot{\vec{S}}_i(t)^2 - \lr{ E_0 + \frac{1}{2} \sum_{i,j=1}^N \phi_{ij} \vec{S}_i(t) \vec{S}_j(t) } = \\
+			&= \sum_{i=1}^{3N} \frac{m_i}{2} \cdot \dot{S}_i(t)^2 - \lr{ E_0 + \frac{1}{2} \sum_{i,j=1}^{3N} \phi_{ij} S_i(t) S_j(t) }.
+		\end{align*}
+
+	Now, solve the Euler-Lagrange equations respective the coordinates $R_1, ..., R_{3N}$:
+		\begin{align*}
+			\frac{\diff}{\diff t} \frac{\partial L}{\partial \dot{R}_k} - \frac{\partial L}{\partial R_k} &= 0 \\
+			\Leftrightarrow \frac{\diff}{\diff t} \frac{\partial L}{\partial \dot{S}_k} - \frac{\partial L}{\partial R_k} &= 0 \\
+			\bullet\ \frac{\partial L}{\partial \dot{S}_k} &= \frac{\partial}{\partial \dot{S}_k} \lr{ \sum_{i=1}^{3N} \frac{m_i}{2} \cdot \dot{S}_i(t)^2 - \lr{ E_0 + \frac{1}{2} \sum_{i,j=1}^{3N} \phi_{ij} S_i(t) S_j(t) } } = m_k \dot{S}_k(t) \\
+			\bullet\ \frac{\partial L}{\partial S_k} &= \frac{\partial}{\partial S_k} \lr{ \sum_{i=1}^{3N} \frac{m_i}{2} \cdot \dot{S}_i(t)^2 - \lr{ E_0 + \frac{1}{2} \sum_{i,j=1}^{3N} \phi_{ij} S_i(t) S_j(t) } } = -\sum_{j=1}^{3N} \phi_{kj} S_j(t) \\
+			\stackrel{\comment{m_k = m}}{\Rightarrow} m \ddot{S}_k(t) + \sum_{j=1}^{3N} \phi_{kj} S_j(t) &= 0
+		\end{align*}
+
+	To solve these equations, use the plane wave ansatz
+		\begin{align*}
+			S_k(t) &= w_k \cdot e^{i(\vec{q}\vec{a}k - \omega t)} \\
+			\Rightarrow m (-\omega^2) w_k \cdot e^{i(\vec{q}\vec{a}k - \omega t)} + \sum_{j=1}^{3N} \phi_{kj} w_j \cdot e^{i(qja - \omega t)} &= 0 \\
+			\Leftrightarrow \omega^2 \cdot w_k &= \underbrace{ \frac{1}{m} \sum_{j=1}^{3N} \phi_{kj} e^{iqa(j-k)} }_{=: D_{kj}} \cdot w_j \\
+			\Leftrightarrow \omega^2 \vec{w} &= \underline{D}(q) \vec{w} \\
+			\Leftrightarrow
+			\omega^2
+			\begin{pmatrix}
+				w_1\\ \vdots \\ w_{3N}
+			\end{pmatrix}
+			&=
+			\frac{1}{m}
+			\begin{pmatrix}
+				\phi_{11} & ... & \phi_{1,3N} \cdot e^{iqa(1-3N)} \\
+				\vdots & \ddots & \vdots \\
+				\phi_{3N,1} \cdot e^{iqa(3N-1)} & ... & \phi_{3N,3N}
+			\end{pmatrix}
+			\begin{pmatrix}
+				w_1 \\ \vdots \\ w_{3N}
+			\end{pmatrix}
+		\end{align*}
+	
+	
+
+
+\hrule
+}
+
+
+
+
+
+
+\newpage
+
+
+\section{Superconductivity}
+Superconductivity is the phenomenen that materials lose their electric resistance beneath a critical temperature $T_C$. Additionaly, the following effects occur:
+	\begin{itemize}
+		\item \textbf{Meissner-Ochsenfeld effect}\\
+		For Superconductors, an external B-field vanishes inside the material. The small penetration depth on the surface is described by the London penetration depth $\lambda_L$.
+		
+		
+		\item \textbf{Specific heat}\\
+		The specific heat due to electrons changes its behavior to
+			\begin{equation}
+				C_e = \gamma T \stackrel{\comment{T<T_c}}{\longrightarrow} \propto e^{-\frac{\Delta}{k_B T}}
+			\end{equation}
+		
+		
+		\item \textbf{Isotope effect}\\
+		The critical temperature $T_c$ depends on the ionic masses \textcolor{gruen}{(mass of the atoms without the valence electrons)} of the superconductor
+			\begin{equation}
+				T_c \propto \frac{1}{\sqrt{M}}
+			\end{equation}
+		
+		
+		\item \textbf{Critical B-field}\\
+		If an external magnetic field reaches a critical value $B_c(T)$, which depends on the temperatur, the superconductor loses its superconducting properties
+			\begin{equation}
+				B_c(T) = B_c(0) \lreck{ \lr{ 1 - \lr{\frac{T}{T_c}}^2 } }.
+			\end{equation}
+	\end{itemize}
+
+Superconductors are distinguished into two types:
+
+
+\subsection{BSC Theory}
+This is explained through the resulting coupling of two electrons to a so called Cooper-pair, which is a boson, and a condensate forms, where all Cooper-pairs are in the same ground-state. This wave function isn't perturbed by atom cores or defects, which results in superconductivity.\\
+\\
+The BSC-Hamiltonian is
+	\begin{equation}
+		\hat{H}^\text{BSC} = \sum_{\vec{k}} E(\vec{k}) c_{\vec{k}}^\dagger c_{\vec{k}} - \frac{V}{2} \sum_{\vec{q}, \vec{k}} c_{\vec{k}+\vec{q}}^\dagger c_{-\vec{k} - \vec{q}}^\dagger c_{-\vec{k}} c_{\vec{k}}.
+	\end{equation}
+
+The \textbf{Cooper pair energy} as well as the critical temperature is
+	\begin{align}
+		E &\approx 2 E_F - 2 \omega_{\vec{q}} e^{- \frac{2}{V Z(E_F)}} \\
+		T_c &\approx 1,13 \frac{\omega_q}{k_B} e^{- \frac{1}{V Z(E_F)}}.
+	\end{align}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Consider an electron that moves through a lattice of positively charged atomic nuclei. Due to the Coulomb force, the atomic nuclei are attracted towards the electron and move towards eachother. Another electron then feels the pull towards the more positively charged region in the lattice. This effectively binds both electrons together, which is called a Cooper pair.\\
+	\\
+	The Hamiltonian of this electron-phonon system is
+		\begin{align*}
+			\hat{H} &= \hat{H}_0 + \hat{H}' \\
+			\hat{H}_0 &= \sum_{\vec{k}\sigma} \varepsilon_{\vec{k}} \hat{c}_{\vec{k}\sigma}^\dagger \hat{c}_{\vec{k}\sigma} + \sum_{\vec{q}\lambda} \hbar\omega_{\vec{q}} \lr{ \hat{a}_{\vec{q}\lambda}^\dagger \hat{a}_{\vec{q}\lambda} + \frac{1}{2} } \\
+			\hat{H}' &= \sum_{\vec{k}\sigma} \sum_{\vec{q}\lambda} M_{\vec{q}\lambda} \hat{c}_{\vec{k}+\vec{q},\sigma}^\dagger \hat{c}_{\vec{k}\sigma} \lr{ \hat{a}_{\vec{q}\lambda} + \hat{a}_{-\vec{q}\lambda}^\dagger },
+		\end{align*}
+
+	where $\hat{H}_0$ is the energy of the unperturbed electrons and phonons in the system and $\hat{H}'$ the energy due to electron-phonon scattering.\\
+	\\
+	Now, do the following basis transformation and choose $\hat{S}$ such that $[\hat{S},\hat{H}_0]=\hat{H}'$, which will simplify a few terms
+		\begin{align*}
+			\hat{\tilde{H}} &= \hat{U}^\dagger \hat{H} \hat{U} = e^{-\hat{S}} \hat{H} e^{\hat{S}} = \hat{H} + [\hat{S},\hat{H}] + \frac{1}{2}[\hat{S},[\hat{S},\hat{H}]] + ... = \\
+			&= (\hat{H}_0 + \hat{H}') + [-\hat{S},\hat{H}_0 + \hat{H}'] + \frac{1}{2}[-\hat{S},[-\hat{S},\hat{H}_0 + \hat{H}']] + ... = \\
+			&= \hat{H_0} + \hat{H}' - [\hat{S},\hat{H}_0] - [\hat{S},\hat{H}'] - \frac{1}{2} [\hat{S},-[\hat{S},\hat{H}_0] + [\hat{S},\hat{H}']] = \\
+			&= \hat{H}_0 + \cancel{\hat{H}'} - \cancel{\hat{H}'} + [\hat{H}',\hat{S}] + \frac{1}{2} \underbrace{ [\hat{S},\hat{H}'] }_{=-1/2[\hat{S},\hat{H}']} + \frac{1}{2}[\hat{S},[\hat{H}',\hat{S}]] + ... \\
+			&= \hat{H}_0 + \frac{1}{2}[\hat{S},\hat{H}'] + ... \approx \hat{H}_0 + \frac{1}{2}[\hat{H}',\hat{S}]
+		\end{align*}
+
+	This approximated Hamiltonian will be used from now on.\\
+	Before continuing however, find an expression for the $\hat{S}$ operator:
+		\begin{align*}
+			[\hat{S},\hat{H}_0] &= \hat{S}\hat{H}_0 - \hat{H}_0\hat{S} = \hat{H}' \\
+			\Rightarrow \braket{ n |\hat{S} | m} &= \braket{ n |\hat{S}\hat{H}_0 | m} - \braket{ n | \hat{H}_0\hat{S} | m} = \braket{ n |\hat{S} E_m | m} - \braket{ n | E_n\hat{S} | m} = \\
+			&= \braket{ n |\hat{S} | m} \lr{ E_m - E_n } = \braket{ n | \hat{H}' | m } \\
+			\Leftrightarrow \braket{ n | \hat{S} | m } &= \bra{n} \frac{\hat{H}'}{E_m - E_n} \ket{m} = \bra{n} \sum_{\vec{k}\sigma} \sum_{\vec{q}\lambda} M_{\vec{q}\lambda} \hat{c}_{\vec{k}+\vec{q},\sigma}^\dagger \hat{c}_{\vec{k}\sigma} \lr{ \frac{\hat{a}_{\vec{q}\lambda}}{E_m - E_n} + \frac{\hat{a}_{\vec{q}\lambda}^\dagger}{E_m - E_n} } \ket{m}
+		\end{align*}
+	
+	The first term in the bracket is only non zero if a general state $\ket{m} \equiv \ket{\vec{k}\sigma}\ket{\vec{q}\lambda}$ pairs with $\bra{n} \equiv \bra{\vec{k}+\vec{q},\sigma}\bra{0}$. The energies corresponding with these states are $E_m = \varepsilon_{\vec{k}} + \hbar\omega_{\vec{q}}$ and $E_n = \varepsilon_{\vec{k}+\vec{q}}$.\\
+	The second term in the bracket is only non zero if for a state $\ket{m} \equiv \ket{\vec{k}\sigma}\ket{0}$ pairs with $\bra{n} \equiv \bra{\vec{k}+\vec{q},\sigma}\bra{-\vec{q}\lambda}$. The energies corresponding with these states are $E_m = \varepsilon_{\vec{k}}$ and $E_n = \varepsilon_{\vec{k}+\vec{q}} + \hbar\omega_{\vec{q}}$.\\
+	Thus, the $\hat{S}$ operator becomes
+		\begin{align*}
+			\hat{S} &= \sum_{\vec{k}\sigma}\sum_{\vec{q}\lambda} M_{\vec{q}\lambda} \hat{c}_{\vec{k}+\vec{q},\sigma}^\dagger  \hat{c}_{\vec{k}\sigma} \lr{ \frac{\hat{a}_{\vec{q}\lambda}}{\varepsilon_{\vec{k}} + \hbar\omega_{\vec{q}} - \varepsilon_{\vec{k}+\vec{q}}} + \frac{\hat{a}_{-\vec{q}\lambda}^\dagger}{\varepsilon_{\vec{k}} - (\hbar\omega_{\vec{k}+\vec{q}} + \hbar\omega_{\vec{q}}} }.
+		\end{align*}
+	
+	
+	
+	Inserting $\hat{S}, \hat{H}'$ into the approximated Hamiltonian yields
+		\begin{align*}
+			\hat{\tilde{H}} &= \hat{H}_0 + \frac{1}{2} \Big[ \sum_{\vec{k}\sigma} \sum_{\vec{q}\lambda} M_{\vec{q}\lambda} \hat{c}_{\vec{k}+\vec{q}}^\dagger \hat{c}_{\vec{k}\sigma} \lr{ \hat{a}_{\vec{q}\lambda} + \hat{a}_{-\vec{q}\lambda}^\dagger },\\
+			&\phantom{=} \sum_{\vec{k}'\sigma'}\sum_{\vec{q}'\lambda'} M_{\vec{q}'\lambda'} \hat{c}_{\vec{k}'+\vec{q}',\sigma'}^\dagger \hat{c}_{\vec{k}'\sigma'} \lr{ \frac{\hat{a}_{\vec{q}'\lambda'}}{(\varepsilon_{\vec{k}'} + \omega_{\vec{q}'}) - \varepsilon_{\vec{k}'+\vec{q}'}} + \frac{\hat{a}_{-\vec{q}'\lambda'}^\dagger}{\varepsilon_{\vec{k}'} - (\varepsilon_{\vec{k}'+\vec{q}'} + \omega_{\vec{q}'})} } \Big] = \\
+			&= ... = \\
+			&= 
+		\end{align*}
+
+	\textcolor{red}{WEITER}
+
+
+	\dotfill
+
+	Consider the BSC Hamliltonian $\hat{H}^\text{BSC}$ and the ground state wavefunction
+		\begin{align*}
+			\ket{\psi} &= \sum_{\vec{k}} a(\vec{k}) c_{\vec{k}}^\dagger c_{-\vec{k}}^\dagger \ket{0}
+		\end{align*}
+	
+	The expectation value for the energy is
+		\begin{align*}
+			E &= \braket{ \psi | \hat{H}^\text{BSC} | \psi } = \\
+			&= \lr{ \sum_{\vec{k}'} \bra{0} c_{-\vec{k}'} c_{\vec{k}} a^\star(\vec{k}') } \Bigg( \underbrace{ \sum_{\vec{k}} E(\vec{k}) c_{\vec{k}}^\dagger c_{\vec{k}}  }_{\textcircled{1}} - \underbrace{ \frac{V}{2} \sum_{\vec{k}} \sum_{\vec{q}} c_{\vec{k}+\vec{q}}^\dagger c_{-\vec{k}-\vec{q}}^\dagger c_{-\vec{k}} c_{\vec{k}}}_{\textcircled{2}} \Bigg) \lr{ \sum_{\vec{k}''} a(\vec{k}'') c_{\vec{k}''}^\dagger c_{-\vec{k}''}^\dagger \ket{0} } = \\
+		\end{align*}
+	
+	Calculate the terms seperately:
+		\begin{align*}
+			\textcircled{1} &= \sum_{\vec{k}} \sum_{\vec{k}'} \sum_{\vec{k}''} E(\vec{k}) a^\star(\vec{k}') a(\vec{k}'') \braket{ 0 | c_{-\vec{k}'} c_{\vec{k}} c_{\vec{k}}^\dagger c_{\vec{k}} c_{\vec{k}''}^\dagger c_{-\vec{k}''}^\dagger | 0 }
+		\end{align*}
+	
+	Take the last four ladder operators in the braket and move the anihilation operator to the right, such that $c\ket{0}=0$ can be used. In the first step, use the commutator $[c_{\vec{k}}, c_{\vec{k}''}]_+ = \delta_{\vec{k},\vec{k}''}$
+		\begin{align*}
+			c_{\vec{k}}^\dagger {\color{blue}c_{\vec{k}} c_{\vec{k}''}^\dagger }c_{-\vec{k}''}^\dagger &= c_{\vec{k}}^\dagger {\color{blue} c_{-\vec{k}''}^\dagger \delta_{\vec{k}\vec{k}''} } - c_{\vec{k}}^\dagger {\color{blue} c_{\vec{k}''}^\dagger c_{\vec{k}} } c_{-\vec{k}''}^\dagger = 
+		\intertext{Repeat this for the operators $c_{\vec{k}}, c_{-\vec{k}''}^\dagger$ in the second term:}
+			&= c_{\vec{k}}^\dagger {\color{blue} c_{-\vec{k}''}^\dagger \delta_{\vec{k}\vec{k}''} } - c_{\vec{k}}^\dagger c_{\vec{k}''}^\dagger \delta_{\vec{k},-\vec{k}''} + \cancel{ c_{\vec{k}}^\dagger c_{\vec{k}''}^\dagger c_{-\vec{k}''}^\dagger c_{\vec{k}} } = c_{\vec{k}}^\dagger {\color{blue} c_{-\vec{k}''}^\dagger \delta_{\vec{k}\vec{k}''} } - c_{\vec{k}}^\dagger c_{\vec{k}''}^\dagger \delta_{\vec{k},-\vec{k}''}
+		\end{align*}
+	
+	Inserting this into $\textcircled{1}$ yields:
+		\begin{align*}
+			\textcircled{1} &= \sum_{\vec{k}} \sum_{\vec{k}'} \sum_{\vec{k}''} E(\vec{k}) a^\star(\vec{k}') a(\vec{k}'') \braket{ 0 | c_{-\vec{k}'} c_{\vec{k}} \lr{ c_{\vec{k}}^\dagger c_{-\vec{k}''}^\dagger \delta_{\vec{k}\vec{k}''} - c_{\vec{k}}^\dagger c_{\vec{k}''}^\dagger \delta_{\vec{k},-\vec{k}''} } | 0 } = \\
+			 &= 	\sum_{\vec{k}} \sum_{\vec{k}'} \sum_{\vec{k}''} E(\vec{k}) a^\star(\vec{k}') a(\vec{k}'') \braket{ 0 | c_{-\vec{k}'} c_{\vec{k}} c_{\vec{k}}^\dagger c_{-\vec{k}''}^\dagger \delta_{\vec{k}\vec{k}''} | 0 } - \\
+			 &\phantom{=} - \sum_{\vec{k}} \sum_{\vec{k}'} \sum_{\vec{k}''} E(\vec{k}) a^\star(\vec{k}') a(\vec{k}'') \braket{ 0 | c_{-\vec{k}'} c_{\vec{k}} c_{\vec{k}}^\dagger c_{\vec{k}''}^\dagger \delta_{\vec{k},-\vec{k}''} | 0 } = \\
+			 &= \sum_{\vec{k}} \sum_{\vec{k}'} E(\vec{k}) a^\star(\vec{k}') a(\vec{k}) \braket{ 0 | c_{-\vec{k}'} c_{\vec{k}'} c_{\vec{k}}^\dagger c_{-\vec{k}}^\dagger | 0 } - \\
+			 &\phantom{=} - \sum_{\vec{k}'} \sum_{\vec{k}''} E({\color{red}-\vec{k}''}) a^\star(\vec{k}') a^\star(\vec{k}) \braket{ 0 | c_{-\vec{k}'} c_{\vec{k}'} \underbrace{ c_{-\vec{k}''}^\dagger c_{\vec{k}''}^\dagger }_{= c_{\vec{k}''}^\dagger c_{-\vec{k}''}^\dagger } | 0}
+		\end{align*}
+
+	Auxiliary calculation for the four ladder operators in the braket:
+		\begin{align*}
+			c_{-\vec{k}'} c_{\vec{k}'} c_{\vec{k}''}^\dagger c_{-\vec{k}''}^\dagger &= c_{-\vec{k}'} \lr{ \delta_{\vec{k}',\vec{k}} - c_{\vec{k}}^\dagger c_{\vec{k}} } c_{-\vec{k}}^\dagger = c_{-\vec{k}'} c_{-\vec{k}}^\dagger \delta_{\vec{k}',\vec{k}} - c_{-\vec{k}'} c_{\vec{k}}^\dagger c_{\vec{k}} c_{-\vec{k}}^\dagger = \\
+			&= {\color{red} ... = \delta^2_{\vec{k},\vec{k}'} - \delta_{\vec{k}, -\vec{k}'}}
+		\end{align*}
+	
+	{\color{red}\fbox{?} Laut Herrn Maurer sollte das Ergebnis hier $\delta_{\vec{k},\vec{k'}}$ sein.}
+
+
+
+	Thus, the expectation of the BCS Hamiltonian is
+		\begin{align*}
+			\braket{H^\text{BCS}} = 2 \sum_{\vec{k}} |a(\vec{k})|^2 - V \sum_{\vec{k},\vec{q}} a^\star(\vec{k} + \vec{q}) \cdot a(\vec{k})
+		\end{align*}
+
+	\underline{Minimize} the energy respective the coefficient $a(\vec{k}')^\star$ under the condition of a normalized wavefunction:
+		\begin{align*}
+			\frac{\partial}{\partial a_{\vec{k}'}^\star} \lr{ E - \lambda \sum_{\vec{k}''} |a(\vec{k}'')|^2 } &= 0 \\
+			\Leftrightarrow \frac{\partial}{\partial a_{\vec{k}'}^\star} \lr{ 2 \sum_{\vec{k}} |a(\vec{k})|^2 - V \sum_{\vec{k},\vec{q}} a^\star(\vec{k} + \vec{q}) \cdot a(\vec{k}) - \lambda \sum_{\vec{k}''} |a(\vec{k}'')|^2 } &= 0 \\
+			2E(\vec{k}')a(\vec{k}') - V \underbrace{ \sum_{\vec{q}} a(\vec{k}'-\vec{q}) }_{\equiv C} - \lambda a(\vec{k}') &= 0 \\
+			\stackrel{\commenttext{Notation: $\vec{k}' \to \vec{k}$}}{\Leftrightarrow} a(\vec{k}) &= \frac{VC}{2E(\vec{k}) - \lambda} \\
+			\stackrel{\comment{\sum_{\vec{k}}}}{\Rightarrow} \sum_{\vec{k}} a(\vec{k}) = C &= \sum_{\vec{k}} \frac{VC}{2E(\vec{k}) - \lambda} \\
+			\Leftrightarrow 1 &= \sum_{\vec{k}} \frac{V}{2E(\vec{k}) - \lambda} \to \int_{E_F}^{E_F + \delta\omega_{\vec{q}}} \diff\varepsilon \, \frac{Z(\varepsilon)}{2\varepsilon - \lambda}
+		\end{align*}
+
+\textcolor{red}{\fbox{?} Warum die Integrationsgrenzen $E_F$, $E_F + \omega_q$?}\\
+\\
+	The Lagrange multiplier $\lambda$ can be identified as the energy $E$.\\
+	Calculate the integral \textcolor{gruen}{(ÜB5 A2)}
+		\begin{align*}
+			1 &\stackrel{\comment{u=2\varepsilon-E}, Z \approx Z(E_F)}{=} \int_{u(E_F)}^{u(E_F + \omega_{\vec{q}})} \lr{ \frac{\diff u}{2} } \, \frac{V \cdot Z(E_F)}{u} = V\cdot Z(E_F) \cdot \left. \ln(u) \right|_{u(E_F) = 2E_F - E}^{u(E_F + \omega_{\vec{q}}) = 2(E_F + \omega_{\vec{q}}) - E} = \\
+			&= \frac{V Z(E_F)}{2} \ln\lr{ \frac{ 2(E_F + \omega_{\vec{q}}) - E }{ 2E_F - E } } \stackrel{\comment{W:=2E_F - E}}{\equiv} \frac{V Z(E_F)}{2} \ln\lr{ \frac{2\omega_{\vec{q}} + W}{W} } \approx \\
+			&\approx \frac{V Z(E_F)}{2} \ln \frac{2\omega_{\vec{q}}}{W} \\
+		\Leftrightarrow \frac{2}{V Z(E_F)} &= \ln \frac{2\omega_{\vec{q}}}{W} = \ln(2\omega_{\vec{q}}) - \ln W \\
+			\Leftrightarrow \ln W &= -\frac{2}{V Z(E_F)} + \ln (2\omega_{\vec{q}}) \\
+			\stackrel{\comment{\exp()}}{\Leftrightarrow} W = 2E_F - E &= \exp\lrschweif{ - \frac{2}{V Z(E_F)} + \ln (2\omega_{\vec{q}}) } = 2\omega_{\vec{q}}\cdot \exp\lrschweif{ -\frac{2}{V Z(E_F)} } \\
+			\Leftrightarrow E &= 2E_F - 2\omega_{\vec{q}}\cdot \exp\lrschweif{ -\frac{2}{V Z(E_F)} } \qquad \blacksquare
+		\end{align*}
+
+
+\hrule
+}
+
+
+
+
+
+
+\newpage
+
+
+\section{Formal quantum-mechanical description}
+The total Hamiltonian of a solid body is
+	\begin{align}
+		\hat{H}(r,R) &= \hat{T}_e(r) + \hat{T}_n(R) + \hat{V}_{nn}(R) + \hat{V}_{ee}(r) + \hat{V}_{ne}(r,R) \\
+		&\equiv \hat{H}_e(r,R) + \hat{T}_n(R) + \hat{V}_{nn}(R). \notag
+	\end{align}
+
+with the set of all electron positions $r := \{\vec{r}_1, ..., \vec{r}_{N_e}\}$ and the set of all nuclei positions $R := \{\vec{R}_1, ..., \vec{R}_{N_n}\}$.\\
+\\
+The solution of a general system under Born-Oppenheimer approximation uses 3 main steps:
+	\begin{enumerate}
+		\item \textbf{Fixed nuclei basis}\\
+		Assume the nuclei are fixed at their equilibrium positions $R_0$, which means $\hat{T}_n = 0$. Thus, the Hamiltonian and the wave function simplify to
+			\begin{align}
+				\hat{H}^\text{Fixed} &= \hat{H}_e(r,R_0) + \hat{V}_{nn}(R_0) \\
+				\psi_{b,R0}^\text{Fixed}(r,R) &= \delta(R - R_0) \cdot \varphi_b(r,R_0) \\
+			\end{align}
+		where $b$ is an expected quantum number.\\
+		The total wave function can then be expressed through the fixed wave functions:
+			\begin{equation}
+				\label{expansion}
+				\psi = \sum_{b'} \int \diff R_0 \, \chi_{b'}(R) \cdot \psi_{b',R_0}^\text{Fixed}(r,R_0),
+			\end{equation}
+		
+		where $\chi_{b'}(R)$ is the expansion coefficient.
+
+
+		\item \textbf{Adiabatic approximation}\\
+		The adiabatic approximation considers only one term of the expansion in eq. (\ref{expansion}), which is a good approximation for slow moving nuclei
+			\begin{equation}
+				\ket{\psi^\text{AD}_{b}} = \chi_{b}^\text{AD} \ket{\psi_{b,R_0}^\text{Fixed}},
+			\end{equation}
+		
+		which leads to the following Hamiltonian and eigenvalue equation
+			\begin{align}
+				\hat{H}_b^\text{AD} &= \hat{T}_n + \hat{V}_{nn} + \hat{D}_{bb}(R) + Q_{bb}(R) + E_b(R) \\
+				\hat{H}_b^\text{AD} \chi_b^\text{AD}(R_0) &= E_b^\text{AD} \chi_b^\text{AD}(R_0),
+			\end{align}
+		
+		where $E_b := E^\text{Fixed} - \hat{V}_{nn}(R_0)$.
+
+		
+		\item \textbf{Born-Oppenheimer approximation}\\
+		The Born-Oppenheimer approximation is an approximation following the adiabat approximation and neglects the $Q_{00}(R)$ term:
+			\begin{equation}
+				\hat{H}_b^\text{BO} := \hat{H}_b^\text{AD} - Q_{bb}(R) = \hat{T}_n + V^{BO}(R)
+			\end{equation}
+	\end{enumerate}
+
+
+\newpage
+
+
+\section{Many-Electron Models}
+The electronic Hamiltonian is defined as
+	\begin{align}
+		\hat{H}_e &= \hat{T}_e + \hat{V}_{ee} + \hat{V}_{en} = \\
+		&= \sum_{i=1}^N \lr{ -\frac{\vec{\nabla}^2}{2} } + \frac{1}{2} \sum_{i,j=1, i\neq j}^{N_e} \frac{1}{|\vec{r}_i - \vec{r}_j|} + \frac{1}{2} \sum_{i=1}^{N_e}\sum_{j=1,j\neq i}^{N_n} \frac{1}{|\vec{r}_i - \vec{R}_j|}
+	\end{align}
+
+where $\vec{r}$ indicates the electron position and $\vec{R}$ the nuclei position.
+
+\begin{table}[H]
+	\centering
+	\caption{Overview of models for electrons in solid bodies}
+	\begin{tabularx}{\textwidth}{l|X|X|X}
+		\hline\hline
+			& Assumptions & Successes & Problems \\
+		\hline
+			FEG & - no electron-electron interaction & - valence electrons &  \\
+			& - no electron-nuclei interaction & - delocalized charges &  \\
+		\hline
+			QFEG & - no electron-electron interaction &  &  \\
+			& - electron-nuclei interaction is a small pertubation &  &  \\
+		\hline
+			TB & - only electron-electron interaction between nearest neighbors &  &  \\
+			& - electronic wave function can be written as a linear combination of atomic orbitals &   &   \\
+		\hline
+			Jellium & - uniform density of nuclei and electrons &  &  \\
+			& - charge neutrality of the crystal &  &  \\
+		\hline
+			Thomas-Fermi &  &  &  \\
+		\hline
+			Hubbard & - electrons move in a discrete lattice &  &  \\
+			& - only one electron orbital per atom &  &  \\
+			& - Coulomb interaction between electrons at one site &  &  \\		
+		\hline\hline
+	\end{tabularx}
+\end{table}
+
+
+\newpage
+
+
+\subsection{Free Electron Gas (FEG)}
+The \textbf{free electron gas} neglects the electron-electron interaction $\hat{V}_{ee}$ and the electron-nuclei interaction $\hat{V}_{en}$ leaving the electronic Hamiltonian
+	\begin{equation}
+		\hat{H}_e^\text{FEG} = \hat{T}_e = \sum_{i=1}^N \lr{ -\frac{\vec{\nabla}^2}{2} }
+	\end{equation}
+
+The wave function is factorized
+	\begin{equation}
+		\varphi_\text{GS}^\text{FEG} = \phi_1^\text{FEG}(\vec{r}_1) \cdot \phi_2^\text{FEG}(\vec{r}_2) \cdot ... \cdot \phi_N^\text{FEG}(\vec{r}_N)
+	\end{equation}
+
+where $\phi_i^\text{FEG}(\vec{r}_i)$ indicate the single particle wave functions.\\
+\\
+Free electrons that are confined in a region $V_g$ are described by the normalized wave functions and the discrete wave vectors
+	\begin{align}
+		\phi(\vec{r}) &= \frac{1}{\sqrt{V_g}} e^{i\vec{k}\vec{r}} \\
+		\vec{k} &= \lr{ \frac{2\pi}{L_x}n_x, \frac{2\pi}{L_y}n_y, \frac{2\pi}{L_z}n_z }
+	\end{align}
+
+where each $\vec{k}$-Vektor has the space $\frac{(2\pi)^3}{V_g}$ in k-space.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Grafiken/FEG.pdf}
+	\caption{Band structure of the free electron gas in a simple cubic for $k_y = k_z = 0$}
+\end{figure}
+
+
+\newpage
+
+
+Important results are:
+	\begin{itemize}
+		\item \textbf{Dispersion relation}
+			\begin{equation}
+				E = \frac{\hbar^2\vec{k}^2}{2m}
+			\end{equation}
+
+
+		\item \textbf{Fermi energy / Fermi wavevector}\\
+		In a system of electrons, the highest occupied state has the Fermi-wave-vector $k_F$ and the Fermi-energy $E_F$
+			\begin{align}
+				E_F &= \frac{\hbar^2}{2m}(3n\pi^2)^{2/3}\\
+				k_F &= 3n\pi^2,
+			\end{align}
+
+		where $n = N/V_g$ is the electron density.\\
+		
+		
+		\item \textbf{Density of States (DOS)}\\
+		The density of states regarding the energy \textcolor{gruen}{(=number of states per energy interval $\diff\varepsilon$)} is given by
+			\begin{align}
+				Z_{0d}(E) &= 2\cdot \delta(E) \\
+				Z_{1d}(E) &= \frac{L}{\pi} \lr{\frac{2m}{\hbar^2}}^{1/2} \frac{1}{\sqrt{E}} \\
+				Z_{2d}(E) &= \frac{A}{2\pi} \lr{\frac{2m}{\hbar^2}}^{2/2} \\
+				Z_{3d}(E) &= \frac{V}{2\pi^2} \lr{ \frac{2m}{\hbar^2} }^{3/2} \sqrt{E}
+			\end{align}
+		
+		and depends on the dimension of the system.
+		
+		
+		\item \textbf{Energy per electron}
+			\begin{equation}
+				\frac{E}{N} = \frac{3}{5} E_F.
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Since the electronic Hamiltonian is a sum of one particle Hamiltonians, a product of one particle wave functions is chosen as an ansatz for the whole wave equation. The one particle problem is
+		\begin{align*}
+			-\frac{\hbar^2}{2m}\Delta \psi(x,y,z) &= E \cdot \psi(x,y,z)
+		\end{align*}
+	
+	which can be separated using the product $\psi(x,y,z) = X(x) Y(y) Z(z) \equiv \sum_{i=1}^3\psi_i(x_i)$ und $E = E_x + E_y + E_z$
+		\begin{align*}
+			-\frac{\hbar^2}{2m}\psi_i''(x_i) &= E_i \psi_i(x_i) \\
+			\Leftrightarrow \psi_i''(x_i) &= -\frac{2mE}{\hbar^2} \psi_i(x_i) \equiv -k^2 \psi_i(x_i) \\
+			\Rightarrow \psi_i(x_i) &\propto e^{ik_i x_i}
+		\end{align*}
+	
+	The normalization condition yields the proportionality constant
+		\begin{align*}
+			1 &\stackrel{!}{=} \int_V \diff V \, |\psi(x,y,z)|^2 = C \cdot \int_0^{L_x} \diff x \, |e^{ik_x x}|^2 \cdot \int_0^{L_y} \diff y \, |e^{ik_y y}|^2 \cdot \int_0^{L_z} \diff z \, |e^{ik_z z}|^2 = \\
+			&= C \cdot L_x L_y L_z \\
+			\Leftrightarrow C &= \frac{1}{\sqrt{ L_x L_y L_z}} \\
+			\Rightarrow \psi(x,y,z) &= \frac{1}{\sqrt{L_xL_yL_z}} e^{i(k_x x + k_y y + k_z z)} \equiv \frac{1}{\sqrt{V_g}} e^{i\vec{k}\vec{x}} \qquad \blacksquare
+		\end{align*}
+
+	Use the periodic boundary conditions $u(0)\stackrel{!}{=}u(L_i)$
+		\begin{align*}
+			1 &\stackrel{!}{=} e^{ik_iL_i} = \cos(k_iL_i) + i\sin(kL) \\
+			\Rightarrow k_i L_i &= 2\pi n, \qquad n\in\mathbb{Z}
+		\end{align*}
+
+	Thus, we have shown the quantization of $\vec{k} \qquad \blacksquare$.\\
+	\\
+	The energy dispersion follows from the definition of $E_i$
+		\begin{align*}
+			E &= \sum_{i=1}^3 E_i = \frac{\hbar^2}{2m}(k_x^2 + k_y^2 + k_z^2) \equiv \frac{\hbar^2 \vec{k}^2}{2m} \qquad \blacksquare
+		\end{align*}
+	
+	The density of $\vec{k}$-space is
+		\begin{align*}
+			Z(k_x,k_y,k_z) &= 2 \cdot \frac{1}{k_{x,n+1}-k_{x,n}} \frac{1}{k_{y,n+1}-k_{y,n}} \frac{1}{k_{z,n+1}-k_{z,n}} = \\
+			&= 2\cdot \frac{1}{2\pi/Lx} \frac{1}{2\pi/Lx} \frac{1}{2\pi/Lx} = 2 \frac{V_g}{(2\pi)^3}
+		\end{align*}
+	
+	The density in $E$-space can be calculated by comparing the integrals for the total electron number
+		\begin{align*}
+			N &= \int \diff^3 k \, Z(\vec{k}) = \int_0^{k_F} \diff k \, k^2 \cdot 4\pi \cdot 2 \frac{V_g}{(2\pi)^3} = \frac{V_g}{\pi^3} \frac{1}{3} k_F^3 \\
+			\Leftrightarrow k_F &= \lr{ 3 \frac{N}{V_g} \pi^3 }^{1/3} \equiv \lr{ 3 n \pi^2 }^{1/3} \\
+			\Rightarrow E(k_F) &= \frac{\hbar^2}{2m} \lr{ 3 n \pi^2 }^{2/3} \qquad \blacksquare
+		\end{align*}
+
+	The energy per electron can be calculated by determining the total energy of the system followed by a rearrangement:
+		\begin{align*}
+			E &= 2 \cdot \sum_{n_x, n_y, n_z} E(k_{n_x}, k_{n_y}, k_{n_z}) \longrightarrow 2 \int \diff n_x \diff n_y \diff n_z \, \frac{\hbar^2 k^2}{2m} = \\
+			&= 2 \int \frac{\diff n_x}{\diff k_x} \frac{\diff n_y}{\diff k_y} \frac{\diff n_z}{\diff k_z} \diff k_x \diff k_y \diff k_z \, \frac{\hbar^2 k^2}{2m}
+		\end{align*}
+	
+	Auxiliary calculation for the $\frac{\diff n_i}{\diff k_i}$ terms:
+		\begin{align*}
+			\prod_{i=1}^3 \frac{\diff n_i}{\diff k_i} = \frac{1}{\prod_{i=1}^3 \frac{\diff k_i}{\diff n_i}} = \frac{1}{\frac{\diff}{\diff n_i} \frac{2\pi}{L_i}n_i} = \frac{1}{\frac{2\pi}{L_x}\frac{2\pi}{L_y}\frac{2\pi}{L_z}} = \frac{V_g}{(2\pi)^3}
+		\end{align*}
+
+	Thus
+		\begin{align*}
+			E &= 2 \int_0^{k_F} \diff k \, k^2 \cdot (4\pi) \cdot \frac{V_g}{(2\pi)^3} \frac{\hbar^2k^2}{2m} = 2 \frac{V_g}{(2\pi)^3} \frac{\hbar^2k^2}{2m} \int_0^{k_F} \diff k \, k^4 = \\
+			&= 2 \frac{V_g}{(2\pi)^3} \frac{\hbar^2}{2m} \cdot 4\pi \cdot \int_0^{k_F} \frac{1}{5} \underbrace{ k_F^5 }_{=k_F^2 k_F^3 = k_F^2 \cdot 3\pi^2n} = 2 \cdot \frac{\hbar^2k_F^2}{2\pi} \cdot \frac{V_g}{(2\pi)^3} \cdot 4\pi \cdot \frac{1}{5} \cdot (3\pi^2n) = \\
+			&= \frac{ \cancel{8\pi^3} }{ \cancel{8\pi^3} } \cancel{V_g} \cdot E_F \cdot \frac{3}{5} \frac{N}{\cancel{V_g}} = \frac{3}{5} E_F N \\
+			\Leftrightarrow \frac{E}{N} &= \frac{3}{5} E_F \qquad \blacksquare
+		\end{align*}
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Quasi-Free Electron Gas (QFEG)}
+The QFEG is a model that improves the FEG model by treating the potentials due to the nuclei as a weak pertubation, thus making use of the \textbf{pertubation theory}
+	\begin{align}
+		\hat{h}^\text{QFEG} &= \hat{h}^\text{FEG} + \lambda \hat{v} \\
+		\varepsilon_\nu^\text{2.ST} &= \varepsilon_\nu^{(0)} + \lambda \varepsilon_\nu^{(1)} + \lambda^2 \varepsilon_\nu^{(2)}
+	\end{align}
+
+where $\varepsilon_\nu^{(1)} = \braket{ \nu | \hat{v} | \nu}$.
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: Band structure for two nearly degenerate states\\
+	\\
+	Consider two states $\nu$ and $k$ in the FEG which are almost degenerate. This occurs at the edges of the first Brillouin zone. Assume that the deviation from the FEG Hamiltonian is small.\\
+	\\
+	To calculate the energies there, use the secular equation (see TB model) and as basis functions the eigenfunctions of the almost degenerate states $\ket{\nu}, \ket{k}$.
+		\begin{align*}
+			\underline{H} &=
+			\begin{pmatrix}
+				\braket{ \nu | \hat{H} | \nu } & \braket{ \nu | \hat{H} | k} \\
+				\braket{ k | \hat{H} | \nu } & \braket{ k | \hat{H} | k}
+			\end{pmatrix}
+			\equiv
+			\begin{pmatrix}
+				\varepsilon_{\nu}^{(0)} & V_G \\
+				V_G & \varepsilon_k^{(0)}
+			\end{pmatrix} \\
+			0 &\stackrel{!}{=} \det( \underline{H} - E \mathbb{1}) \\
+			0 &=
+			\begin{pmatrix}
+				\varepsilon_{\nu} - E & V_G \\
+				V_G & \varepsilon_k - E
+			\end{pmatrix}
+			= (\varepsilon_{\nu} - E)(\varepsilon_k - E) - V_G^2´ \\
+			&= E^2 - E(\varepsilon_\nu^{(0)} + \varepsilon_k^{(0)}) + \varepsilon_\nu^{(0)}\varepsilon_k^{(0)} - V_G^2 \\
+			\Rightarrow E_{\pm} &= \frac{\varepsilon_\nu^{(0)} + \varepsilon_k^{(0)}}{2} \pm \frac{1}{2} \sqrt{ (\varepsilon_\nu^{(0)} + \varepsilon_k^{(0)})^2 + 4V_G^2}
+		\end{align*}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Grafiken/QFEG.pdf}
+		\caption{1d band structure of the quasi free electron gas}
+	\end{figure}
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Tight Binding Model (TB)}
+The \textbf{tight binding model} assumes interaction between neighboring atoms and electrons that are tightly bound to the atom.\\
+The energy is
+	\begin{equation}
+		E_{n\vec{k}} = \varepsilon_{\text{atom},n} + \alpha_n + \sum_{\vec{R}_{NN} \neq \vec{0}} e^{-i\vec{k}\vec{R}} \beta_n(\vec{R})
+	\end{equation}
+
+with
+	\begin{align*}
+		\alpha_n &:= \int \diff^3 r \, \phi_n^\star(\vec{r}) \cdot \Delta V(\vec{r}) \cdot \phi_n(\vec{r})\\
+		\beta_n(\vec{R}) &:= \int \diff^3 r \, \phi_n^\star(\vec{r} - \vec{R}) \cdot \Delta V(\vec{r}) \cdot \phi_n(\vec{r}).
+	\end{align*}	
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: simple cubic
+		\begin{align*}
+			E_{n,\vec{k}} &= \varepsilon_n^\text{atom} + \underbrace{\alpha_n}_{=0} + \sum_{\vec{R}_{NN} \neq \vec{0}} e^{-i\vec{k}\vec{R}} \cdot \underbrace{\int \diff^3 r \, \phi_n^\star(\vec{r} - \vec{R}) \cdot \Delta V(\vec{r}) \cdot \phi_n(\vec{r})}_{\equiv -t} = \\
+			&= \varepsilon_n^\text{atom} - t \lr{ e^{-ik_x a} + e^{ik_x a} + e^{ik_y a} + e^{-ik_y a} + e^{ik_z a} + e^{-ik_z a} } = \\
+			&= \varepsilon_n^\text{atom} - 2t(\cos(k_x a) + \cos(k_y a) + \cos(k_z a))
+		\end{align*}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.3\textwidth]{Grafiken/TB simple cubic.pdf}
+		\caption{Contour plot of the band structure of simple cubic}
+	\end{figure}
+
+	Other results and plots using the TB method: \url{https://lampz.tugraz.at/~hadley/ss2/lectures17/mar22.pdf}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Derivation}\\
+	In this model, we look at single electrons that move in an effective potential due to the other particles. The single particle Hamiltonian $\hat{H}$ can be split into the atom and interaction part and fulfills the eigenvalue equation:
+		\begin{align*}
+			\hat{H} \psi_{\vec{k}}(\vec{r}) &= \lr{ \hat{H}_\text{atom} + \Delta V(\vec{r}) } \psi_{\vec{k}}(\vec{r}) = E_{\vec{k}} \psi_{\vec{k}}(\vec{r})
+		\end{align*}
+
+where the atomic Hamiltonian $\hat{H}_\text{atom} = -\frac{\hbar^2}{2m}\vec{\nabla}^2 + v_{\text{atom}}$ fulfills the eigenvalue eq.
+		\begin{align*}
+			\hat{H}_\text{atom} \phi_\text{atom}(\vec{r}) = \varepsilon_\text{atom} \phi_\text{atom}(\vec{r}).
+		\end{align*}
+
+As an ansatz for the wavefunction $\psi_{\vec{k}}$ a LCAO $\phi_{a,n}$ is chosen:
+		\begin{align*}
+			\psi_{\vec{k}}(\vec{r}) = \sum_j e^{i\vec{k}\vec{R}_j} \phi_\text{atom}(\vec{r} - \vec{R}_j)
+		\end{align*}
+
+The expectation value of the Hamiltonian is
+	\begin{align*}
+		E(\vec{k}) &= \frac{ \braket{ \psi_{\vec{k}} | \hat{H} | \psi_{\vec{k}} } }{ \braket{\psi_{\vec{k}} | \psi_{\vec{k}} } } \approx \braket{ \psi_{\vec{k}} | \hat{H} | \psi_{\vec{k}} } \stackrel{ \comment{ \hat{H} } }{=} \int \diff^3r \, \psi_{\vec{k}}^\star(\vec{r}) \lr{ \hat{H}_\text{atom} + \Delta V(\vec{r}) } \psi_{\vec{k}}(\vec{r}) = \\
+		&= \int \diff^3r \, \psi_{\vec{k}}^\star(\vec{r}) \hat{H}_\text{atom} \psi_{\vec{k}}(\vec{r}) + \int \diff^3r \, \psi_{\vec{k}}^\star(\vec{r}) \Delta V(\vec{r}) \psi_{\vec{k}}(\vec{r}) = \\
+		&\stackrel{\comment{\psi}}{=} \sum_{i,j} \int \diff^3r \, e^{i\vec{k}(\vec{R}_i - \vec{R}_j)} \phi_\text{atom}(\vec{r} - \vec{R}_j) \underbrace{ \hat{H}_\text{atom} \phi_\text{atom}(\vec{r} - \vec{R}_i) }_{= \varepsilon_\text{atom} \phi_\text{atom}(\vec{r} - \vec{R}_i)} + \\
+		&\phantom{=} + \sum_{i,j} e^{i\vec{k}(\vec{R}_i - \vec{R}_j)} \int \diff^3r \, \phi_\text{atom}^\star(\vec{r} - \vec{R}_j) \Delta V(\vec{r}) \phi_\text{atom}(\vec{r} - \vec{R}_i) = \\
+		&= \varepsilon_\text{atom} \cdot \sum_{i,j} e^{i\vec{k}(\vec{R}_i - \vec{R}_j)} \underbrace{ \int \diff^3r \, \phi_\text{atom}(\vec{r} - \vec{R}_j) \phi_\text{atom}(\vec{r} - \vec{R}_i) }_{ =\delta_{ij} } + \\
+		&\phantom{=} + \sum_j e^{-i\vec{k}\vec{R}_j} \int \diff^3r \, \phi_\text{atom}(\vec{r} - \vec{R}_j) \Delta V \phi_\text{atom}(\vec{r}) = \\
+		&= \varepsilon_\text{atom} + \int \diff^3r \, \phi_\text{atom}(\vec{r}) + \sum_{\vec{R}\neq \vec{0}} e^{-i\vec{k}\vec{R}} \int \diff^3r \, \phi_\text{atom}(\vec{r} - \vec{R}) \equiv \\
+		&\equiv \varepsilon_\text{atom} + \alpha + \sum_{\vec{R}\neq \vec{0}} e^{-i\vec{k}\vec{R}} \beta(\vec{R})
+	\end{align*}
+
+where in the second to last step the term with $\vec{R} = \vec{0}$ ($\alpha$ term) was separated from the sum.\\
+Finally, the \underline{nearest neighbor approximation} is made, meaning, that $\beta(\vec{R}) \neq 0$ only if $\vec{R} = \vec{R}_{NN}$:
+	\begin{align*}
+		E(\vec{k}) = \varepsilon_\text{atom} + \alpha + \sum_{\vec{R}_{NN}\neq \vec{0}} e^{-i\vec{k}\vec{R}_{NN}} \beta(\vec{R}_{NN}) \qquad \blacksquare
+	\end{align*}
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Matrix Formulation}
+An equivalent formulation of the tight binding problem uses the \textbf{secular equation}
+	\begin{align}
+		\sum_j \lr{ \braket{ i | \hat{H} | j } - \varepsilon \braket{i | j} } c_j &= 0 \qquad \forall i \\
+		\Leftrightarrow \det(\underline{H} - \varepsilon \underline{S}) &= 0
+	\end{align}
+
+where
+	\begin{equation}
+		H_{ij} = \braket{i|\hat{H}|j} =
+		\begin{cases}
+			E_i &, i=j \\
+			t_{ij} e^{i \vec{k} (\vec{R}_i - \vec{R}_j)} &, i\neq j
+		\end{cases}
+	\end{equation}
+
+with the \textbf{hopping parameter} $t_{ij}$.\\
+\\
+To solve a given crystal, one has to choose as many basis functions $\ket{i}$ as there are atoms in the unit cell.
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Example: $1s$ Band Structure of Graphene}\\
+	geg: Consider the basis functions
+		\begin{align*}
+			\psi_{A,\vec{k}} &= \frac{1}{\sqrt{V}} \sum_{\vec{R}} e^{i\vec{k}(\vec{A} + \vec{R})} \phi_s(\vec{r} - \vec{A} - \vec{R}) \\
+			\psi_{B,\vec{k}} &= \frac{1}{\sqrt{V}} \sum_{\vec{R}} e^{i\vec{k}(\vec{B} + \vec{R})} \phi_s(\vec{r} - \vec{B} - \vec{R})
+		\end{align*}
+	
+	where $\phi_s(\vec{r})$ is the wave function for an electron in the $s$-orbital.\\
+	The matrix elements and overlap integrals shall fulfill the following equations:
+		\begin{align*}
+			\int_\Omega \diff^3r \, \phi(\vec{r} - \vec{A} - \vec{S}) \hat{H} \phi(\vec{r} - \vec{A} - \vec{R}) &= \varepsilon \cdot \delta_{\vec{S},\vec{R}} \\
+			\int_\Omega \diff^3r \, \phi(\vec{r} - \vec{B} - \vec{S}) \hat{H} \phi(\vec{r} - \vec{B} - \vec{R}) &= \varepsilon \cdot \delta_{\vec{S},\vec{R}} \\
+			\int_\Omega \diff^3r \, \phi(\vec{r} - \vec{A} - \vec{S}) \hat{H} \phi(\vec{r} - \vec{B} - \vec{R}) &= -t \sum_{\vec{R}_\text{NN}} \delta_{\vec{R}_\text{NN},\vec{B}-\vec{A}+\vec{R}-\vec{S}} \\
+			\int_\Omega \diff^3r \, \phi(\vec{r} - \vec{A} - \vec{S}) \phi(\vec{r} - \vec{B} - \vec{R}) &= \delta_{\vec{A}+\vec{S},\vec{B}+\vec{R}}
+		\end{align*}
+
+	ges: Hamiltonian in given basis, eigenvalues, dispersion relation\\
+	\\
+	The matrix elements are
+		\begin{align*}
+			\bullet \ \braket{ A | \hat{H} | A } &= \int_\Omega \diff^3r \, \lr{ \frac{1}{\sqrt{V}} \sum_{\vec{S}} e^{-i\vec{k}(\vec{A} + \vec{S})} \phi_s(\vec{r} - \vec{A} - \vec{S}) } \hat{H} \lr{ \frac{1}{\sqrt{V}} \sum_{\vec{R}} e^{i\vec{k}(\vec{A} + \vec{R})} \phi_s(\vec{r} - \vec{A} - \vec{R}) } = \\
+			&= \frac{1}{V} \sum_{\vec{R},\vec{S}} e^{i\vec{k}(\vec{R}-\vec{S})} \underbrace{ \int_\Omega \diff^3r \, \phi_s(\vec{r} - \vec{A} - \vec{S}) \hat{H} \phi_s(\vec{r} - \vec{B} - \vec{R}) }_{=\varepsilon \delta_{\vec{S}\vec{R}}} = \\
+			&= \frac{1}{V} \sum_{\vec{R}\vec{S}} \varepsilon \delta_{\vec{R}\vec{S}} = \varepsilon \frac{1}{V} \underbrace{\sum_{\vec{R}}}_{=V} = \varepsilon \\
+			\bullet \ \braket{ B | \hat{H} | B } &= ... = \varepsilon \\
+			\bullet \ \braket{ A | \hat{H} | B } &= \int_\Omega \diff^3r \, \lr{ \frac{1}{\sqrt{V}} \sum_{\vec{S}} e^{-i\vec{k}(\vec{A} + \vec{S})} \phi_s(\vec{r} - \vec{A} - \vec{S}) } \hat{H} \lr{ \frac{1}{\sqrt{V}} \sum_{\vec{R}} e^{i\vec{k}(\vec{B} + \vec{R})} \phi_s(\vec{r} - \vec{B} - \vec{R}) } = \\
+			&= \frac{1}{V} \sum_{\vec{R},\vec{S}} e^{i\vec{k}(\vec{B}-\vec{A}+\vec{R}-\vec{S})} \underbrace{ \int_\Omega \diff^3r \, \phi_s(\vec{r} - \vec{A} - \vec{S}) \hat{H} \phi_s(\vec{r} - \vec{B} - \vec{R}) }_{= -t \sum_{\vec{R}_\text{NN}} \delta_{\vec{R}_\text{NN},\vec{B}-\vec{A}+\vec{R}-\vec{S}}} = \\
+			&= \frac{1}{V} \sum_{\vec{R}} (-t) \sum_{\vec{R}_\text{NN}} e^{i\vec{k}\vec{R}_\text{NN}} = -t \sum_{\vec{R}_\text{NN}} e^{i\vec{k}\vec{R}_\text{NN}} \equiv -t \cdot f(\vec{k}) \\
+			\bullet \ \braket{ B | \hat{H} | A } &= \braket{ A | \hat{H} | B }^\star = -t f^\star(\vec{k})
+		\end{align*}
+	
+	Thus, the Hamiltonian becomes
+		\begin{align*}
+			\underline{H} &=
+			\begin{pmatrix}
+				\varepsilon & -t f(\vec{k}) \\
+				-t f^\star(\vec{k}) & \varepsilon
+			\end{pmatrix} \qquad\blacksquare
+		\end{align*}
+	
+	To find the eigenvalues, calculate the characteristic polynomial
+		\begin{align*}
+			\det(\underline{H} - E\mathbb{1}) &=
+			\begin{vmatrix}
+				\varepsilon - E & -t f(\vec{k}) \\
+				-t f^\star(\vec{k}) & \varepsilon - E
+			\end{vmatrix}
+			=
+			(\varepsilon - E)^2 - (-t)^2 \cdot |f(\vec{k})|^2 = \\
+			&= E^2 - 2\varepsilon E + \varepsilon^2 - t^2 \cdot |f(\vec{k})|^2 = E^2 - 2\varepsilon E + (\varepsilon^2 - t^2 \cdot |f(\vec{k})|^2) \stackrel{!}{=} 0 \\
+			\Rightarrow E_\pm &= -\frac{-2\varepsilon}{2} \pm \sqrt{ \lr{\frac{-2\varepsilon}{2}}^2 - (\varepsilon^2 - t^2 \cdot |f(\vec{k})|^2 ) } = \\
+			&= \varepsilon \pm t \cdot \sqrt{ |f(\vec{k})|^2 }
+		\end{align*}
+	
+	Calculate $f(\vec{k})$ explicitely. Therefore, the neighboring atom positions are needed:
+		\begin{align*}
+			\vec{R}_1 = c
+			\begin{pmatrix}
+				0\\1
+			\end{pmatrix}, \quad
+			\vec{R}_2 = \frac{c}{2}
+			\begin{pmatrix}
+				\sqrt{3}\\-1
+			\end{pmatrix}, \quad
+			\vec{R}_3 = -\frac{c}{2}
+			\begin{pmatrix}
+				\sqrt{3}\\1
+			\end{pmatrix} 
+		\end{align*}
+
+	where $c:=\frac{a_0}{\sqrt{3}}$.
+
+\newpage
+
+
+	\textcolor{red}{\fbox{?} ''Neighboring atoms'' von Atom A oder Atom B?}
+		\begin{align*}
+			f(\vec{k}) &= \sum_{\vec{R}_\text{NN}} e^{i\vec{k}\vec{R}_\text{NN}} = e^{i\vec{k}\vec{R}_1} + e^{i\vec{k}\vec{R}_2} + e^{i\vec{k}\vec{R}_3} = e^{ick_y} + e^{i\frac{c}{2}(\sqrt{3}k_x - k_y)} + e^{-i\frac{c}{2}(\sqrt{3}k_x + k_y)} = \\
+			&= e^{ick_y} + e^{i\frac{c}{2}k_y} \lr{ e^{i\frac{c}{2}\sqrt{3}k_x} + e^{-i\frac{c}{2}\sqrt{3}k_x} } = e^{ick_y} + 2e^{i\frac{c}{2}k_y} \cdot \cos\lr{ \frac{c}{2}\sqrt{3}k_x } \equiv \\
+			&\equiv A + B \cdot C \\
+			\Rightarrow |f(\vec{k})|^2 &= |A + BC|^2 = (A+BC)^\star (A+BC) = (A^\star + B^\star C)(A + BC) = \\
+			&= |A|^2 + |B|^2 \cdot C^2 + (A^\star B + AB^\star) \cdot C = \\
+			&= 1 + 4 \cdot \cos^2\lr{ \frac{\sqrt{3}}{2}ck_x } + 4\cos\lr{ \frac{\sqrt{3}}{2}ck_x } \cdot \cos\lr{ \frac{3}{2}ck_y }
+		\end{align*}
+	
+	Inserting this expression into $E_\pm(\vec{k})$ yields the expression
+		\begin{align*}
+			E_\pm(\vec{k}) &= \varepsilon \pm t \sqrt{ 1 + 4 \cdot \cos^2\lr{ \frac{\sqrt{3}}{2}ck_x } + 4\cos\lr{ \frac{\sqrt{3}}{2}ck_x } \cdot \cos\lr{ \frac{3}{2}ck_y } }. \qquad\blacksquare
+		\end{align*}
+	
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/graphene tb.pdf}
+		}
+		\caption{Bandstructure of the 1s wavefunction of graphene calculated using the tight binding method}
+	\end{figure}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	The TB model uses the variational principle with a LCAO ansatz for the test wave function.
+		\begin{align*}
+			E &= \frac{ \braket{\psi | \hat{H} | \psi} }{ \braket{\psi | \psi} } = \frac{ \int \diff^3r \, \lr{ \sum_i c_i^\star \phi_i^\star } \hat{H} \lr{ \sum_j c_j \phi_j } }{ \int \diff^3r \,  \sum_i\sum_j c_i^\star c_j \phi_i^\star \phi_j  } \equiv \frac{ \sum_{ij} c_i^\star c_j H_{ij} }{ \sum_{ij} c_i^\star c_j S_{ij} }
+		\end{align*}
+	
+	Minimize the energy respective the coeffient $c_k^\star$ using the quotient rule:
+		\begin{align*}
+			\frac{\partial E}{\partial c_k^\star} &= \frac{\partial}{\partial c_k^\star} \frac{ \sum_{ij} c_i^\star c_j H_{ij} }{ \sum_{ij} c_i^\star c_j S_{ij} } = \frac{\sum_j c_j H_{kj} \cdot \sum_{ij} c_i^\star c_j S_{ij} - \sum_{ij} c_i^\star c_j H_{ij} \cdot \sum_j c_j S_{kj}}{ \lr{ \sum_{ij} c_i^\star c_j S_{ij} }^2 } = \\
+			&= \frac{ \sum_j c_j H_{kj} }{\sum_{ij} c_i^\star c_j S_{ij}} - \underbrace{ \frac{ \sum_{ij} c_i^\star c_j H_{ij} }{\sum_{ij} c_i^\star c_j S_{ij}} }_{\equiv E} \cdot \frac{ \sum_j c_j S_{kj} }{ \sum_{ij} c_i^\star c_j S_{ij} } \stackrel{!}{=} 0 \\
+			\stackrel{\comment{\cdot \sum_{ij} c_i^\star c_j S_{ij}}}{\Leftrightarrow} 0 &= \sum_j c_j H_{kj} - E \sum_j c_j S_{kj} \\
+			\Leftrightarrow 0 &= \sum_j \lr{ H_{kj} - E S_{kj} } c_j
+		\end{align*}
+	
+	From Linear Algebra it is known, that this is equivalent to
+		\begin{align*}
+			\det(\underline{H} - E\underline{S}) = 0
+		\end{align*}
+\hrule
+}
+
+
+\subsection{Independant Particles (IP)}
+The \textbf{independant particle} approximation neglects the electron-electron interation $\hat{V}_{ee}$:
+	\begin{equation}
+		\hat{H}_e^\text{IP} = \hat{T}_e + \hat{V}_{en} = \sum_{i=1}^N \lr{ -\frac{\vec{\nabla}^2}{2} } + \sum_{i=1}^N \frac{1}{|\vec{r}_i - \vec{R}_i|} \equiv \sum_{i=1}^N \hat{h}_e^\text{IP}
+	\end{equation}
+
+The eigenvalue eq. of the Hamiltonian, eigenstate and energies are:
+	\begin{align}
+		\hat{H}_e^\text{IP} \varphi_e^\text{IP} \equiv \sum_{i=1}^N \hat{h}_e^\text{IP} \varphi_e^\text{IP} &= \sum_{i=1}^N \varepsilon_i^\text{IP} \varphi_e^\text{IP} \equiv E_e^\text{IP}  \varphi_e^\text{IP} \\
+		\varphi_e^\text{IP}(\vec{r}_1, ..., \vec{r}_N) &= \phi_1^\text{IP}(\vec{r}_1) \cdot \phi_2^\text{IP}(\vec{r}_2) \cdot ... \cdot \phi_N^\text{IP}(\vec{r}_N) \\
+		E_e^\text{IP} &= \sum_{i=1}^N \varepsilon_i^\text{IP}
+	\end{align}
+
+
+
+\newpage
+
+
+\subsection{Hartree Method (HA)}
+The Hartree method (HA) is the variational principle for the electronic Hamiltonian  $\hat{H}_e$ and the factorized trial function
+	\begin{equation}
+		\varphi_\text{GS}^\text{HA}(r) =  \phi_1^\text{HA}(\vec{r}_1) \cdot \phi_2^\text{HA}(\vec{r}_2) \cdot ... \cdot \phi_N^\text{HA}(\vec{r}_N).
+	\end{equation}
+
+The test energy is a functional of the single electron wave functions
+	\begin{equation}
+		E^\text{T}[\{\phi_i\}] = E^\text{IP}[\{\phi_i\}] + E^\text{H}[\{\phi_i\}] + E^\text{SIC}[\{\phi_i\}].
+	\end{equation}
+
+Minimization of this energy under the condition that all single electron wavefunctions are normalized yields the \textbf{Hartree equation}
+	\begin{equation}
+		\lr{ \hat{h}^\text{IP}(\vec{r}) + v^\text{H}(\vec{r},[\{\phi_i^\text{HA}\}]) + v_k^\text{SIC}(\vec{r}, [\{\phi_i^\text{HA}\}]) } \phi_k^\text{HA}(\vec{r}) = \varepsilon_k \phi_k^\text{HA}(\vec{r}).
+	\end{equation}
+
+with the \textbf{Hartree potential} $v^\text{H}(\vec{r}) := \int \diff^3r' \frac{n(\vec{r}')}{|\vec{r} - \vec{r}'|}$ and the \textbf{self-interaction correction} $v_k^\text{SIC}(\vec{r}) := -\int\diff^3r' \frac{|\phi_k(\vec{r}')|^2}{|\vec{r} - \vec{r}'|} \phi_k^\text{HA}(\vec{r})$.\\
+\\
+This equation is solved using a self consistency loop:
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=\textwidth]{Grafiken/hartree.pdf}
+		}
+		\caption{Schematic of the iterative process in the Hartree method; $(\nu)$ depicts the number of the iteration}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	The trial energy, that has to be minimized is
+		\begin{align*}
+			E_T &:= \braket{ \phi_\text{GS}^\text{HA} | \hat{H}_e | \phi_\text{GS}^\text{HA} } = \braket{ \phi_\text{GS}^\text{HA} | \lr{ \hat{T}_e + V_{ee} + V_{en} } | \phi_\text{GS}^\text{HA} } = \braket{ \phi_\text{GS}^\text{HA} | \lr{ \hat{T}_e + V_{ee} + V_{en} } | \phi_\text{GS}^\text{HA} } = \\ 
+			&= \braket{ \phi_\text{GS}^\text{HA} | \lr{ \hat{T}_e + V_{en} } | \phi_\text{GS}^\text{HA} } + \braket{ \phi_\text{GS}^\text{HA} | V_{ee} | \phi_\text{GS}^\text{HA} } \equiv E_1 + E_2.
+		\end{align*}
+	
+	Calculate $E_1, E_2$ seperately:
+		\begin{align*}
+			\bullet\ E_1 &= \braket{ \phi_\text{GS}^\text{HA} | \lr{ \hat{T}_e + V_{en} } | \phi_\text{GS}^\text{HA} } = \braket{ \phi_\text{GS}^\text{HA} | \lr{ \sum_{i=1}^N -\frac{1}{2} \nabla_{\vec{r}_i}^2 + v(\vec{r}_i) } | \phi_\text{GS}^\text{HA} } \equiv \braket{ \phi_\text{GS}^\text{HA} | \sum_{i=1}^N \hat{h}^\text{IP}(\vec{r}_i) | \phi_\text{GS}^\text{HA} } = \\
+			& \begin{matrix}
+				\sum_{i=1}^N & \int \diff^3r_1 & \cdot ... \cdot & \diff^3r_i & \cdot ... \cdot & \diff^3r_N \\
+				& \phi_1^\star(\vec{r}_1) & \cdot ... \cdot & \phi_i^\star(\vec{r}_i) & \cdot ... \cdot & \phi_N^\star(\vec{r}_N) \cdot \\
+		& \cdot ... \cdot & \cdot ... \cdot & \hat{h}^\text{IP}(\vec{r}_i) \cdot & \cdot ... \cdot & \cdot ... \cdot \\
+		& \phi_1(\vec{r}_1) & \cdot ... \cdot & \phi_i(\vec{r}_i) & \cdot ... \cdot & \phi_N(\vec{r}_N)
+			\end{matrix}	 = \\
+		& \sum_{i=1}^N \lr{ 1 \cdot ... \cdot \int \diff^3r_i\, \phi_i^\star(\vec{r}_i) \hat{h}^\text{IP} \phi_i^\star(\vec{r}_i) \cdot ... \cdot 1} \equiv \sum_{i=1}^N \braket{ \phi_i | \hat{h}^\text{IP}(\vec{r}_i) | \phi_i}_r \\
+			\bullet\ E_2 &= \braket{ \phi_\text{GS}^\text{HA} | V_{ee} |  \phi_\text{GS}^\text{HA} }_r = \braket{ \phi_\text{GS}^\text{HA} | \frac{1}{2} \sum_{i,j=1; i\neq j}^N | \frac{1}{| \vec{r}_i - \vec{r}_j |} |  \phi_\text{GS}^\text{HA} }_r = \frac{1}{2} \sum_{i,j=1; i\neq j}^N \braket{ \phi_\text{GS}^\text{HA} | \frac{1}{| \vec{r}_i - \vec{r}_j |} | \phi_\text{GS}^\text{HA} }_r = \\
+			& \begin{matrix}
+				\sum_{i,j=1,i\neq j}^N & \int \diff^3r_1 & \cdot ... \cdot & \diff^3r_i & \cdot ... \cdot & \diff^3r_j & \cdot ... \cdot & \diff^3r_N \\
+				& \phi_1^\star(\vec{r}_1) & \cdot ... \cdot & \phi_i^\star(\vec{r}_i) & \cdot ... \cdot & \phi_j^\star(\vec{r}_j) & \cdot ... \cdot & \phi_N^\star(\vec{r}_N) \cdot \\
+		& \cdot ... \cdot & \cdot ... \cdot & \frac{1}{| \vec{r}_i - } & \cdot ... \cdot & \frac{1}{- \vec{r}_j | } & \cdot ... \cdot & \cdot ... \cdot \\
+		& \phi_1(\vec{r}_1) & \cdot ... \cdot & \phi_i(\vec{r}_i) & \cdot ... \cdot & \phi_j(\vec{r}_j) & \cdot ... \cdot & \phi_N(\vec{r}_N)
+			\end{matrix} \\
+			&= \frac{1}{2} \sum_{i,j=1, i\neq j}^N \int \diff^3r_i \int \diff^3r_j \, \phi_i^\star(\vec{r}_i) \phi_j^\star(\vec{r}_j) \frac{1}{|\vec{r}_i - \vec{r}_j|} \phi_i(\vec{r}_i) \phi_j(\vec{r}_j) = \\
+			&= \frac{1}{2} \sum_{i,j=1, i\neq j}^N \int \diff^3r_i \int \diff^3r_j \frac{|\phi_i(\vec{r}_i)|^2 |\phi_j(\vec{r}_j)|^2}{|\vec{r}_i - \vec{r}_j|} \equiv
+		\intertext{Recognize the dummy variables and rename them to $\vec{r}_i \to \vec{r}$ and $\vec{r}_j \to \vec{r}'$:}
+			&\equiv \frac{1}{2} \sum_{i,j=1, i\neq j}^N \int \diff^3r \int \diff^3r' \frac{|\phi_i(\vec{r})|^2 |\phi_j(\vec{r}')|^2}{|\vec{r} - \vec{r}'|} =
+		\intertext{Split the sum according to $\sum_{i,j=1, i\neq j}^N ... \to \sum_{i,j=1}^N ... - \sum_{i=1}^N ...:$}
+			&= \frac{1}{2} \sum_{i,j=1}^N \int \diff^3r \int \diff^3r' \frac{|\phi_i(\vec{r})|^2 |\phi_j(\vec{r}')|^2}{|\vec{r} - \vec{r}'|}  - \frac{1}{2} \sum_{i=1}^N \int \diff^3r \int \diff^3r' \frac{|\phi_i(\vec{r})|^2 |\phi_i(\vec{r}')|^2}{|\vec{r} - \vec{r}'|} = \\
+		\end{align*}
+
+Define the \textbf{electron density operator} and the \textbf{electron density}
+	\begin{align*}
+		\hat{n}(\vec{r}) &:= \sum_{i=1}^N \delta(\vec{r} - \vec{r}_i) \\
+		n(\vec{r}) &:= \braket{ \phi | \hat{n}(\vec{r}) | \phi }_r
+	\end{align*}
+
+and insert them into $E_2$:
+	\begin{align*}
+		E_2 &= \frac{1}{2} \int \diff^3r \int \diff^3 r' \, \frac{n(\vec{r}) n(\vec{r}')}{|\vec{r} - \vec{r}'|} - \frac{1}{2} \sum_{i=1}^N \int \diff^3r \int \diff^3 r' \, \frac{|\phi_i(\vec{r})|^2|\phi_i(\vec{r}'´)|^2}{|\vec{r} - \vec{r}'|} \equiv \\
+		&\equiv E^\text{H} + E^\text{SIC}
+	\end{align*}
+
+	The last terms are named \textbf{Hartree energy} and \textbf{self interaction correction}.\\
+	\\
+	Minimize this test energy $E_T$ under the normalization condition for $\phi_i$.
+		\begin{align*}
+			A[\{\phi_i\},\{\varepsilon_i\}] &:= E^T[\{\phi_i\}] - \sum_{i=1}^N \varepsilon_i \lr{ \int \diff^3 \phi_i^\star(\vec{r}_i) \phi_i(\vec{r}_i) - 1 } \\
+			\Rightarrow \left. \frac{\delta A[\{\phi_i\}]}{\delta \phi_k^\star} \right|_{\phi^\text{HA}}&\stackrel{!}{=} 0
+		\end{align*}
+
+	Calculate the terms seperately:
+		\begin{align*}
+			\bullet \ \frac{ \delta E_1[\{\phi_i\}] }{ \delta \phi_k^\star(\vec{r}) } &= \hat{h}^\text{IP}(\vec{r}_k) \phi_k(\vec{r}_k)\\
+			\bullet \ \frac{\delta E_H[\phi^\star, \phi]}{\delta \phi_k^\star(\vec{r})} &= \int \diff^3r' \frac{n(\vec{r}')}{|\vec{r} - \vec{r}'|} \cdot \phi_k(\vec{r}_k) \\
+			&\equiv v^H(\vec{r}, [\{\phi_i^\text{HA}\}]) \cdot \phi_k(\vec{r}_k) \\
+			\bullet \ \frac{\delta E^\text{SIC}[\{\phi_i\}]}{\delta \phi_k^\star(\vec{r})} &= - \int \diff^3r' \, \frac{|\phi_k^\text{HA}(\vec{r}')|^2}{|\vec{r} - \vec{r}'|} \phi_k^\text{HA}(\vec{r}) \\
+			&\equiv v_k^\text{SIC}(\vec{r}, [\{\phi_i\}]) \cdot \phi_k^\text{HA}(\vec{r}) \\
+			\bullet \ \frac{\delta \lr{ \text{Lagrange multipl. term} }}{\delta \phi_k^\star(\vec{r})} &= \varepsilon_k \phi_k^\text{HA}(\vec{r})
+		\end{align*}
+	
+	Thus
+		\begin{align*}
+			\lr{ \hat{h}^\text{IP}(\vec{r}) + v^\text{H}(\vec{r},[\{\phi_i^\text{HA}\}]) + v_k^\text{SIC}(\vec{r}, [\{\phi_i^\text{HA}\}]) } \phi_k^\text{HA}(\vec{r}) &= \varepsilon_k \phi_k^\text{HA}(\vec{r}) \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Hartree-Fock Method (HF)}
+The Hartree-Fock method uses the Slater determinant as an ansatz for the electronic wave function
+	\begin{align}
+		\varphi_\text{GS}^\text{HF}(r) &= \frac{1}{\sqrt{N}}
+		\begin{vmatrix}
+			\phi_1(\vec{r}_1) & \phi_1(\vec{r}_2) & ... & \phi_1(\vec{r}_N) \\
+			\phi_2(\vec{r}_1) & \phi_2(\vec{r}_2) & ... & \phi_2(\vec{r}_N) \\		
+			\vdots & \vdots & \ddots & \vdots \\
+			\phi_N(\vec{r}_1) & \phi_N(\vec{r}_2) & ... & \phi_N(\vec{r}_N)
+		\end{vmatrix}
+		= \\
+		&= \frac{1}{\sqrt{N!}} \sum_\mathcal{P} (-1)^{\mathcal{O}(\mathcal{P})} \phi_{p_1}(\vec{r}_1) \cdot \phi_{p_2}(\vec{r}_2) \cdot ... \cdot \phi_{p_N}(\vec{r}_N).
+	\end{align}
+
+The resulting test energy $E_T^\text{HF} = \braket{ \varphi_\text{GS}^\text{HF} | \hat{H} | \varphi_\text{GS}^\text{HF} }$ gets varied respective to every single wave function $\phi_k^\star$, which leads to the \textbf{Hartree-Fock equations}
+	\begin{equation}
+		\lr{ \hat{h}^\text{IP}(\vec{r}) + v^\text{H}(\vec{r}, [\{\phi_i^\text{HF}\}]) + v_k^\text{X}(\vec{r}, [\{\phi_i^\text{HF}\}]) } \phi_k^\text{HF}(\vec{r}) = \varepsilon_k \phi_k^\text{HF}(\vec{r})
+	\end{equation}
+
+where $v^\text{X} \phi_k^\text{HF}(\vec{r}) := -\sum_{j=1}^N \int \diff^3r' \, \frac{\phi_j^\star(\vec{r}') \phi_j(\vec{r})}{|\vec{r} - \vec{r}'|} \phi_k^\text{HF}(\vec{r}')$.\\
+\\
+This equation is solved using a self consistency loop:
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=\textwidth]{Grafiken/hartree fock.pdf}
+		}
+		\caption{Schematic of the iterative process in the Hartree-Fock method; $(\nu)$ depicts the number of the iteration}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	The trial energy that has to be minimized is
+		\begin{align*}
+			E^\text{T} &= \braket{ \varphi^\text{SD} | \hat{H}_e | \varphi^\text{SD} } = \braket{ \varphi^\text{SD} | \lr{ \sum_{i=1}^N \hat{h}^\text{IP}(\vec{r}_i) + \sum_{i,j=1,i\neq j}^N \frac{1}{|\vec{r}_i - \vec{r}_j|} } | \varphi^\text{SD} } = \\
+			&= \braket{ \varphi^\text{SD} | \sum_{i=1}^N \hat{h}^\text{IP}(\vec{r}_i) | \varphi^\text{SD} } + \sum_{i\neq j} \braket{ \varphi^\text{SD} | \frac{1}{|\vec{r}_i - \vec{r}_j|} | \varphi^\text{SD} } \equiv\\
+			&\equiv E_1 + E_2
+		\end{align*}				
+
+	Like in the Hartree method, calculate $E_1$ and $E_2$ seperately.\\
+	There, the result for $E_1$ is unchanged.
+		\begin{align*}
+			\bullet \ E_2 &= \braket{ \varphi^\text{SD} | \frac{1}{2} \sum_{i,j=1,i\neq j}^N \frac{1}{|\vec{r}_i - \vec{r}_j|} | \varphi^\text{SD} } = \\
+			&= \int \diff^3r_1 \cdot ... \cdot \diff^3r_N \, \lr{ \frac{1}{\sqrt{N!}} \sum_\sigma (-1)^{\mathcal{O}(\sigma)} \phi_{\sigma(1)}^\star(\vec{r}_1) \cdot ... \cdot \phi_{\sigma(N)}^\star(\vec{r}_N) } \lr{ \frac{1}{2} \sum_{i,j=1,i\neq j}^N \frac{1}{|\vec{r}_i - \vec{r}_j|} } \cdot \\
+			&\phantom{=} \cdot \lr{ \frac{1}{\sqrt{N!}} \sum_\tau (-1)^{\mathcal{O}(\tau)} \phi_{\tau(1)}(\vec{r}_1) \cdot ... \cdot \phi_{\tau(N)}(\vec{r}_N) } = \\
+			&= \frac{1}{2} \frac{1}{N!} \sum_\sigma \sum_\tau \sum_{i,j=1,i\neq j}^N (-1)^{\mathcal{O}(\sigma)} (-1)^{\mathcal{O}(\tau)} \cdot \\
+			&\phantom{=}
+			\begin{matrix}
+			& \cdot  \int \diff^3r_1 & \cdot ... \cdot & \diff^3r_i & \cdot ... \cdot & \diff^3r_j & \cdot ... \cdot & \diff^3r_N \\
+				& \phi_{\sigma(1)}^\star(\vec{r}_1) & \cdot ... \cdot & \phi_{\sigma(i)}^\star(\vec{r}_i) & \cdot ... \cdot & \phi_{\sigma(j)}^\star(\vec{r}_j) & \cdot ... \cdot & \phi_{\sigma(N)}^\star(\vec{r}_N) \cdot \\
+		& \cdot ... \cdot & \cdot ... \cdot & \frac{1}{|\vec{r}_i-} & \cdot ... \cdot & \frac{1}{-\vec{r}_j|} & \cdot ... \cdot & \cdot ... \cdot \\
+		& \phi_{\tau(1)}(\vec{r}_1) & \cdot ... \cdot & \phi_{\tau(i)}(\vec{r}_i) & \cdot ... \cdot & \phi_{\tau(j)}(\vec{r}_j) & \cdot ... \cdot & \phi_{\tau(N)}(\vec{r}_N)
+		\end{matrix} = \\
+		&= \frac{1}{2}\frac{1}{N!} \sum_\sigma \sum_\tau \sum_{i,j=1,i\neq j}^N (-1)^{\mathcal{O}(\sigma)} (-1)^{\mathcal{O}(\tau)} \int \diff^3r_i \int \diff^3r_j \, \delta_{\sigma(1),\tau(1)} ... \delta_{\sigma(N),\tau(N)} \cdot \\
+		&\phantom{=} \cdot \frac{\phi_{\sigma(i)}^\star(\vec{r}_i) \phi_{\sigma(j)}^\star(\vec{r}_j) \phi_{\tau(i)}(\vec{r}_i) \phi_{\tau(j)}(\vec{r}_j)}{|\vec{r}_i - \vec{r}_j|} \equiv \\
+		&\equiv \frac{1}{2}\frac{1}{N!} \sum_\sigma \sum_\tau \sum_{i,j=1,i\neq j}^N (-1)^{\mathcal{O}(\sigma)} (-1)^{\mathcal{O}(\tau)} \int \diff^3r \int \diff^3r' \, \delta_{\sigma(1),\tau(1)} ... \delta_{\sigma(N),\tau(N)} \cdot \\
+		&\phantom{=} \cdot \frac{\phi_{\sigma(i)}^\star(\vec{r}) \phi_{\sigma(j)}^\star(\vec{r}') \phi_{\tau(i)}(\vec{r}) \phi_{\tau(j)}(\vec{r}')}{|\vec{r} - \vec{r}'|}
+%			&= \frac{1}{2} \frac{1}{N!} \sum_\sigma  \sum_{i\neq j} \Bigg( \underbrace{ (-1)^{\mathcal{O}(\sigma)}  (-1)^{\mathcal{O}(\sigma)} }_{=1} \cdot \int \diff^3r_i \diff^3r_j \, \phi_{\sigma(i)}^\star(\vec{r}_i) \phi_{\sigma(j)}^\star(\vec{r}_j) \frac{1}{|\vec{r}_i - \vec{r}_j|} \phi_{\sigma(i)}(\vec{r}_i) \phi_{\sigma(j)}(\vec{r}_j) + \\
+%			 &\phantom{=} + \underbrace{ (-1)^{\mathcal{O}(\sigma)}  (-1)^{\mathcal{O}(\tau)} }_{=-1} \cdot \int \diff^3r_i \diff^3r_j \, \phi_{\sigma(i)}^\star(\vec{r}_i) \phi_{\sigma(j)}^\star(\vec{r}_j) \frac{1}{|\vec{r}_i - \vec{r}_j|} \phi_{\sigma(j)}(\vec{r}_i) \phi_{\sigma(i)}(\vec{r}_j) \Bigg) \equiv \\
+%			 & \equiv \frac{1}{2} \frac{1}{N!} \sum_\sigma \sum_{i\neq j} \lr{ \braket{ i j | \frac{1}{|\vec{r}_i - \vec{r}_j|} | i j } - \braket{ i j | \frac{1}{|\vec{r}_i - \vec{r}_j|} | j i } } = \frac{1}{2} \frac{1}{\cancel{ N! }} \cancel{ N! } \sum_{i\neq j} \lr{ \braket{ i j | \frac{1}{|\vec{r}_i - \vec{r}_j|} | i j } - \braket{ i j | \frac{1}{|\vec{r}_i - \vec{r}_j|} | j i } } = \\
+%			 &= \frac{1}{2} \sum_{i\neq j} \braket{ i j | \frac{1}{|\vec{r}_i - \vec{r}_j|} | i j } - \frac{1}{2} \sum_{i\neq j} \braket{ i j | \frac{1}{|\vec{r}_i - \vec{r}_j|} | j i }
+		\end{align*}
+There remain only two types of permutations: Those, where $\tau=\sigma$ and those where $\tau$ is $\sigma$ but with a changed $i$-th and $j$-th index. In the first case, the orders cancel to $1$, in the second to $-1$. 
+
+
+\newpage
+
+
+Distinguish both terms.
+	\begin{align*}
+		E_2 &= \frac{1}{2}\frac{1}{N!} \sum_\sigma \sum_{i,j=1,i\neq j}^N \Bigg( \int\diff^3r \int\diff^3r' \, \frac{\phi_{\sigma(i)}^\star(\vec{r}) \phi_{\sigma(j)}^\star(\vec{r}') \phi_{\sigma(i)}(\vec{r}) \phi_{\sigma(j)}(\vec{r}')}{|\vec{r} - \vec{r}'|} - \\
+		&\phantom{=} - \int\diff^3r \int\diff^3r' \, \frac{\phi_{\sigma(i)}^\star(\vec{r}) \phi_{\sigma(j)}^\star(\vec{r}') \phi_{\sigma(j)}(\vec{r}) \phi_{\sigma(i)}(\vec{r}')}{|\vec{r} - \vec{r}'|} \Bigg) = \\
+		&= \frac{1}{2}\frac{1}{N!} \sum_\sigma \sum_{i,j=1,i\neq j}^N \Bigg( \int\diff^3r \int\diff^3r' \, \frac{\phi_i^\star(\vec{r}) \phi_j^\star(\vec{r}') \phi_i(\vec{r}) \phi_j(\vec{r}')}{|\vec{r} - \vec{r}'|} - \\
+		&\phantom{=} - \int\diff^3r \int\diff^3r' \, \frac{\phi_i^\star(\vec{r}) \phi_j^\star(\vec{r}') \phi_j(\vec{r}) \phi_i(\vec{r}')}{|\vec{r} - \vec{r}'|} \Bigg)
+	\end{align*}
+	The last expression is independent of the permutation. Since there are $N!$ permutations, the $1/N!$ term cancels and the $E2$ energy is
+		\begin{align*}
+			E_2 &= \frac{1}{2} \sum_{i,j=1,i\neq j}^N \Bigg( \int\diff^3r \int\diff^3r' \, \frac{\phi_i^\star(\vec{r}) \phi_j^\star(\vec{r}') \phi_i(\vec{r}) \phi_j(\vec{r}')}{|\vec{r} - \vec{r}'|} - \\
+		&\phantom{=} - \int\diff^3r \int\diff^3r' \, \frac{\phi_i^\star(\vec{r}) \phi_j^\star(\vec{r}') \phi_j(\vec{r}) \phi_i(\vec{r}')}{|\vec{r} - \vec{r}'|} \Bigg)
+		\end{align*}
+	
+	Here, the condition $i\neq j$ in the sum can be neglected because the $i=j$ terms will cancel by the subtraction of both terms.\\
+	\\
+	Thus, the test energy is
+		\begin{align*}
+			E^\text{T} &= \sum_{i=1}^N \int \diff^3r \, \phi_i^\star(\vec{r}) \hat{h}^\text{IP}(\vec{r}) \phi_i(\vec{r}) + \\
+			 &\phantom{=} + \frac{1}{2} \sum_{i,j=1}^N \Bigg( \int\diff^3r \int\diff^3r' \, \frac{\phi_i^\star(\vec{r}) \phi_j^\star(\vec{r}') \phi_i(\vec{r}) \phi_j(\vec{r}')}{|\vec{r} - \vec{r}'|} - \\
+		&\phantom{=} - \int\diff^3r \int\diff^3r' \, \frac{\phi_i^\star(\vec{r}) \phi_j^\star(\vec{r}') \phi_j(\vec{r}) \phi_i(\vec{r}')}{|\vec{r} - \vec{r}'|} \Bigg)
+		\end{align*}
+
+	Minimize the test energy $E^\text{T}$ under the condition that all single particle wave functions are normalized. Therefore, define the auxiliary function
+		\begin{align*}
+			A[\{\phi_i\}, \{\varepsilon_i\}] &:= E^\text{T}[\{\phi_i\}] - \sum_{i=1}^N \varepsilon_i \lr{ \int \diff^3r \, \phi_i^\star(\vec{r}) \phi_i(\vec{r}) - 1 } \\
+			\Rightarrow \left. \frac{\delta A[\{\phi_i\}, \{\varepsilon_i\}]}{\delta \phi_k^\star(\vec{r})} \right|_{\phi_k^\text{HF}} &\stackrel{!}{=} 0
+		\end{align*}
+
+
+\newpage
+
+
+	Calculate the terms seperately
+		\begin{align*}
+			\bullet \ \left. \frac{\delta E_1[...]}{\delta \phi_k^\star(\vec{r})} \right|_{\phi_k^\text{HF}} &= \hat{h}^\text{IP}(\vec{r}) \phi_k^\text{HF}(\vec{r}) \\
+			\bullet \ \left. \frac{\delta E^\text{H}[...]}{\delta \phi_k^\star(\vec{r})} \right|_{\phi_k^\text{HF}} &\equiv \int \diff^3r' \frac{n(\vec{r}')}{|\vec{r} - \vec{r}'|} \phi_k^\text{HF}(\vec{r}) \equiv \\
+			&\equiv v^\text{H}(\vec{r}, [\{\phi_i^\text{HF}\}]) \cdot \phi_k^\text{HF}(\vec{r}) \\
+			\bullet \ \left. -\frac{\delta \lr{ \sum_{i\neq j} \braket{ i j | \hat{w} | j i} } }{\delta \phi_k^\star(\vec{r})} \right|_{\phi_k^\text{HF}} &= -\sum_j \int \diff^3r' \frac{ \phi_j^\star(\vec{r}') \phi_j(\vec{r}) }{|\vec{r} - \vec{r}'|} \phi_k^\text{HF}(\vec{r}') \equiv\\
+			 &\equiv v_k^\text{X}(\vec{r}, [\{\phi_i\}]) \cdot \phi_k^\text{HF}(\vec{r}) \\
+			\bullet \ \left. \frac{\delta (\text{Lagrange multipl. terms})}{\delta \phi_k^\star(\vec{r})} \right|_{\phi_k^\text{HF}} &= \varepsilon_k \phi_k	^\text{HF}(\vec{r})
+		\end{align*}
+	
+	Thus, the Hartree-Fock equation is
+		\begin{align*}
+			\lr{ \hat{h}^\text{IP}(\vec{r}) + v^\text{H}(\vec{r}, [\{\phi_i^\text{HF}\}]) + v_k^\text{X}(\vec{r}, [\{\phi_i^\text{HF}\}]) } \phi_k^\text{HF}(\vec{r}) &= \varepsilon_k \phi_k^\text{HF}(\vec{r}). \qquad \blacksquare
+		\end{align*}			
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Jellium Model} % ÜB9
+The Jellium or \textbf{homogeneous electron gas} (HEG) model assumes homogeneous nuclei and electron distribution.\\
+\\
+The ionisation energy of the electron in the state $\vec{k}$ is given by
+	\begin{equation}
+		\varepsilon_{\vec{k}} = \frac{k^2}{2} - \frac{k_F}{\pi} \lreck{ 1 + \frac{1 - (k/k_F)^2}{2k/k_F} \ln\lr{ \frac{1 + k/k_F}{1 - k/k_F} } }.
+	\end{equation}
+
+which results in an energy per particle of
+	\begin{equation}
+		\frac{E}{N} = \frac{3}{5}\frac{k_F^2}{2} - \frac{3}{4}\frac{k_F}{\pi}.
+	\end{equation}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	The uniformity of the nuclei and neutrality of the crystal result in a uniform electron density
+		\begin{align*}
+			n^\text{e} = n^\text{n}.
+		\end{align*}
+
+	As an ansatz for the single-particle wave functions, use a plane wave
+		\begin{align*}
+			\phi_{\vec{k}}(\vec{r}) = \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}}.
+		\end{align*}
+	
+	Inserting this ansatz into the Hartree-Fock equations:
+		\begin{align*}
+			\lr{ \hat{h}^\text{IP}(\vec{r}) + v^\text{H}(\vec{r},[\{\phi_i\}]) + v^\text{X}(\vec{r},[\{\phi_i\}]) } \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} &= \varepsilon_{\vec{k}} \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} \\
+		\end{align*}
+	
+	Calculate the terms seperately:
+		\begin{align*}
+			\bullet \ \hat{h}^\text{IP}(\vec{r}) \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} &= \lr{ -\frac{1}{2}\vec{\nabla}^2 + \sum_i \frac{Z}{|\vec{r} - \vec{r}_i|} } \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} \to \lr{ -\frac{1}{2}\vec{\nabla}^2 + \int \diff^3r \, \frac{n(\vec{r}')}{|\vec{r} - \vec{r}'|} } \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} = \\
+			&= \lr{ -\frac{1}{2}(i\vec{k})^2 + n^\text{n} \int \diff^3r' \, \frac{1}{|\vec{r} - \vec{r}'|} } \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} \\
+			\bullet \ v^\text{H}(\vec{r}) \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} &= \int \diff^3r' \frac{n(\vec{r}')}{|\vec{r} - \vec{r}'|} \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} = \underbrace{ n^\text{e} }_{=-n^\text{e}} \int \diff^3r' \frac{1}{|\vec{r} - \vec{r}'|} \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} \\
+			\bullet \ -v^\text{X}(\vec{r}) \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} &= \sum_j \int \diff^3r' \, \frac{\phi_j^\star(\vec{r}') \phi_j(\vec{r})}{|\vec{r} - \vec{r}'|} \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}'} = \frac{1}{V^{3/2}} \sum_j \int \diff^3r' \, \frac{e^{-i\vec{k}_j\vec{r}'} e^{i\vec{k}_j\vec{r}}}{|\vec{r} - \vec{r}'|} e^{i\vec{k}\vec{r}'} = \\
+			&= \frac{1}{V^{3/2}} \sum_j \int \diff^3r' \, \frac{1}{|\vec{r} - \vec{r}'|} e^{i\vec{k}_j(\vec{r} - \vec{r'})} e^{i\vec{k}\vec{r}} \stackrel{ \comment{\vec{u}=\vec{r}'-\vec{r}} }{=} \frac{1}{V^{3/2}} \sum_j \int \diff^3u \, \frac{1}{|\vec{u}|} e^{-i\vec{k}_j\vec{u}} e^{i\vec{k}(\vec{r}'+\vec{u})} = \\
+			&= \frac{1}{V^{3/2}} \sum_j \int \diff^3u \, \frac{1}{|\vec{u}|} e^{i(\vec{k} - \vec{k}_j) \vec{u}} e^{i\vec{k}\vec{r}'} = \lr{ \sum_j \frac{4\pi}{|\vec{k}_j - \vec{k}|^2} } \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} \to \\
+			&\stackrel{\comment{\vec{k}_j\to\vec{k}'}}{\to} \lr{ \frac{1}{V} \int \lr{ \frac{V}{(2\pi^3)}\diff^3k' } \frac{4\pi}{|\vec{k'} - \vec{k}|^2} } \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} = \\
+			&= \lr{ \frac{4\pi}{(2\pi)^3} \int dk' \, k'^2 \int \diff\theta \, \sin\theta \int \diff\varphi \, \frac{1}{k^2 + k'^2 - 2kk'\cos\theta}} \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} = \\
+			&= \Bigg( \frac{4\pi}{(2\pi)^2} \int_0^{k_\text{F}} \diff k' \, k'^2 \frac{1}{2kk'} \underbrace{ \ln\lr{ \frac{ k^2 + k'^2 + 2kk' }{k^2 + k'^2 - 2kk'} } }_{=\ln\lr{ \frac{(k+k')^2}{(k-k')^2} } = 2\ln\frac{k+k'}{k-k'}} \Bigg) \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} = \\
+			&= \lr{ \frac{4\pi}{(2\pi)^2} \frac{1}{2k} \int \diff k' \, k' \ln\frac{k+k'}{k-k'} } \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} = \lr{ \frac{1}{2\pi k} \lr{ \frac{k'^2 - k^2}{2} \ln\frac{k+k'}{k-k'} + 2kk' } } \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}}
+		\end{align*}
+	
+	For the last integral, the relation
+		\begin{align*}
+			\int \diff x \, x \cdot \ln(b+cx) = \frac{1}{2}(x^2 - (b/c)^2) \ln(b+cx) - \frac{1}{2} \lr{ \frac{x^2}{2} - \frac{b}{c}x }
+		\end{align*}
+	
+	was used.\\
+	\\
+	\textcolor{gruen}{The negative sign in front of the $v^X$ term comes from the different charge signs of electrons and nuclei}\\
+	The Hartree-Fock equation thus becomes
+		\begin{align*}
+			\lr{ -\frac{k^2}{2} - \frac{1}{2\pi k} \lr{ \frac{k_F^2 - k^2}{2} \ln\frac{k+k_F}{k-k_F} + 2kk_F } } \cancel{ \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} } &= \varepsilon_{\vec{k}} \cancel{ \frac{1}{\sqrt{V}} e^{i\vec{k}\vec{r}} } \\
+			\Leftrightarrow -\frac{k^2}{2} - \frac{\cancel{k}k_F}{2\pi \cancel{k}} \lr{ \frac{k_F^2 - k^2}{2kk_F} \ln\frac{k+k_F}{k-k_F} + 2 } &= \varepsilon_{\vec{k}} \qquad\blacksquare
+		\end{align*}
+	
+	Now, calculate the total energy of the system $E$ and consequently the energy per particle $E/N$.
+		\begin{align*}
+			E &= 2 \sum_{\vec{k}} \varepsilon_{\vec{k}} \to 2\int \lr{ \frac{V}{(2\pi)^3} \diff^3k } \varepsilon_{\vec{k}} = 	\\
+			&= 2\int \lr{ \frac{V}{(2\pi)^3} \diff^3k } \lr{ -\frac{k^2}{2} - \frac{k_F}{2\pi} \lr{ \frac{k_F^2 - k^2}{2kk_F} \ln\frac{k+k_F}{k-k_F} + 2 } } = \\
+			&= 2\frac{V}{(2\pi)^3} \int_0^{k_F} \diff k\, k^2 \cdot \underbrace{ \int \diff\theta \, \sin\theta \int \diff\varphi }_{=4\pi} \lr{ -\frac{k^2}{2} - \frac{k_F}{2\pi} \lr{ \frac{k_F^2 - k^2}{2kk_F} \ln\frac{k+k_F}{k-k_F} + 2 } } = \\
+			&\stackrel{\commenttext{1st term like in FEG}}{=} ... = \frac{3}{5}\frac{k_F^2}{2} - {\color{red}?}
+		\end{align*}
+	
+	\textcolor{red}{ERGÄNZEN (aus Maurer Lösung übernehmen)}\\
+	\\
+	For the last integral, the relation
+		\begin{align*}
+			\int \diff x \, x^3 \cdot \ln(b + cx) &= \frac{1}{4}(x^4 - (b/c)^4) \ln(b+cx) - \frac{1}{4}\lr{ \frac{x^4}{4} - (b/c)\frac{x^3}{3} + (b/c)^2\frac{x^2}{2} - (b/c)^3x}
+		\end{align*}
+	
+	was used.\\
+	\\
+	Thus, the energy per particle is
+		\begin{align*}
+			\frac{E}{N} &= {\color{red}...}
+		\end{align*}
+	
+	\textcolor{red}{ERGÄNZEN (aus Maurer Lösung übernehmen)}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Hubbard Model} % VL19 VL20
+The Hubbard model assumes a discrete lattice of atoms, which have only one electronic orbital each. Electrons can occupy these orbitals in either spin up ($\uparrow$) or spin down ($\downarrow$) state and can hop from one atom to another.\\
+The general Hubbard Hamiltonian is
+	\begin{equation}
+		\hat{H}^\text{H} = \sum_{ij} \sum_\sigma T_{ij\sigma} \hat{c}_{i\sigma}^\dagger \hat{c}_{j\sigma} + \frac{1}{2} \sum_{ijkl}\sum_{\sigma\sigma'} V_{ijkl} \hat{c}_{i\sigma}^\dagger \hat{c}_{j\sigma'}^\dagger \hat{c}_{k\sigma'} \hat{c}_{l\sigma}.
+	\end{equation}
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+		\includegraphics[width=0.6\textwidth]{Grafiken/hubbard model.png}
+	}
+	\caption{2d visualization of the Hubbard model}
+\end{figure}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Example: Two atomic system}\\
+	geg: Consider a two atomic system for different cases: $N=1,2,3,4$.\\
+	ges: Hubbard Hamiltonian, eigenenergies and states for every case\\
+	\\
+	The Hubbard Hamiltonian simplifies to
+		\begin{align*}
+			\hat{H}^{\text{H},{(2)}} &= -t \sum_\sigma \lr{ \hat{c}_{1\sigma}^\dagger \hat{c}_{2\sigma} + \hat{c}_{2\sigma}^\dagger \hat{c}_{1\sigma} } + U \lr{ \hat{n}_{1\uparrow}^\dagger \hat{n}_{1\downarrow}^\dagger + \hat{n}_{2\uparrow}^\dagger \hat{n}_{2\downarrow}^\dagger },
+		\end{align*}
+	
+	with the number operator $\hat{n}_{i\sigma} := \hat{c}_{i\sigma}^\dagger \hat{c}_{i\sigma}$.\\
+	\\
+	\fbox{$N=1$}
+		\begin{align*}
+			\ket{1000} &= \hat{c}_{1\uparrow}^\dagger \ket{0} \\
+			\ket{0100} &= \hat{c}_{1\downarrow}^\dagger \ket{0} \\
+			\ket{0010} &= \hat{c}_{2\uparrow}^\dagger \ket{0} \\
+			\ket{0001} &= \hat{c}_{2\downarrow}^\dagger \ket{0}
+		\end{align*}
+	
+	The basis for this case is thus
+		\begin{align*}
+			\{ \ket{1000},\ \ket{0100},\ \ket{0010},\  \ket{0001} \}.
+		\end{align*}
+	
+	For the matrix representation of the Hubbard Hamiltonian $\hat{H}^{\text{H},{(2)}}$, calculate the action of the Hamiltonian on the basis kets first:
+		\begin{align*}
+			\bullet \ \hat{H}^{\text{H},{(2)}} \ket{1000} &= \lr{ -t \sum_\sigma \lr{ \hat{c}_{1\sigma}^\dagger \hat{c}_{2\sigma} + \hat{c}_{2\sigma}^\dagger \hat{c}_{1\sigma} } + U \lr{ \hat{n}_{1\uparrow}^\dagger \hat{n}_{1\downarrow} + \hat{n}_{2\uparrow}^\dagger \hat{n}_{2\downarrow} } } \ket{1000} = -t \ket{0010} \\
+			\bullet \ \hat{H}^{\text{H},{(2)}} \ket{0100} &= -t \ket{0001} \\
+			\bullet \ \hat{H}^{\text{H},{(2)}} \ket{0010} &= -t \ket{1000} \\
+			\bullet \ \hat{H}^{\text{H},{(2)}} \ket{0001} &= -t \ket{0100}
+		\end{align*}
+
+	Using those results, the matrix representation is
+		\begin{align*}
+			\underline{H}_\text{H}^{(2)} &=
+			\begin{pmatrix}
+				\braket{ 1000 | \hat{H}^{\text{H},{(2)}} | 1000 } & \braket{1000 | \hat{H}^{\text{H},{(2)}} | 0100 } & \braket{ 1000 | \hat{H}^{\text{H},{(2)}} | 0010 } & \braket{ 1000 | \hat{H}^{\text{H},{(2)}} | 0001 } \\
+				\braket{ 0100 | \hat{H}^{\text{H},{(2)}} | 1000 } & \braket{0100 | \hat{H}^{\text{H},{(2)}} | 0100 } & \braket{ 0100 | \hat{H}^{\text{H},{(2)}} | 0010 } & \braket{ 0100 | \hat{H}^{\text{H},{(2)}} | 0001 } \\
+				\braket{ 0010 | \hat{H}^{\text{H},{(2)}} | 1000 } & \braket{ 0010 | \hat{H}^{\text{H},{(2)}} | 0100 } & \braket{ 0010 | \hat{H}^{\text{H},{(2)}} | 0010 } & \braket{ 0010 | \hat{H}^{\text{H},{(2)}} | 0001 } \\
+				\braket{ 0001 | \hat{H}^{\text{H},{(2)}} | 1000 } & \braket{ 0001 | \hat{H}^{\text{H},{(2)}} | 0100 } & \braket{ 0001 | \hat{H}^{\text{H},{(2)}} | 0010 } & \braket{ 0001 | \hat{H}^{\text{H},{(2)}} | 0001 }
+			\end{pmatrix} = \\
+			&=
+			\begin{pmatrix}
+				0 & 0 & -t & 0 \\
+				0 & 0 & 0 & -t \\
+				-t & 0 & 0 & 0 \\
+				0 & -t & 0 & 0
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				\mathbb{0}_{2x2} & -t\mathbb{1}_{2x2} \\
+				-t\mathbb{1}_{2x2} & \mathbb{0}_{2x2}
+			\end{pmatrix}
+		\end{align*}
+	
+	The eigenvalues can be determined by the characteric polynomial
+		\begin{align*}
+			\det(\underline{H}_\text{H}^{(2)} - E\mathbb{1}_{4x4}) &=
+			\begin{pmatrix}
+				-E \mathbb{1}_{2x2} & -t \mathbb{1}_{2x2} \\
+				-t \mathbb{1}_{2x2} & -E \mathbb{1}_{2x2}
+			\end{pmatrix}
+			= (-E)^2 - (-t)^2 = E^2 - t^2 \stackrel{!}{=} 0 \\
+			\Leftrightarrow E &= \pm t
+		\end{align*}
+	
+	The eigenstates corresponding to the eigenvalue \fbox{$E_+ = +t$} are:
+		\begin{align*}
+			(\underline{H}_\text{H}^{(2)} - (+t)\mathbb{1}_{4x4} | \vec{0}) &=
+			\begin{pmatrix}
+				-t & 0 & -t & 0 \\
+				0 & -t & 0 & -t \\
+				-t & 0 & -t & 0 \\
+				0 & -t & 0 & -t
+			\end{pmatrix}
+			\Rightarrow
+			\begin{pmatrix}
+				-t & 0 & -t & 0 \\
+				0 & -t & 0 & -t \\
+				0 & 0 & 0 & 0 \\
+				0 & 0 & 0 & 0
+			\end{pmatrix}
+			\Rightarrow
+			\begin{cases}
+				v_1 &= -v_3 \\
+				v_2 &= -v_4 \\
+				v_1 &\in \mathbb{R} \\
+				v_2 &\in \mathbb{R}
+			\end{cases} \\
+			\Rightarrow \vec{v}_{+t,1} &= \alpha
+			\begin{pmatrix}
+				1\\0\\-1\\0
+			\end{pmatrix}
+			=
+			\alpha
+			\lreck{
+			\begin{pmatrix}
+				1\\0\\0\\0
+			\end{pmatrix}
+			-
+			\begin{pmatrix}
+				0\\0\\1\\0
+			\end{pmatrix}
+			}
+			=
+			\frac{1}{\sqrt{2}}
+			\lreck{ \ket{1000} - \ket{0010} } \equiv \ket{+t,1} \\
+			\Rightarrow \vec{v}_{+t,2} &= \alpha
+			\begin{pmatrix}
+				0\\1\\0\\-1
+			\end{pmatrix}
+			=
+			\alpha
+			\lreck{
+			\begin{pmatrix}
+				0\\1\\0\\0
+			\end{pmatrix}
+			-
+			\begin{pmatrix}
+				0\\0\\0\\1
+			\end{pmatrix}
+			}
+			=
+			\frac{1}{\sqrt{2}}
+			\lreck{ \ket{0100} - \ket{0001} } \equiv \ket{+t,2}
+		\end{align*}
+	
+	Analogously, the eigenstates corresponding to the eigenvalue \fbox{$E_-=-t$} are:
+		\begin{align*}
+			(\underline{H}_\text{H}^{(2)} - (-t)\mathbb{1}_{4x4} | \vec{0}) &=
+			\begin{pmatrix}
+				+t & 0 & -t & 0 \\
+				0 & +t & 0 & -t \\
+				-t & 0 & +t & 0 \\
+				0 & -t & 0 & +t
+			\end{pmatrix}
+			\Rightarrow
+			\begin{pmatrix}
+				+t & 0 & -t & 0 \\
+				0 & +t & 0 & -t \\
+				0 & 0 & 0 & 0 \\
+				0 & 0 & 0 & 0
+			\end{pmatrix}
+			\Rightarrow
+			\begin{cases}
+				v_1 &= v_3 \\
+				v_2 &= v_4 \\
+				v_1 &\in \mathbb{R} \\
+				v_2 &\in \mathbb{R}
+			\end{cases} \\
+			\Rightarrow \vec{v}_{-t,1} &= \alpha
+			\begin{pmatrix}
+				1\\0\\1\\0
+			\end{pmatrix}
+			=
+			\alpha
+			\lreck{
+			\begin{pmatrix}
+				1\\0\\0\\0
+			\end{pmatrix}
+			+
+			\begin{pmatrix}
+				0\\0\\1\\0
+			\end{pmatrix}
+			}
+			=
+			\frac{1}{\sqrt{2}}
+			\lreck{ \ket{1000} + \ket{0010} } \equiv \ket{-t,1} \\
+			\Rightarrow \vec{v}_{+t,2} &= \alpha
+			\begin{pmatrix}
+				0\\1\\0\\1
+			\end{pmatrix}
+			=
+			\alpha
+			\lreck{
+			\begin{pmatrix}
+				0\\1\\0\\0
+			\end{pmatrix}
+			+
+			\begin{pmatrix}
+				0\\0\\0\\1
+			\end{pmatrix}
+			}
+			=
+			\frac{1}{\sqrt{2}}
+			\lreck{ \ket{0100} + \ket{0001} } \equiv \ket{-t,2}
+		\end{align*}
+	
+	Analogously $N=2,3,4$.
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Thomas-Fermi Model (TF)}
+The Thomas-Fermi model is a semiclassical model that uses the FEG model with a space depended electron density to describe the kinetic energy but neglects the exchange correlation potential
+	\begin{equation}
+		E^\text{TF}[n] = \frac{3}{10}(3\pi^2)^{2/3} \int \diff\vec{r} \, n(\vec{r})^{5/3} + E^\text{H}[n] + \int \diff^3r \, n(\vec{r}) V^\text{ext}(\vec{r})
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Use the result of the total energy in the FEG model and devide by the volume $V$ to achieve the kinetic energy per particle
+		\begin{align*}
+			E &= \frac{3}{5}E_F \cdot N = \frac{3}{5} \frac{\hbar^2}{2m} (3\pi^2 n)^{2/3} \cdot n \cdot V = \frac{3}{10}\frac{\hbar^2}{m}(3\pi^2)^{2/3} n^{5/3} \longrightarrow \\
+			\Rightarrow t &= \frac{E}{V} = \frac{3}{10}\frac{\hbar^2}{m}(3\pi^2)^{2/3} n^{5/3} \to \frac{3}{10}\frac{\hbar^2}{m}(3\pi^2)^{2/3} n^{5/3}(\vec{r}) \\
+			\Rightarrow T[n] &= \frac{3}{10}\frac{\hbar^2}{m}(3\pi^2)^{2/3} \int \diff^3r \, n^{5/3}(\vec{r}) \equiv C \int \diff^3r \, n^{5/3}(\vec{r}) \qquad\blacksquare
+		\end{align*}
+
+	Minimizing under normalization condition yields
+		\begin{align*}
+			A[n,\lambda] &:= E^\text{TF}[n] - \lambda \lr{ \int \diff^3r \, n(\vec{r}) - N } \\
+			\Rightarrow \frac{\delta A[...]}{\delta n(\vec{r})} &\stackrel{!}{=} 0 \\
+			\bullet \ \frac{\delta T[n]}{\delta n(\vec{r})} &= C \cdot \frac{5}{3} n^{2/3}(\vec{r}) \\
+			\bullet \frac{\delta V^\text{H}[n]}{\delta n(\vec{r})} &= V^\text{H}(\vec{r}) \\
+			\bullet \ \frac{\delta \lr{\int \diff^3r \, n(\vec{r}) V^\text{ext}(\vec{r})}}{\delta n(\vec{r})} &= V^\text{ext}(\vec{r}) \\
+			\bullet \ \frac{\delta \lambda\lr{...}}{\delta n(\vec{r})} &= -\lambda
+		\end{align*}
+	
+	Thus
+		\begin{align*}
+			C \cdot \frac{5}{3} n^{2/3}(\vec{r}) + V^\text{H}(\vec{r}) + V^\text{ext}(\vec{r}) = \lambda \qquad\blacksquare
+		\end{align*}
+
+\hrule
+}
+
+
+
+
+\newpage
+
+
+\section{Density Functional Theory (DFT)}
+The \textbf{density functional theory} determines the properties of a many electron system without using the many-body wavefunction but the electron density
+	\begin{equation}
+		n(\vec{r}) := \braket{\psi | \sum_{i=1}^N \delta(\vec{r} - \vec{r}_i) | \psi}.
+	\end{equation}
+
+The test energy as a functional of the electron density
+	\begin{equation}
+		E^\text{T}[\{u_i\}] = T[\{u_i\}] + E^\text{H}[\{u_i\}] + E^\text{xc}[\{u_i\}] + E^\text{ext}[\{u_i\}]
+	\end{equation}
+
+The electron density is determined by iteratingly solving the \textbf{Kohn-Sham equations}
+	\begin{equation}
+		\lr{	 -\frac{1}{2} \vec{\nabla}^2
+			+ V^\text{H}(\vec{r}) + V^\text{xc}(\vec{r}) + V^\text{ext}(\vec{r}) - \varepsilon_i } u_i(\vec{r}) = 0.
+	\end{equation}
+
+
+%	\fbox{
+%	\begin{minipage}{\textwidth}
+%		\textbf{Hohenberg-Kohn-Theorem}\\
+%		The total energy of a system of interacting electrons can be uniquely described by $n(\vec{r})$
+%			\begin{equation*}
+%				E = F[n(\vec{r})] + \int V_\text{ext}(\vec{r}) n(\vec{r}) \, \diff\vec{r},
+%			\end{equation*}
+%
+%		where $F$ is independent of $V_\text{ext}$.
+%	\end{minipage}
+%	}
+
+
+This equation is solved using a self consistency loop:
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=\textwidth]{Grafiken/dft.pdf}
+		}
+		\caption{Schematic of the iterative process in the density functional theory; $(\nu)$ depicts the number of the iteration}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	The energy functional ansatz by Kohn and Sham (Giostino DFT 3.2) is
+		\begin{align*}
+			E[n] &= T[n] + V_{ee}[n] + E_\text{xc}[n] + \int \diff^3r \, V_\text{ext}(\vec{r}) n(\vec{r}) = \\
+			&= -\sum_{i=1}^N \int \diff^3r \, u_i^\star(\vec{r}) \frac{\vec{\nabla}^2}{2} u_i(\vec{r}) + \frac{1}{2} \int \diff^3r \int \diff^3r' \, \frac{n(\vec{r}) n(\vec{r}')}{|\vec{r} - \vec{r}'|} + E_\text{xc}[n] + \int \diff^3r \, V_\text{ext}(\vec{r}) n(\vec{r})
+		\end{align*}
+	
+	with the Kohn-Sham wave functions $u_i$, which fulfill
+		\begin{align*}
+			n(\vec{r}) &= \sum_{i=1}^N |u_i(\vec{r})|^2.
+		\end{align*}
+
+	Now, consider, that the minimization with respect to $n$ is equal to the minimization with respect to $u_k^\star$. To show that, use the chain rule of the functional derivative:
+		\begin{align*}
+			\frac{\delta F[n]}{\delta u_k^\star} = \frac{\delta F[n]}{\delta n} \frac{\delta n}{\delta u_k^\star} = \frac{\delta F[n]}{\delta n} u_k \stackrel{!}{=} 0
+		\end{align*}
+
+	Variation with respect to $u_k^\star(\vec{r})$ and considering the \underline{normalization condition} for every $u_i$ yields:
+		\begin{align*}
+			A[\{u_i^\star\}] &:= E[\{u_i^\star\}] - \sum_i \varepsilon_i \lr{ \int \diff^3r \, u_i^\star(\vec{r}) u_i(\vec{r}) - 1} \\
+			\frac{\delta A[\{u_j^\star\}]}{\delta u_k^\star(\vec{r})} &\stackrel{!}{=} 0 \\
+			\bullet \ \frac{\delta T[\{u_i^\star\}]}{\delta u_k^\star(\vec{r})} &= -\frac{\vec{\nabla}^2}{2} u_k(\vec{r}) \\
+			\bullet \ \frac{\delta \lr{ \int \diff^3r \, n(\vec{r}) V^\text{ext}(\vec{r}) }}{\delta u_k^\star(\vec{r})} &= V^\text{ext}(\vec{r}) \cdot u_k(\vec{r})\\
+			\bullet \ \frac{\delta E^\text{H}[n]}{\delta u_k^\star(\vec{r})} &= -\int \diff^3r \, \frac{n(\vec{r}')}{|\vec{r} - \vec{r}'|} \cdot u_k(\vec{r}) \equiv \\
+			&\equiv V^\text{H}(\vec{r},[\{u_i\}]) \cdot u_k(\vec{r}) \\
+			\bullet \ \frac{\delta E^\text{xc}[n]}{\delta u_k^\star(\vec{r})} &= \frac{\delta E^\text{xc}[n]}{\delta n(\vec{r})} \cdot u_k(\vec{r}) \equiv \\
+			&\equiv V^\text{xc}(\vec{r}),[n]) \cdot u_k(\vec{r}) \\
+			\bullet \ \frac{\delta \lreck{ \sum_{j=1}^N \varepsilon_i \lr{ \int \diff^3r \, u_i^\star(\vec{r}) u_i(\vec{r}) - 1} }}{\delta u_k^\star(\vec{r})} &= \varepsilon_k u_k(\vec{r})
+		\end{align*}
+	
+	Thus,
+		\begin{align*}
+			\lr{ -\frac{\vec{\nabla}^2}{2} + V^\text{ext}(\vec{r}) + V^\text{H}(\vec{r},[\{u_i\}]) + V^\text{xc}(\vec{r},[\{u_i\}]) - \varepsilon_k } u_k(\vec{r}) &= 0
+		\end{align*}
+	
+	which are the \textbf{Kohn-Sham equations}. $\qquad \blacksquare$
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Jacob's Ladder}
+Jacob's Ladder describes 5 different approximations of the exchange correlation potential $V^\text{xc}(\vec{r})$:
+	\begin{enumerate}
+		\item \textbf{Local Density Approximation (LDA)}\\
+		The exchange correlation energy is modeled as a homogeneous electron gas (Jellium)
+			\begin{equation}
+				E^\text{xc,LDA} = \int \diff^3r \, n(\vec{r}) \varepsilon^\text{xc, unif}[n(\vec{r})]
+			\end{equation}
+		
+		
+		\item \textbf{Generalized Gradient Approximation (GGA)}
+			\begin{equation}
+				E^\text{xc, GGA} = \int \diff^3r \, f[n(\vec{r}), \vec{\nabla}n(\vec{r})]
+			\end{equation}
+		
+		
+		\item \textbf{Meta-GGA}
+			\begin{equation}
+				E^\text{xc, meta-GGA} = \int \diff^3r \, g[n(\vec{r}), \vec{\nabla}n(\vec{r}), \tau(\vec{r})]
+			\end{equation}
+		
+		with the kinetic energy density $\tau(\vec{r})$.
+
+
+		\item \textbf{Hyper-GGA}\\
+		Assumes a sum of different exchange and correlation terms of Hartree-Fock and DFT functionals
+			\begin{equation}
+				E^\text{xc, Hyper-GGA} = \alpha E^\text{x,HF} + (1+\alpha) E^\text{x, DFT} + E^\text{c, DFT}
+			\end{equation}
+		
+		\item \textbf{RPA+}\\
+		\textcolor{red}{\fbox{?}}
+	\end{enumerate}
+
+
+\newpage
+
+
+\subsection{Spin-Polarized DFT} % VL18 Magnetism
+To consider the spin in DFT, introduce an electron density for each spin state whose sum yields the total electron density
+	\begin{equation}
+		n(\vec{r}) = \sum_{i=1}^N \sum_\sigma |u_{i,\sigma}(\vec{r})|^2 = n_\uparrow(\vec{r}) + n_\downarrow(\vec{r}).
+	\end{equation}
+
+The Kohn-Sham equations become
+		\begin{equation}
+		\lr{	 -\frac{1}{2} \vec{\nabla}^2 + V^\text{ext}(\vec{r},[n]) + V^\text{H}(\vec{r}) + V_\sigma^\text{xc}(\vec{r},[n]) - \varepsilon_{i,\sigma} } u_{i,\sigma}(\vec{r}) = 0.
+	\end{equation}
+
+\textcolor{red}{ERGÄNZEN Schema}
+
+
+\subsubsection{Local Spin-Density Approximation (LSDA)}
+In LSDA, the exchange-correlation energy is approximated as
+	\begin{align}
+		E^\text{xc,LSDA}[n,\xi] \equiv E^\text{xc,LSDA}[n_\uparrow, n_\downarrow] &= E^\text{x,LSDA} + E^\text{c,LSDA}
+	\end{align}
+
+where the exchange energy is
+	\begin{align}
+	 E^\text{x,LSDA}[n_\uparrow, n_\downarrow] &= \frac{1}{2} \lr{ E^\text{x,LDA}[2n_\uparrow] + E^\text{x,LDA}[2n_\downarrow] }.
+	\end{align}
+
+
+\newpage
+
+
+\section{Stichwortverzeichnis}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		Augmented planewaves & Method that uses plane waves and atomic orbitals to solve the secular equations in DFT \\
+	\hline
+		Basis & Group of atoms/ions that are placed at every lattice point to construct the crystal \\
+	\hline
+		Bloch-Theorem & The solution to the Schrödinger equation in a periodic potential can be expressed as a plane wave $e^{i\vec{k}\vec{r}}$ multiplied with a function $u(\vec{r})$ that has the periodicity of the lattice \textcolor{gruen}{($u(\vec{r}) = u(\vec{r}+\vec{T})$)}
+			$$\psi(\vec{r}) = e^{i\vec{k}\vec{r}} u_{\vec{k}}(\vec{r})$$ \\
+	\hline
+		Born-Oppenheimer surface & Hypersurface 
+			$$V^\text{BO}(R)$$ \\
+	\hline
+		Brillouin zone & Wigner-Seitz cell in the reciprocal lattice \\
+	\hline
+		Crystal systems & 7 fundamental categories to classify crystals based on their symmetry of their unit cells 
+		\includegraphics[width=0.5\textwidth]{Grafiken/bravais 3d.png}
+		\textcolor{gruen}{Merksatz Zeilen: \textbf{T}iny \textbf{M}ice \textbf{O}ften \textbf{T}ry \textbf{T}o \textbf{C}atch \textbf{H}amsters // Merksatz Spalten: Piefke (für PIFC) // Muster der Tabelle (letzte Spalten vertauscht): 1,2,4,2,1,3,1}\\
+	\hline
+		Curie law & Describes the relationship between the magnetic susceptibility and temperature
+			$$\chi =
+			\begin{cases}
+				\frac{C}{T}, & \\
+				\frac{C}{T - T_C}
+			\end{cases}$$ 
+		with the Curie temperature $T_C$.\\
+	\hline
+		Delta test & Benchmark to compare the consistency of two DFT-calculations
+			$$\Delta = \braket{\sqrt{ \frac{\int \Delta E^2 \, dV}{\Delta V} }}$$ \\
+	\hline
+		DFT+U & Extension of DFT that incorporates a Hubbard-like correction term ''U'' to better describe strongly correlated electron systems \\
+	\hline
+		Diamagnetism & Case of negative magnetic susceptibility
+			$$\chi^\text{dia} < 0$$ \\
+	\hline
+		Electron density operator & $$\hat{n}(\vec{r}) := \sum_{i=1}^N \delta(\vec{r} - \vec{r}_i)$$ \\
+	\hline
+		Elementary / primitive unit cell & Cell that is spanned from the primitive lattice vectors \\
+	\hline
+		Group & Set $\{\}$ equipped with an operation $\star$, that satisfies the following conditions \\
+			& \qquad 1) Closure \\
+			& \qquad 2) Associativity \\
+			& \qquad 3) Identity \\
+			& \qquad 4) Invertibility \\
+	\hline
+		Hohenberg-Kohn theorem & The total energy of a many-electron system is a functional of the electron density
+			$$E[n] = F[n] + \int \diff^3r \, V^\text{ext}(\vec{r}) \cdot n(\vec{r})$$ \\
+	\hline
+		HTC-superconductors & Superconductors that achieve superconductivity at relatively high critical temperatures.  \\
+	\hline
+		Koopmans' theorem & Theorem that allows the interpretation of the Lagrange multiplier $\varepsilon_\theta^\text{HF}$ in the Hartree-Fock method as the ionization energy of the electron $\theta$  \\
+	\hline
+		Lattice point & Point in spac, where a basis (= group of atoms) is placed \\
+	\hline
+		Lattice types & \textcolor{blue}{see crystal types} \\
+	\hline
+		Local &  \\
+	\hline
+		Magnons & Quasiparticles that represent the quantized modes of collective spin excitations, or spin waves, in magnetically ordered materials \\
+	\hline
+		Multiscale-Modeling & Multiscale modeling is the field of solving problems that have important features at multiple scales of time and/or space.\\
+		& Exemplary methods are cluster expansion, Monte-Carlo simulation, molecular dynamics and finite element modeling.\\
+	\hline
+		Non-local &  \\
+	\hline
+		Paramagnetism & Case of positive magnetic susceptibility
+			$$\chi^\text{par} > 0$$ \\
+	\hline
+		Space lattice & Arrangement of periodic lattice points \\
+	\hline
+		Translational vector & Displacement that maps a crystal lattice onto itself, expressed as integer combinations of three primitive basis vectors
+			$$\vec{T} = n_1\vec{a}_1 + n_2\vec{a}_2 + n_3\vec{a}_3$$ \\
+	\hline
+		Wigner-Seitz cell & Special choice of a primitive unit cell that doesn't depend on primitive lattice vectors \\
+	\hline
+		Wigner-Seitz radius & Radius of a sphere with the volume of the mean volume per atom in a solid \\
+	\hline\hline
+\end{xltabular}
+\end{document}

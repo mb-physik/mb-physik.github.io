@@ -1,0 +1,2485 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+
+
+
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+  \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+  
+\newcommand{\frage}{{\textcolor{red}{\circled{?}}}\ }
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\comment}[1]{\text{\textcolor{gruen}{#1}}}
+\newcommand{\commentmath}[1]{{\color{gruen}#1}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\MeV}{\text{MeV}}
+
+
+\begin{document}
+
+
+\begin{center}
+	\Large{\textbf{Theoretische Physik III: Quantenmechanik}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+
+{\small\tableofcontents}
+
+
+\newpage
+
+
+\section*{Abstrakt}
+Die Quantenmechanik ist die Disziplin, die sich der Beschreibung von Licht und Materie auf atomaren Skalen beschreibt. Sie liefert ausgehend von der Schrödinger-Gleichung Lösungen für Modellsysteme, die Phänomene, wie das $T^3$-Verhalten der Wärmekapazität bei niedrigen Temperaturen, die Hohlraumstrahlung, den Photoeffekt, den Compton-Effekt oder die Welleneigentschaften von Materie erklären.
+
+
+\newpage
+
+
+\section{Mathematische Grundlagen}
+\subsection{Integration}
+	\begin{itemize}
+		\item \textbf{Symmetrische Funktion}\\
+		Integriert man eine um einen Punkt asymmetrische Funktion in einem symmetrischen Intervall um diesen Punkt, so ist das Integral Null
+			\begin{align*}
+				\int_{-a}^{+a} x^3\,\diff x = 0.
+			\end{align*}
+
+
+		\item \textbf{Feynman-Technik}\\
+		Differenzierung nach einer Konstanten einfügen, nach der nicht integriert wird, um den Integranden zu vereinfachen.
+			\begin{align*}
+				\int_{-\infty}^\infty x^2e^{-a\cdot x^2}\,\diff x = \int_{-\infty}^\infty \frac{\diff}{\diff a} \big( -e^{-a\cdot x^2}\big)\,\diff x = -\frac{\diff}{\diff a} \sqrt{\frac{\pi}{a}} = \frac{\sqrt{\pi}}{2\cdot a^{3/2}}
+			\end{align*}
+
+
+		\item \textbf{Anpassung Integrationsgrenzen} bei symmetrischen Funktionen
+			\begin{align*}
+				\phi = 
+				\begin{cases}
+					Be^{\kappa x} & x\leq 0\\
+					Be^{-\kappa x} & x\geq 0 
+				\end{cases} \quad\Rightarrow\quad \int_{-\infty}^{\infty} \phi \, \diff x = 2\int_{0}^{\infty} Be^{-\kappa x} \, \diff x
+			\end{align*}
+
+
+		\item \textbf{Zurückführen} in bekannte Form
+			\begin{align}
+				\label{gauß integral}
+				\int_{-\infty}^{\infty} e^{-a\cdot x^2}\,\diff x &= \sqrt{\frac{\pi}{a}} \\
+				\int_0^\infty xe^{-x^2}\,\diff x &= \frac{1}{2} \\
+				\int_{-\infty}^\infty x^2e^{-a\cdot x^2}\,\diff x &= \frac{\sqrt{\pi}}{2\cdot a^{3/2}} \\
+				\int_{-\infty}^\infty e^{-ax^2 + bx}\,\diff x &= \sqrt{\frac{\pi}{a}} \cdot e^{\frac{b^2}{4a}}
+			\end{align}
+
+
+		\item \textbf{Quadratische Ergänzung}\\
+		Bei Integralen, die $x^2$ und $x$ im Exponenten tragen, kann eine 1 ergänzt werden, s.d. die binomische Formel anwendbar ist und der Inhalt substituiert werden kann
+			\begin{align*}			
+				\int_{-\infty}^\infty e^{-\frac{1}{4}(y^2 + 2b y)} \,\diff y &\stackrel{\commentmath{1}}{=} \int_{-\infty}^\infty e^{-\frac{1}{4}(y^2 + 2b y \commentmath{+ b^2 - b^2})} \,\diff y = \int_{-\infty}^\infty e^{-\frac{1}{4}(y + b)^2 + \frac{1}{4}b^2} \,\diff y \\
+				&\stackrel{\commentmath{z = y + b}}{=} e^{\frac{b^2}{4}}\int_{-\infty}^\infty e^{-\frac{1}{4}z^2} \,\diff z \stackrel{\ref{gauß integral}}{=} e^{\frac{b^2}{4}}\cdot 2\sqrt{\pi}
+			\end{align*}
+\end{itemize}
+
+
+\newpage
+	
+
+\subsection{Fourier-Transformation}
+...
+	\begin{align}
+	\label{fourier transformation}
+		\mathcal{F}\{f(\vec{x})\}(\vec{k}) \equiv \tilde{f}(\vec{k}) &= \frac{1}{\sqrt{2\pi}^n} \int\limits_{\mathbb{R}^n} f(\vec{x}) \cdot e^{-i\vec{k}\vec{x}}\,\diff^n x \\
+		\mathcal{F}^{-1}\{\tilde{f}(\vec{k})\}(\vec{x}) \equiv f(\vec{x}) &= \frac{1}{\sqrt{2\pi}^n} \int\limits_{\mathbb{R}^n} \tilde{f}(\vec{k}) \cdot e^{i\vec{k}\vec{x}}\,\diff^n k
+	\end{align}
+
+
+\subsection{Kommutator}
+Der \textit{Kommutator} ist eine Verknüpfung, die die Kommutation zweier Operatoren misst
+	\begin{equation}
+		[\hat{A}, \hat{B}] := \hat{A}\hat{B} - \hat{B}\hat{A}.
+	\end{equation}
+
+
+\fbox{Rechenregeln}
+	\begin{align}
+		[\hat{A},\hat{B}] &= -[\hat{B},\hat{A}] \\
+		[\hat{A} + \hat{B}, \hat{C}] &= [\hat{A},\hat{C}] + [\hat{B},\hat{C}] \\
+		[\hat{A},\hat{B} + \hat{C}] &= [\hat{A},\hat{B}] + [\hat{A},\hat{C}] \\
+		[\hat{A},\hat{B}\hat{C}] &= \hat{B}[\hat{A},\hat{C}] + [\hat{A},\hat{B}]\hat{C} \\
+		[\hat{A}\hat{B},\hat{C}] &= \hat{A}[\hat{B},\hat{C}] + [\hat{A},\hat{C}]\hat{B} \\
+		[\hat{A}^m,\hat{B}] &= (m+1)\hat{A}^m[\hat{A},\hat{B}] \qquad \text{falls } [[\hat{A},\hat{B}],\hat{A}] = 0\\
+	\end{align}
+
+
+%\textcolor{violet}{Die ersten drei Eigenschaften können direkt durch Kommutatorexpansion gezeigt werden. Die nächsten erfordern das Einsetzen einer Null. Die Letzte wird über vollständige Induktion gezeigt, wobei in einem Schritt ausgenutzt wird, dass $[\hat{A},\hat{B}]$ und $\hat{A}$ einfach vertauscht werden können.}
+
+
+\subsection{Matrixdarstellung linearer Operatoren}
+Für einen Operator $\hat{A}$ ist die Matrixdarstellung in der Basis $\{u_i\}$
+	\begin{equation}
+		\underline{A} =
+			\begin{pmatrix}
+				\braket{u_0, \hat{A} u_0} & \braket{u_0, \hat{A} u_1} & \cdots \\
+				\braket{u_1, \hat{A} u_0} & \braket{u_1, \hat{A} u_1} & \cdots \\
+				\vdots & \vdots & \ddots
+			\end{pmatrix},
+	\end{equation}
+
+wobei $u_i$, $u_k$ Energieeigenzustände sind.\\
+\\
+\fbox{Eigenschaften}\\
+...
+	\begin{itemize}
+		\item \textbf{hermitesch}
+			\begin{equation}
+				\underline{A}^\dagger \equiv (\underline{A}^\star)^T = \underline{A}
+			\end{equation}
+	
+		\item \textbf{antisymmetrisch}
+			\begin{equation}
+				\underline{A}^T = -\underline{A}
+			\end{equation}
+		
+		\item \textbf{unitär}
+			\begin{equation}
+				\underline{A}^\dagger = \underline{A}^{-1}
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: $\hat{S}_3$, $\hat{S}_-$ in der Basis $\{ \ket{k, m} \} = \{\ket{\frac{3}{2}, \frac{3}{2}}, \ket{\frac{3}{2}, \frac{1}{2}}, \ket{\frac{3}{2}, -\frac{1}{2}}, \ket{\frac{3}{2}, -\frac{3}{2}}\}$\\
+	Lös: Verwende die Eigenwertgleichungen der darzustellenden Operatoren
+		\begin{align*}
+			\hat{S}_3 \ket{k,m} &= \hbar m \ket{k,m}
+		\end{align*}
+
+	und multipliziere diese mit einem allgemeinen Zustand $\bra{ k', m' }$
+		\begin{align*}
+			\bra{ k', m' } \hat{S}_3 \ket{ k, m } &= \hbar m \cdot \braket{ k', m' | k, m } \\
+			&= \hbar m \cdot \delta_{k'k} \delta_{mm'}
+		\end{align*}
+	
+	Somit sind nur die Zustände von null verschieden, für die $k=k'$ und $m=m'$ gilt:	
+		\begin{align*}
+			\bullet \left\langle\frac{3}{2}, \frac{3}{2} \middle| \hat{S}_3 \middle| \frac{3}{2}, \frac{3}{2} \right\rangle &= \hbar\frac{3}{2} \\
+			\bullet \left\langle\frac{3}{2}, \frac{1}{2} \middle| \hat{S}_3 \middle| \frac{3}{2}, \frac{1}{2} \right\rangle &= \hbar \frac{1}{2} \\
+			\bullet \left\langle\frac{3}{2}, -\frac{1}{2} \middle| \hat{S}_3 \middle| \frac{3}{2}, -\frac{1}{2} \right\rangle &= -\hbar \frac{1}{2} \\
+			\bullet \left\langle\frac{3}{2}, -\frac{3}{2} \middle| \hat{S}_3 \middle| \frac{3}{2}, -\frac{3}{2} \right\rangle &= -\hbar\frac{3}{2}
+		\end{align*}
+		
+		
+	Schließlich nimmt der $\hat{S}_3$-Operator in der Basis $\{ k, m \}$ die folgende Darstellung an:
+		\begin{align*}
+			\underline{S}_3 &= \hbar
+			\begin{pmatrix}
+				3/2 & 0 & 0 & 0\\
+				0 & 1/2 & 0 & 0\\
+				0 & 0 & -1/2 & 0\\
+				0 & 0 & 0 & -3/2
+			\end{pmatrix}
+		\end{align*}
+	
+	
+	Analog nutzt man für den Absteigeoperator $\hat{S}_-$ die Definitionsgleichung
+		\begin{align*}
+			\hat{S}_- \ket{k,m} &= \hbar \sqrt{ (k-m+1)(k+m) } \ket{k,m-1}
+		\end{align*}
+	
+	und multipliziert diese mit dem Zustand $\bra{ k', m' }$
+		\begin{align*}
+			\braket{ k', m' | \hat{S}_- | k, m } &= \hbar \sqrt{ (k-m+1)(k+m) } \braket{ k', m' | k, m-1 } \\
+			&= \hbar \sqrt{ (k-m+1)(k+m) } \cdot \delta_{kk'} \delta_{m',m-1}.
+		\end{align*}
+
+	Somit sind nur die Elemente von null verschieden, für die $k' = k$ und $m' = m-1$ gilt:
+		\begin{align*}
+			\bullet \braket{ 3/2, 1/2 | \hat{S}_- | 3/2, 3/2 } &= \hbar \sqrt{ ( \cancel{3/2} - \cancel{3/2} + 1)(3/2+3/2) } \braket{ 3/2, 1/2 | 3/2, 1/2 } \\
+			&= \hbar \sqrt{ 3 } \\
+			\bullet \text{ ... }
+		\end{align*}
+
+
+	Schließlich nimmt der $\hat{S}_-$-Operator in der Basis $\{ k, m \}$ die folgende Darstellung an:
+		\begin{align*}
+			\underline{S}_- &= \hbar
+			\begin{pmatrix}
+				0 & 0 & 0 & 0\\
+				\sqrt{3} & 0 & 0 & 0\\
+				0 & \sqrt{2} & 0 & 0\\
+				0 & 0 & \sqrt{3} & 0
+			\end{pmatrix}
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Grundlegende Gleichungen und Definitionen}
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{Schrödinger-Gleichung}\\
+		Die \textit{Schrödinger-Gleichung} bestimmt die Dynamik der Wellenfunktion
+			\begin{equation}
+				\label{schrödinger gleichung}
+				i\hbar \cdot \partial_t\psi(\vec{x},t) = \hat{H}\psi(\vec{x},t) = \lr{\frac{\hat{\vec{p}}^2}{2m} + V(\vec{x})} \psi(\vec{x},t) = \lr{-\frac{\hbar^2}{2m}\Delta + V(\vec{x})} \psi(\vec{x},t).
+		\end{equation}
+		
+		Im Falle zeitunabhängiger Potentiale $V\neq V(t)$ reduziert sich das Problem auf die Lösung der \textit{zeitunabhängigen Schrödinger-Gleichung}
+			\begin{equation}
+				\hat{H} u(\vec{x}) = E \cdot u(\vec{x}),
+			\end{equation}
+		
+		wobei die Wellenfunktion die folgende Lösung hat
+			\begin{equation}
+				\psi(\vec{x},t) = u(\vec{x}) \cdot e^{-\frac{i}{\hbar} E \cdot t}.
+			\end{equation}
+		
+		
+		\item \textbf{Wahrscheinlichkeitsdichte}\\
+		Das Betragsquadrat der Wellenfunktion wird als Wahrscheinlichkeitsdichte interpretiert, falls diese normiert ist, d.h. $\int \diff^3x \, w = 1$ gilt.
+			\begin{equation}
+				\rho(\vec{x},t) := |\psi(\vec{x},t)|^2
+			\end{equation}
+		
+		
+		\item \textbf{Observable}\\
+		Größen, die gemessen werden können, wird ein Operator $\hat{O}$ zugeordnet, die als Observable bezeichnet wird.
+		
+		
+		\item \textbf{Erwartungswert}\\
+		Der Erwartungswert der Observable $\hat{O}$, der am durch $\psi$ beschriebenen Zustand gemessen werden kann, ist definiert als
+			\begin{equation}
+				\braket{\hat{O}} := \int \diff^3x \, \psi^\star(\vec{x},t) \hat{O} \psi(\vec{x},t),
+			\end{equation}
+		
+		wobei für niederdimensionale Probleme eine 1- bzw. 2-dimensionale Integration auftritt.
+		
+		
+		\item \textbf{Varianz}\\
+		Die Varianz ist ein Maß der Streuung einer Zufallsvariable um den Mittelwert. Die Formel zur Berechnung folgt aus der Definition des Erwartungswertes:
+			\begin{equation}
+				\text{Var}(\hat{O}) \equiv (\Delta \hat{O})^2 := \braket{ ( \hat{O} - \braket{\hat{O}} )^2 } = \braket{\hat{O}^2} - \braket{\hat{O}}^2
+			\end{equation}
+		
+		
+		\item \textbf{Standardabweichung}\\
+		Die Standardabweichung ist die Wurzel der Varianz:
+			\begin{equation}
+				\sigma(\hat{O}) \equiv \Delta\hat{O} := \sqrt{ \text{Var}(\hat{O}) }
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+\subsection{Orts- und Impulsdarstellung}
+Die Wellenfunktion im Orts- und Impulsraum sind über die Fourier-Transformation verbunden.
+	\begin{align}
+		\braket{\vec{p}} &= \int \diff^3 x\ \psi^\star(\vec{x},t) \cdot \frac{\hbar}{i}\vec{\nabla}_x \psi(\vec{x},t) \\
+		\braket{\vec{x}} &= \int \diff^3 p\ \tilde{\psi}^\star(\vec{p},t) \cdot i\hbar\vec{\nabla}_p \tilde{\psi}(\vec{p},t)
+	\end{align}
+
+Orts- und Impulsdarstellung erhält man durch die folgenden Ersetzungen der Operatoren
+	\begin{alignat}{2}
+		&\hat{x}\rightarrow x, \qquad &&\hat{p} \rightarrow -\frac{\hbar}{i}\frac{\partial}{\partial x} \\
+		&\hat{x}\rightarrow i\hbar\frac{\partial}{\partial p},\qquad && \hat{p}\rightarrow p
+	\end{alignat}
+\textcolor{gruen}{Wird vor allem in \ref{schrödinger gleichung} angewendet, um $\psi(x,t)$ oder $\psi(p,t)$ zu finden.}
+%
+%Um die Schrödinger-Gleichung kann aber auch die Gleichung mit $e^{-ikx}$ bzw. $e^{ikx}$ multipliziert werden und von $-\inf$ bis $+\inf$ über $x$ bzw. $p$ integriert werden. Es wird also die Fourier-Transformation in allen Termen erzeugt. \textcolor{gruen}{Bsp: ÜB6 A1a)}\\
+%\\
+%{\color{blue}
+%\hrule
+%	\fbox{Beispiel}\\
+%	ges: Stationäre Schrödinger-Gl. im Impulsraum mit $V(x) = -f\frac{\sin(bx)}{b}$ \textcolor{gruen}{(Einfache Ersetzung)}
+%		\begin{align*}
+%			\hat{H}u = -\frac{\hat{\vec{p}}^2}{2m} u -f\frac{\sin(b\hat{x})}{b} u &= E u\\
+%			\stackrel{\commentmath{\hat{p}\to p, \hat{x}\to i\hbar \partial_p}}{\Rightarrow} \frac{p^2}{2m} u(p) - \frac{f}{b} \sin\lr{b\cdot i\hbar \frac{\diff}{\diff p}} u(p) &= E u(p)
+%		\end{align*}
+%
+%\rule{3cm}{0.4pt}\\
+%
+%	ges: Schrödinger-Gl. im Impulsraum für periodisches Potential \textcolor{gruen}{(Fourier-Transformation)}\\
+%		\begin{align*}
+%			\hat{H} u(x) &= E u(x) \\
+%			-\frac{\hbar^2}{2m} u''(x) - \frac{\lambda\hbar^2}{2m} \sum_{n=-\infty}^\infty \delta(x - na) u(x) &= E u(x) \\
+%			\Leftrightarrow u''(x) + \lambda \sum_{n=-\infty}^\infty \delta(x - na) u(x) &= -\frac{2mE}{\hbar^2}u(x) \equiv \kappa^2 u(x)
+%		\intertext{Multipliziere mit $e^{-ikx}$ und integriere über $x$ von $-\infty$ bis $\infty$}
+%			\Rightarrow \int_{-\infty}^\infty \diff x\ u''(x) + \lambda \sum_{n=-\infty}^\infty \int_{-\infty}^\infty \diff x\ \delta(x - na) u(x) &= \kappa^2 \int_{-\infty}^\infty \diff x\ u(x)
+%		\intertext{Das erste Integral muss über partielle Integration gelöst werden, die anderen sind einfacher}
+%			\Rightarrow -k^2 \sqrt{2\pi} \tilde{u}(k) + \lambda \sum_{n=-\infty}^\infty u(na) e^{-ikna} &= \kappa^2 \sqrt{2\pi} \tilde{u}(k)
+%		\end{align*}
+%\hrule
+%}
+
+
+\subsection{Wahrscheinlichkeitsstromdichte}
+Die Wahrscheinlichkeit wild als Erhaltungsgröße postuliert. Somit lässt sich analog zu den Kontinuitätsgleichungen der Elektrodynamik $\vec{\nabla}\vec{j} + \partial_t\rho = 0$ formulieren lassen, wobei hier $\rho = \psi^\star\psi$ gilt und
+	\begin{equation}
+		\vec{j} = \frac{\hbar}{2mi}\lr{\psi^\star\vec{\nabla}\psi - \psi\vec{\nabla}\psi^\star}.
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $\vec{j} = \frac{\hbar}{2mi}\lr{\psi^\star\vec{\nabla}\psi - \psi\vec{\nabla}\psi^\star}$\\
+	\\	
+	Berechne $\partial_t\rho$ durch verwenden der Produktregel und einsetzen der Schrödinger-Gleichung $\partial_t\psi = -\frac{i}{\hbar}\hat{H}\psi$ bzw. $\partial_t\psi^\star = +\frac{i}{\hbar}\hat{H}\psi^\star$ und setze das Ergebnis in die Kontinuitätsgleichung ein.
+		\begin{align*}
+			\partial_t \rho &= \partial_t(\psi^\star\psi) = \psi^\star \partial_t \psi + \psi \partial_t \psi^\star = \psi^\star \lr{ -\frac{i}{\hbar}\hat{H}\psi } + \psi \lr{ +\frac{i}{\hbar}\hat{H}\psi^\star } = \\
+			&= \frac{i}{\hbar} \lreck{ -\psi^\star \lr{ -\frac{\hbar^2}{2m}\Delta + V } \psi + \psi \lr{ -\frac{\hbar^2}{2m}\Delta + V } \psi^\star } = \\
+			&= \frac{i}{\hbar} \lreck{ \psi^\star\frac{\hbar^2}{2m}\Delta \psi  - \cancel{V\rho} + \psi\frac{\hbar^2}{2m}\Delta \psi^\star + \cancel{V\rho} } = \\
+			&= \frac{\hbar}{2mi} \lreck{ -\psi^\star\Delta\psi + \psi\Delta\psi^\star }
+		\end{align*}
+	
+	Einsetzen in die Kontinuitätsgleichung liefert:
+		\begin{align*}
+			\vec{\nabla}\vec{j} &= -\partial_t\rho = - \frac{\hbar}{2mi} \lreck{ -\psi^\star\Delta\psi + \psi\Delta\psi^\star } = \frac{\hbar}{2mi}\vec{\nabla} \lreck{ \psi^\star\vec{\nabla}\psi - \psi\vec{\nabla}\psi^\star }\\
+			\Rightarrow \vec{j} &= \frac{\hbar}{2mi} \lreck{ \psi^\star\vec{\nabla}\psi - \psi\vec{\nabla}\psi^\star } \qquad\blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Quantenmechanischer Messprozess}
+Möchte man herausfinden, mit welcher Wahrscheinlichkeit an einem System $\psi$ ein Eigenwert $a_n$ der Observable $\hat{A}$ gemessen werden kann, so muss der Zustand des Systems $\psi$ in den Eigenfunktionen des Operators $\phi_n$ entwickelt werden \textcolor{gruen}{(sofern diese ein vollständiges System $\{\phi_n\}$ bilden, was sie i.d.R. tun)}.
+	\begin{equation}
+		\psi = \sum_n \braket{\phi_n, \psi} \phi_n
+	\end{equation}
+
+mit $\hat{A}\phi_n = a_n\phi_n$.\\
+\\
+Im Fall ohne Entartung ist die \textbf{Wahrscheinlichkeit den zu $\phi_n$ gehörigen Eigenwert $a_n$ zu messen} 
+	\begin{align}
+		P_\psi(a_n) &= |\braket{\phi_n, \psi}|^2 \\
+		\braket{\hat{A}}_\psi &= \sum_n a_n P_\psi(a_n) = \sum_n a_n |\braket{\phi_n, \psi}|^2
+	\end{align}
+
+\textcolor{blue}{Diese Formel kann man herleiten, indem man in $\braket{\psi,\hat{A}\psi}$ den entwickelten Zustand $\psi$ einsetzt, die Eigenwertgl. $\hat{A}\phi_n = a_n\phi_n$ anwendet und dann einfach ausmultipliziert.}\\
+\\
+Für den entarteten Fall gilt
+	\begin{align}
+		P_\psi(a_{n,i}) &= \sum_i|\braket{\phi_{n,i}, \psi}|^2 \\
+		\braket{\hat{A}}_\psi &= \sum_n a_n \sum_i P_\psi(a_{n,i}) = \sum_n a_n \sum_i |\braket{\phi_{n,i}, \psi}|^2
+	\end{align}
+
+
+\textbf{Der Kollaps der Wellenfunktion} beschreibt das Phänonmen, dass das System nach der Messung in den Zustand $\phi_n$ übergeht. Misst man also unmittelbar nach einer Messung erneut, kommt zu 100\% derselbe Messwert heraus.
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $u(r) = f(r)\lr{1 + \sin\theta\cos\varphi + \cos\theta}$\\
+	ges: $\braket{\hat{\vec{L}}^2}, \braket{\hat{L}_3}, P(\vec{L}^2=0), P(\vec{L}^2=2\hbar^2), P(\vec{L}^2=6\hbar^2), P(L_3=0), P(L_3=\pm\hbar), P(L_3=\pm 2\hbar)$\\
+	\\
+	Lös: Formuliere $u(r)$ in den Eigenfunktionen der zu messenden Observablen, also den Kugelflächenfunktionen $Y_{lm}$. Hier geht das durch ''scharfes Hinsehen'' bzw. Ausschreiben der Funktionen und Ersetzen der Terme in $u(r)$.
+		$$Y_{00} = \frac{1}{\sqrt{4\pi}},\	Y_{1,0} = \sqrt{\frac{3}{4\pi}} \cos\theta,\ Y_{1,-1} = \sqrt{\frac{3}{8\pi}} \sin\theta e^{-i\varphi},\ Y_{1,1} = -\sqrt{\frac{3}{8\pi}} \sin\theta e^{i\varphi}$$
+	
+	\begin{align*}
+		1 &= \sqrt{4\pi} Y_{00}\\
+		\cos\theta &= \sqrt{\frac{4\pi}{3}} Y_{10}\\
+		\sin\theta\cos\varphi &= \sqrt{\frac{2\pi}{3}} (Y_{1,-1} - Y_{1,1})\\
+		\Rightarrow u(r) &= f(r) \lr{\sqrt{4\pi} Y_{00} + \sqrt{\frac{2\pi}{3}} (Y_{1,-1} - Y_{1,1}) + \sqrt{\frac{4\pi}{3}} Y_{10}}\\
+		1 &\stackrel{!}{=} \braket{u, u} = \int_0^\infty \diff r\ r^2 |f(r)|^2 \int_0^\pi \int_0^{2\pi} \lr{...}^\star \lr{...} \sin\theta \diff\theta \diff\varphi =
+	\intertext{Nutze die Orthonormalität der Kugelflächenfunktionen $\int\int Y_{l'm'}Y_{lm} \sin\theta\ \diff\theta\diff\varphi = \delta_{ll'}\delta_{mm'}$}
+		&= \int_0^\infty \diff r\ r^2 |f(r)|^2 \lr{4\pi + \frac{2\pi}{3} + \frac{2\pi}{3} + \frac{4\pi}{3}} = \int_0^\infty \diff r\ r^2 |f(r)|^2 \cdot 4\pi \frac{5}{3}\\
+		\Leftrightarrow \frac{3}{20\pi} &= \int_0^\infty \diff r\ r^2 |f(r)|^2
+	\end{align*}
+
+Berechne nun die Erwartungswerte
+	\begin{align*}
+		\braket{\hat{\vec{L}}^2} &= \braket{u, \hat{\vec{L}}^2 u}\\
+		 &= \int_0^\infty \diff r\ r^2 |f(r)|^2 \int_0^\pi \int_0^{2\pi} \lr{...}^\star \hat{\vec{L}}^2 \lr{\sqrt{4\pi} Y_{00} + \sqrt{\frac{2\pi}{3}}(Y_{1,-1} - Y_{1,1}) + \sqrt{\frac{4\pi}{3}} Y_{10}} \sin\theta \diff\theta \diff\varphi\\
+		&= \frac{3}{20\pi} \cdot \lr{4\pi \cdot \hbar^2 \cdot 0(0+1) + \frac{2\pi}{3} \cdot  \hbar^2 \cdot 1(1+1) + \frac{2\pi}{3} \cdot \hbar^2 \cdot 1(1+1) + \frac{4\pi}{3} \cdot \hbar^2 \cdot 1(1+1)} = \frac{4}{5}\hbar^2\\
+		\braket{\hat{L}_3} &= \frac{3}{20\pi} \int\int \lr{...}^\star \hat{L}_3 \lr{\sqrt{4\pi} Y_{00} + \sqrt{\frac{2\pi}{3}}(Y_{1,-1} - Y_{1,1}) + \sqrt{\frac{4\pi}{3}} Y_{10}} \sin\theta \diff\theta \diff\varphi\\
+		&= \frac{3}{20\pi} \lr{4\pi \hbar \cdot 0 + \frac{2\pi}{3} \hbar (-1) + \frac{2\pi}{3} \hbar \cdot 1 + \frac{4\pi}{3} \hbar \cdot 0} = 0
+	\end{align*}
+
+Die Wahrscheinlichkeiten ergeben sich zu
+	\begin{align*}
+		P(\vec{L}^2 = 0) &= |\braket{f(r) Y_{00}, u}|^2 = \frac{3}{5} \\
+		P(\vec{L}^2 = 2\hbar^2) &= |\braket{f(r) \cdot Y_{1,-1}, u}|^2 + |\braket{f(r) \cdot Y_{10}, u}|^2 + |\braket{f(r) \cdot Y_{11}, u}|^2 = \frac{2}{5} \\
+		P(\vec{L}^2 = 6\hbar^2) &= 0 \\
+		P(L_3 = 0) &= |\braket{f(r) \cdot Y_{00}, u}|^2 + |\braket{f(r) \cdot Y_{10}, u}|^2 = \frac{3}{5} + \frac{1}{5} = \frac{4}{5} \\
+		P(L_3 = \pm\hbar) &= |\braket{f(r) \cdot Y_{1,-1}, u}|^2 + |\braket{f(r) \cdot Y_{11}, u}|^2 = \frac{1}{5} \\
+		P(L_3 = \pm 2\hbar) &= 0
+	\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Modellsysteme}
+\subsection{Lösungsalgorithmus}
+\fbox{Algorithmus}
+	\begin{enumerate}
+		\item \textbf{Lösen der zeitunabhängigen Schrödinger-Gleichung}\\
+		Um eindimensionale Modellsysteme zu lösen, stelle zunächst den Hamilton-Operator auf und löse die zeitunabhängige Schrödinger-Gleichung. Im Fall von einer stückweisen Potentialfunktion, für jeden Bereich separat.
+			
+		\item \textbf{Ansatz vereinfachen}\\
+	Überprüfe, ob der Ansatz für den ortsabhängigen Teil der WF $u(x)$ vereinfacht werden kann. D.h. für Streuzustände das Herausnehmen von Exponentialtermen, die eine nicht zum System passende Welle beschreiben (z.B. eine von rechts einlaufende Welle, während ein von links einlaufendes Teilchen betrachtet wird). Für Bindungszustände hingegen sind das die Exponentialterme, die eine Normierung unmöglich machen, im Unendlichen also divergieren.\\
+		
+		\item \textbf{Stetigkeitsbedingungen}\\
+	Stelle die Stetigkeitsbedingung für $u(x)$ und $u'(x)$ die Potentialgrenzen auf. Sei $x=a$ eine solche Grenze, muss gelten
+			\begin{align}
+				u(a_-) &\stackrel{!}{=} u(a_+) \\
+				u'(a_-) &\stackrel{!}{=} u'(a_+)	
+			\end{align}
+		
+		\item \textbf{Normierbarkeit}\\
+		Liegt ein gebundener Zustand vor, so muss dieser normierbar sein.
+			\begin{equation}
+				\int_{-\infty}^{\infty}|u(x)|^2\,\diff x \stackrel{!}{=} 1
+			\end{equation}
+			
+		\item \textbf{Gleichungssysteme lösen}\\
+		Lösen von Stetigkeitsbedingungen und ggf. Anwendung der Normierbarkeit liefern  Ausdrücke für die gesuchten Konstanten im Ansatz $u(x)$ und erlaubte Energien.
+	\end{enumerate}
+
+
+\newpage
+
+
+\subsection{Unendlich hoher Potentialtopf}
+Betrachte das Potential
+	\begin{equation}		
+		V(x) = 
+		\begin{cases}
+			0, & 0\leq x\leq a \\
+			\infty, & \text{sonst}
+		\end{cases}
+	\end{equation}
+
+mit der Kastenbreite $a$.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Energie}
+			\begin{equation}
+				E_n = \frac{\pi^2\hbar^2}{2ma^2}n^2
+			\end{equation}
+
+
+		\item \textbf{Wellenfunktion}
+			\begin{equation}
+				u_n(x) = \sqrt{\frac{2}{a}}\sin\left(\frac{\pi n}{a} x\right),
+			\end{equation}
+		
+		mit $n \in \{1, 2, ...\}$.
+	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.4\textwidth]{Grafiken/unendlich hoher kasten.pdf}
+		\caption{Eigenzustände und Wahrscheinlichkeitsdichten des Teilchens im unendlich hohen Kasten}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+\fbox{Herleitung}\\
+\\
+Innerhalb des Topfes (wo $V=0$ herscht) folgt für die zeitunabh. S.-Gl.
+	\begin{align*}
+		-\frac{\hbar^2}{2m}\frac{\diff^2u}{\diff x^2} &= Eu \\
+		\Leftrightarrow \frac{\diff^2u}{\diff x^2} + \underbrace{\frac{2mE}{\hbar^2}}_{=:\kappa^2}u &= 0
+	\end{align*}
+
+Die Lösung dieser DGL die des (kl.) harmonischen Oszillators
+	$$u(x) = A\sin(\kappa x) + B\cos(\kappa x)$$
+
+Aufgrund des unendlich hohen Potentials, kann sich das Teilchen nicht außerhalb des Topfes aufhalten und es folgen die RB
+	$$u(0) = u(a) = 0$$
+
+Einsetzen in die zuvor gefundene Lösung ergibt
+	\begin{alignat*}{2}
+		u(0) &= B \stackrel{!}{=} 0 & \Rightarrow B=0 \\
+		u(a) &= A \sin(\kappa a) \stackrel{!}{=} 0 \qquad & \Rightarrow \kappa = \frac{n\pi}{a}
+	\end{alignat*}
+
+Die Wellenfunktion ist demnach soweit
+	$$u(x) = A\sin(\kappa_n x)$$
+
+mit der entscheidenden Quantisierung
+	$$\kappa_n = \frac{n\pi}{a}$$
+
+\textbf{Energien}\\
+Aus der Definition von $\kappa$ folgt der Ausdruck für die Energie
+	\begin{align*}
+		\kappa^2 &= \frac{2mE}{\hbar}\\
+		\Leftrightarrow E \equiv E_n &= \frac{\hbar^2\kappa^2}{2m} \stackrel{\commentmath{\kappa_n}}{=} \frac{\hbar^2\pi^2}{2ma^2}n^2 
+	\end{align*}
+
+\textbf{Wellenfunktionen}\\
+Für die Zustände muss lediglich die Normierungskonstante $A$ bestimmt werden
+	\begin{align*}	
+	1 &\stackrel{!}{=} \int_0^a |u(x)|^2\,\diff x = |A|^2 \int_0^a \sin^2(\kappa x)\,\diff x = ... = |A|^2 \frac{a}{2}\\
+		\Rightarrow A &= \sqrt{\frac{2}{a}}
+	\end{align*}
+
+Woraus die Eigenzustände
+	$$u_n(x) = \sqrt{\frac{2}{a}}\sin(\kappa_n x)$$
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Potentialstufe}
+Betrachte ein von links auf das Potential
+	$$V(x) =
+	\begin{cases}
+		0, & x<0 \\
+		V_0, & x\geq 0
+	\end{cases}$$
+einlaufende Welle.\\
+\\
+\fbox{Resultate}\\
+	\begin{itemize}
+		\item \textbf{Reflexions- und Transmissionswahrscheinlichkeit}
+			\begin{align}
+				|T|^2 &= 
+				\begin{cases}
+					0, & E < V_0 \\
+					\frac{q}{k}|T|^2 = \frac{q}{k}\frac{2k^2}{(k + q)^2}, & E > V_0
+				\end{cases} \\
+				|R|^2 &=
+				\begin{cases}
+					1, & E < V_0 \\
+					|R|^2 = \lr{\frac{k - q}{k + q}}^2, & E > V_0
+				\end{cases},
+			\end{align}
+		
+		mit $k = \frac{\sqrt{2mE}}{\hbar}$, $q = \frac{\sqrt{2m(E-V_0)}}{\hbar}$ und $\kappa = \frac{\sqrt{2m(V_0-E)}}{\hbar}$.
+	\end{itemize}
+
+
+%\begin{figure}[H]
+%	\centering
+%	\raisebox{-0.5\height}{\includegraphics[scale=0.4]{potentialbarriere e<v0.pdf}}
+%	\raisebox{-0.5\height}{\includegraphics[scale=0.4]{potentialbarriere e>v0.pdf}}
+%	\caption{Aufenthaltswahrscheinlichkeit für die Fälle $E<V_0$ (links) und $E>V_0$ (rechts)}
+%\end{figure}
+
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.6]{Grafiken/potentialbarriere transmission reflexion.pdf}
+		\caption{Transmissions- und Reflexionswahrscheinlichkeit der Potentialstufe mit $V_0 = 30$ in Abhängigkeit der Energie $E$}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	\\
+	\underline{Fall $E>V_0$}\\
+	Für den Bereich I, also $x<0$ ergibt sich aus der zeitunabh. S.-Gl.
+		\begin{align*}
+			u'' + \underbrace{\frac{2mE}{\hbar^2}}_{=k^2}u &= 0 \\
+			\Rightarrow u(x) &= A_I e^{ikx} + B_I e^{-ikx}
+		\end{align*}
+	Für den Bereich II, also $x>0$ analog
+		\begin{align*}
+			u'' + \underbrace{\frac{2m(E - V_0)}{\hbar^2}}_{=q^2}u &= 0 \\
+			\Rightarrow u(x) &= A_\text{II} e^{-iqx} + B_\text{II} e^{iqx}
+		\end{align*}
+	Diese Lösungen werden nun der Tatsache angepasst, dass ein von linkseinlaufendes Teilchen betrachtet wird. Da für $x>0$ keine von rechts einlaufende Welle entstehen kann, wird $A_\text{II} = 0$. Setze weiter willkürlich $A_\text{I} = 1$ und benenne die verbleibenden Konstanten gemäß $B_\text{I}\equiv R, B_\text{II}\equiv T$ um, da sie mit der Reflexions- und Transmissionswahrscheinlichkeit zusammenhängen.
+		$$u(x) =
+		\begin{cases}
+			e^{ikx} + Re^{-ikx}, & x<0 \\
+			Te^{iqx}, & x\geq 0
+		\end{cases}$$
+	
+	Die Stetigkeitsbedingungen $u(0_-)\stackrel{!}{=} u(0_+)$ und $u'(0_-)\stackrel{!}{=} u'(0_+)$ liefern
+		\begin{align*}
+			1 + R &\stackrel{!}{=} T \\
+			ik(1 - R) &\stackrel{!}{=} iqT
+		\end{align*}
+
+	Umstellen der 2. Gl. nach $T$ und Gleichsetzen ergibt $R$ und folglich über die 1. Gl. auch $T$:
+		\begin{align*}
+			R &= \frac{k - q}{k + q} \\
+			\Rightarrow T &= 1 + R = \frac{2k}{k + q}
+		\end{align*}
+	
+%	Die Wellenfunktion und ihr Betragsquadrat sind dann
+%		\begin{align*}
+%			u(x) &=
+%			\begin{cases}
+%				e^{ikx} + \frac{k - q}{k + q}e^{-ikx} \\
+%				\frac{2k}{k + q} e^{iqx}
+%			\end{cases} \\
+%			\Rightarrow |\psi(x)|^2 &= |u(x)|^2 = ... =
+%			\begin{cases}
+%				1 + R^2 + 2R\cos(2kx) \\
+%				\frac{4k^2}{(k + q)^2}
+%			\end{cases}
+%		\end{align*}
+
+
+	Reflexions- bzw. Transmissionswahrscheinlichkeit berechnen sich aus dem Verhältnis von reflektierter bzw. transmittierter Wahrscheinlichkeitsstromdichten $j_R$, $j_T$ zur einlaufenden W.stromdichte $j_0$.\\
+	Die einlaufende Stromdichte wird aus dem Teil von $u(x)$ berechnet, der eine einlaufende ebene Welle beschreibt, also $e^{ikx}$. Analoges gilt für reflektierte und transmittierte Stromdichte. Eingesetzt wird dann in
+		$$j = \frac{\hbar}{2mi}\lr{u^\star \frac{\diff}{\diff x}u - u \frac{\diff}{\diff x}u^\star}$$
+
+
+\newpage
+	
+
+		\begin{align*}
+			w_R &= \frac{|j_R|}{|j_0|} = \frac{\cancel{\frac{\hbar k}{m}}|R|^2}{\cancel{\frac{\hbar k}{m}}}  = |R|^2 = \lr{\frac{k - q}{k + q}}^2\\
+			w_T &= \frac{|j_T|}{|j_0|} = \frac{\frac{\hbar k}{m}|T|^2}{\frac{\hbar q}{m}} = \frac{q}{k}|T|^2 = \frac{q}{k}\frac{2k^2}{(k + q)^2}
+		\end{align*}
+
+
+	\underline{Fall $E<V_0$}\\
+	Die Wellenfunktion in Bereich $x<0$ ergibt sich analog zum ersten Fall. Für Bereich $x>0$ wird die Funktion jedoch reell
+		\begin{align*}
+			0 &= u'' + \underbrace{\frac{2m(E-V_0)}{\hbar^2}}_{=:\tilde{\kappa}^2}u \\
+			\tilde{\kappa} &= \frac{\sqrt{2m(E-V_0)}}{\hbar} = \frac{\sqrt{-2m(V_0 - E)}}{\hbar} = i\frac{\sqrt{2m(V_0 - E)}}{\hbar} \equiv i\kappa \\
+			\Rightarrow u(x) &= A_\text{II}e^{-\kappa x} + B_\text{II} e^{\kappa x}
+		\end{align*}
+	Da $x>0$ ein gebundener Zustand ist, muss dieser Normierbarsein, womit $B_\text{II}=0$ sein muss. Wie vorhin wird umbenannt: $A_\text{II}\equiv T$. Es ergibt sich schließlich die Funktion
+		$$u(x) = 
+		\begin{cases}
+			e^{ikx} + Re^{-ikx}, & x<0 \\
+			Te^{-\kappa x}, & x\geq 0
+		\end{cases}$$
+
+	Die Stetigkeitsbedingungen liefern
+		\begin{align*}
+			1 + R &\stackrel{!}{=} T \\
+			ik(1 - R) &\stackrel{!}{=} -\kappa T
+		\end{align*}
+	exakt wie im 1. Fall ergeben sich $R$ und $T$ 
+		\begin{align*}
+			R &= \frac{k - i\kappa}{k + i\kappa} \\
+			T &= \frac{2k}{k + i\kappa}
+		\end{align*}
+
+	Reflexions- bzw. Transmissionswahrscheinlichkeit sind dann
+		\begin{align*}
+			w_R &= \frac{|j_R|}{|j_0|} = |R|^2 = \frac{k - i\kappa}{k + i\kappa} \cdot \frac{k + i\kappa}{k - i\kappa} = 1\\
+			w_T &= \frac{|j_T|}{|j_0|} = \frac{0}{|j_0|} = 0
+		\end{align*}
+	
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Potentialbarriere/Tunneleffekt}
+Betrachte eine von links auf das Potential
+	\begin{equation}
+		V(x) =
+		\begin{cases}
+			0, & |x|>a \\
+			V_0, & |x|\leq a
+		\end{cases}
+	\end{equation}
+
+
+einlaufende Welle mit $E<V_0$.\\
+\\
+\fbox{Resultate}\\
+	\begin{itemize}
+		\item \textbf{Reflexions- und Transmissionswahrscheinlichkeit}
+			\begin{align}
+				|R|^2 &= \frac{(\kappa^2 + k^2) \sinh^2(2\kappa a)}{(\kappa^2 + k^2) \sinh^2(2\kappa a) + 4\kappa^2 k^2} \\
+				|T|^2 &= \frac{(\kappa^2 + k^2)}{(\kappa^2 + k^2) \sinh^2(2\kappa a) + 4\kappa^2 k^2} \\
+				&\stackrel{ \commentmath{ \kappa a \gg 1 } }{\approx} \frac{(4\kappa k)^2}{(\kappa^2 + k^2)^2} e^{-4\kappa a}
+			\end{align}
+		
+		
+		\item \textbf{Transmissionswahrscheinlichkeit Potentialberg}\\
+		Ein komplizierterer Potentialberg kann durch die Summe vieler Potentialbarrieren modelliert werden. Mit dem zuvor hergeleiteten Ergebnis ergibt sich die Transmissionswahrscheinlichkeit
+			\begin{equation}
+				|T|^2 = \Pi_i |T(a_i)|^2 \propto e^{-\sum_i 2\kappa_i\Delta x} = e^{-\sum_i \frac{2}{\hbar} \sqrt{2m(V(x_i) - E)}\Delta x} = e^{-\frac{2}{\hbar}\int \sqrt{2m(V(x_i) - E)}\,\diff x},
+			\end{equation}
+		
+		mit der Breite einer Potentialbarriere $\Delta x = 2a$ (da von $-a$ bis $a$).
+	\end{itemize}
+
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.6]{Grafiken/tunneleffekt e_v0.pdf}
+		\caption{Reflexions- und Transmissionswahrscheinlichkeit für $a=0,5$, $V_0=30$, $m=0,5$}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Analog zur Potentialstufe ergeben sich die Lösungen für die einzelnen Bereiche, inklusive Umbenennungen, willkürlichem 1 Setzen und Ignorieren der unphysikalischen Lösung
+		$$u(x) =
+		\begin{cases}
+			e^{ikx} + Re^{-ikx}, & x<-a \\
+			Ae^{-\kappa x}  + Be^{\kappa x}, & -a\leq x\leq a \\
+			Te^{ikx}, & x>a
+		\end{cases}$$
+
+	mit $k = \frac{\sqrt{2mE}}{\hbar}$ und $\kappa = \frac{\sqrt{2m(V_0-E)}}{\hbar}$.\\
+	Aus den Stetigkeitsbedingungen $u(\pm a_-)\stackrel{!}{=}u(\pm a_+)$ und $u'(\pm a_-)\stackrel{!}{=}u'(\pm a_+)$ ergeben sich nach einer Reihe von Umformungen die Reflexions- und Transmissionskoeffizienten $R,T$ und daraus Reflexions- und Transmissionswahrscheinlichkeiten $|R|^2, |T|^2$.
+	
+%		\begin{align*}
+%			e^{-ika} + Re^{ika} &= Ae^{\kappa a} + Be^{-\kappa a} \\
+%			ik(e^{-ika} - Re^{ika}) &= \kappa (-Ae^{\kappa a} + Be^{-\kappa a}) \\
+%			Ae^{-\kappa a} + Be^{\kappa a} &= Te^{ika} \\
+%			\kappa (-Ae^{-\kappa a} + Be^{\kappa a}) &= ik T e^{ika}
+%		\end{align*}
+\hrule
+}
+
+
+
+\newpage
+
+
+
+\subsection{Endlich hoher Potentialtopf}
+Betrachte den Potentialtopf
+	\begin{equation}
+			V(x) = \left\{
+		\begin{matrix}
+			0, & |x| > a, & \text{Bereiche I, III}\\
+			-V_0, & |x| < a, & \text{Bereich II}
+		\end{matrix}\right.
+	\end{equation}
+
+
+\fbox{Resultate}\\
+	\begin{itemize}
+		\item \textbf{Transmissions- und Reflexionswahrscheinlichkeit}\\
+		Für von links einlaufende ebene Wellen mit $E>0$ ergibt sich die folgende Transmissions- und Reflexionswahrscheinlichkeit
+			\begin{align}
+				|T|^2 &= \frac{4q^2k^2}{(k^2-q^2)^2\sin(2qa) + 4q^2k^2}	\\
+				|R|^2 &= 1 - |T|^2.
+			\end{align}
+	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\raisebox{-0.5\height}{\includegraphics[width=0.4\textwidth]{Grafiken/endlicher potentialtopf transzendent.pdf}}
+		\raisebox{-0.5\height}{\includegraphics[width=0.35\textwidth]{Grafiken/endlicher potentialtopf.pdf}}
+		\vspace{0.5cm}
+		\includegraphics[width=0.4\textwidth]{Grafiken/endlicher potentialtopf streuzustaende.pdf}
+		\caption{links: Grafische Bestimmung der erlaubten Lösungen im endlich hohen Potentialtopf; rechts: Zugehörige Energien, symmetrische und asymmetrische Wellenfunktionen und Aufenthaltswahrscheinlichkeiten; unten: Reflexions- und Transmissionswahrsch. der Streuzustände, abhängig von der Energie}
+	\end{figure}
+
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+\fbox{Herleitung}\\
+\\
+\underline{Gebundene Zustände $E<0$}\\
+Für die Bereiche I und III ergeben sich die Lösungen der stationären S.-Gl.
+	\begin{align*}
+		-\frac{\hbar^2}{2m}\frac{\diff^2}{\diff x^2}u &= Eu \\
+		\Leftrightarrow u'' + \underbrace{\frac{2mE}{\hbar^2}}_{=:\kappa^2}u &= 0 \\
+		\Rightarrow u_\text{I}(x) &= A_\text{I} e^{\kappa x} + B_\text{I} e^{-\kappa x} \\
+		\Rightarrow u_\text{III}(x) &= A_\text{III}e^{\kappa x} + B_\text{III}e^{-\kappa x}
+	\end{align*}
+
+Für den Bereich II folgt
+	\begin{align*}
+		-\frac{\hbar^2}{2m}\frac{\diff^2}{\diff x^2}u - V_0 u &= E u \\
+		u'' + \underbrace{\frac{2m(V_0 + E)}{\hbar^2}}_{=:q^2} u &= 0 \\
+		\Rightarrow u_\text{II}(x) &= A_\text{II}\sin(qx) + B_\text{II}\cos(qx)
+	\end{align*}
+
+Aus der Normierbarkeit $\lim\limits_{x\rightarrow\pm\infty} u(x) \stackrel{!}{=} 0$ folgt, dass im Bereich I, also für $x<-a$, $B_\text{I}=0$ und im Bereich III, also für $x>a$, $A_\text{III}=0$ werden muss.\\
+Die Wellenfunktion ist somit
+	\begin{align*}
+		u(x) = 
+			\begin{cases}
+				A_\text{I}e^{\kappa x}, & \text{I}\\
+				A_\text{II}\sin(qx) + B_\text{II}\cos(qx), & \text{II}\\
+				B_\text{III}e^{-\kappa x}, & \text{III}
+			\end{cases}
+	\end{align*}
+
+Es müssen die Stetigkeitsbedingungen $u(\pm a-) \stackrel{!}{=} u(\pm a+)$ und $u'(\pm a-) \stackrel{!}{=} u'(\pm a+)$ gelten, wobei ''+'' bzw. ''-'' hinter dem $a$ den rechten bzw. linken Bereich des Punkts meint.
+	\begin{align*}
+		A_\text{I} e^{\kappa(-a)} &\stackrel{!}{=} -A_\text{II}\sin(qa) + B_\text{II}\cos(qa) \\
+		\kappa A_\text{I}e^{\kappa(-a)} &\stackrel{!}{=} q(A_\text{II}\cos(qa) + B_\text{II}\sin(qa)) \\
+		B_\text{III} e^{-\kappa a} &\stackrel{!}{=} A_\text{II}\sin(qa) + B_\text{II}\cos(qa) \\
+		-\kappa B_\text{III} e^{-\kappa a} &\stackrel{!}{=} q(A_\text{II}\cos(qa) - B_\text{II}\sin(qa))
+	\end{align*}
+
+Teilen der 2. durch die 1. und 4. durch die 3. ergibt jeweils $\kappa$ und kann daher gleichgesetzt werden. Anschließend wird mit beiden Nennern multipliziert.
+
+
+\newpage
+
+
+	\begin{align*}
+		\kappa = q\frac{A_\text{II}\cos(qa) + B_\text{II}\sin(qa)}{B_\text{II}\cos(qa) - A_\text{II}\sin(qa)} &\stackrel{!}{=} -q\frac{A_\text{II}\cos(qa) - B_\text{II}\sin(qa)}{A_\text{II}\sin(qa) + B_\text{II}\cos(qa)} \\
+		\Leftrightarrow (A_\text{II}\cos +  B_\text{II}\sin)(A_\text{II}\sin +  B_\text{II}\cos) &\stackrel{!}{=} (-A_\text{II}\cos +  B_\text{II}\sin)(-A_\text{II}\sin +  B_\text{II}\cos) \\
+		\cancel{A_\text{II}^2\sin\cos} + A_\text{II}B_\text{II}\cos^2 + A_\text{II}B_\text{II}\sin^2 + \cancel{B_\text{II}^2\sin\cos} &\stackrel{!}{=} \cancel{A_\text{II}^2\sin\cos} - A_\text{II}B_\text{II}\cos^2 - A_\text{II}B_\text{II}\sin^2 + \cancel{B_\text{II}^2\sin\cos} \\
+		A_\text{II}B_\text{II} &\stackrel{!}{=} -A_\text{II}B_\text{II} \qquad\Rightarrow
+		\begin{cases}
+			A_\text{II} = 0, & \text{symmetrische Lösung} \\
+			B_\text{II} = 0, & \text{asymmetrische Lösung} \\			
+		\end{cases}
+	\end{align*}
+
+
+Konstruiere daher eine symmetrische und eine antisymmetrische Wellenfunktion
+	$$u_s(x) =
+	\begin{cases}
+		A_\text{I}e^{\kappa x}, & \text{I}\\
+		B_\text{II}\cos(qx), & \text{II}\\
+		B_\text{III}e^{-\kappa x}, & \text{III}
+	\end{cases},\qquad
+	u_a(x) =
+	\begin{cases}
+		A_\text{I}e^{\kappa x}, & \text{I}\\
+		A_\text{II}\sin(qx), & \text{II}\\
+		B_\text{III}e^{-\kappa x}, & \text{III}
+	\end{cases}$$
+
+\underline{Symmetrische Lösungen}\\
+Wende erneut die Stetigkeitsbedingung an und teile sie anschließend durcheinander.
+	\begin{align*}
+		A_\text{I} e^{\kappa (-a)} &\stackrel{!}{=} B_\text{II}\cos(qa) \\
+		\kappa A_\text{I} e^{\kappa (-a)} &\stackrel{!}{=} -q B_\text{II}\sin(qa) \\
+\Rightarrow \kappa &= -q \tan(qa)		
+	\end{align*}
+
+Definiere die Substitutionen $y = q a$ und $b^2 = \frac{2mV_0}{\hbar^2}a^2$.\\
+Mit Hilfe dieser Substitutionen kann man $\kappa$ und $\tan(qa)$ in Abhängigkeit von $y$ darstellen. 
+	$$\frac{\sqrt{b^2 - y^2}}{y} = \tan y$$
+
+Die Schnitpunkte $y_{1,2,3,...}$ sind dann die erlaubten Lösungen.\\
+\\
+\textbf{Energien}\\
+Einsetzen der $y_{1,2,3,...}$ in die Gl. $y = q a = \frac{\sqrt{2m(V_0 + E)}}{\hbar} a$ und umstellen nach $E$ liefert dann die erlaubten Energien.\\
+\\
+\textbf{Zustände}\\
+Umstellen der ersten Stetigkeitsbedingung in diesem Abschnitt ermöglicht es, die Konstante $A_\text{I}$ durch $B_\text{II} e^{\kappa a}\cos(qa)$ auszudrücken, sowohl für Abschnitt I als auch III. Die Wellenfunktion ist demnach.
+	$$u_s(x) = 
+	\begin{cases}
+		B_\text{II} e^{\kappa a}\cos(qa) \cdot e^{\kappa x}, & \text{I}\\
+		B_\text{II} \cos(qa), & \text{II} \\
+		B_\text{II} e^{\kappa a}\cos(qa) \cdot e^{-\kappa x}, & \text{III}
+	\end{cases}$$
+Einsetzen der eben gefundenen Energien $E_{1,2,3,...}$ in $q$ und $\kappa$ in $u(x)$ und anschließendes normieren
+	$$\int_{-\infty}^\infty |u(x)|^2\,\diff x = \int_{-\infty}^{-a} |u_\text{I}(x)|^2 \diff x + \int_{-a}^a |u_\text{II}(x)|^2 \diff x + \int_a^\infty |u_\text{III}(x)|^2 \diff x \stackrel{!}{=} 1$$
+
+
+\newpage
+
+
+liefert dann die Konstante 
+	$$B_\text{II} = \frac{1}{\sqrt{\frac{\cos^2(qa)}{\kappa} + a + \frac{\sin(qa)}{2a}}}$$ 
+
+und die Wellenfunktionen können geplottet werden.\\
+\\
+\underline{Asymmetrische Lösungen}\\
+Analoges Vorgehen liefert die Gl. für das grafische Lösen
+	\begin{align*}
+		\kappa &= -q\cot(qa) \\
+		\Rightarrow \frac{\sqrt{b^2 - y^2}}{y} &= -\cot y
+	\end{align*}
+	
+und die Wellenfunktion
+	$$u_{as}(x) = 
+	\begin{cases}
+		-A_\text{II}e^{\kappa a} \cdot e^{\kappa x} \\
+		A_\text{II}\sin(qx) \\
+		A_\text{II}e^{\kappa a} \cdot e^{-\kappa x}		
+	\end{cases}$$
+	
+mit der Konstante
+	$$A_\text{II} = \frac{1}{\sqrt{\frac{\sin^2(qa)}{\kappa} + a - \frac{\sin(2qa)}{2q}}}$$
+	
+	\underline{Streuzustände $E>0$}\\
+	Das Lösen der einzelnen Bereiche liefert dieselben Funktionen wie beim Tunneleffekt, lediglich Bereich II $-a\leq x\leq a$ muss etwas angepasst werden ($V_0\rightarrow -V_0$):
+		$$\kappa = \frac{\sqrt{2m(V_0-E)}}{\hbar} \rightarrow \frac{\sqrt{2m(-V_0-E)}}{\hbar} = i\frac{\sqrt{2m(V_0+E)}}{\hbar} \equiv iq$$
+	\textcolor{gruen}{ACHTUNG: Das ist nicht dasselbe $q$ wie bei der Potentialstufe.}\\
+	Dieses $\kappa = iq$ wird nun einfach in die Transmissionswahrscheinlichkeit eingesetzt.
+		$$|T|^2 = \frac{4q^2k^2}{(k^2-q^2)^2\sin(2qa) + 4q^2k^2}$$
+	
+	Für $2qa = n\pi$ mit $n\in\mathbb{N}$ wird der Sinus im Nenner Null und die Transmissionswahrscheinlichkeit  $|T|^2$ somit 1.
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Harmonischer Oszillator}
+Betrachte das Potential
+	\begin{equation}
+		V(x) = \frac{1}{2}k x^2 \equiv \frac{1}{2} m \omega^2 x^2.
+	\end{equation}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Energie}
+			\begin{equation}
+				E_n = \hbar\omega \lr{n + \frac{1}{2}}
+			\end{equation}
+
+
+		\item \textbf{Wellenfunktion}
+			\begin{equation}
+				u_n(x) = \frac{1}{\sqrt{n! \cdot 2^n} \cdot \pi^{1/4}} \cdot H_n(x) \cdot e^{-x^2/2},
+			\end{equation}
+		
+		mit den Hermite-Polynomen $H_n(x) = e^{x^2} \frac{\diff^n}{\diff x^n} e^{-x^2/2}$.
+		
+		
+		\item \textbf{Auf-, Absteige- und Anzahloperator}\\
+		...
+			\begin{align}
+				\hat{a} &:= \frac{1}{\sqrt{2}}\lr{x + \frac{\diff}{\diff x}} \\
+				\hat{a}^\dagger &:= \frac{1}{\sqrt{2}}\lr{x - \frac{\diff}{\diff x}} \\
+				\hat{N} &:= \hat{a}^\dagger\hat{a} \\
+				\hat{a} u_n &= \sqrt{n} \cdot u_{n-1} \\
+				\hat{a}^\dagger u_n &= \sqrt{n+1} \cdot u_{n+1} \\
+				\hat{N} u_n &= n u_n
+			\end{align}
+	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.45\textwidth]{Grafiken/harmonischer oszillator.pdf}
+		\caption{Energien, Eigenzustände und Wahrscheinlichkeitsdichten des harmonischen Oszillators}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Algebraische Herleitung}\\
+	\underline{Vorbereitung}\\
+	Definiere zunächst die Operatoren
+		$$\hat{a} := \frac{1}{\sqrt{2}}\lr{x + \frac{\diff}{\diff x}},\qquad \hat{a}^\dagger := \frac{1}{\sqrt{2}}\lr{x - \frac{\diff}{\diff x}}$$
+
+	und berechne $\hat{a}^\dagger\hat{a}$ \textcolor{gruen}{(WICHTIG: die Terme entstehen, also würd eine Testfunktion von der Seite wirken, die danach wieder weggelassen wird $\hat{a}^\dagger\hat{a} \psi$). Rechne Operator für Op. aus: $\hat{a}^\dagger\hat{a} \psi = \hat{a}\dagger(\hat{a}\psi)$.}
+		\begin{align*}
+			\hat{a}^\dagger\hat{a}\psi &\stackrel{\commentmath{\hat{a}}}{=} \frac{1}{2}\hat{a}^\dagger \lr{x\psi + \frac{\diff\psi}{\diff x}} = \frac{1}{2}\lr{x - \frac{\diff}{\diff x}} \lr{x\psi + \frac{\diff\psi}{\diff x}} = \frac{1}{2}\lr{x^2\psi + x\frac{\diff\psi}{\diff x} - \frac{\diff(x\psi)}{\diff x} - \frac{\diff^2\psi}{\diff x^2}}\\
+			& = \frac{1}{2}\lr{x^2 + \cancel{x\frac{\diff\psi}{\diff x}} - \psi - \cancel{x\frac{\diff\psi}{\diff x}} - \frac{\diff^2\psi}{\diff x^2}} = \frac{1}{2} \lr{x^2 - 1 - \frac{\diff^2}{\diff x^2}}\psi\\
+			\Rightarrow \hat{a}^\dagger\hat{a} &= \frac{1}{2}\lr{-\frac{\diff^2}{\diff x^2} + x^2 - 1}
+		\end{align*}
+	
+	Der Hamilton-Operator lässt in natürlichen Einheiten \textcolor{gruen}{($x = y \cdot l$, $l = \sqrt{\frac{\hbar}{m\omega}}$, siehe analytische Herleitung)} über diese Operatoren darstellen. 
+		$$\hat{H} = -\frac{\hbar^2}{2m}\frac{\diff^2}{\diff x^2} + \frac{m\omega^2}{2}x^2 \stackrel{\comment{NE}}{\Rightarrow} -\frac{\diff^2}{\diff x^2} + x^2 = 2\hat{a}^\dagger\hat{a} + 1$$\\
+	Im folgenden werden die Kommutatorrelationen
+		$$\lreck{x, \frac{\diff}{\diff x}} = -1,\qquad [\hat{a},\hat{a}^\dagger] = 1$$
+
+	genutzt, die einfach mit den Kommutatoridentitäten für Plus und Mal bewiesen werden können.\\
+	Betrachte nun den Kommutator zwischen Hamilton-Operator und $\hat{a}$ bzw. $\hat{a}^\dagger$.
+		\begin{align*}
+			[\hat{H},\hat{a}] &\stackrel{\commentmath{\hat{H}}}{=} [2\hat{a}^\dagger\hat{a} + 1,\hat{a}] = (2\hat{a}^\dagger\hat{a} + \cancel{1})\hat{a} - \hat{a}(2\hat{a}^\dagger\hat{a} + \cancel{1}) = 2[\hat{a}^\dagger\hat{a},\hat{a}] = \\
+			 &= 2(\hat{a}^\dagger\underbrace{[\hat{a},\hat{a}]}_{=0} + \underbrace{[\hat{a}^\dagger,\hat{a}]}_{=-1}\hat{a}) = -2\hat{a} \\
+			 [\hat{H},\hat{a}^\dagger] &= [2\hat{a}^\dagger\hat{a} + 1,\hat{a}^\dagger] \stackrel{\comment{analog}}{=} 2[\hat{a}^\dagger\hat{a},\hat{a}^\dagger] = 2(\hat{a}^\dagger[\hat{a},\hat{a}^\dagger] + [\hat{a}^\dagger,\hat{a}^\dagger]\hat{a}) = 2\hat{a}^\dagger
+		\end{align*}
+\rule{3cm}{0.4pt}\\
+	\underline{Wirkung von $\hat{a}$ und $\hat{a}^\dagger$}\\
+	Es gelte die stationäre Schrödinger-Gleichung, auf die mit $\hat{a}$ bzw. $\hat{a}^\dagger$ von links gewirkt wird. Anschließend wird die Reihenfolge von Hamilton-Operator und $\hat{a}$ bzw. $\hat{a}^\dagger$ mit den zuvor gefundenen Kommutatoren vertauscht.
+		\begin{align*}
+			\hat{H}u &= \varepsilon'u \\
+			\stackrel{\commentmath{\cdot \hat{a}}}{\Rightarrow} \hat{a} \hat{H} u &= \varepsilon' \hat{a} u \\
+			\stackrel{\commentmath{[\hat{H},\hat{a}]}}{\Leftrightarrow} (\hat{H}\hat{a} + 2\hat{a})u &= \varepsilon' \hat{a} u \\
+			\Leftrightarrow \hat{H}\hat{a} u &= (\varepsilon' - 2) \hat{a} u
+		\intertext{Analog für $\hat{a}^\dagger$}
+			\Rightarrow \hat{H}\hat{a}^\dagger u &= (\varepsilon' + 2) \hat{a}^\dagger u
+		\end{align*}
+
+	\textbf{Dies zeigt die Wirkung der Operatoren: $\hat{a}$ erniedrigt den Eigenwert um 2 Einheiten, $\hat{a}^\dagger$ erhöht ihn um 2.}\\
+	Eine weitere wichtige Eigenschaft, die vorbereitet werden muss, ist, dass $\hat{a}^\dagger\hat{a}$ und somit auch $\hat{H}$ positiv semidefinit ist, womit all ihre Eigenwerte $\geq 0$ sind.
+		$$\braket{\phi, \hat{a}^\dagger\hat{a}\phi} = \braket{\hat{a}\phi,\hat{a}\phi} = ||\hat{a}\phi||^2 \geq 0$$
+\rule{3cm}{0.4pt}
+
+	\underline{Grundzustand}\\
+	Setzt man in die zeitunabh. S.-Gl. den Operator $\hat{H} = 2\hat{a}^\dagger\hat{a} + 1$ ein, folgt aufgrund der positiven Semidefinitheit von $\hat{H}$ eine Bedingung für die Energie und somit die Grundzustandsenergie $\varepsilon_0$
+		\begin{align*}
+			\hat{a}^\dagger\hat{a} u &= \frac{1}{2}\underbrace{(\varepsilon - 1)}_{\stackrel{!}{\geq} 0} u \\
+			\Rightarrow \varepsilon &\geq 1\\
+			\Rightarrow \varepsilon_0 &= 1
+		\end{align*}
+
+	Betrachtet man die Wirkung von $\hat{a}$ auf den Grundzustand $u_0$ (gehört zur Energie $\varepsilon_0$), folgt
+		\begin{align*}
+			\hat{H} \hat{a} u_0 &= (\varepsilon_0 - 2) u_0 = -1 \hat{a}u_0\\
+			\Rightarrow \hat{a}u_0 &= 0
+		\end{align*}
+	
+	Da $\hat{H}$ keine negativen Eigenwerte besitzen darf, muss der Zustand also Null sein.\\
+	Einsetzen von $\hat{a}$ und Lösen der einfachen DGL ergibt den Grundzustand.
+		\begin{align*}
+			\Rightarrow \hat{a}u_0 &= \frac{1}{\sqrt{2}} \lr{x + \frac{\diff}{\diff x}} u_0 = 0 \\
+			\Leftrightarrow \frac{1}{u_0}\frac{\diff u_0}{\diff x} &= -x \\
+			\stackrel{\commentmath{\int}}{\Rightarrow} u_0(x) &= c \cdot e^{-\frac{1}{2}x^2} \stackrel{\comment{Normierung}}{=} \frac{1}{\pi^{1/4}} e^{-\frac{1}{2}x^2}
+		\end{align*}
+\rule{3cm}{0.4pt}
+
+	\textbf{Zustand}\\
+	Betrachte das schrittweise Erhöhen des Grundzustands.
+		\begin{align*}
+			\hat{H} (\hat{a}^\dagger)^n u_0 &= (\varepsilon_0 + 2n) (\hat{a}^\dagger)^n u_0\\
+				\Leftrightarrow \hat{a}^\dagger\hat{a} (\hat{a}^\dagger)^n u_0 &= n (\hat{a}^\dagger)^n u_0
+		\end{align*}			
+
+
+	$u_n$ ist augenscheinlich proportional zu $(\hat{a}^\dagger)^n u_0$. $u_{n+1}$ und $u_{n-1}$ ergibt sich wie zuvor durch Anwenden von $\hat{a}^\dagger$ und $\hat{a}$ von links. Die Ansätze sind \textcolor{gruen}{(mit $c$, $\tilde{c}$, $\tilde{\tilde{c}}$ Proportionalitätskonstanten)}
+		\begin{alignat*}{3}
+			u_{n-1} &= c\cdot \hat{a} u_n \\
+			u_{n+1} &= \tilde{c}\cdot \hat{a}^\dagger u_n\\
+			u_n &= \tilde{\tilde{c}}\cdot (\hat{a}^\dagger)^n u_0
+		\end{alignat*}
+
+
+\newpage
+
+
+	Im Folgenden sollen diese Proportionalitätskonstanten bestimmt werden, um vor allem einen Ausdruck für den Zustand $u_n$ zu finden.\\	
+	Schreibe dazu die Normierbarungsbedingung für $u_{n-1}$ auf.\\
+	Im letzten Schritt der ersten Zeile wird vorausgesetzt, dass $u_n$ normiert ist.
+		\begin{align*}
+			\braket{u_{n-1},u_{n-1}} &\stackrel{\commentmath{u_{n-1}}}{=} |c|^2 \braket{\hat{a} u_n, \hat{a} u_n} = |c|^2 \braket{u_n, \hat{a}^\dagger\hat{a}u_n} = |c|^2 \cdot n\braket{u_n,u_n} = |c|^2 \cdot n \stackrel{!}{=} 1\\
+			\Leftrightarrow c &= \frac{1}{\sqrt{n}}\\
+			\Rightarrow u_{n-1} &= \frac{1}{\sqrt{n}} \hat{a} u_n
+		\end{align*}
+	
+	Analog folgt mit für $u_{n+1}$
+		\begin{align*}
+			\braket{u_{n+1}, u_{n+1}} &= |\tilde{c}|^2 \braket{\hat{a}^\dagger u_n, \hat{a}^\dagger u_n} = |\tilde{c}|^2 \braket{u_n, \hat{a}\hat{a}^\dagger u_n} = |\tilde{c}|^2 \braket{u_n, (\hat{a}^\dagger\hat{a} + 1) u_n} =\\
+			&= |\tilde{c}|^2 \cdot (n+1)\braket{u_n, u_n} = |\tilde{c}|^2 \cdot (n+1) \stackrel{!}{=} 1 \qquad \tilde{c}\\
+			\Rightarrow \tilde{c} &= \frac{1}{\sqrt{n + 1}}\\
+			\Rightarrow u_{n+1} &= \frac{1}{\sqrt{n + 1}} \hat{a}^\dagger u_n
+		\end{align*}
+	
+	Aus Letzterem folgt dann für der Koeffizient für $u_n$ (die $n$-te Erhöhung des Grundzustands $u_0$)
+		\begin{align*}
+			u_n &= \frac{1}{\sqrt{n!}} (\hat{a}^\dagger)^n u_0 = \frac{1}{2^n \sqrt{n!}}\ \left(x + \frac{\diff}{\diff x}\right)^n\ \frac{1}{\pi^{1/4}} e^{-x^2/2} =\\
+			&\stackrel{\commentmath{1}}{=} \frac{1}{2^n \sqrt{n!}}\ e^{-x^2/2} e^{x^2/2}\left(x + \frac{\diff}{\diff x}\right)^n\ \frac{1}{\pi^{1/4}} e^{-x^2/2} =\\
+			&=  \frac{1}{2^n \sqrt{n!}}\ H_n(x)\ e^{-x^2/2} \qquad \blacksquare
+		\end{align*}
+
+	Die Energien gewinnt man durch das wiederholte Anwenden von $\hat{a}^\dagger$ auf die stationäre Schrödinger-Gl. für den Grundzustand.
+		\begin{align*}
+			\hat{H} u_0 &= \underbrace{\varepsilon_0}_{=1} u_0\\
+			\stackrel{\commentmath{\hat{a}^\dagger}}{\Rightarrow} \hat{H} \hat{a}^\dagger u_0 &= (1 + 2)_0 u_0\\
+			\stackrel{\commentmath{(\hat{a}^\dagger)^n}}{\Rightarrow} \hat{H} (\hat{a}^\dagger)^n u_0 &= (1 + 2n) u_0\\
+			\equiv \hat{H} u_n &= (1 + 2n) u_n\\
+			\Rightarrow \varepsilon_n &= 1 + 2n\\
+			\stackrel{\comment{SI}}{\Leftrightarrow} E_n &= \hbar\omega \lr{n + \frac{1}{2}} \qquad\blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Kohärente Zustände}
+Unter einem \textit{kohärenten Zustand} versteht man den Eigenzustand des Vernichtungsoperators. Dessen Orts- und Impulsmittelwert folgen den klassischen Bewegungsgleichungen des harmonischen Oszillators.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Wellenfunktion}
+			\begin{align}
+				\phi_\lambda(x,t=0) &= e^{-\frac{i}{2}x_0 p_0} e^{-\frac{1}{2}\tilde{\varepsilon}} \sum_{n=0}^\infty \frac{\lambda^n}{\sqrt{n!}} u_n(x) \\
+				\phi_\lambda(x,t) &= e^{-i\frac{\omega}{2}t} \phi_{\lambda(t)}(x) \\
+				&= e^{-\frac{i}{2}x_0 p_0} e^{-\frac{1}{2}\tilde{\varepsilon}} e^{-i\frac{\omega}{2}t} \sum_{n=0}^\infty \frac{(\lambda e^{-i\frac{\omega}{2}t})^n}{\sqrt{n!}} u_n(x)
+			\end{align}
+		
+		mit $\lambda = \frac{1}{\sqrt{2}}(x_0 + ip_0)$ und $\lambda(t) = \lambda e^{-i\frac{\omega}{2}t}$.
+
+
+		\item \textbf{Erwartungswert und Varianz}\\
+		Die Varianz des Impuls- und Ortsoperators ist konstant, d.h. das Wellenpaket zerfließt zeitlich nicht:
+			\begin{align*}
+				\braket{\hat{x}} &= x_0\cos(\omega t) + p_0\sin(\omega t) \\
+				\braket{\hat{p}} &= p_0\cos(\omega t) - x_0\sin(\omega t) \\
+				(\Delta x)^2 &= \frac{1}{2} \\
+				(\Delta p)^2 &= \frac{1}{2}
+			\end{align*}
+	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Grafiken/kohaerenter zustand.pdf}
+		\caption{Zeitentwicklung des kohärenten Zustands im quantenmechanischen harmonischen Oszillator; je heller der Zustand, desto früher in der Zeit liegt er}
+	\end{figure}
+
+
+\newpage
+
+
+\subsection{Delta-Potential}
+Betrachte das Potential
+	\begin{equation}
+		V(x) = -V_0 \cdot \delta(x).
+	\end{equation}
+
+
+\fbox{Resultate}
+\begin{itemize}
+	\item \textbf{Energie}
+		\begin{equation}
+			E = -\frac{m V_0^2}{2\hbar^2}
+		\end{equation}
+
+
+	\item \textbf{Wellenfunktion}
+		\begin{equation}
+			u(x) = \sqrt{k} \cdot
+			\begin{cases}
+				e^{kx}, & x<0 \\
+				e^{-kx}, & x>0 			
+			\end{cases},
+		\end{equation}
+	
+	mit $k = \frac{\sqrt{-2mE}}{\hbar}$.
+	
+	
+	\item \textbf{Transmissionswahrscheinlichkeit}\\
+	Für die Streuzustände ($E>0$) gelten die Reflexions- und Transmissionswahrscheinlichkeit
+		\begin{align}
+			|R|^2 &= \frac{1}{1 + \frac{2 \hbar^2 E}{m V_0^2}} \\
+			|T|^2 &= \frac{1}{1 + \frac{m V_0^2}{2 \hbar^2 E}}
+		\end{align}
+\end{itemize}
+
+	
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.45\textwidth]{Grafiken/delta potential bindungszustand.pdf}
+			\includegraphics[width=0.45\textwidth]{Grafiken/delta potential streuzustand.pdf}
+		}
+		\caption{links: Bindungszustand; rechts: Reflexions- und Transmissionswahrscheinlichkeit für ein von links einlaufendes Teilchen}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	In diesem Potential gibt es die Besonderheit, dass die erste Ableitung nicht stetig ist, sondern einen Sprung aufweist. Einen Ausdruck dafür erhält man, indem man die zeithunabh. S.-Gl. in einem kleinen $\varepsilon$-Bereich mit $\varepsilon\rightarrow 0$ integriert wird.
+		\begin{align*}
+			-\frac{\hbar^2}{2m}u''(x) - V_0\delta(x) \cdot u(x) &= Eu(x) \\
+			\Leftrightarrow \int_{-\varepsilon}^\varepsilon u''(x)\,\diff x + \frac{2mV_0}{\hbar^2} \underbrace{\int_{-\varepsilon}^\varepsilon u(x)\delta(x)\,\diff x}_{=u(0)} &= -\frac{2mE}{\hbar^2} \underbrace{\int_{-\varepsilon}^\varepsilon u(x)\,\diff x}_{=0} \\
+			\stackrel{\commentmath{\varepsilon\rightarrow 0}}{\Leftrightarrow} u'(0_+) - u'(0_-) &= -\frac{2mV_0}{\hbar^2}u(0)
+		\end{align*}
+
+wobei im zweiten Schritt das Integral auf der rechten Seite wegen der Integration über einen nahezu unausgedehnten Raumbereich weggenähert wird.\\
+\\
+\underline{Bindungszustand ($E<0$)}\\
+\\
+Für die Bereiche I ($x<0$) und II ($x>0$) ist das Potential Null und es ergeben sich die folgenden Lösungen.
+	$$u(x) =
+	\begin{cases}
+		A_\text{I} e^{kx} + B_\text{I} e^{-kx}, &  x<0 \\
+		A_\text{II} e^{kx} + B_\text{II} e^{-kx}, & x>0
+	\end{cases}$$
+mit $k = \frac{\sqrt{-2mE}}{\hbar}$.\\
+Die Normierbarkeitsbedingung vereinfacht den Ansatz zu
+	$$u(x) =
+	\begin{cases}
+		A_\text{I} e^{kx}, & x<0 \\
+		B_\text{II} e^{-kx}, & x>0
+	\end{cases} \qquad\Rightarrow
+	u'(x) =
+	\begin{cases}
+		k A_\text{I} e^{kx}, & x<0 \\
+		-k B_\text{II} e^{-kx}, & x>0
+	\end{cases}$$
+
+Nutze die Stetigkeitsbedingungen $u_\text{I}(0) \stackrel{!}{=} u_\text{II}(0)$ und $u'_\text{II}(0) - u'_\text{I}(0) = -\frac{2mV_0}{\hbar^2}u(0)$:
+	\begin{align*}
+		A_\text{I} &= B_\text{II} \\
+		-k B_\text{II} - k A_\text{I} &= \frac{2mV_0}{\hbar^2} A_\text{I} \\
+		\Rightarrow k &= -\frac{mV_0}{\hbar^2}
+	\end{align*}
+
+\textbf{Energie}\\
+Setze die Definition von $k$ mit dem Ausdruck aus der Stetigkeitsbedingung gleich und leite daraus die Energie ab.
+	\begin{align*}
+		k &= -\frac{mV_0}{\hbar^2} = \frac{\sqrt{-2mE}}{\hbar} \\		
+		\Leftrightarrow E &= -\frac{m V_0^2}{2\hbar^2}
+	\end{align*}
+
+\textbf{Zustände}\\
+Normiere $u(x)$ und verwende die zuvor gefundene Bedingung $A_\text{I} = B_\text{II}$.
+	\begin{align*}
+		\int_{-\infty}^\infty |u(x)|^2 \,\diff x &= |B_\text{II}|^2 \int_{-\infty}^0 e^{2kx} \,\diff x + |B_\text{II}|^2 \int_0^\infty e^{-2kx} \,\diff x = |B_\text{II}|^2 \lr{-\int_0^{-\infty} e^{2kx} \,\diff x + \int_0^\infty e^{-2kx} \,\diff x} \\
+		&= 2|B_\text{II}|^2 \int_0^\infty e^{-2kx} \,\diff x = -\frac{2|B_\text{II}|^2}{2k} \left.e^{-2kx}\right|_0^\infty = \frac{|B_\text{II}|^2}{k} \stackrel{!}{=} 1 \\
+		\Leftrightarrow B_\text{II} &= \sqrt{k}
+	\end{align*}
+
+Somit ergeben sich die Zustände und Aufenthaltswahrscheinlichkeitsdichte
+	\begin{align*}
+		u(x) &= \sqrt{k} \cdot
+		\begin{cases}
+			e^{kx}, & x<0 \\
+			e^{-kx}, & x>0
+		\end{cases} \\
+		|\psi(x)|^2 &= k \cdot
+		\begin{cases}
+			e^{2kx}, & x<0 \\
+			e^{-2kx}, & x>0
+		\end{cases}
+	\end{align*}
+
+
+\underline{Streuzustände ($E>0$)}\\
+\\
+Für ein von links einlaufendes Teilchen ergibt sich analog zu Potentialstufe/Tunneleffekt der Ansatz
+	$$u(x) =
+	\begin{cases}
+		e^{ikx} + Re^{-ikx}, & x<0 \\
+		Te^{ikx}, & x>0		
+	\end{cases}
+	\qquad\Rightarrow
+	u'(x) =
+	\begin{cases}
+		ik(e^{ikx} - Re^{-ikx}), & x<0 \\
+		ikTe^{ikx}, & x>0		
+	\end{cases}$$
+	
+mit $k = \frac{\sqrt{2mE}}{\hbar}$.\\
+Nutze die Stetigkeitsbedingungen $u_\text{I}(0) \stackrel{!}{=} u_\text{II}(0)$ und $u'_\text{II}(0) - u'_\text{I}(0) = -\frac{2mV_0}{\hbar^2}u(0)$:
+	\begin{align*}
+		1 + R &\stackrel{!}{=} T \\
+		ikT - ik(1 - R) &\stackrel{!}{=} -\frac{2mV_0}{\hbar^2}(1 + R)
+	\end{align*}
+
+Stelle die 2. Bedingung nach $T$ um und setze sie dann mit der 1. gleich
+	\begin{align*}
+		T &\stackrel{!}{=} -\frac{2mV_0}{ik\hbar^2}(1 + R) + 1 - R \\
+		\Rightarrow 1 + R &= 2i\underbrace{\frac{mV_0}{k\hbar^2}}_{=:\beta}(1 + R) + 1 - R \\
+		\Leftrightarrow R(2 - 2i\beta) &= 2i\beta \\
+		\Leftrightarrow R &= \frac{i\beta}{1 - i\beta}\\
+		\Rightarrow |R|^2 &= \frac{\beta^2}{1 + \beta^2} = \frac{1}{\frac{1}{\beta^2} + 1} = \frac{1}{1 + \frac{\hbar^4 k^2}{m^2 V_0^2}} = \frac{1}{1 + \frac{2\hbar^2 E}{m V_0^2}}
+	\end{align*}
+
+Setze $R$ in die 1. Bedingung ein, um $T$ zu erhalten
+	\begin{align*}
+		T &= 1 + R = 1 + \frac{i\beta}{1 - i\beta} = \frac{1}{1 - i\beta} \\
+		\Rightarrow |T|^2 &= \frac{1}{1 + \beta^2} = \frac{1}{1 + \frac{m V_0^2}{2\hbar^2 E}}		
+	\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Teilchen auf einem Ring}
+Betrachte das Potential $V=0$ für einen Kreis, d.h. der Raumbereich, auf dem sich das Teilchen befindet, schließt sich.\\
+\\
+\fbox{Resultate}
+\begin{itemize}
+	\item \textbf{Energie}
+		\begin{equation}
+			E_\kappa = \frac{\hbar^2}{2mr^2}\kappa^2
+		\end{equation}
+
+
+	\item \textbf{Wellenfunktion}
+		\begin{equation}
+			u(\varphi) = \frac{1}{\sqrt{2\pi}} e^{\pm i \kappa \theta}
+		\end{equation}
+	
+\end{itemize}
+
+
+mit $\kappa = 0, \pm 1, \pm 2, ...$.
+
+
+\newpage
+
+
+{\color{violet}
+\hrule 
+	\fbox{Herleitung}\\
+	Löse das Problem in Polarkoordinaten. Da der Radius konstant bleibt, hängt die Wellenfunktion lediglich vom Winkel $\varphi$ ab. Setze demnach den Laplace-Operator in Polarkoordinaten in die stationäre Schrödinger-Gl. ein (wobei der Term mit der $r$-Ableitung offenkundig null wird).
+		\begin{align*}
+			\frac{\hat{p}^2}{2m} u(\varphi) = -\frac{\hbar^2}{2m} \Delta u(\varphi) = -\frac{\hbar^2}{2m} \frac{1}{r^2}\frac{\partial^2}{\partial \varphi^2} u(\varphi) &= E u(\varphi) \\
+			\Leftrightarrow u''(\varphi) + \underbrace{ \frac{2m r^2 E}{\hbar^2} }_{=:\kappa^2} u(\varphi) &= 0
+		\end{align*}
+
+Eine Lösung dieser DGL ist (man kann auch den Term mit negativem Exponenten nehmen)
+	$$u(\varphi) = A e^{i\kappa\varphi}$$
+
+	Nutze die Stetigkeitsbedingung $u(\varphi) \stackrel{!}{=} u(\varphi + 2\pi)$, d.h. dass sich der Ring schließen muss
+		\begin{align*}
+			A e^{i\kappa\varphi} &\stackrel{!}{=} A e^{i\kappa(\varphi + 2\pi)} = A e^{i\kappa\varphi} e^{i\kappa 2\pi} \\
+			\Leftrightarrow 1 &= e^{i\kappa 2\pi} = \cos(\kappa \cdot 2\pi) + i \sin(\kappa \cdot 2\pi) \\
+			\Rightarrow \kappa &= 0, \pm 1, \pm 2, ....
+		\end{align*}
+
+	Normieren ergibt
+		\begin{align*}
+			\int_0^{2\pi} \diff\varphi\ |u(\varphi)|^2 &= |A|^2 \int_0^{2\pi} \diff\varphi = |A|^2 \cdot 2\pi \stackrel{!}{=} 1 \\
+			\Rightarrow u(\varphi) = \frac{1}{\sqrt{2\pi}} e^{i\kappa\varphi} \qquad\blacksquare
+		\end{align*}
+
+	Verwende nun die Definition von $\kappa$ und stelle diese nach der Energie um
+		$$\kappa^2 = \frac{2mr^2E}{\hbar^2} \qquad	\Leftrightarrow E = E_\kappa = \frac{\hbar^2}{2mr^2}\kappa^2 \qquad\blacksquare$$
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Wellenpaket}
+Das \textit{Wellenpaket} ist eine normierbare Funktion, die aus ebenen Wellen konstruiert wird
+	\begin{equation}
+		\psi(\vec{x},t) = \frac{1}{(2\pi)^{n/2}} \int f(\vec{k}) \cdot e^{-i[\omega(\vec{k}) t - \vec{x}\vec{k}]} \,\diff^n k,
+	\end{equation}
+
+mit der Amplitude der ebenen Welle $\vec{k}$ $f(\vec{k})$ und der allgemeinen Dispersionsrelation $\omega(\vec{k})$.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Wellenfunktion}\\
+		Die Wellenfunktion $\psi(\vec{x},t)$ in Abhängigkeit des Ausgangszustands $\psi(\vec{x},t=0)$ ergibt sich zu
+		\begin{align}
+			\psi(\vec{x},t) &= \int K(\vec{x}-\vec{y},t) \cdot \psi(\vec{y},t=0) \,\diff^n y
+		\end{align}
+	
+	mit dem Zeitentwicklungskern
+		\begin{equation}
+			K(\vec{x}-\vec{y},t) := \frac{1}{(2\pi)^n} \int e^{-i\beta\vec{k}^2t} e^{i\vec{k}(\vec{x}-\vec{y})} \,\diff^n k
+		\end{equation}
+	
+	mit $\beta = \frac{\hbar}{2m}$ im Zeitentwicklungskern $K$.
+	\end{itemize}
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $\psi(x,0) = A e^{-\frac{x^2}{2a^2} + ik_0x}$ mit $A = \frac{1}{\pi^{1/4}\sqrt{a}}$, $K(x-y,t) = \sqrt{\frac{m}{2\pi i\hbar t}} e^{\frac{im}{2\hbar t}(x - y)^2}$\\
+	\\
+	Dieses Beispiel beschreibt das Zerfließen eines Gauß-Pakets.
+		$$\Rightarrow |\psi(x,t)|^2 = \frac{1}{\sqrt{2\pi}\sigma(t)} e^{-\frac{1}{2\sigma^2(t)} (x - \frac{\hbar k_0}{m}t)^2}$$
+	mit $\sigma(t) = \frac{a}{\sqrt{2}} \sqrt{1 + (\frac{\hbar t}{m a^2})^2}$.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{Grafiken/gaußpaket zeitentwicklung dispersion.pdf}
+		\caption{Aufenthaltswahrscheinlichkeit zu mehreren Zeitpunkten; Die linke Kurve zeigt das Paket zu $t=0$.}
+	\end{figure}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{''Herleitung''}\\
+	Die Funktion $u(x)$ soll durch eine Linearkombination des Funktionensystems $\{\varphi_i\}$ genähert werden.
+		\begin{align*}
+			u(x) &\approx \sum_i \alpha_i \varphi_i
+		\intertext{Den bestmöglichen Koeffizienten $\alpha_i$ findet man über das kleinst mögliche Normquadrat}
+			\Delta &= ||u - \sum_i \alpha_i \varphi_i(x)||^2 = \braket{u - \sum_i \alpha_i \varphi_i(x), u - \sum_i \alpha_i \varphi_i(x)} = \\
+			&= \braket{u,u} - \sum_i \alpha_i^\star \underbrace{\braket{\varphi_i, u}}_{=: c_i} - \sum_i \alpha_i \underbrace{\braket{u, \varphi_i}}_{= c_i^\star} + \sum_i \alpha_i \alpha_i^\star = \\
+			&= ... = \braket{u,u} + \sum_i |\alpha_i - c_i|^2 - \sum_i |c_i|^2
+		\end{align*}
+	Somit ist der bestmögliche Koeffizient $\alpha_i = c_i$, denn er minimiert $\Delta$. Da $\Delta$ eine Norm ist, muss sie $\geq 0$ sein. Ein Funktionensystem ist \textbf{vollständig}, wenn für alle $u$ $\Delta$ beliebig klein wird. Es gilt dann die Gleichheit.
+	
+		$$\braket{u,u} \geq \sum_i |c_i|^2 \quad \stackrel{\commentmath{\Delta=0}}{\Rightarrow} \quad \braket{u,u} = \sum_i |c_i|^2$$
+		
+		Setze nun das gefundene $\alpha_i$ in den Ansatz ein. Für ein vollständiges System $\{\varphi\}$ gilt die Gleichheit:
+		\begin{align*}
+			u(x) &= \sumint_i c_i \varphi_i(x) = \sumint_i \braket{\varphi_i, u} \varphi_i(x) = \sumint_i \lr{\int \varphi_i^\star(y) u(y) \,\diff y} \varphi_i(x) = \\
+			&= \int u(y) \lr{\sumint_i \varphi_i^\star(y) \varphi_i(x)} \,\diff y \\
+			&\Rightarrow \sumint_i \varphi_i^\star(y) \varphi_i(x) \stackrel{!}{=} \delta(x - y)
+		\end{align*}
+	
+	\dotfill
+
+	Sei $\psi(\vec{x},t)$ eine beliebige WF und $u_n(x)$ ein vollständiges System von Eigenfunktionen.\\
+	Für den Fall von diskreten Energien ohne Entartung gilt $\braket{u_n, u_m} = \delta_{nm}$. Aus der Entwicklung der WF $\psi(\vec{x},t) = \sum_n \braket{u_n, \psi} u_n$ folgt
+		$$1 \stackrel{!}{=} \braket{\psi, \psi} = {\color{gruen} \braket{\sum_n \braket{u_n, \psi} u_n, \sum_m \braket{u_m, \psi} u_m} = \sum_{n,m} \braket{u_n, \psi}^\star \braket{u_m, \psi} \braket{u_n, u_m}} = \sum_n |\braket{u_n, \psi}|^2 \equiv \sum_n P_\psi(E_n)$$
+
+	Interpretation: $P_\psi(E_n) = |\braket{u_n, \psi}|^2$ ist die Wahrscheinlichkeit beim Messen eines Systems im Zustand $\psi$ den zu $u_n$ gehörigen Eigenwert zu messen.
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Wasserstoffatom}
+Betrachte das Coulomb-Potential
+	\begin{equation}
+		V(r) = -\frac{Z e^2}{4\pi\varepsilon_0} \frac{1}{r}.
+	\end{equation}
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Energie}
+			\begin{equation}
+				E_n = -\frac{1}{2}m_e c^2 \alpha^2 \frac{Z^2}{n^2},
+			\end{equation}
+		
+		mit der \textit{Hauptquantenzahl} $n \in \{1, 2, ...\}$, Elektronenmasse $m_e$, Lichtgeschwindigkeit $c$, Feinstrukturkonstante $\alpha$ und der Kernladungszahl $Z$.
+	
+		
+		\item \textbf{Wellenfunktion}
+			\begin{align}
+				u_{nlm}(r,\theta,\varphi) &= R_{nl}(r) \cdot Y_{lm}(\theta,\varphi) \\
+				&= c_{nl} e^{-\kappa r} (\kappa r)^l L_{n-l-1}^{2l+1}(2\kappa r) \cdot Y_{lm}(\theta, \varphi),
+			\end{align}
+		
+		mit der \textit{Nebenquantenzahl} $l \in \{0, 1, ..., n-1\}$, der \textit{Magnetquantenzahl} $m \in \{-l, -l+1, ..., l-1, l\}$ sowie der Radialfunktion $R_{nl}(r)$, Kugelflächenfunktion $Y_{lm}(\theta,\varphi)$ und der Konstanten $\kappa = \frac{-2mE}{\hbar^2}$.
+	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+		\raisebox{-0.5\height}{\includegraphics[width=0.35\textwidth]{Grafiken/orbitale.png}}
+		\raisebox{-0.5\height}{\includegraphics[width=0.6\textwidth]{Grafiken/radiale aufenthaltswahrscheinlichkeit.pdf}}
+		}
+		\caption{links: Querschnitte von Wasserstofforbitalen (zeilenweise s-, p-, d- und f-Orbitale); rechts: radiale Aufenthaltswahrscheinlichkeit $R_{nl}(r)$}
+	\end{figure}
+
+
+%	\begin{table}[h]
+%		\centering
+%		\caption{Übersicht einiger Radial- und Kugelflächenfunktionen}
+%		\begin{tabularx}{\textwidth}{l|l|X||l|l|X}
+%			\hline\hline
+%				$n$ & $l$ & $R_{nl}(r)$	& $l$ & $m$ & $Y_{lm}(\theta,\varphi)$\\
+%			\hline
+%				1 & 0 & $2\lr{\frac{Z}{a_0}}^{3/2} e^{-\frac{Z}{a_0}r}$ & 0 & 0 & $\sqrt{\frac{1}{4\pi}}$ \\
+%			\hline
+%				\multirow{2}{*}{2} & 0 & $2\lr{\frac{Z}{a_0}}^{3/2} \lr{1 - \frac{Z}{2a_0}r} e^{-\frac{Z}{a_0}r}$ & \multirow{2}{*}{1} & 0 & $\sqrt{\frac{3}{4\pi}} \cos\theta$ \\
+%			\cline{2-3}\cline{5-6}
+%				 & 1 & $\frac{1}{\sqrt{3}} \lr{\frac{Z}{2a_0}}^{3/2} \frac{Z}{a_0}r \cdot  e^{-\frac{Z}{2a_0}r}$ &  & $\pm 1$ & $\mp \sqrt{\frac{3}{8\pi}} \sin\theta e^{\pm i\varphi}$ \\
+%			\hline
+%				\multirow{3}{*}{3} & 0 & $2 \lr{\frac{Z}{3a_0}}^{3/2} \lreck{1 - \frac{2Z}{3a_0}r + \frac{2}{27}\lr{\frac{Z}{a_0}r}^2} e^{-\frac{Z}{3a_0}r}$ & \multirow{3}{*}{2} & 0 & $\sqrt{\frac{5}{16\pi}} (3\cos^2\theta - 1)$ \\
+%			\cline{2-3}\cline{5-6}
+%			 	  & $1$ & $\frac{4}{3}\sqrt{2} \lr{\frac{Z}{3a_0}}^{3/2} \cdot \frac{Z}{3a_0}r \cdot \lr{1 - \frac{Z}{6a_0}r} \cdot e^{-\frac{Z}{3a_0}r}$ &  & $\pm 1$ & $\pm\sqrt{\frac{15}{8\pi}} \sin\theta \cos\theta e^{\pm i\varphi}$ \\
+%			\cline{2-3}\cline{5-6}
+%				  & 2 & $\frac{2\sqrt{2}}{3\sqrt{5}} \cdot \lr{\frac{Z}{3a_0}}^{3/2} \cdot \lr{\frac{Z}{3a_0}r}^2 \cdot e^{-\frac{Z}{3a_0}r}$ &  & $\pm 2$ & $\pm \sqrt{\frac{15}{32\pi}} \sin^2\theta e^{\pm 2i\varphi}$ \\
+%			\hline\hline
+%		\end{tabularx}
+%	\end{table}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Da das Coulomb-Potential ein Zentralpotential ist, kann der Ansatz $u = R_l(r) \cdot Y_{lm}(\theta,\varphi)$ gemacht werden und es reicht aus, die Radialgl. zu lösen, um $R$ zu finden, da die Kugelflächenfunktionen bereits bekannt sind.
+		$$\chi''(r) - \frac{l(l+1)}{r^2} \chi(r) + \frac{2m}{\hbar^2} \frac{Z e^2}{4\pi\varepsilon_0} \frac{1}{r} \chi(r) + \frac{2m}{\hbar^2} E \chi(r) = 0$$
+
+	Vereinfache die DGL mittels Substitution $r = \frac{\rho}{\kappa}$.\\
+	Aus der Substitution folgt für die Ableitung $\frac{\partial}{\partial r} = \frac{\partial\rho}{\partial r}\frac{\partial}{\partial\rho} = \kappa\frac{\partial}{\partial\rho} \quad\Rightarrow \quad \frac{\partial^2}{\partial r^2} = \kappa^2 \frac{\partial^2}{\partial\rho^2}$.
+		\begin{align*}
+			\Rightarrow \kappa^2 \frac{\partial^2}{\partial\rho^2} \chi(\rho) - \frac{l(l+1) \kappa^2}{\rho^2} \chi(\rho) + \frac{2m}{\hbar^2} \frac{Z e^2}{4\pi\varepsilon_0} \frac{\kappa}{\rho} \chi(\rho) + \frac{2mE}{\hbar^2} \chi(\rho) &= 0 \\
+			\stackrel{\commentmath{:\kappa^2}}{\Leftrightarrow} \chi'' - \frac{l(l+1)}{\rho^2}\chi + \frac{2m}{\hbar^2} \frac{Z e^2}{4\pi\varepsilon_0} \frac{1}{\kappa\rho}\chi + \frac{2mE}{\hbar^2}\frac{1}{\kappa^2}\chi &= 0
+		\end{align*}
+		
+	Wähle das $\kappa^2 = -\frac{2mE}{\hbar^2} = \frac{2m|E|}{\hbar^2}$.\\
+	Fasse weiter Potentialterms zu einer Konsante zusammen, indem zunächst die Feinstrukturkonstante $\alpha = \frac{e^2}{4\pi\varepsilon\hbar}$ erkannt wird.
+		$$\frac{2m}{\hbar^2}\frac{Ze^2}{4\pi\varepsilon_0}\frac{1}{\kappa\rho} \stackrel{\commentmath{\kappa}}{=} \frac{2m}{\hbar^{\cancel{2}}}\frac{Ze^2}{4\pi\varepsilon_0} \frac{\cancel{\hbar}}{\sqrt{2m|E|}} \frac{1}{\rho} = Z\alpha \sqrt{\frac{(2m)^{\cancel{2}}}{\cancel{2m}|E|}} \frac{1}{\rho} \equiv \frac{\rho_0}{\rho}$$
+	
+	mit $\rho = \alpha \sqrt{\frac{2m}{|E|}} = \frac{e^2}{4\pi\varepsilon_0\hbar} \sqrt{\frac{2m}{|E|}}$.
+		$$\chi'' - \frac{l(l+1)}{\rho^2}\chi + \frac{\rho_0}{\rho}\chi - \chi = 0$$
+	
+	Mache den Ansatz $\chi(\rho) = g(\rho) e^{-\rho} \rho^{l+1}$ \textcolor{gruen}{(wird motiviert durch die Betrachtung der Radialgl. für Zentralpotentiale im Allgemeinen)}. Berechne die zweite Ableitung des Ansatzes.
+		\begin{align*}
+			\chi'(\rho) &= g'(\rho) e^{-\rho} \rho^{l+1} - g(\rho) e^{-\rho} \rho^{l+1} + g(\rho) e^{-\rho} (l+1)\rho^l\\
+			\chi''(\rho) &= \lreck{ g''(\rho) e^{-\rho} \rho^{l+1} - g'(\rho) e^{-\rho} \rho^{l+1} + g'(\rho) e^{-\rho} (l+1)\rho^l } + \\
+			&\phantom{=}+ \lreck{ -g'(\rho) e^{-\rho} \rho^{l+1} + g(\rho) e^{-\rho} \rho^{l+1} - g(\rho) e^{-\rho} (l+1)\rho^l } + \\
+			&\phantom{=}+ \lreck{ g'(\rho) e^{-\rho} (l+1)\rho^l - g(\rho) e^{-\rho} (l+1)\rho^l + g(\rho) e^{-\rho} l(l+1)\rho^{l-1}}\\
+			&= g''(\rho) e^{-\rho} \rho^{l+1} -2 g'(\rho) e^{-\rho} \rho^{l+1} + 2(l+1) g'(\rho) e^{-\rho} \rho^l - 2(l+1) g(\rho) e^{-\rho} \rho^l\\
+			&\phantom{=}+ g(\rho) e^{-\rho} \rho^{l+1} + g(\rho) e^{-\rho} \frac{l(l+1)}{\rho} \rho^l
+		\end{align*}
+
+
+\newpage
+	
+	
+	Einsetzen in die DGL ergibt eine ''neue'' DGL bzgl. $g(\rho)$
+		\begin{align*}
+			(...) - \frac{l(l+1)}{\rho^2} g(\rho) e^{-\rho} \rho^{l+1} + \frac{\rho_0}{\rho} g(\rho) e^{-\rho} \rho^{l+1} - g(\rho) e^{-\rho} \rho^{l+1} &= 0\\
+			(...) - \frac{l(l+1)}{\rho} g(\rho) e^{-\rho} \rho^{l} + \rho_0 g(\rho) e^{-\rho} \rho^l - g(\rho) e^{-\rho} \rho^{l+1} &= 0\\
+			\Leftrightarrow g''(\rho) e^{-\rho} \rho^{l+1} -2 g'(\rho) e^{-\rho} \rho^{l+1} + 2(l+1) g'(\rho) e^{-\rho} \rho^l - 2(l+1) g(\rho) e^{-\rho} \rho^l + \rho_0 g(\rho) e^{-\rho} \rho^l &= 0\\
+			\Leftrightarrow g''(\rho) e^{-\rho} \rho^{l+1} + 2g'(\rho) e^{-\rho} \rho^l \lreck{ (l+1) - \rho } + g(\rho) e^{-\rho} \rho^l \lreck{\rho_0 - 2(l+1)} &= 0\\
+			\stackrel{\commentmath{: e^{-\rho} \rho^l}}{\Leftrightarrow} g''(\rho) \rho + 2g'(\rho) \lreck{l + 1 - \rho} + g(\rho) \lreck{\rho_0 - 2(l+1)} &= 0
+		\end{align*}
+
+	Mache für $g(\rho)$ den Potenzreihenansatz und berechne dessen Ableitungen
+		\begin{align*}
+			g(\rho) &= \sum_{k=0}^\infty a_k \rho^k\\
+			g'(\rho) &= \sum_{k=0}^\infty a_k k \rho^{k-1}\\
+			g''(\rho) &= \sum_{k=0}^\infty a_k k(k-1) \rho^{k-2}			
+		\end{align*}
+	
+	Setze dies in die DGL ein und sammel die Terme bzgl. $\rho^k$ und $\rho^{k-1}$
+		\begin{align*}
+			\rho \sum_{k=0}^\infty a_k k(k-1) \rho^{k-2} + 2(l + 1 - \rho) \sum_{k=0}^\infty a_k k \rho^{k-1} + [\rho_0 - 2(l+1)] \sum_{k=0}^\infty a_k \rho^k &= 0\\
+			\sum_{k=0}^\infty a_k \rho^{k-1} \lreck{ k(k-1) + 2(l+1)k } + \sum_{k=0}^\infty a_k \rho^k \lreck{\rho_0 - 2(l+1) - 2k} &= 0\\
+			\Rightarrow \sum_{k=-1}^\infty a_{k+1} \rho^{k} \lreck{ (k+1)k + 2(l+1)(k+1) } + \sum_{k=0}^\infty a_k \rho^k \lreck{\rho_0 - 2(l + 1 + k)} &= 0\\
+			\Rightarrow \sum_{k=0}^\infty a_{k+1} \rho^k \lreck{ (k+1)k + 2(l+1)(k+1) } + 0 + \sum_{k=0}^\infty a_k \rho^k \lreck{\rho_0 - 2(l + 1 + k)} &= 0\\
+			\Leftrightarrow \sum_{k=0}^\infty \rho_k \Big\{ a_{k+1} (k+1)k + 2(l+1)(k+1) + a_k \lreck{\rho_0 - 2(l + 1 + k)} \Big\} &= 0\\
+			\Rightarrow a_{k+1} [(k+1)k + 2(l+1)(k+1)] + a_k \lreck{\rho_0 - 2(l + 1 + k)} &\stackrel{!}{=} 0
+		\end{align*}
+		\begin{align*}
+			\Leftrightarrow a_{k+1} &= \frac{2(l+1+k) - \rho_0}{(k+1)k + 2(l+1)(k+1)} a_k\\
+			\Rightarrow \frac{a_{k+1}}{a_k} &\propto \frac{2}{k}
+		\end{align*}
+	
+
+\newpage
+
+
+	Die Potenzreihe der Exponentialfunktion hat mit $\frac{b_{k+1}}{b_k} \propto \frac{1}{k}$ ein ähnliches verhalten, womit $g(\rho)$ wie $\exp(\rho)$ für $\rho\to\infty$ divergieren würde. Da dies mit der Bedingung der Normierbarkeit unverträglich ist, muss die Potenzreihe von $g(\rho)$ für ein bestimmtes $k \equiv n_r$ abbrechen, d.h. der Zähler von $a_{n_r+1}$ wird Null.
+		\begin{align*}
+			2(l+1+n_r) - \rho_0 &\stackrel{!}{=} 0\\
+			\Leftrightarrow \rho_0 &= 2(l+1+n_r) \stackrel{\commentmath{n:=k+1+n_r}}{=} 2n
+		\end{align*}
+
+	Die Energie ergibt sich über den Zusammenhang mit $\rho_0$
+		\begin{align*}
+			\rho_0 &= Z\alpha \sqrt{\frac{2m}{|E|}} = 2n\\
+			\stackrel{\commentmath{()^2}}{\Leftrightarrow} Z^2\alpha^2 \frac{2m}{|E|} = 4n^2\\
+			\stackrel{\commentmath{|E|=-E}}{\Leftrightarrow} E_n &= -\frac{Z^2 \alpha^2 m}{2n^2} \qquad\blacksquare
+		\end{align*}
+
+	Die Rekursion der Potenzreihe von $g(\rho)$ wird durch die Laguerre-Polynome gelöst und es ergibt sich
+		\begin{align*}
+			R_nl(r) &= c_{nl} e^{-\rho} \rho^l L_{n-l-1}^{l+1}(2\rho)\\
+			\Rightarrow u_{nlm}(r,\theta,\varphi) &= R_nl(r) \cdot Y_{lm}(\theta,\varphi)\\
+			&= c_{nl} e^{-\rho} \rho^l L_{n-l-1}^{l+1}(2\rho) \cdot (-1)^m \sqrt{\frac{(2l + 1)(l + m)!}{4\pi (l-m)!}} P_l^{-m}(\cos\theta) \cdot e^{im\varphi} \qquad\blacksquare
+		\end{align*}
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{3d harmonischer Oszillator}
+Betrachte das Potential
+	\begin{equation}
+		V(x,y,z) = \frac{1}{2}m\omega^2 (x^2 + y^2 + z^2).
+	\end{equation}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Energie}\\
+		Die Energie ist $\frac{(n+1)(n+2)}{2}$-fach entartet:
+			\begin{equation}
+				E_n = \hbar\omega \lr{n_x + n_y + n_z + \frac{3}{2}} \equiv \hbar\omega \lr{n + \frac{3}{2}}
+			\end{equation}
+
+
+		\item \textbf{Wellenfunktion}
+			\begin{align}
+				u_{n_x,n_y,n_z}(x,y,z) &= u_{n_x}(x) \cdot u_{n_y}(y) \cdot u_{n_z}(z) \\
+				&= \frac{1}{\sqrt{n_x! n_y! n_z! \cdot 2^{n}} \cdot \pi^{3/4}} \cdot H_{n_x}(x) H_{n_y}(y) H_{n_z}(z) \cdot e^{-(x^2+y^2+z^2)/2},
+			\end{align}
+		
+		mit den Hermite-Polynomen $H_n(x)$.
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Das zu lösende Eigenwertproblem ist
+		\begin{align*}
+			-\frac{\hbar^2}{2m} \lr{\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \frac{\partial^2}{\partial z^2}} u + \frac{1}{2}m\omega^2(x^2 + y^2 + z^2)u &= Eu\\
+			\Leftrightarrow -\lr{\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \frac{\partial^2}{\partial z^2}} u + \frac{m^2\omega^2}{\hbar^2} (x^2 + y^2 + z^2)u &= \frac{2m}{\hbar^2} Eu
+		\end{align*}
+	
+	Führe die folgende Substitution ein, um die DGL zu vereinfachen: $x = l \tilde{x} \Leftrightarrow \tilde{x} = \frac{x}{l}$ mit $l=\sqrt{\frac{\hbar}{m\omega}}$ und somit für die Ableitung $\frac{\partial}{\partial x} = \frac{\partial \tilde{x}}{\partial x} \frac{\partial}{\partial \tilde{x}} = \frac{1}{l}\frac{\partial}{\partial \tilde{x}} \Rightarrow \frac{\partial^2}{\partial x^2} = \frac{1}{l^2}\frac{\partial^2}{\partial \tilde{x}^2}$.\\
+	Passe nach Einsetzen der Substitution sofort die Notation auf$\tilde{x}\to x$ an, um Schreibarbeit zu sparen.
+	
+		\begin{align*}
+			\frac{1}{l^2} -\lr{\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \frac{\partial^2}{\partial z^2}} u + \underbrace{\frac{m^2\omega^2}{\hbar^2}}_{=1/l^4} l^2 (x^2 + y^2 + z^2)u &= \frac{2m}{\hbar^2} Eu\\
+			\stackrel{\commentmath{\cdot l^2}}{\Leftrightarrow} -\lr{\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \frac{\partial^2}{\partial z^2}} u + (x^2 + y^2 + z^2)u &= \frac{2E}{\hbar\omega} u \equiv \varepsilon u
+		\end{align*}
+	
+	Erkenne die drei separaten Hamilton-Operatoren des 1d harmonischen Oszillators und mache daher den Ansatz $u(x,y,z) = u_x(x) \cdot u_y(y) \cdot u_z(z)$.
+	
+		\begin{align*}
+			\lr{\hat{H}_x + \hat{H}_y + \hat{H}_z} u_x u_y u_z &= E u_x u_y u_z\\
+			u_y u_z \hat{H}_x u_x + u_x u_z \hat{H}_y u_y + u_x u_y \hat{H}_z u_z &= E u_x u_y u_z\\
+			u_y u_z \hbar\omega\lr{n_x + \frac{1}{2}} u_x + u_x u_z \hbar\omega\lr{n_y + \frac{1}{2}} u_y + u_x u_y \hbar\omega\lr{n_z + \frac{1}{2}} u_z &= E u_x u_y u_z\\
+			\stackrel{\commentmath{:u_x u_y u_z}}{\Leftrightarrow} \hbar\omega\lr{n_x + n_y + n_z + \frac{3}{2}} \equiv \hbar\omega \lr{n + \frac{3}{2}} &= E
+		\end{align*}
+	
+	Der Zustand ist einfach das Produkt der 3 1d HO Eigenfunktionen, wobei darauf geachtet werden muss, für $n = n_{x,y,z}$ einzusetzen.
+\hrule
+}
+
+
+\newpage
+
+
+\section{Bewegung im elektromagnetischen Feld und Spin}
+\subsection{Minimale Substitution}
+Die Bewegung eines Atoms im elektromagnetischen Feld wird durch Anpassen der Schrödinger-Gl. mittels minimaler Substitution $\hat{\vec{p}} \to \hat{\vec{p}} - q\vec{A}$ und Einsetzen des elektrischen Potentials $V = q\varphi$ beschrieben
+	\begin{equation}
+		i\hbar \partial_t \psi = \frac{1}{2m} \lr{ -\hbar^2\Delta + i\hbar q \vec{\nabla}\vec{A} + 2 i\hbar q \vec{A}\vec{\nabla} + q^2\vec{A}^2 }^2 \psi + q\varphi \psi
+	\end{equation}
+
+
+\subsection{Pauli-Gleichung}
+Die \textit{Pauli-Gleichung} beschreibt die Bewegung eines Spin-1/2-Teilchens wie z.B. ein Elektron im elektromagnetischen Feld.
+	\begin{equation}
+		i\hbar\partial_t
+		\begin{pmatrix}
+			\psi_+ \\ \psi_-
+		\end{pmatrix}
+		= \frac{1}{2m} \lr{ \frac{\hbar}{i}\vec{\nabla} + e\vec{A} }^2
+		\begin{pmatrix}
+			\psi_+ \\ \psi_-
+		\end{pmatrix}
+		- e\varphi
+		\begin{pmatrix}
+			\psi_+ \\ \psi_-
+		\end{pmatrix}
+		+ g \frac{e\hbar}{4m_e} \vec{B} \vec{\sigma}
+		\begin{pmatrix}
+			\psi_+ \\ \psi_-
+		\end{pmatrix}
+	\end{equation}
+
+mit den \textit{Pauli-Matrizen} $\vec{\sigma} = (\sigma_x, \sigma_y, \sigma_z)^T$
+	\begin{align*}
+		\sigma_x &:=
+		\begin{pmatrix}
+			0 & 1 \\ 1 & 0
+		\end{pmatrix} \\
+		\sigma_y &:=
+		\begin{pmatrix}
+			0 & -i \\ i & 0
+		\end{pmatrix} \\
+		\sigma_z &:=
+		\begin{pmatrix}
+			1 & 0 \\ 0 & -1
+		\end{pmatrix}.
+	\end{align*}		
+
+
+\newpage
+
+
+\subsection{Normaler Zeeman-Effekt}
+Beim \textit{normalen Zeeman-Effekt} befindet sich ein spinfreies Atom in einem schwachen, homogenen B-Feld.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Schrödinger-Gleichung}
+			\begin{equation}
+				i\hbar \partial_t \psi = -\frac{\hbar^2}{2m}\Delta \psi + \omega_L \hat{L}_3 \psi - \frac{e^2}{4\pi\varepsilon_0}\frac{1}{r} \psi
+			\end{equation}
+		
+		
+		\item \textbf{Energie}
+			\begin{equation}
+				E_{n,m} = E_n + \hbar\omega_L m
+			\end{equation}
+		
+		
+		\item \textbf{Wellenfunktion}\\
+		...
+	\end{itemize}
+
+\textcolor{red}{ERGÄNZEN Plot Zeeman-Energie}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Für das homogene B-Feld kann das Vektorpotential $\vec{A} = \frac{1}{2} \vec{B} \times \vec{x}$ verwendet werden. Die Komponenten von $\vec{B}$ sind dabei Konstanten. Berechne die Komponenten der Schrödinger-Gl. separat:
+		\begin{align*}
+			\bullet\ \vec{\nabla}\vec{A} &= \frac{1}{2}
+			\begin{pmatrix}
+				\partial_x \\ \partial_y \\ \partial_z
+			\end{pmatrix}
+			\begin{pmatrix}
+				B_y z - B_z y \\ B_z x - B_x z \\ B_x y - B_y x
+			\end{pmatrix} = \frac{1}{2} ( 0 + 0 + 0 ) = 0 \\
+			\bullet\ \vec{A}\vec{\nabla} &= \frac{1}{2}
+			\begin{pmatrix}
+				B_y z - B_z y \\ B_z x - B_x z \\ B_x y - B_y x
+			\end{pmatrix}
+			\begin{pmatrix}
+				\partial_x \\ \partial_y \\ \partial_z
+			\end{pmatrix} = \frac{1}{2} \lreck{ B_x(y\partial_z - z\partial_y) + B_y(z\partial_x - x\partial_z) + B_z(x\partial_y - y\partial_x) } = \frac{1}{2} \frac{i}{\hbar} \vec{B} \hat{\vec{L}}\\
+			\bullet\ \vec{A}^2 &= \frac{1}{4}
+			\begin{pmatrix}
+				B_y z - B_z y \\ B_z x - B_x z \\ B_x y - B_y x
+			\end{pmatrix}^2 = ... = \frac{1}{4} \lreck{ (\vec{B}^2\vec{x}^2) - (\vec{B}\vec{x})^2 }
+		\end{align*}
+	
+	Einsetzen in die Schrödinger-Gl. für die Bewegung im em. Feld unter Vernachlässigung des $\vec{A}^2$ Terms, ergibt
+		\begin{align*}
+			i\hbar \partial_t \psi &= \frac{1}{2m} \lr{ -\hbar^2\Delta + 0 - q \vec{B}\hat{\vec{L}} + 0 } \psi + q\varphi \psi \\
+			i\hbar \partial_t \psi &= -\frac{\hbar^2}{2m}\Delta \psi - \frac{q}{2m} \vec{B}\hat{\vec{L}} \psi + q\varphi \psi
+		\end{align*}
+
+	Dabei kann $\hat{\vec{m}} = \frac{q}{2m}\hat{\vec{L}}$ als magnetisches Moment interpretiert werden.\\
+	Betrachtet man nun ein Elektron in einem B-Feld, das in z-Richtung zeigt, folgt
+		\begin{align*}
+			i\hbar \partial_t \psi &= -\frac{\hbar^2}{2m}\Delta \psi + \frac{e}{2m} B_0\hat{L}_3 \psi - \frac{e^2}{4\pi\varepsilon_0}\frac{1}{r} \psi
+		\end{align*}
+
+	wobei der Vorfaktor von $\hat{L}_3$ zur Larmor-Frequenz $\omega_L = \frac{eB_0}{2m}$ zusammengefasst wird.\\
+	Die möglichen Energien $E_{n,m}$ ergeben sich aus den bekannten Eigenwerten des $\hat{L}_3$- und Wasserstoff-Hamilton-Operators. Ansatz ist daher $\psi = R_{nl} Y_{lm}$.
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Spinpräzession im konstanten Magnetfeld}
+Beschreibt man ein ortsfestes Elektron im Magnetfeld $\vec{B}=B_0 e_z$, so reduziert sich die Pauli-Gl. auf
+	\begin{equation}
+		i\hbar\partial_t
+		\begin{pmatrix}
+			\psi_+ \\ \psi_-
+		\end{pmatrix}
+		= g \frac{e\hbar}{4m_e}
+		\begin{pmatrix}
+			1 & 0 \\
+			0 & -1
+		\end{pmatrix}
+		\begin{pmatrix}
+			\psi_+ \\ \psi_-
+		\end{pmatrix}
+	\end{equation}
+
+\textcolor{blue}{Da ortsfest, wird $\hat{\vec{p}} - q\vec{A}$ Null und da ausschließlich ein B-Feld herscht, ist $\varphi$ ebenso Null.}\\
+Die Untersuchung der Erwartungswerte von $\hat{S}_{1,2,3}$ zeigt, dass der Spin mit der Zyklotronfrequenz
+	\begin{equation}
+		\omega_C = 2\omega_L = \frac{e B_0}{m_e}
+	\end{equation}
+
+	
+\subsection{Magnetresonanz}
+Beschreibt man ein ortsfestes Elektron im \underline{welchselnden} Magnetfeld $\vec{B} = B_0\vec{e}_z + \tilde{B}\cdot (\cos(\tilde{\omega}t),\ \sin(\tilde{\omega}t) ,\ 0 )^T$, so ergibt sich die Pauli-Gleichung zu
+	\begin{equation}
+		i\hbar\partial_t \begin{pmatrix} \psi_+ \\ \psi_- \end{pmatrix} = g \frac{e\hbar}{4m_e} 
+		\begin{pmatrix}
+			B_0 & \tilde{B} \cdot e^{-i\tilde{\omega}t} \\
+			\tilde{B} \cdot e^{i\tilde{\omega}t} & -B_0
+		\end{pmatrix} 
+		\begin{pmatrix} \psi_+ \\ \psi_- \end{pmatrix}
+	\end{equation}
+
+Entkoppeln der Gleichungen und Nutzen der Anfangsbedingung $\psi_-(t=0)=0$ ergibt die oszillierende Wahrscheinlichkeit für ein Teilchen mit $m_s=-1/2$
+	\begin{equation}
+		|\psi_-(t)|^2 = \lr{\frac{g e}{4 m_e}}^2 \frac{\tilde{B}^2}{\Omega^2} \sin^2(\Omega t)
+	\end{equation}
+
+wobei die Oszillationsfrequenz $\Omega$ die Rabi-Frequenz ist.\\
+Für geeignete Wahl der Frequenz des wechselnden Magnetfelds $\tilde{\omega}$ oszilliert die Wahrscheinlichkeit bis 100\% hoch.
+
+
+
+
+
+
+
+
+
+%\subsection{Zeeman-Effekt}
+%Befindet sich ein Atom in einem \underline{schwachen} magnetischen Feld $\vec{B} = B_0 \vec{e}_z$, so koppeln Bahndrehimpuls $\hat{\vec{L}}$ und Spin $\hat{\vec{S}}$ zum Gesamtdrehimpuls $\hat{\vec{J}}$ und das Atom erhält das magnetische Moment in z-Richtung $\mu_z$. Zusätzlich zur Energie eines Zustands kommt dann die Energie
+%	\begin{align}
+%		\hat{H}_\text{mag} &= -\hat{\vec{\mu}} \vec{B} = -\hat{\mu}_z B_0\\
+%		\Rightarrow E_\text{mag} &= -\mu_z B_0
+%	\end{align}
+%	
+%hinzu, wobei $\mu_z$ ein Eigenwert von $\hat{\mu}_z$ ist.\\
+%Für die Projektion des magnetischen Moments gilt die Formel, sowie die möglichen Werte
+%	\begin{align}
+%		\hat{\mu}_z &= -g_j \mu_B \frac{\hat{J}_z}{\hbar}\\
+%		\mu_z &= -g_j \mu_B m_j
+%	\end{align}
+%
+%mit $m_j = -j, (-j+1), ..., (j-1), j$ und den Größen \textbf{Bohr'sches Magneton} und \textbf{Landé-Faktor}
+%	\begin{align}
+%		\mu_B &= \frac{e\hbar}{2m_e}\\
+%		g_j &= 1 + \frac{j(j+1) + s(s+1) - l(l+1)}{2j(j+1)}
+%	\end{align}
+%
+%Es findet demnach eine Auspaltung in $2j+1$ Energieniveaus statt.\\
+%Hat das System einen \textbf{reinen Bahndrehimpuls}, also $s=0$ und somit $j=l$, so spricht man vom \textbf{normalen Zeeman-Effekt}.\\
+%Hat das System einen Spin $s\neq 0$, so spricht man vom \textbf{anomalen Zeeman-Effekt}.
+%
+%
+%\subsection{Paschen-Back-Effekt}
+%Befindet sich ein Atom in einem \underline{starken} magnetischen Feld $\vec{B} = B_0 \vec{e}_z$, so kommt die folgende Energie hinzu
+%	\begin{align}
+%		\hat{H}_\text{mag} &= -\hat{\vec{\mu}} \vec{B} = (\hat{\mu}_l + 2\mu_s) \mu_B B_0\\
+%		\Rightarrow E_\text{mag} &= (\mu_l + 2\mu_s) \mu_B B_0
+%	\end{align}
+%
+%mit
+%	\begin{align}
+%		\hat{\mu}_l &= -\mu_B \frac{\hat{L}_z}{\hbar}\\
+%		\Rightarrow \mu_l &= -\mu_B m_z\\
+%		\hat{\mu}_s &= -2\mu_B \frac{\hat{S}_z}{\hbar}\\
+%		\Rightarrow \mu_s &= -2\mu_B m_s
+%	\end{align}
+%\textcolor{blue}{Der Vorfaktor 1 bzw. 2 ergibt sich, indem man in den Landé-Faktor den jeweiligen Fall, also $j=l$ bzw. $j=s$ einsetzt.}
+
+
+\newpage
+
+
+%\section{Addition von Drehimpulsen}
+%Darstellung des Zustands $\ket{j_1, m_1, j_2, m_2} \equiv \ket{j_1, m_1} \otimes \ket{j_2, m_2}$ in der Basis $\ket{j_1, j_2, j, m}_j \equiv \ket{j, m}$.\\
+%\\
+%Die erlaubten $j$-Werte (Quantenzahl des Gesamtdrehimpuls $\hat{J}$) und $m$-Werte (Quantenzahl der Gesamtdrehimpuls-Projektion $\hat{J}_3$) sind
+%	\begin{align}
+%		j &= |j_1 - j_2|, |j_1 - j_2 +1|, ..., |j_1 + j_2| \\
+%		m &= -j, -j+1, ..., j-1, j
+%	\end{align}
+%
+%Der Basiswechsel zwischen $\ket{j,m}$ und $\ket{j_1, m_1, j_2, m_2}$ wird über die Clebsch-Gordan-Koeffizienten $c_{j_1, m_1, j_2, m_2}^{j,m}$ beschrieben und kann leicht aus der folgenden Grafik abgelesen werden.
+%	\begin{equation}
+%		\ket{j, m} = \sum_{m_1, m_2} \underbrace{\braket{j_1, m_1, j_2, m_2 | j, m}}_{\commentmath{=: c_{j_1, m_1, j_2, m_2}^{j,m}}}\ \ket{j_1, m_1} \otimes \ket{j_2, m_2}
+%	\end{equation}
+%
+%
+%\subsection{Anwendung Clebsch-Gordan-Tabelle}
+%
+%
+%\begin{table}[h]
+%	\centering
+%	\caption{Anleitung Drehimpulsaddition mittels Clebsch-Gordan-Tabelle}
+%	\begin{tabularx}{\textwidth}{X|X}
+%		\hline\hline
+%			$\ket{j_1,m_1} \otimes \ket{j_2,m_2} \to \ket{j,m}$ & $\ket{j,m}\to \ket{j_1,m_1} \otimes \ket{j_2,m_2}$ \\
+%		\hline
+%			\textcolor{gruen}{Seien $j_1, m_1, j_2, m_2$ bekannt.}
+%			{\begin{enumerate}
+%				\item Betrachte die Tabelle mit \fbox{$j_1 \times j_2$}
+%				\item Finde die passende $m_1, m_2$ Zeile in den weißen Feldern \underline{links} der grauen Felder
+%				\item Gehe der Zeile entlang ins graue Feld \underline{rechts daneben} und notiere den Koeffizienten mit Wurzel (falls Minus: Minus vor Wurzel)
+%				\item Gehe nach \underline{oben} ins weiße Feld und notiere $\ket{j,m}$
+%				\item Falls weitere Koeffizienten \underline{rechts} neben dem von gerade eben liegen, wiederhole Schritt 3 und 4 und addiere die Ergebnisse.
+%			\end{enumerate}}
+%		&
+%		\textcolor{gruen}{Seien $j, m, j_1, j_2$ bekannt.}
+%			{\begin{enumerate}
+%				\item Betrachte die Tabelle mit \fbox{$j_1 \times j_2$}
+%				\item Finde die passende $j, m$ Spalte in den weißen Feldern \underline{oberhalb} der grauen Felder
+%				\item Gehe entlang der Spalte ins graue Feld \underline{darunter} und notiere den Koeffizienten mit Wurzel (falls Minus: Minus vor Wurzel)
+%				\item Gehe nach \underline{links} ins weiße Feld und notiere $\ket{j_1,\mathbf{m_1}} \otimes \ket{j_2, \mathbf{m_2}}$
+%				\item Falls weitere Koeffizienten \underline{unter} dem von gerade eben liegen, wiederhole Schritt 3 und 4 und addiere die Ergebnisse.
+%			\end{enumerate}}\\
+%		\hline
+%			$$\ket{1,0} \otimes \ket{\frac{1}{2}, -\frac{1}{2}} = \sqrt{\frac{2}{3}} \ket{\frac{3}{2}, -\frac{1}{2}} + \sqrt{\frac{1}{3}} \ket{\frac{1}{2}, -\frac{1}{2}}$$ & $$\ket{\frac{1}{2},\frac{1}{2},1,0}_j = \sqrt{\frac{1}{2}} \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, -\frac{1}{2}} + \sqrt{\frac{1}{2}} \ket{\frac{1}{2}, -\frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}}$$\\
+%		\hline\hline	
+%	\end{tabularx}
+%\end{table}
+%
+%
+%\newpage
+%
+%
+%\begin{figure}[h]
+%	\centering
+%	\fbox{
+%		\includegraphics[width=\textwidth]{Grafiken/clebsch gordan koeff.png}
+%	}
+%	\caption{Clebsch-Gordan-Koeffizienten}
+%\end{figure}
+%
+%
+%{\color{violet}
+%\hrule
+%	\fbox{Herleitung}\\
+%	Die Zustände werden konstruiert, indem vom Zustand mit höchstem $m=j$, d.h. $\ket{j,j}$ begonnen wird, da für diesen die Darstellung in beiden Basen eindeutig ist. Dann wird mit dem Leiteroperator $\hat{J}_-$ in der jeweiligen Basis auf ihn gewirkt und die Ergebnisse gleichgesetzt. \textcolor{gruen}{Alt.: beginnend bei $\ket{j,-j}$ mit $\hat{J}_+$}. Am Beispiel der Kopplung von $j_1 = \frac{1}{2}$, $j_2 = \frac{1}{2}$ zu $j=1$ ergibt sich:
+%	\begin{center}
+%	\begin{tabularx}{\textwidth}{X|X}
+%		\hline\hline
+%			Gesamtdrehimpulsbasis $\ket{j_1, j_2, j, m}_j \equiv \ket{j,m}$ & Produktbasis $\ket{j_1, m_1} \otimes \ket{j_2, m_2}$\\
+%		\hline
+%			\multicolumn{2}{c}{$\ket{1,1} = \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}}$}\\
+%		\hline
+%			{\begin{align*}
+%				\hat{J}_- \ket{1,1} &= \sqrt{(1-1+1)(1+1)}\ket{1,0}\\
+%				&= \sqrt{2} \ket{1,0}
+%			\end{align*}}
+%				 & 
+%			{\begin{align*}
+%				&\hat{J}_- \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}} = \\
+%				&= (\hat{J}_- \otimes \mathbb{1} + \mathbb{1} \otimes \hat{J}_-) \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}} = \\
+%				&=\hat{J}_- \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}} + \ket{\frac{1}{2}, \frac{1}{2}} \otimes \hat{J}_-\ket{\frac{1}{2}, \frac{1}{2}} = \\
+%				&= \ket{\frac{1}{2}, -\frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}} + \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, -\frac{1}{2}}
+%			\end{align*}}\\
+%		\hline
+%			\multicolumn{2}{c}{$\Leftrightarrow \ket{1,0} = \frac{1}{\sqrt{2}} \lr{ \ket{\frac{1}{2}, -\frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}} + \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, -\frac{1}{2}} }$}\\
+%		\hline
+%			{\begin{align*}
+%				\hat{J}_- \ket{1,0} &= \sqrt{(1-0+1)(1+0)} \ket{1,-1}\\
+%				&= \sqrt{2} \ket{1,-1}
+%			\end{align*}}
+%				&
+%			{\begin{align*}
+%				&\hat{J}_- \frac{1}{\sqrt{2}} \lr{ \ket{\frac{1}{2}, -\frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}} + \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, -\frac{1}{2}} } = \\
+%				&= \frac{1}{\sqrt{2}} (\hat{J}_- \otimes \mathbb{1} + \mathbb{1} \otimes \hat{J}_-) \lr{...} = ... = \\
+%				&= \frac{2}{\sqrt{2}} \lr{ \ket{\frac{1}{2},-\frac{1}{2}} \otimes \ket{\frac{1}{2},-\frac{1}{2}} }
+%			\end{align*}}\\
+%		\hline
+%			\multicolumn{2}{c}{$\Leftrightarrow \ket{1,-1} = \ket{\frac{1}{2}, -\frac{1}{2}} \otimes \ket{\frac{1}{2}, -\frac{1}{2}}$}\\
+%		\hline\hline
+%	\end{tabularx}
+%	\end{center}
+%\hrule
+%}
+
+
+\newpage
+
+
+\section{Appendix A: Physikalische Kommutatoren}
+...
+	\begin{align}
+		[\hat{x}_i, \hat{x}_j] &= 0 \\
+		[\hat{p}_i, \hat{p}_j] &= 0 \\
+		[\hat{x}_i, \hat{p}_j] &= i\hbar \delta_{ij} \\
+		[x, \frac{\diff}{\diff x}] &= -1\\
+		[\hat{L}_i, \hat{L}_j] &= i\hbar \varepsilon_{ijk} \hat{L}_k \\
+		[\hat{\vec{L}}^2, \hat{L}_i] &= 0
+	\end{align}
+
+
+\newpage
+
+
+\section{Appendix B: Drehimpulsalgebra}
+Für Operatoren $\hat{M_i}$, die die Kommutatorrelation 
+	\begin{equation}
+		[\hat{M}_i, \hat{M}_j] = i\hbar \varepsilon_{ijk} \hat{M}_k = i\hbar \sum_{k=0}^3 \varepsilon_{ijk} \hat{M}_k
+	\end{equation}
+
+erfüllen, gelten alle folgenden Eigenschaften. Insbesondere sind dies die Bahndrehimpulsoperatoren $\hat{L}_i$, $\hat{S}_i^{(1)}$ und $\hat{S}_i^{1/2}$ bestehend aus den Pauli-Matrizen $\sigma_i$.\\
+Es gelten die Eigenwert-Gleichungen
+	\begin{align}
+		\hat{\vec{M}}^2 \varphi_{km} &= \hbar^2 k(k + 1) \varphi_{km}\\
+		\hat{M}_3 \varphi_{km} &= \hbar m \varphi_{km}
+	\end{align}
+
+wobei für $k$ und $m$ gilt
+	\begin{align}
+		k &= 0,\ \frac{1}{2},\ 1,\ \frac{3}{2},\ 2,\ ...\\
+		m &= -k,\ -k+1,\ ...,\ k-1,\ k
+	\end{align}
+
+Weitere nützliche Eigenschaften folgen aus der Definition der \textbf{Leiteroperatoren} $\hat{M}_\pm := \hat{M}_1 \pm i\hat{M}_2$:
+	\begin{align*}
+		[\hat{\vec{M}}^2, \hat{M}_3] &= 0\\
+		[\hat{M}_3, \hat{M}_\pm] &= \pm\hbar\hat{M}_\pm\\
+		\hat{M}_+\hat{M}_- &= \hat{\vec{M}}^2 - \hat{M}_3^2 + \hbar\hat{M}_3\\
+		\hat{M}_-\hat{M}_+ &= \hat{\vec{M}}^2 - \hat{M}_3^2 - \hbar\hat{M}_3\\
+		\hat{M}_+ \varphi_{km} &= \hbar\sqrt{(k+m+1)(k-m)} \varphi_{k,m+1}\\
+		\hat{M}_- \varphi_{km} &= \hbar\sqrt{(k-m+1)(k+m)} \varphi_{k,m-1}\\
+	\end{align*}
+
+Die \textbf{Eigenfunktionen} von $\hat{L}^2$ und $\hat{L}_3$ sind die \textbf{Kugelflächenfunktionen}
+	\begin{align}
+		Y_{lm}(\varphi, \theta) &= (-1)^m \sqrt{\frac{(2l + 1)(l + m)!}{4\pi (l-m)!}} P_l^{-m}(\cos\theta) \cdot e^{im\varphi}\\
+		\hat{L}^2 Y_{lm} &= \hbar^2 l(l+1) Y_{lm}\\
+		\hat{L}_3 Y_{lm} &= \hbar m Y_{lm}
+	\end{align}
+
+wobei für $l$ und $m$ gilt
+	\begin{align}
+		l &= 0, 1, 2, ...\\
+		m &= -l, (-l+1), ..., (l-1), l
+	\end{align}
+
+
+\newpage
+
+
+\section{Glossar}
+\begin{xltabular}{\linewidth}{l|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		P-Transformation & Raumspiegelung am Ursprung
+			{\begin{align*}
+				\hat{P}\vec{x} = -\vec{x}, \qquad (\hat{P} f)(\vec{x}) = f(-\vec{x})
+			\end{align*}}\\
+	\hline
+		adjungierter Operator & Der adjungierte Operator $\hat{O}^\dagger$ des Operators $\hat{O}$ ist definiert über das Skalarprodukt
+			$$\braket{\hat{O}^\dagger\phi, \psi} = \braket{\phi, \hat{O}\psi}$$ \\
+	\hline
+		anomaler Zeeman-Effekt & Beschreibt die Aufspaltung von Spektrallinien eines Atoms in einem externen Magnetfeld durch die Kopplung von Bahndrehimpuls und Elektronenspin.\\
+	\hline
+		Anzahloperator & Operator, der über seine Eigenwert-Gleichung
+			$$\hat{N} u_n = n u_n$$		
+		die Anregungen $n$ des harm. Osz. zählt. Er ist über den Erzeugungs- und Vernichtungsoperator $\hat{a}^\dagger$, $\hat{a}$ definiert
+			$$\hat{N} := \hat{a}^\dagger\hat{a}$$ \\
+	\hline
+		Auswahlregeln & Bestimmen, welche Übergänge zwischen den Energieniveaus eines Atoms durch Emission oder Absorption eines Photons möglich sind \\
+	\hline
+		Avogadro-Konstante & Teilchenzahl in einem Mol, $N_A = 6,022\cdot 10^{23}$.\\
+	\hline
+		Beta-Funktion & 
+		$$B(x,y) = \int_0^1 \diff t\ t^{x-1}(1 - t)^{y-1} = \frac{\Gamma(x) \Gamma(y)}{\Gamma(x + y)}$$
+		\textcolor{gruen}{Taucht in der Herleitung der EF von $\hat{\vec{L}}^2, \hat{L}_3$ auf}\\
+	\hline
+		Bohr-Radius & Abstand zwischen Kern und Elektronenbahn des Grundzustands im Bohr-Modell
+			$$a_0 \approx 0,5\text{\AA} = 0,5 \cdot 10^{-10}\text{m}$$ \\
+	\hline
+		Bohr'sches Atommodell & Atommodell, das postuliert, dass
+	
+		 {\begin{enumerate}
+		 	\item Elektronen nur diskrete (\textbf{stationäre}) Energieniveaus annehmen können, die keine Energie abstrahlen
+		 		$$E_n = -\frac{R h c}{n^2}$$
+		 	\item Emission/Absorption von Strahlung durch einen Wechsel der Energieniveaus geschieht
+		 		$$h \nu = |E_n - E_m|$$
+		 	\item Stationäre Zustände durch kl. Gesetze beschrieben werden können (Zentrifugal-, Coulomb-Kraft $\Rightarrow$ Bahnradius)
+		 \end{enumerate}} \\
+	\hline
+		Boltzmann-Faktor & Wahrscheinlichkeit, dass ein Teilchen eines statistischen System im thermodyn. GGW bei Temperatur $T$ die Energie $E$ trägt. Er taucht bei Plancks Behandlung der Schwarzkörperstrahlung auf, um die mittlere Energie einer Mode zu beschreiben.
+			$$\exp\lr{-\frac{E}{k_B T}}$$ \\
+	\hline
+		Boltzmann-Konstante & Beschreibt die Beziehung zwischen Energie und Temperatur statistischer Systeme, $k_B = 1,38\cdot 10^{-23}\frac{\text{J}}{\text{K}}$. \\
+	\hline
+		Bra-Vektor & Element $\bra{\varphi}$ des zum Hilbert-Raum gehörenden Dualraums \\
+	\hline
+		Cauchy-Folge & Folge $\psi_n$, für die für alle $\varepsilon > 0$ ein Index $N$ gefunden werden kann, s.d. der Abstand zwischen zwei nach dem $N$ liegenden Folgengliedern kleiner als $\varepsilon$ ist
+			$$\forall\varepsilon > 0\ \exists N \text{ s.d. } \forall n_1,n_2 > N: ||\psi_{n_1} - \psi_{n_2}|| < \varepsilon$$\\
+	\hline
+		Clebsch-Gordan-Koeffizienten & Entwicklungskoeffizienten, die den Basiswechsel zwischen Produktbasis $\ket{j_1, m_1, j_2, m_2}$ und Eigenbasis $\ket{j,m}$ beschreiben \\
+	\hline
+		Compton-Streuung & Streuung eines Photons an einem Teilchen, wodurch Ersteres seine Frequenz verringert, also Teilcheneigenschaften zeigt.\\
+	\hline
+		Compton-Wellenlänge & Faktor $\lambda_c$, der bei der Änderung der Wellenlänge $\Delta \lambda$ des streuenden Photons auftaucht, die daher wellenlängenunabhängig ist.
+			$$\Delta\lambda = \lambda(\theta) - \lambda_0 = 2\frac{h}{m_e c}\sin^2(\theta/2) \equiv 2\lambda_c \sin^2(\theta/2)$$\\
+	\hline
+		Darstellung einer Gruppe & Abbildung $D$, die die Gruppenelementen $g\in G$ auf $D(g)$ (Matrizen) abbildet, s.d.
+		$$D(g_1) \cdot D(g_2) = D(g_1 \cdot g_2)$$	
+für zwei Gruppenelemente $g_1,\ g_2$ gilt.\\
+	\hline
+		dicht(e Menge) & Eine Menge $M$ ist dicht in einem Raum, wenn für jedes Element des Raums ein beliebig nahes Element aus der Menge $M$ existiert. Ist für die Separabilität des Hilbert-Raums Voraussetzung.\\
+		& \textcolor{gruen}{Bsp: $\mathbb{Q}$ ist dicht in $\mathbb{R}$. Für jede Umgebung um die irraltionale Zahl $\pi\in\mathbb{R}$, kann eine rationale Zahl $\in\mathbb{Q}$ gefunden werden, die in der Umgebung liegt, z.B. $3,14\in[\pi-0,1,\pi+0,1]$.}\\
+	\hline
+		Dichtematrix & Matrix (bzw. Operator), die den Zustand eines Ensembles von physikalischen Systemen beschreibt. Aus ihr lässt sich der Erwartungswert einer Messung bzgl. einer Observablen an diesem Ensemble bestimmen. Für reine bzw. gemischte Zustände hat sie die Form
+		{\begin{align*}
+			\hat{\rho} &= \ket{\psi} \bra{\psi} \\
+			\hat{\rho} &= \sum_i P(\psi_i) \ket{\psi_i} \bra{\psi_i}
+		\end{align*}}\\
+	\hline
+		Dichteoperator & siehe Dichtematrix oder statistischer Operator \\
+	\hline
+		Dirac-Bild & Im Dirac-Bild wird der Hamilton-Operator in einen zeitunabhängigen, weitgehend bekannten ''ungestörten'' Operator und einen zeitabhängigen Wechselwirkungsoperator aufgeteilt $\hat{H} = \hat{H_0} + \hat{H}'$. Die zeitliche Dynamik des ungestörten Systems $\hat{H}_0$ steckt dann in den Operatoren $\hat{A}_I$, die der Wechselwirkung $\hat{H}'$ in den Zuständen $\ket{\psi}_I$.\\
+	\hline
+		\textcolor{red}{Dirac-Notation} & Notation für die abstrakten Zustände des Hilbert-Raums durch Bra- und Ket-Vektoren. \\
+	\hline
+		Dispersionsrelation & Zusammenhang zwischen Kreisfrequenz $\omega$ und Wellenzahl $k$
+			$$\omega = c k$$ 
+		\textcolor{gruen}{Taucht zur Beschreibung der em. Strahlung bei der Hohlraumstrahlung auf.} \\
+	\hline
+		Drehimpulsaddition & Prozedur, bei der der Zustand $\ket{j_1,m_1,j_2,m_2}$ in den Eigenzuständen $\ket{j,m,j_1,j_2}$ entwickelt wird \\
+	\hline
+		Drehimpulskopplung & siehe Drehimpulsaddition \\
+	\hline
+		Dreiecksungleichung & Bedingung für den Gesamtdrehimpuls bei der Addition zweier Drehimpulse
+			$$j_1 + j_2 \geq j \geq |j_1 - j_2|$$\\
+	\hline
+		Dualraum & Der Dualraum $V^\star$ eines Vektorraums $V$ ist die Menge aller Funktionale von $V$ nach $K$. Ein Funktional ist eine lineare Abbildung, das die Elemente des Vektorraums auf eine Zahl abbildet. In der Quantenmechanik sind die Funktionale die Bras, die die Elemente des Vektorsraums, die Kets, auf eine komplexe Zahl abbilden. \\
+	\hline
+		Dulong-Petit & Beschreibt (näherungsweise) die molare Wärmekapazität von Festkörpern 
+			$$c = \commentmath{\frac{1}{n}\frac{\partial U}{\partial T}} = 3R$$ 
+		\textcolor{gruen}{(= Wärmemenge, um 1 Mol eines Stoffes um 1°C zu erwärmen)}\\
+	\hline
+		dyadischen Produktes & Produkt von Vektoren, dessen Ergebnis eine Matrix ist.
+			$$\begin{pmatrix}
+				x_1 \\ \vdots \\ x_m
+			\end{pmatrix} \cdot
+			(y_1, \dots, y_n) =
+			\begin{pmatrix}
+				x_1 y_1 & \dots & x_1 y_n\\
+				\vdots & \ddots & \vdots\\
+				x_m y_1 & \dots & x_m y_n
+			\end{pmatrix}$$ 
+		\textcolor{gruen}{Taucht in der Formulierung der Vollständigkeitsrelation in Dirac-Notation auf.}\\
+	\hline
+		Dyson-Reihe & Formale Lösung für den Zeitentwicklungsoperator $U(t,t_0)$ \\
+	\hline
+		Ehrenfest-Theorem & Besagt, dass die zeitliche Änderung des Erwartungswerts eines Operators mit dem Kommutator des Operators mit dem Hamilton-Operator zusammenhängt.
+			{\begin{align*}
+				\frac{\diff}{\diff t}\braket{\hat{O}} &= \frac{1}{i\hbar}\braket{[\hat{O}, \hat{H}]} + \braket{\frac{\partial\hat{O}}{\partial t}} \\
+				m \frac{\diff^2}{\diff t^2} \braket{\hat{x}_i} &= \braket{\vec{F}_i(\vec{x})}
+				\end{align*}}\\
+			& Für bestimmte Umstände folgt, dass die kl. Bewegungsgleichungen für die zeitliche Entwicklung von $\braket{\hat{x}}$ und $\braket{\hat{p}}$ gelten.\\
+	\hline
+		Eichtransformation & Transformation einer Größe (z.B. magn. Vektorpotential, elektr. Potential, Wellenfunktion, etc.) s.d. die physikalische Messung (E-, B-Feld, $|\psi|^2$) unverändert bleibt \\
+	\hline
+		eigentliche Drehung & Drehung, für dessen Drehmatrix $R$ gilt
+			$$\det(R) = 1$$ \\
+	\hline
+		Energieeigenzustände & Zustände $u$, die die folgenden Gleichungen erfüllen
+			{\begin{align*}
+				\psi(\vec{x}_1,...,\vec{x}_N,t) &= e^{-\frac{i}{\hbar}Et} \cdot u_E(\vec{x}_1,...,\vec{x}_N) \\
+				\hat{H}u_E(...) &= E u_E(...)
+			\end{align*}} \\
+	\hline
+		Ensemble & Gesamtheit identisch präparierter Systeme, die die statischtische Verteilung der möglichen Ergebnisse einer physikalischen Observablen in einem Quantensystem veranschaulicht.\\
+	\hline
+		Ensemblemittelwert & Mittelwert einer Ensemblemessung. Entspricht dem Erwartungswert, der wiederum \underline{kein} mögliches Ergebnis sein muss.\\
+	\hline
+		Entartung & Fall, in dem mehrere Zustände eines Systems denselben \underline{Energie}eigenwert haben\\
+	\hline
+		Erzeugendefunktion & Potenzreihe, die eine Folge $a_n$ oder eine Sequenz von Funktionen $a_n(x)$ kodieren kann
+			$$F(s,x) = \sum_{n=0}^\infty \frac{a_n(x)}{n!} s^n$$
+		s.d. die einzelnen Folgeglieder oder Funktionen dann leicht durch Ableiten der Erzeugendenfunktion erzeugt werden:
+			$$\left.\frac{\diff^n}{\diff s^n} F(s,x)\right|_{s=0} = a_n(x)$$
+		\textcolor{gruen}{Taucht bei den kohärenten Zuständen für die Hermite-Polynome auf:
+			{\begin{align*}
+				F(s,x) &= \sum_{n=0}^\infty \frac{H_n(x)}{n!} s^n = e^{-s^2 + 2sx}\\
+				\Rightarrow \frac{\diff^n}{\diff x^n} e^{-s^2 + 2sx} &= H_n(x)
+			\end{align*}}}\\
+	\hline
+		Erzeugungsoperator & Operator $\hat{a}^\dagger$, der (insbesondere beim 1d harm. Osz.) eine Anregung erzeugt, d.h. die folgende Wirkung hat
+			$$\hat{a}^\dagger u_n = \sqrt{n + 1} u_{n+1}$$ \\
+	\hline
+		Feldemission & Effekt, bei dem durch Anlegen einer äußeren elektrischen Spannung Elektronen aus Metall gelöst werden können. Dabei verformt das äußere Feld die Potentialstufe, weshalb die Elektronen heraustunneln können.\\
+	\hline
+		gemischte Zustände & Zustönde, die eine statistische Mischung von reinen Zuständen darstellt. \\
+	\hline
+		Gesetz von Rayleigh-Jeans & Beschreibt die spektrale Energiedichte eines Hohlraumstrahlers bei niedrigen Frequenzen, führt aber bei hohen Frequenzen zur UV-Katastrophe, die eine unendlich hohe Energiedichte vorhersagt.\\
+	\hline
+		Glauber-Zustände & Gauß'sches Wellenpaket, das im qm. harm. Osz. hin und her läuft ohne Orts- und Impulsschärfe zu verlieren. Erwartungswert von Impuls und Ortes folgen dabei den kl. Bewegungsgleichungen.
+			$$\phi_\lambda = e^{-\frac{i}{2}x_0 p_0} e^{-\frac{1}{2}\tilde{\varepsilon}} \sum_{n=0}^\infty \frac{\lambda^n}{\sqrt{n!}} u_n$$ \\
+	\hline
+		\textcolor{gruen}{gleichzeitig diagonalisiert} & \textcolor{gruen}{Zwei Operatoren $\hat{A},\ \hat{B}$ sind gleichzeitig diagonalisiert, wenn Eigenfunktionen gefunden werden können, die Eigenfunktionen beider Operatoren sind. Dies ist der Fall, wenn beide Operatoren selbstadjungiert sind und
+			$$[\hat{A},\hat{B}] = 0$$
+		In der Basis der Eigenfunktionen, werden die Operatoren diagonal.}\\
+	\hline
+		Heisenberg'sche Unschärferelation & Besagt, dass es unmöglich ist, Ort und Impuls eines Teilchens gleichzeitig mit beliebiger Genauigkeit zu messen.
+			$$(\Delta x_i)(\Delta p_i) \geq \frac{\hbar}{2}$$ \\
+	\hline
+		Hermite-Polynome & Lösungen der DGL \textcolor{gruen}{(beim qm. HO)}\\
+		& $h''(x) - 2xh'(x) + (\varepsilon + 1)h(x) = 0$
+			$$H_n(x) = (-1)^n e^{x^2} \frac{\diff^n}{\diff x^n} e^{-x^2}$$ \\
+	\hline
+		hermitesche Operatoren & Operatoren $\hat{O}$, die identisch zu ihrem adjungierten Operator $\hat{O}^\dagger$ sind. Sie erfüllen
+			$$\braket{\phi, \hat{A}\psi} \commentmath{= \braket{\phi, \hat{A}^\dagger\psi} = \braket{\hat{A}\phi,\psi}} = \braket{\psi,\hat{A}\phi}^\star$$\\
+	\hline
+		Hilbert-Raum & Zustandsraum der Quantenmechanik mit den Eigenschaften
+			{\begin{enumerate}
+				\item linearer Vektorraum über den komplexen Zahlen \textcolor{gruen}{(damit auch Linearkombinationen Lösungen sind)}
+				\item unitär \textcolor{gruen}{(da Skalarprodukt existieren muss)}
+				\item vollständig \textcolor{gruen}{(damit Grenzwert einer Folge (z.B. eines Zustands) im Raum liegt)}
+				\item separabel \textcolor{gruen}{(damit eine Basis existiert, die jede Fkt. im Zustandsraum darstellen kann)}
+			\end{enumerate}} \\
+	\hline
+		Hohlraumstrahlung & Elektromagnetische Strahlung, die sich bei einem idealen schwarzen Körper im thermodyn. GGW einstellt und nur von der Temperatur des Körpers abhängt. \\
+	\hline
+		interaction-picture & siehe Dirac-Bild \\
+	\hline
+		Ionisierungsenergie & Energie, die benötigt wird, um ein Elektron aus einem Atom/Molekül zu entfernen, z.B. für den Grundzustand des Wasserstoffs $E=13,6$eV \\
+	\hline
+		kanonische Vertauschungsrelation & Kommutatorregeln für Orts- und Impulsoperator ähnlich der Poisson-Kallerm
+			{\begin{align*}
+				[\hat{\vec{x}}_i, \hat{\vec{p}}_j] &= i\hbar\delta_{ij} \\
+				[\hat{\vec{x}}_i, \hat{\vec{x}}_j] &= [\hat{\vec{p}}_i, \hat{\vec{p}}_j] = 0
+			\end{align*}}\\
+	\hline
+		Ket's & Element $\ket{\psi}$ des Hilbert-Raums \\
+	\hline
+		Knotensatz & Ein gebundener Eigenzustand $\psi_n(x)$ eines 1d Systems hat auf seinem Definitionsbereich $n$ Nullstellen (Knoten) \\
+	\hline
+		kohärente Zustände & siehe Glauber-Zustände. (Das "kohärent" kommt lediglich von der Anwendung dieser Zustände zur Beschreibung von Laserlicht) \\
+	\hline
+		Kollaps der Wellenfunktion & Phänomen, dass die Messung an einem in einer Superposition befindlichen quantenmechanischen System es in einen einzigen Zustand der Superposition kollabiert \\
+	\hline
+		Kommutator & $$[\hat{O_1},\hat{O_2}] := \hat{O}_1\hat{O}_2 - \hat{O}_2\hat{O}_1$$  \\
+	\hline
+		kontinuierliches Spektrum & Spektrum aus Energien, die alle Werte Annehmen können \\
+	\hline
+		Korrespondenzprinzip & Zuordnung der Operatoren $i\hbar\partial_t$ und $\hat{\vec{p}}$ zu Energie und Impuls \\
+	\hline
+		Korrespondenzprinzips, Bohrsches & Besagt, dass die Vorhersagen der Quantenmechanik im Grenzfall großer Quantenzahlen mit den Vorhersagen der klassischen Physik übereinstimmen müssen. \\
+	\hline
+		Kugelbesselfunktionen & Lösungen der Radialgl. für den Fall $V(r) = 0$, die von der Quantenzahl $l$ abhängen \\
+	\hline
+		Kugelflächenfunktionen & Eigenfunktionen von $\hat{\vec{L}}^2$ und  $\hat{L}_3$, die die Vollständigkeitsrelation und Orthonormalität erfüllen \\
+	\hline
+		Larmor-Frequenz & Frequenz, mit der der Bahndrehimpuls um die Achse des B-Felds präzediert. Größe in der magnetischen Energie beim normalen Zeeman-Effekt, genauer: Der energetische Abstand der aufgespalteten Zustände ist $\hbar\omega_L$.
+			$$\omega_L = \frac{eB}{2m_e}$$\\
+	\hline
+		Legendre-Polynome & Polynome, die auf dem Intervall $[-1,1]$ ein orthogonales Funktionensystem bilden. Sie tauchen in der Herleitung der Kugelflächenfunktionen, den Eigenfunktionen von $\hat{\vec{L}}^2, \hat{L}_z$ auf. \\
+	\hline
+		Leiteroperatoren & Operatoren $\hat{M}_+$ und $\hat{M}_-$, die das $m$ im Eigenwert von $\phi_{km}$ um 1 erhöhen (erniedrigen).
+			$$\hat{M}_\pm := \hat{M}_1\pm i\hat{M}_2$$\\
+	\hline
+		Lie-Algebra & Algebra der Generatoren von Drehmatrizen mit dem Kommutator als Abbildung
+			$$[L_i, L_j] = i\hbar\varepsilon_{ijk} L_k$$ \\
+	\hline
+		Lie-Gruppe & Gruppe, deren dargestellten Gruppenelemente $D(g)$ differenzierbar von $n$ reellen Parametern abhängen \\
+	\hline
+		linearer Operator & $$\hat{O}(\alpha\psi_1 + \beta\psi_2) = \alpha\hat{O}(\psi_1) + \beta\hat{O}(\psi_2)$$ \\
+	\hline
+		Materiewellen & Beschreibt das wellenartige Verhalten von Materie. Postulat von de Broglie, jedoch von ihm nicht interpretiert.\\
+		& Interpretiert ist die MW $\psi(\vec{x},t)$, dessen Betragsquadrat die zugehörige Wahrscheinlichkeitsdichte bildet. \\
+	\hline
+		minimale Substitution & Substitution in der kl. Mechanik, um die Wechselwirkung eines geladenen Teilchens mit einem B-Feld zu beschreiben.
+			$$\vec{p} \to \vec{p} - q\vec{A}$$
+		Die zusätzliche Berücksichtigung des skalaren Potentials $\varphi$ erfordert den Term $q\varphi$. Der Hamilton-Operator ist dann
+			$$\hat{H} = \frac{1}{2m} (\hat{\vec{p}} - q\vec{A})^2 + q\varphi$$\\
+	\hline
+		normierter Raum & Vektorraum, auf dem eine Norm definiert ist $(V,||\cdot ||)$ \\
+	\hline
+		Observablen & Physikalische Größe, der ein hermitescher Operator zugeordnet wird. Die Eigenwerte des Operators sind dann die möglichen Messwerte. \\
+	\hline
+		Orbitale & Räumliche Wellenfunktionen, die die stationären Zustände eines Elektrons im Atomkern-Potential beschreiben. Orbitale mit der Quantenzahl $l=0,1,2,..$ werden als s-, p-, d-, f-, ... Orbitale klassifiziert. Orbitale eines Typs haben meist sehr ähnliche Formen.\\
+	\hline
+		Paritätstransformationen & siehe P-Transformation \\
+	\hline
+		Pauli-Gleichung & Schrödinger-Gleichung für ein Elektron im elektromagnetischen Feld unter
+Berücksichtigung des Spins des Elektrons
+ 		$$i\hbar\partial_t 
+ 		\begin{pmatrix}
+ 			\psi_+\\
+	 		\psi_-
+	 	\end{pmatrix}
+	 	= \frac{1}{2m_e} \lr{\frac{\hbar}{i}\vec{\nabla} + e\vec{A}}^2
+	 	\begin{pmatrix}
+ 			\psi_+\\
+	 		\psi_-
+	 	\end{pmatrix}
+	 	- e\varphi
+	 	\begin{pmatrix}
+ 			\psi_+\\
+	 		\psi_-
+	 	\end{pmatrix}
+	 	+ g\frac{e\hbar}{4m_e}\vec{B}\vec{\sigma}
+	 	\begin{pmatrix}
+ 			\psi_+\\
+	 		\psi_-
+	 	\end{pmatrix}$$\\
+	\hline
+		Pauli-Matrizen & Unitäre, spurfreie 2x2 Matrizen, die durch Multiplikation von $\frac{\hbar}{2}$ zu den Spin-Operatoren eines Spin-1/2-Teilchens $\hat{S}_i^{(1/2)}$ werden, die die Algebra $[M_i, M_j] = i\hbar e_{ijk} M_k$ erfüllen.
+			$$\sigma_1 =
+			\begin{pmatrix}
+				0 & 1\\
+				1 & 0
+			\end{pmatrix},\quad
+			\sigma_2 =
+			\begin{pmatrix}
+				0 & -i\\
+				i & 0
+			\end{pmatrix}, \quad
+			\sigma_3 =
+			\begin{pmatrix}
+				1 & 0\\
+				0 & -1
+			\end{pmatrix}$$\\
+	\hline
+		Photonen & Feldquanten mit Teilchencharakter, die das elektromagnetische Feld ausmachen \\
+	\hline
+		Planck'sches Wirkungsquantum & Konstante, die den Zusammenhang zwischen Energie und Frequenz eines Photons beschreibt.
+			$$E = h\nu,\qquad h = 6,626\cdot 10^{-34}\text{Js}$$ \\
+	\hline
+		Positronium & Bindungszustand aus Elektron und Positron. Im Grundzustand ($l=0$) ergibt sich je nach Kopplung der Spins Para- oder Orthopositronium, die unterschiedliche physikalische Eigenschaften besitzen. \\
+	\hline
+		Rabi-Frequenz & Frequenz $\Omega$, mit der die Besetzungswahrscheinlichkeiten der Zustände in einem Zwei-Niveau-System oszilliert. Sie hängt von der Anregungsfrequenz $\tilde{\omega}$ ab. Beispiel Magnetresonanz: System oszilliert zwischen $m_s = \frac{1}{2}$ und $m_s = -\frac{1}{2}$.\\
+	\hline
+		radiale Quantenzahl & Quantenzahl $n_r$, die in der Lösung des Wasserstoffatoms auftaucht und u.A. zur Hauptquantenzahl $n$ zusammengefasst wird. An ihr kann abgelesen werden, wie viele Knoten die Radialwellenfunktion hat.\\
+	\hline
+		Raumspiegelung & Spiegelung von Koordinaten an einem Punkt/einer Ebene \\
+	\hline
+		Rutherford-Modell & Atommodell, nach dem die positive Ladung im Mittelpunkt des Atoms konzentriert ist und die Elektronen den Kern planetenähnlich umgeben \\
+	\hline
+		Saturn-Modell & Atommodell, nach dem die positive Ladung im Mittelpunkt des Atoms konzentriert ist und die Elektronen in Ringen darum lokalisiert sind \\
+	\hline
+		Schiebeoperatoren & siehe Leiteroperatoren \\
+	\hline
+		selbstadjungiert(er Operator) & hermitescher Operator, dessen Eigenfunktionen ein vollständiges System bilden \\
+	\hline
+		separabel(er Raum) & Raum, für den eine abzählbare Menge $M$ von Elementen existiert, die im Raum dicht ist \\
+	\hline
+		Sommerfeldkonstante & Maß für die Stärke der em. Wechselwirkung
+			$$\alpha = \frac{e^2}{4\pi\varepsilon_0 \hbar} \approx \frac{1}{137}$$
+			\textcolor{gruen}{Wird in der Herleitung der Bindungszustände des Wasserstoffatoms im Coulomb-Term zu $\rho$ zusammengefasst; ist ein Faktor in der finalen Energie $E_n$.}\\
+	\hline
+		Sommerfeldsche Feinstrukturkonstante & siehe Sommerfeldkonstante \\
+	\hline
+		Sommerfeldsche Polynommethode & Methode in der Lösung der Radialgl. für die Bindungszustände des Coulomb-Potentials. Dabei wird ein Potenzreihenansatz gestartet und gezeigt, dass dieser auf ein Polynom reduzieren muss. \\
+	\hline
+		Spektrum eines Operators & Alle möglichen Eigenwerte eines Operators. Es kann dabei diskret oder kontinuierliche (z.B. $\hat{x}, \hat{p}$) sein. \\
+	\hline
+		sphärischen Besselfunktionen & siehe Kugelbesselfunktionen \\
+	\hline
+		Spin-Bahn-Kopplung & Wechselwirkung des magn. Moments des Spins und des magn. Moments des Bahndrehimpuls \\
+	\hline
+		Spinor & Elemente eines komplexen Vektorraums, die unter den Darstellungen der speziellen unitären Gruppe SU(2) transformieren. Beispiel: die zweikomponentige Wellenfunktion eines Spin-1/2-Teilchens. \\
+	\hline
+		Spur eines Operators & Summe der Hauptdiagonalelemente der Matrixdarstellung eines Operators $\hat{O}$
+			$$\text{Spur}(\hat{O}) := \sumint_j \braket{j | \hat{O} | j}$$ 
+
+		\textcolor{gruen}{Taucht bei der Berechnung des Erwartungswerts einer Observablen aus einer Dichtematrix auf.}\\
+	\hline
+		stationäre Schrödinger-Gleichung & Beschreibt das Verhalten eines qm. Systems in einem zeitunabhängigen Potential
+		$$\hat{H} u(\vec{x}_1,..., \vec{x}_N) = E u(\vec{x}_1,..., \vec{x}_N)$$ \\
+	\hline
+		stationäre Zustände & Synonym für Energieeigenzustände, da für sie $\partial_t \vec{j} = 0$ gilt \\
+	\hline
+		statistischer Operator & siehe Dichteoperator oder Dichtematrix \\
+	\hline
+		Stefan-Boltzmann-Gesetz & Die abgestrahlte Leistung eines schwarzen Körpers wird beschrieben über
+			$$P = \sigma T^4$$ \\
+	\hline
+		Stefan-Boltzmann-Konstante & Proportionalitätskonstante im Stefan-Boltzmann-Gesetz
+			$$5,670 \cdot 10^{-8}\frac{W}{m^2 K^4}$$ \\
+	\hline
+		Tunneleffekt & Effekt, dass ein Quantenteilchen, dessen Energie kleiner als die einer Potentialbarriere ist ($E<V_0$) sie dennoch zu einer gewissen Wahrscheinlichkeit passieren kann \\
+	\hline
+		Ultraviolett-Katastrophe & Abweichung des Rayleigh-Jeans-Gesetzes (spektrale Energiedichte $u(\nu,T)\diff\nu$) vom Experiment für hohe Frequenzen.\\
+	\hline
+		unitärer Raum & Normierter Raum über den komplexen Zahlen \\
+	\hline
+		Varianz & Maß für die Streuung um den Erwartungswert
+			$$(\Delta y)^2 = \braket{(y - \braket{y}^2)} = \braket{y^2} - \braket{y}^2$$ \\
+	\hline
+		Vernichtungsoperator & Operator $\hat{a}$, der (insbesondere beim 1d harm. Osz.) eine Anregung vernichtet, d.h. die folgende Wirkung hat
+			$$\hat{a}u_n = \sqrt{n} u_{n-1}$$\\
+	\hline
+		verträglicher Observablen & Observablen sind verträglich, wenn die ihnen zugeordneten Operatoren kommutieren. D.h. dass Eigenfunktionen gefunden werden können, die Eigenfunktionen zu allen Operatoren sind. \\
+	\hline
+		vollständig(er Zustandsraum) & Raum, in dem die Grenzelemente aller Cauchy-Folgen des Raums ebenfalls im Raum liegen \\
+	\hline
+		vollständiges Funktionensystem & Menge von Funktionen $\{\varphi_i\} = \{\varphi_1, \varphi_2, \varphi_3, ...\}$, deren Linearkombination jede Funktion $f$ im betrachteten Funktionsraum (z.B. $L^2$ inkl. RB) beschreiben kann.
+			$$f(x) = \sum_i c_i \varphi_i(x) = \sum_i \braket{\varphi_i, f} \varphi_i(x)$$\\
+	\hline
+		vollständiges System & siehe vollständiges Funktionensystem \\
+	\hline
+		Vollständigkeitsrelation & Beziehung, die ein vollständiges Funktionensystem $\{\varphi_i\}$ erfüllt.
+			$$\sumint_i \varphi_i(x) \varphi_i^\star(y) = \delta(x - y)$$
+		\textcolor{gruen}{$\sumint:$ Integral für kontinuierliches, Summe für diskretes Spektrum}\\
+	\hline
+		Wahrscheinlichkeitsstromdichte & Bezogen auf ein Volumen (eine Fläche) beschreibt sie, wie viel Wahrscheinlichkeit pro Zeiteinheit und pro Fläche (Länge) aus dem Volumen (der Fläche) fließt. Im Fall einer Länge (1d) ist sie lediglich die Einheit 1 durch Zeiteinheit.
+			$$\vec{j} = \frac{\hbar}{2mi}(\psi^\star \vec{\nabla} \psi - \psi \vec{\nabla}\psi^\star)$$
+		Sie hängt über die \textbf{Kontinuitätsgleichung} mit der Änderung der Wahrscheinlichkeitsdichte zusammen
+			$$\frac{\partial}{\partial t}w(\vec{x},t) + \vec{\nabla}\vec{j}(\vec{x},t) = 0$$ \\
+	\hline
+		Wechselwirkungsbild & siehe Dirac-Bild \\
+	\hline
+		Welle-Teilchen-Dualismus & Tatsache, dass Licht sowohl Welle als auch Teilchencharakter besitzt, z.B. Compton-Effekt und Doppelspalt. \\
+	\hline
+		Wien'sches Verschiebungsgesetz & Gesetz, das das Verhalten der spektralen Energiedichte eines schwarzen Strahlers für große $\nu$ gut beschreibt \\
+	\hline
+		zeitgeordnetes Produkt & Integrand der symmetrisierten Dyson-Reihe für einen zeitabhängigen Hamilton-Operator
+			$$U(t,t_0) = \sum_{n=0}^\infty \lr{-\frac{i}{\hbar}}^n \frac{1}{n!} \int_{t_0}^t \diff t_1 ... \int_{t_0}^t \diff t_n \color{blue}{T(\hat{H}_1 ... \hat{H}_n)}$$ \\
+	\hline
+		Zeitordnung & Reihenfolge der Hamilton-Operatoren in der symmetrisierten Dyson-Reihe. Dabei stehen Hamilton-Operatoren späterer Zeit links von denen früherer Zeiten. \\
+	\hline
+		zugeordnete Legendre-Polynome & Erweiterung der Legendre-Polynome $P_l^{(m)(x)}$ durch $m$-fache Ableitung nach $x$. 
+			$$P_l^m(x) = (-1)^m (1 - x^2)^{m/2} \cdot \frac{d^m}{d^m} P_l(x)$$
+		Sie sind Teil der Kugelflächenfunktionen $Y_{lm}$, den Eigenfunktionen von $\hat{\vec{L}}^2, \hat{L}_z$. \\
+	\hline
+		Zyklotronfrequenz & Kreisfrequenz $\omega_C$, mit der ein geladenes Teilchen in einem homogenen Magnetfeld auf einer kreisförmigen Bahn um die Feldlinien rotiert
+			$$\omega_C = \frac{qB}{m} = 2\omega_L$$
+		Quantenmechanik: Frequenz, mit der der Spin um die Magnetfeldachse präzediert, wobei $\omega_C = 2\omega_L$. \\
+	\hline\hline
+\end{xltabular}
+\end{document}

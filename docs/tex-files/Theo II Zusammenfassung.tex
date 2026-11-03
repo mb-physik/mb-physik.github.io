@@ -1,0 +1,1160 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Theoretische Physik II: Elektrodynamik}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section*{Abstrakt}
+Die Elektrodynamik liefert eine klassische Theorie für elektromagnetische Phänomene. Zunächst werden elektrische und magnetische Phänomene getrennt und in statischen bzw. quasistatischen Situationen betrachtet. Ausgangspunkt sind die von Coulomb und Ampère entdeckten Kraftgesetze. Aus diesen lassen sich die Maxwell-Gleichungen finden, die die Gesetzmäßigkeiten der Elektrodynamik kompakt zusammenfassen. Diese laute im Vakuum
+	\begin{align*}
+		\vec{\nabla}\cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
+		\vec{\nabla} \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t} \\
+		\vec{\nabla} \cdot \vec{B} &= 0 \\
+		\vec{\nabla} \times \vec{B} &= \mu_0 \lr{ \vec{j} + \varepsilon_0\frac{\partial\vec{E}}{\partial t} }
+	\end{align*}
+
+bzw. in Medien
+	\begin{align*}
+		\vec{\nabla}\cdot \vec{D} &= \bar{\rho}_\text{frei} \\
+		\vec{\nabla} \times \vec{\bar{E}} &= -\frac{\partial\vec{B}}{\partial t} \\
+		\vec{\nabla} \cdot \vec{B} &= 0 \\
+		\vec{\nabla} \times \vec{H} &= \vec{\bar{j}}_\text{frei} + \frac{\partial\vec{D}}{\partial t}
+	\end{align*}
+
+
+Anschauliche Resultate der Elektrodynamik sind:
+	\begin{itemize}
+		\setlength{\itemsep}{0pt}
+		\item Modell für Moleküle (Dipol)
+		\item Verständnis elektrotechnischer Bauteile (Kondensatoren, Widerstand, Spulen)
+		\item Verständnis von Demonstrationsversuchen (Faraday'scher Käfig, Ampères Kabel, etc.)
+		\item Modell für Licht
+		\item Kommunikationstechnik (em. Wellen)
+	\end{itemize}
+
+
+
+\newpage
+
+
+\section{Mathematische Grundlagen}
+\subsection{Satz von Gauß und Stokes}
+Der Satz von Gauß liefert die Möglichkeit ein Volumenintegral durch das Flächenintegral über die Oberfläche des Volumens auszudrücken.
+	\begin{equation}
+		\int_V \diff V\, \vec{\nabla}\vec{f} = \int_{\partial V} \diff\vec{A}\, \vec{f}.
+	\end{equation}
+
+Der Satz von Stokes liefert die Möglichkeit ein Flächenintegral durch das Wegintegral über die Umrandung der Fläche auszudrücken.
+	\begin{equation}
+		\int_A \diff\vec{A}\, (\vec{\nabla} \times \vec{f}) = \oint_{\partial A} \diff \vec{x}\, \vec{f}
+	\end{equation}
+
+
+%\subsection{Mehrdimensionale Taylor-Entwicklung}
+
+
+
+%\textcolor{violet}{Dies ergibt sich aus $W = \frac{1}{8\pi\varepsilon_0} \sum_{i,j = 1;i\neq j} \frac{q_j q_i}{4\pi\varepsilon_0} \frac{1}{|\vec{x}_i - \vec{x}_j|}$.}
+
+\subsection{Nabla-Identitäten}
+	\begin{align}
+		\vec{\nabla} \times (\vec{\nabla} \vec{A}) &= \vec{0} \\
+		\vec{\nabla} (\vec{\nabla} \times \vec{A}) &= 0
+	\intertext{\textcolor{gruen}{Um das Biot-Savart-Gesetz in die Form $\vec{B} = \vec{\nabla} \times \vec{A}$ zu bringen, nutzt man:}}
+		\vec{\nabla} \times (\phi\vec{A}) &= \phi\vec{\nabla} \times \vec{A} + \vec{A} \times \vec{\nabla}\phi \\
+	\intertext{\textcolor{gruen}{Für die Herleitung der Wellengleichungen der elektromagnetischen Welle:}}
+		\vec{\nabla} \times (\vec{\nabla} \times \vec{A}) &= \vec{\nabla}(\vec{\nabla}\vec{A}) - \Delta\vec{A}
+	\end{align}
+
+Wichtige Zusammenhänge mit Ortsvektoren sind
+	\begin{align}
+		\vec{\nabla}_x |\vec{x} - \vec{x}'| &= \frac{\vec{x} - \vec{x}'}{|\vec{x} - \vec{x}'|} \\
+		\vec{\nabla}_x \frac{1}{|\vec{x} - \vec{x}'|} &= -4\pi \delta(\vec{x} - \vec{x}') \\
+		\vec{\nabla}_x \frac{1}{|\vec{x} - \vec{x}'|} &= -\frac{\vec{x} - \vec{x}'}{|\vec{x} - \vec{x}'|^3}.
+	\end{align}
+
+
+\subsection{Divergenz und Rotation}
+...
+
+
+\newpage
+
+
+\section{Elektrostatik}
+In der \textit{Elektrostatik} werden stationäre elektrische Ladungen betrachtet. Diese üben gemäß der Coulomb-Kraft Kräfte auf andere Ladungen aus. Man führt das elektrische Feld (E-Feld) ein, das von einer Ladungskonfiguration erzeugt wird und eine Kraft auf Probeladungen ausübt, die in ihr platziert werden.
+
+
+\subsection{Grundlegende Definitionen}
+	\begin{itemize}
+		\item \textbf{Coulomb-Kraft}\\
+		Der grundlegende empirischer Befund der Elektrodynamik ist, dass geladene Teilchen die sogenannte Coulomb-Kraft aufeinander ausüben. Sind mehrere Ladungen $q'_j$ an den Orten $\vec{x}'$ vorhanden, so ergibt sich die Kraft auf die Ladung $q$ am Ort $\vec{x}$ mittels Superpositionsprinzip. Für allgemein $N$ Ladungen gilt somit
+			\begin{align}
+				\vec{F}(\vec{x}) &= \sum_{j=1}^N \frac{qq'_j}{4\pi\varepsilon_0} \frac{\vec{x} - \vec{x}'_j}{|\vec{x} - \vec{x}'_j|^3}.
+			\end{align}
+		
+		\item \textbf{Elektrisches Feld}\\
+		Das elektrische Feld (E-Feld) ist definiert als Coulomb-Kraft pro Probeladung und kann für eine beliebige Ladungsverteilung wie folgt verallgemeinert werden
+			\begin{align}
+				\vec{E}(\vec{x}) &:= \frac{\vec{F}(\vec{x})}{q} = \sum_{j=1}^N \frac{q'_j}{4\pi\varepsilon_0} \frac{\vec{x} - \vec{x}'_j}{|\vec{x} - \vec{x}'_j|^3} \\
+				\vec{E}(\vec{x}) &= \frac{1}{4\pi\varepsilon_0} \int_{V'} \diff V'\, \rho(\vec{x}') \frac{\vec{x} - \vec{x}'}{|\vec{x} - \vec{x}'|^3}.
+			\end{align}
+		
+		\item \textbf{Elektrisches Potential}\\
+		Zum E-Feld gehöriges Potential, das für diskrete sowie kontinuierliche Ladungsverteilungen die folgende Form annimmt
+		\begin{align}
+			\phi(\vec{x}) &= \frac{1}{4\pi\varepsilon_0} \sum_{j=1}^N \frac{q_j}{|\vec{x} - \vec{x}'_j|} \\
+			\phi(\vec{x}) &= \frac{1}{4\pi\varepsilon_0} \int \diff^3\vec{x}'\, \frac{\rho(\vec{x}')}{|\vec{x} - \vec{x}'|}.
+		\end{align}
+	
+	%\textcolor{violet}{Dabei wurde für die Herleitung des letzten Ausdrucks der wichtige Zusammenhang $\diff q = \rho\diff V$ verwendet. Von diesem kann man sich überzeugen, indem man für $\rho$ die Delta-Fkt. einsetzt und so die Punktladung erhält.}
+		
+		
+		\item \textbf{Energie E-Feld}\\
+		Die Energie eines elektrischen Felds ergibt sich durch das ''Aufbauen'' der Struktur, die es erzeugt. D. h. man berechnet die Arbeit, die benötigt wird, um jede Ladung der Struktur aus dem unendlichen an ihren Ort zu bewegen. Es ergibt sich
+		\begin{equation}
+			W = \frac{\varepsilon_0}{2} \int_V \diff V\, |\vec{E}(\vec{x})|^2 \equiv \int_V \diff V\, w_e(\vec{x})
+		\end{equation}
+	
+		mit der sogenannten Energiedichte $w_e(\vec{x})$.
+	\end{itemize}
+
+
+%\textcolor{violet}{Die 1. Maxwell-Gleichung ergibt sich durch die Betrachtung von $\int\diff V\,\vec{\nabla}\vec{E}$ und Einsetzen der Definition von $\vec{E}$. Das Ergebnis $\vec{\nabla}\vec{E} = \rho/\varepsilon_0\delta(\vec{x})$ wird dann auf eine Ladungsdichte verallgemeinert.\\
+%Aus der Definition von $\vec{E}$ kann die 2. Maxwell'sche Gleichung (in der Elektrostatik).\\
+%Einsetzen des elektrischen Potentials in die 1. Maxwell-Gl. ergibt die \textbf{Poisson-Gl.}}
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $\rho(r) =
+	\begin{cases}
+		\frac{Q}{\frac{4}{3}\pi R^3}, & r < R \\
+		0, & r > R
+	\end{cases}$\\
+	ges: $\vec{E}$, $W$\\
+	Lös:\\
+	\\
+	Mache die Annahme, dass aufgrund der Kugelsymmetrischen Ladungsverteilung auch das E-Feld kugelsymmetrisch sein wird, d.h. $\vec{E}(\vec{x}) = \vec{E}(r)$.\\
+	Verwende nun das Gauß'sche Gesetz, um das E-Feld aus der bekannten Ladungsverteilung zu gewinnen.
+		\begin{align*}
+			\bullet\ \int_{\partial V} \diff \vec{A}\, \vec{E} &= \int_{\partial V} r^2 \diff \Omega \underbrace{ \vec{e}_r \cdot \vec{e}_r}_{=1}  E(r) = 4\pi r^2 \cdot E(r) \\
+			\bullet\ \frac{1}{\varepsilon_0} \int_V \diff V\, \rho(r) &= \frac{1}{\varepsilon_0} \int\diff\Omega \int \diff r\, r^2\cdot \rho(r) = \frac{4\pi}{\varepsilon_0} \cdot \frac{Q}{\frac{4}{3}\pi R^3}
+			\begin{cases}
+				\frac{1}{3}r^3, & r < R \\
+				\frac{1}{3}R^3, & r > R
+			\end{cases} \\
+			&= \frac{Q}{\varepsilon_0 R^3}
+			\begin{cases}
+				r^3, & r < R \\
+				R^3, & r > R
+			\end{cases}
+		\intertext{Gleichsetzen der beiden Ausdrücke und Auflösen nach $E(r)$ ergibt}
+			E(r) &= \frac{Q}{4\pi\varepsilon_0 R^3}
+			\begin{cases}
+				r, & r < R \\
+				\frac{R^3}{r^2}, & r > R
+			\end{cases}
+		\end{align*}
+
+	Das elektrische Potential wird mit dem Referenzpunkt $\varphi(\infty)=0$ berechnet.
+		\begin{align*}
+			V(r) &= -\int_\infty^r \diff r'\, E(r') = \int_\infty^r \diff r\, E(r) =
+			\frac{Q}{4\pi\varepsilon_0 R^3}
+			\begin{cases}
+				\int_r^\infty \diff r'\, r' = \int_r^R \diff r'\, r' + \int_R^\infty \diff r'\, \frac{R^3}{r'^2}, & r < R \\
+				\int_r^\infty \diff r'\, \frac{R^3}{r'^2} = 0+\frac{R^3}{r}, & r > R
+			\end{cases} = \\
+			&= \frac{Q}{4\pi\varepsilon_0 R^3}
+			\begin{cases}
+				\frac{R^2}{2} - \frac{r^2}{2} + \lr{ 0 + \frac{R^3}{R} } = \frac{3}{2}R^2 - \frac{r^2}{2}, & r < R \\
+				\frac{R^3}{r}, & r > R
+			\end{cases}
+			=
+			\frac{Q}{4\pi\varepsilon_0}
+			\begin{cases}
+				\frac{3}{2}\frac{1}{R} - \frac{1}{2}\frac{r^2}{R^3}, & r < R \\
+				\frac{1}{r}, & r > R
+			\end{cases}
+		\end{align*}
+
+
+	Die elektrostatische Energie ergibt sich durch Integration zu
+		\begin{align*}
+			W &= \frac{\varepsilon_0}{2} \int_V \diff V\, |E(r)|^2 = \frac{\varepsilon_0}{2} \int \diff \Omega \int_0^\infty \diff r\, r^2 \cdot \lr{ \frac{Q}{4\pi\varepsilon_0 R^3} }^2
+			\begin{cases}
+				r^2, & r < R \\
+				\frac{R^6}{r^4}, & r > R
+			\end{cases} = \\
+			&= \frac{Q^2}{8\pi\varepsilon R^6} \lr{ \int_0^R \diff r\, r^4 + \int_R^\infty \diff r\, \frac{R^6}{r^2} } = \frac{Q^2}{8\pi\varepsilon R^6} \lr{ \frac{R^5}{5} + \frac{R^6}{R}} = \frac{3Q^2}{20\pi\varepsilon_0 R}
+		\end{align*}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Grafiken/e-feld homogen geladene kugel 3d.pdf}
+		\includegraphics[width=0.6\textwidth]{Grafiken/e-feld homogen geladene kugel.pdf}
+		\caption{E-Feld der homogen geladenen Kugel; links: E-Feld in 3D; rechts: E-Feld $E(r)$ und elektrisches Potential $\phi(r)$ in Abhängigkeit vom Abstand zum Ursprung $r$}
+	\end{figure}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Grenzflächenbedingungen}
+An einer ebene geladene Grenzfläche ist die Normalkomponente des E-Felds unstetig, jedoch die Tangentialkomponente stetig
+	\begin{align}
+		E_{\perp,A} - E_{\perp,B} &= \frac{\sigma}{\varepsilon_0} \\
+		E_{||,A} &= E_{||,B}.
+	\end{align}
+
+
+\subsection{Randwertprobleme der Elektrostatik}
+Betrachte eine Ladungsverteilung $\rho$ in einem endlichen Volumen $V$ und Randbedingungen für die Normalkomponente des E-Felds $\vec{E}_\perp$ (von Neumann-Randbedingung) bzw. das elektrische Potential $\phi$ (Dirichlet-Randbedingung).\\
+\\
+\fbox{Algorithmus}\\
+Im elektrostatischen Gleichgewicht sind die Ladungsträger im Leiter unbewegt, d. h., dass $\vec{E} = \vec{0}$ gilt. Mit der Grenzflächenbedingung $E_{||,A} = E_{||,B}$ folgt, dass das externe E-Feld senkrecht auf dem Leiter auftrifft. Daraus ergibt sich die sogenannte \textit{Spiegelladungsmethode}, um das externe E-Feld zu konstruieren:
+	\begin{enumerate}
+		\item \textbf{Skizze}\\
+		Skizziere die Ladungsverteilung $\rho(\vec{x})$, den Leiter und kurze senkrechte E-Feld-Linien an dessen Oberfläche
+		
+		\item \textbf{Spiegelladung}\\
+		Nutze Symmetrien, um die Spiegelladung(en) so zu platzieren, dass die senkrechten E-Feld-Linien an der Leiteroberfläche erklärt werden
+		
+		\item \textbf{E-Feld bzw. elektrisches Potential berechnen}
+	\end{enumerate}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Flächenladungsdichte}
+		Sei die Leiteroberfläche o. B. d. A. durch $z=0$ beschrieben. Dann lässt sich die induzierte Flächenladungsdichte mittels
+			\begin{equation}
+				\sigma(x,y) = \varepsilon_0 \cdot \left. E_{||,\text{außen}}(\vec{x}) \right|_{z = 0}
+			\end{equation}
+		
+		berechnen, was aus der Grenzflächenbedingung folgt.
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	\textcolor{red}{ERGÄNZEN}
+	
+	\vspace{0.5cm}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\textwidth]{Grafiken/e-feld spiegelladungsmethode.pdf}
+	\end{figure}
+
+
+\hrule
+}
+
+
+
+
+
+
+\newpage
+
+
+\subsection{Dielektrika}
+\textit{Dielektrika} sind Materielien, die durch das Anlegen eines äußeren E-Feldes ein Dipolmoment ausbilden.\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{dielektrische Verschiebung}\\
+		...
+			\begin{equation}
+				\vec{\nabla} \vec{D} := \vec{\nabla} (\varepsilon_0\vec{\bar{E}} + \vec{P}) = \frac{\bar{\rho}_\text{frei}}{\varepsilon_0}
+			\end{equation}
+
+
+		\item \textbf{elektrische Suszeptibilität}
+		
+		
+		\item \textbf{relative Permeabilität}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{E-Feld in Materie}
+			\begin{equation}
+				\vec{\nabla} \vec{\bar{E}} = \frac{\bar{\rho}_\text{frei} + \bar{\rho}_\text{Pol}}{\varepsilon_0} \equiv \frac{\bar{\rho}}{\varepsilon_0}
+			\end{equation}
+		
+		mit ...
+
+
+		\item \textbf{Grenzflächenbedingungen}
+			\begin{align}
+				D_{A,\perp} - D_{B,\perp} &= \sigma_\text{frei} \\
+				\frac{D_{A,||}}{\varepsilon_A} &= \frac{D_{B,||}}{\varepsilon_B}
+			\end{align}
+	\end{itemize}
+
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	Die Kapazität eines Plattenkondensators mit einem linearen homogenen Dielektrikum ergibt sich mittels $\vec{\nabla}\vec{D} = \varepsilon_0\varepsilon_r \vec{\nabla}\vec{E} = \bar{\rho}_\text{frei}$ und $U = d \cdot |\vec{E}|$ zu
+		$$C = \varepsilon_0\varepsilon_r\frac{A}{d}$$
+\hrule
+}	
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Betrachte die Multipolentwicklung des Potentials für ein $j$-tes Teilchen um die Position des Teilchens $\vec{x}_j'$
+		\begin{align*}
+			4\pi\varepsilon_0 \varphi_j(\vec{x}) &= \frac{q_j}{|\vec{x} - \vec{x}_j'|} + \frac{\vec{p}_j (\vec{x} - \vec{x}_j') }{|\vec{x} - \vec{x}_j'|^3}
+		\end{align*}
+
+	Somit ist das Gesamtpotential und unter kontinuierlicher Formulierung von Ladung und Dipolmoment
+		\begin{align*}
+			4\pi\varepsilon_0 \varphi(\vec{x}) &= \sum_{j=1}^N \lr{ \frac{q_j}{|\vec{x} - \vec{x}_j'|} + \frac{\vec{p}_j (\vec{x} - \vec{x}_j') }{|\vec{x} - \vec{x}_j'|^3} } = \sum_{j=1}^N \lr{ \frac{\rho(\vec{x}_j')}{|\vec{x} - \vec{x}_j'|} + \frac{\Pi(\vec{x}_j') (\vec{x} - \vec{x}_j') }{|\vec{x} - \vec{x}_j'|^3} } \Delta V' \to \\
+			&\to \int \diff^3x' \lr{ \frac{\rho(\vec{x}')}{|\vec{x} - \vec{x}'|} + \frac{\Pi(\vec{x}') (\vec{x} - \vec{x}') }{|\vec{x} - \vec{x}'|^3} }
+		\end{align*}
+
+	Mittele nun das mikroskopische Potential über einzelne Bereiche mit dem Volumen $\tilde{V}$. Verwende also die Mittelungsfunktion $\bar{A}(\vec{x}) = \frac{1}{\tilde{V}} \int_{\tilde{V}} \diff^3\tilde{x}\, A(\vec{x} + \vec{\tilde{x}})$.
+		\begin{align*}
+			4\pi\varepsilon_0 \bar{\varphi}(\vec{x}) &= \frac{1}{\tilde{V}} \int_{\tilde{V}} \diff^3\tilde{x}\, \int \diff^3x' \lr{ \frac{\rho(\vec{x}')}{|\vec{x} + \vec{\tilde{x}} - \vec{x}'|} + \frac{\Pi(\vec{x}') (\vec{x} + \vec{\tilde{x}} - \vec{x}') }{|\vec{x} + \vec{\tilde{x}} - \vec{x}'|^3} } = \\
+			&\stackrel{\comment{\vec{u} = \vec{x}' - \vec{\tilde{x}}}}{=} \frac{1}{\tilde{V}} \int_{\tilde{V}} \diff^3\tilde{x}\, \int \diff^3u \lr{ \frac{\rho(\vec{u} - \vec{\tilde{x}})}{|\vec{x} + \vec{u}|} + \frac{\Pi(\vec{u} + \vec{\tilde{x}}) (\vec{x} - \vec{u}) }{|\vec{x} - \vec{u}|^3} } = \\
+			&\equiv \int \diff^3u \lr{ \frac{\bar{\rho}(\vec{u})}{|\vec{x} - \vec{u}|} + \frac{\vec{P}(\vec{u}) \cdot (\vec{x} - \vec{u})}{|\vec{x} - \vec{u}|^3}}
+		\end{align*}
+	
+	mit $\bar{\rho}(\vec{u}) := \frac{1}{\tilde{V}} \int \diff^3\tilde{x}\, \rho(\vec{u} - \vec{\tilde{x}})$ und $\vec{P}(\vec{u}) := \frac{1}{\tilde{V}} \int \diff^3\tilde{x}\, \Pi(\vec{u} - \vec{\tilde{x}})$.\\
+	\\
+	Da die Mittelungsfunktion linear ist, gilt der Zusammenhang $\vec{E} = -\vec{\nabla}\varphi$ auch für das gemittelte E-Feld und elektrische Potential. Betrachte die Divergenz davon bzw. die Poisson-Gleichung
+		\begin{align*}
+			4\pi\varepsilon_0 \vec{\nabla}_x\vec{\bar{E}}(\vec{x}) &= - 4\pi\varepsilon_0 \Delta_x\bar{\varphi} = -\Delta_x \int \diff^3u \lr{ \frac{\bar{\rho}(\vec{u})}{|\vec{x} - \vec{u}|} + \frac{\vec{P}(\vec{u}) \cdot (\vec{x} - \vec{u})}{|\vec{x} - \vec{u}|^3}} = \\
+			&= -\int \diff^3u\, \lr{ \bar{\rho}(\vec{u}) \Delta_x \frac{1}{|\vec{x} - \vec{u}|} + \vec{P}(\vec{u}) \Delta_x \frac{\vec{x} - \vec{u}}{|\vec{x} - \vec{u}|^3} }
+		\end{align*}
+
+	Verwende nun die Beziehungen $\Delta_x \frac{1}{|\vec{x} - \vec{u}|} = -4\pi\delta(\vec{x} - \vec{u})$, $\frac{\vec{x} - \vec{u}}{|\vec{x} - \vec{u}|^3} = -\vec{\nabla}_u\frac{1}{|\vec{x} - \vec{u}|} =$ und $\vec{\nabla}_u \delta(\vec{x} - \vec{u}) = - \vec{\nabla}_x \delta(\vec{x} - \vec{u})$:
+		\begin{align*}
+			4\pi\varepsilon_0 \vec{\nabla}_x\vec{\bar{E}}(\vec{x}) &= +4\pi \int\diff^3u \lr{ \bar{\rho}(\vec{u})\cdot \delta(\vec{x} - \vec{u}) - \vec{P}(\vec{u})\cdot \vec{\nabla}_x\delta(\vec{x} - \vec{u})} = 4\pi \lr{ \bar{\rho}(\vec{x}) - \vec{\nabla}_x\vec{P}(\vec{x}) } \\
+			\Leftrightarrow \vec{\nabla}(\varepsilon_0\vec{\bar{E}} + \vec{P}) &\equiv \vec{\nabla}\vec{D} = \bar{\rho} \equiv \bar{\rho}_\text{frei} \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Modellsysteme}
+\subsubsection{Punktladung}
+
+\subsubsection{Plattenkondensator}
+Betrachte o. B. d. A. einen Kondensator, dessen Platten in $x$-Richtung zeigen.\\
+Das E-Feld, das elektrische Potential, die Spannung zwischen den Platten sowie die Energie des elektrischen Feldes sind
+	\begin{align}
+		\vec{E}(x) &= \frac{Q}{\varepsilon_0 A} \vec{e}_x \\
+		\phi(x) &= \frac{Q}{\varepsilon_0 A} x \\
+		U &= \frac{Qd}{\varepsilon_0 A} \\
+		W &= \frac{Q^2d}{2 \varepsilon_0 A} = \frac{1}{2}QU = \frac{CU^2}{2},
+	\end{align}
+
+mit der Kapazität $C = \frac{Q}{U}$.
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+	\includegraphics[width=0.4\textwidth]{Grafiken/plattenkondensator.pdf}
+	}
+	\caption{E-Feld eines Plattenkondensators; blau: Feldlinien E-Feld; orange: Platten mit Ladung $Q$ bzw. $-Q$}
+\end{figure}
+
+
+\subsubsection{Zylinderkondensator}
+\textcolor{red}{Koaxialkabel}
+
+
+\subsubsection{Dipol}
+Der Dipol ist ein System aus den Ladungen $q$ und $-q$ mit einem kleinen festen Abstand $\vec{d}$.
+	\begin{align}
+		\vec{E}(\vec{x}) &= \frac{1}{4\pi\varepsilon_0} \lr{ 3\frac{\vec{x} \cdot \vec{p}}{|\vec{x}|^5} \vec{x} - \frac{\vec{p}}{|\vec{x}|^3} }
+	\end{align}
+
+mit dem Dipolmoment $\vec{p} = q\vec{d}$.
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+	\includegraphics[width=0.5\textwidth]{Grafiken/e-feld dipol.pdf}
+	}
+	\caption{E-Feld eines Dipols mit $\vec{d}=1\cdot \vec{e}_z$, $q=1$; blaue Kugel: negative Ladung, rote Kugel: positve Ladung}
+\end{figure}
+
+
+Befindet sich der Dipol in einem äußeren E-Feld $\vec{E}_\text{ext}$, so wirkt die Kraft und das Drehmoment
+	\begin{align}
+		\vec{F}(\vec{x}) &= (\vec{p} \cdot \vec{\nabla}) \vec{E}_\text{ext}(\vec{x}) \\
+		\vec{M}(\vec{x}) &= \vec{p} \times \vec{E}_\text{ext}(\vec{x})
+	\end{align}
+
+
+\newpage
+
+
+\section{Magnetostatik}
+In der \textit{Magnetostatik} werden zeitlich konstante Ströme betrachtet. Diese üben gemäß dem empirisch entdeckten Amère'schen Gesetz andere Ströme aus. Analog zur Elektrostatik wird die magnetische Induktion (B-Feld) eingeführt, also ein Feld, das auf an einen Probe-Strom, der in ihm platziert wird, eine Kraft ausübt.
+
+
+\subsection{Grundlegende Definitionen}
+\begin{itemize}
+	\item \textbf{Ampère'sches Kraftgesetz}\\
+	Grundlegender empirischer Befund der Magnetostatik ist, dass Ringströme Kräfte aufeinander auswirken. Die Kraft, die der Ringstrom  $I'$ (der entlang $c'$ fließt) auf den Ringstrom $I$ (der entlang $c$ fließt) auswirkt ist
+		\begin{equation}
+			\vec{F}_{I'\to I}(\vec{x}) = \frac{\mu_0 I I'}{4\pi} \oint_{c} \oint_{c'} \frac{\diff\vec{x} \times (\diff\vec{x}' \times (\vec{x} - \vec{x}'))}{|\vec{x} - \vec{x}'|^3} = \frac{\mu_0 I I'}{4\pi} \oint_{c} \oint_{c'} \diff\vec{x} \times \diff\vec{x}' \frac{\vec{x} - \vec{x}'}{|\vec{x} - \vec{x}'|^3},
+		\end{equation}
+
+	wobei der letzte Ausdruck aus der BAC-CAB-Regel und Ausintegrieren eines Terms folgt.
+
+
+	\item \textbf{Magnetische Induktion (B-Feld)}\\
+	Feld, das von einem Ringstrom erzeugt wird und auf einen Probe-Ringstrom wirkt, sobald dieser platziert wird \textcolor{gruen}{(analog zum E-Feld)}. Für elementare Ringströme bzw. kontinuierliche Stromdichten gilt
+		\begin{align}
+			\vec{B}(\vec{x}) &:= \frac{\mu_0 I'}{4\pi} \int_{c'} \frac{\diff\vec{x}' \times (\vec{x} - \vec{x}')}{|\vec{x} - \vec{x}'|^3} \\
+			\vec{B}(\vec{x}) &= \frac{\mu_0}{4\pi} \int_{V'} \diff V'\, \frac{\vec{j}(\vec{x}) \times (\vec{x} - \vec{x}')}{|\vec{x} - \vec{x}'|^3} = \vec{\nabla} \times \frac{\mu_0}{4\pi} \int_{c'} \diff\vec{x}'\, \frac{\vec{j}(\vec{x}')}{|\vec{x} - \vec{x}'|}
+		\end{align}
+	
+	Die vom Magnetfeld induzierte Kraft ist somit
+		\begin{equation}
+			\vec{F}(\vec{x}) = I \oint_c \diff\vec{x} \times \vec{B}(\vec{x}).
+		\end{equation}
+		
+	\item \textbf{Vektorpotential}\\
+	Das Vektorpotential ist Definiert als das Vektorfeld, das $\vec{B} = \vec{\nabla} \times \vec{A}$ erfüllt (siehe Definition B-Feld)
+		\begin{equation}
+			\vec{A} := \frac{\mu_0}{4\pi} \int_{c'} \diff\vec{x}'\, \frac{\vec{j}(\vec{x}')}{|\vec{x} - \vec{x}'|}
+		\end{equation}
+	
+	
+	\item \textbf{Energie B-Feld}\\
+	Analog zur Energie des E-Felds ergibt sich
+		\begin{equation}
+			W = \frac{1}{2\mu_0} \int_V \diff V\, |\vec{B}(\vec{x})|^2 \equiv \int_V \diff V\, w_m(\vec{x}).
+		\end{equation}
+\end{itemize}
+
+
+\newpage
+
+
+\subsection{Magnetostatik in Materie}
+...\\
+\\
+\fbox{Definition}
+	\begin{itemize}
+		\item \textbf{Magnetfeld}
+			\begin{align}
+				\vec{\nabla} \times \vec{H} := \vec{\nabla} \times (\vec{\bar{B}} - \mu_0 \vec{M}) &= \vec{\bar{j}}_\text{frei}
+			\end{align}
+		
+		mit der \textit{Magnetisierung} $\vec{M}$ und dem \textit{Magnetfeld} $\vec{H}$.
+		
+		
+		\item \textbf{magnetische Suszeptibilität}\\
+		...
+	\end{itemize}
+	
+
+\fbox{Kategorisierung}
+	\begin{table}[H]
+		\centering
+		\caption{Arten von magnetisierbaren Materialien}
+		\begin{tabular}{l|c|l}
+			\hline\hline
+				Art & Bedingung & Bedeutung \\
+			\hline
+				Diamagnetismus & $\chi_m < 0$ & \textcolor{red}{ERGÄNZEN} \\
+			\hline
+				Paramagnetismus & $\chi_m > 0$ & \textcolor{red}{ERGÄNZEN} \\
+			\hline
+				Ferromagnetismus & & \textcolor{red}{ERGÄNZEN} \\
+			\hline
+				Antiferromagnetismus & & \textcolor{red}{ERGÄNZEN} \\
+			\hline\hline
+		\end{tabular}
+	\end{table}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{B-Feld in Materie}
+
+
+		\item \textbf{Grenzflächenbedingungen}
+			\begin{align}
+				\frac{H_{A,\perp}}{\mu_A} &= \frac{H_{B,\perp}}{\mu_B} \\
+				(\vec{e}_{||} \times \vec{e}_n) \cdot (\vec{H}_A - \vec{H}_B) &= \vec{s}_\text{frei} \cdot \vec{e}_{||}
+			\end{align}
+	\end{itemize}
+
+
+\newpage
+
+
+\subsection{Modellsysteme}
+\subsubsection{Stromdurchflossener Draht}
+Das B-Feld, das durch einen stromdurchflossenen geraden Draht erzeugt wird ist
+	\begin{align}
+		\vec{B}(r) &= \frac{\mu_0 I'}{2\pi r} \vec{e}_\varphi
+	\end{align}
+
+mit $r = \sqrt{x^2 + y^2}$, was der \textbf{Rechten-Hand-Regel} entspricht.
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+	\includegraphics[width=0.75\textwidth]{Grafiken/b-feld gerader leiter.pdf}
+	}
+	\caption{B-Feld eines geraden Leiters in $z$-Richtung mit $I=1\,\text{A}$}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	ges: B-Feld $\vec{B}$ eines stromdurchflossenen Leiters in $z$-Richtung\\
+	\\
+	Da das Problem rotatiossymmetrisch um die $z$-Achse ist, darf keine Abhängigkeit des B-Felds bezüglich des Polarwinkels $\phi$ bestehen. Berechne also für einen einfachen Ort $\vec{x}$ das B-Feld und verallgemeinere anschließend das Ergebnis.\\
+	\\
+	Verwende zur Berechnung das Biot-Savart-Gesetz in kartesischen Koordinaten und betrachte einen Punkt in der $x$-$z$-Ebene $\vec{x} = (x,0,z)^T$
+		\begin{align*}
+			\vec{B}(\vec{x} = (x,0,z)^T ) &= \frac{\mu_0 I'}{4\pi}\oint_c \frac{\diff\vec{x}' \times (\vec{x} - \vec{x}')}{|\vec{x} - \vec{x}'|^3} = \frac{\mu_0 I'}{4\pi}\int_{-\infty}^{\infty} \frac{\diff z'\cdot
+			\begin{pmatrix}
+				0\\0\\1
+			\end{pmatrix}
+			\times
+			\lreck{
+			\begin{pmatrix}
+				x\\0\\z
+			\end{pmatrix}
+			-
+			\begin{pmatrix}
+				0\\0\\z'
+			\end{pmatrix}
+			}
+			}
+			{\left|
+			\begin{pmatrix}
+				x\\0\\z
+			\end{pmatrix}
+			-
+			\begin{pmatrix}
+				0\\0\\z'
+			\end{pmatrix}
+			\right|^3} = \\
+			&= \frac{\mu_0 I'}{4\pi} \int_{-\infty}^\infty \diff z'\, \frac{
+			\begin{pmatrix}
+				0\cdot (z-z') - 1\cdot 0\\
+				1\cdot x - 0 \cdot  (z-z')\\
+				0\cdot 0 - 0 \cdot x
+			\end{pmatrix}
+			}{\sqrt{x^2 + z'^2}^3} = \frac{\mu_0 I'}{4\pi} \int_{-\infty}^\infty \diff z'\, \frac{x \vec{e}_y}{\lr{x^2 + z'^2}^{3/2}} =
+		\intertext{Klammere zur Lösung dieses Integrals $x^2$ aus dem Nenner aus und substituiere $u = \frac{z'}{x} \Rightarrow \diff z' = x\cdot \diff u$}
+			&= \frac{\mu_0 I'}{4\pi} \vec{e}_y \frac{\cancel{x}\vec{e}_y}{x^{\cancel{3}}} \int_{-\infty}^\infty \frac{(\cancel{x} \cdot \diff u)}{(1 + u^2)^{3/2}} =
+		\intertext{Substituiere nun $1+u^2 = 1+\tan^2v$, um die trigonometrische Identität $1+\tan^2v = \sec^2v$ verwenden zu können. Daraus folgt $u = \tan v \Rightarrow \diff u = \sec^2v \cdot \diff v$. Die Grenzen ergeben sich aus dem Arcustangens $v = \arctan u$.}
+			&= \frac{\mu_0 I'}{4\pi x} \int_{-\pi/2}^{\pi/2} \frac{(\sec^2v\cdot\diff v)}{(\sec^2 v)^{3/2}} = \frac{\mu_0 I'}{4\pi x} \vec{e}_y \int_{-\pi/2}^{\pi/2} \diff v\, \cos v = \frac{\mu_0 I'}{4\pi x} \vec{e}_y \left. \sin v\right|_{-\pi/2}^{\pi/2} = \\
+			&= \frac{\mu_0 I'}{4\pi x} \vec{e}_y \cdot (1-(-1)) = \frac{\mu_0 I'}{2\pi x} \vec{e}_y
+		\end{align*}
+	
+	Da $x$ der radiale Abstand des Probestroms vom Leiter und $\vec{e}_y$ wie der Geschwindigkeitsvektor eines um die $z$-Achse kreisenden Teilchens zeigt, lässt sich dieses Ergebnis zu
+		\begin{align*}
+			\vec{B}(\vec{x}) = \frac{\mu_0 I'}{4\pi x} \vec{e}_y \cdot (1-(-1)) = \frac{\mu_0 I'}{2\pi r} \vec{e}_\varphi
+		\end{align*}
+	
+	mit $r = \sqrt{x^2 + y^2}$ und $\varphi=\arctan\frac{y}{x}$ verallgemeinern. \hfill$\blacksquare$
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Kreisstrom}
+Das B-Feld, das von einem Kreisstrom mit Radius $R$ bezüglich der Symmetrieachse $z$ erzeugt wird ist
+	\begin{equation}
+		\vec{B}(\vec{x} = (0,0,z)) = \frac{\mu_0 I'}{2} \frac{R^2}{(R^2 + (z - z')^2)^{3/2}} \cdot \vec{e}_z,
+	\end{equation}
+
+wobei $z'$ die Höhe des Kreisstroms auf der $z$-Achse ist und der Strom im mathematisch positiven Sinn (gegen den Uhrzeigersinn) um die Symmetrieachse kreist.
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Grafiken/b-feld kreisstrom.pdf}
+	\includegraphics[width=0.6\textwidth]{Grafiken/b-feld kreisstrom 3d.pdf}
+	\caption{oben: Betrag des B-Felds in Abhängigkeit von der Position auf der Symmetrieachse $z$; Der Ringstrom liegt in der Ebene $z'=0\,\text{mm}$; unten: dreidimensionale Darstellung des B-Feldes, der rote Pfeil zeigt in Stromrichtung}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Verwende zur Berechnung das Biot-Savart-Gesetz und kartesische Koordinaten.\\
+	\\
+	Betrachte hier ausschließlich das B-Feld für $x=y=0$, d. h. $\vec{x} = (0,0,z)^T$.\\
+	Die Positionen der Ströme sind $\vec{x}' = (R\cos\varphi', R\sin\varphi',z')$.\\
+	Die infinitesimalen Wegelemente der Kreisströme lassen sich durch Parametrisierung durch den Polarwinkel $\varphi'$ als $\diff\vec{x}' = R (-\sin\varphi', \cos\varphi',0)\, \diff\varphi'$ schreiben.\\
+		\begin{align*}
+			\vec{B}(\vec{x} = (0,0,z)^T) &= \frac{\mu_0 I'}{4\pi}\int_0^{2\pi} \frac{
+			\begin{pmatrix}
+				-R \sin\varphi'\\
+				R \cos\varphi'\\
+				0
+			\end{pmatrix}\,\diff\varphi'
+			\times
+			\lreck{
+			\begin{pmatrix}
+				0\\
+				0\\
+				z
+			\end{pmatrix}
+			-
+			\begin{pmatrix}
+				R\cos\varphi'\\
+				R\sin\varphi'\\
+				z'
+			\end{pmatrix}
+			}
+			}{
+			\left|
+			\begin{pmatrix}
+				0\\
+				0\\
+				z
+			\end{pmatrix}
+			-
+			\begin{pmatrix}
+				R\cos\varphi'\\
+				R\sin\varphi'\\
+				z'
+			\end{pmatrix}
+			\right|^{3/2}
+			} = \\
+			&= \frac{\mu_0 I'}{4\pi} \int_0^{2\pi} \diff\varphi'\, \frac{
+			\begin{pmatrix}
+				-R \sin\varphi'\\
+				R \cos\varphi'\\
+				0
+			\end{pmatrix}
+			\times
+			\begin{pmatrix}
+				-R\cos\varphi'\\
+				-R\sin\varphi'\\
+				z-z'
+			\end{pmatrix}
+			}
+			{
+			\lr{R^2 + (z-z')^2}^{3/2}
+			}
+			=\\
+			&= \frac{\mu_0 I'}{4\pi} \int_0^{2\pi}
+			\frac{
+			\begin{pmatrix}
+				R\cos\varphi' \cdot (z-z') - 0 \cdot ...\\
+				0 \cdot ... - (-R\sin\varphi') \cdot (z-z')\\
+				-R\sin\varphi \cdot (-R\sin\varphi') - R\cos\varphi' \cdot (-R\cos\varphi')
+			\end{pmatrix}
+			}
+			{
+			\lr{R^2 + (z-z')^2}^{3/2}
+			} =\\
+			&= \frac{\mu_0 I'}{4\pi} \int_0^{2\pi} \diff\varphi'\,
+			\frac{
+			\begin{pmatrix}
+				R\cos\varphi' (z-z') \\
+				R\sin\varphi' (z-z') \\
+				R^2
+			\end{pmatrix}
+			}
+			{
+			\lr{R^2 + (z-z')^2}^{3/2}
+			} =\\
+			&= \frac{\mu_0 I'}{4\pi} \int_0^{2\pi} \diff\varphi'\,
+			\frac{
+			\begin{pmatrix}
+				0\\0\\2\pi R^2
+			\end{pmatrix}
+			}
+			{
+			\lr{R^2 + (z-z')^2}^{3/2}
+			}
+			=
+			\frac{\mu_0 I'}{2} \frac{R^2}{\lr{R^2 + (z-z')^2}^{3/2}} \cdot \vec{e}_z
+		\end{align*}
+\hrule
+}
+
+
+
+
+
+
+
+
+\newpage
+
+
+
+\subsubsection{Zylinderspule}
+Das B-Feld, das durch eine unendlich lange stromdurchflossene Zylinderspule mit der $z$-Achse als Symmetrieachse erzeugt wird ist
+	\begin{equation}
+		\vec{B} = 
+		\begin{cases}
+			\mu_0 I' n \cdot \vec{e}_z,& r < R \\
+			\vec{0}, & r > R
+		\end{cases}
+	\end{equation}
+
+mit dem Abstand zur Symmetrieachse $r = \sqrt{x^2 + y^2}$, Spulenradius $R$ und der Wickelungsdichte $n = \frac{N}{L}$.
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+	\includegraphics[width=0.75\textwidth]{Grafiken/b-feld zylinderspule.pdf}
+	}
+	\caption{Qualitative Darstellung des B-Feldes in einer unendlich langen Zylinderspule mit Symmetrieachse $z$}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	ges: B-Feld einer Zylinderspule mit $\frac{\vec{j}}{|\vec{j}|} = \vec{e}_\varphi$\\
+	\\
+	Zunächst werden Richtung und Argumente des B-Feldes mittels Symmetrieüberlegungen eingeschränkt:
+		\begin{itemize}
+			\item Da der Strom in $\varphi$-Richtung fließt, folgt aus dem Biot-Savart-Gesetz ($\diff\vec{B} = \diff\vec{x}' \times (\vec{x} - \vec{x}') \Rightarrow \diff\vec{B} \perp \diff\vec{x}'$), dass das Magnetfeld nicht in diese Richtung zeigen kann, d. h. 
+				$$B_\varphi = 0$$
+			
+			\item Aus der Translationsinvarianz in $z$-Richtung folgt, dass das B-Feld nicht von $z$ abhängen kann, d. h. 
+				$$\vec{B}(r,\varphi,z) = \vec{B}(r,\varphi)$$
+			
+			\item Aus der Rotationsinvarianz um die $z$-Achse folgt, dass das B-Feld nicht vom Winkel $\varphi$ abhängen kann, d. h. 
+				$$\vec{B}(r,\varphi) = \vec{B}(r)$$
+
+			\item Aus der Divergenzfreiheit des B-Felds folgt, dass das B-Feld $\vec{B}(r)$ keine $r$-Komponente haben kann. Denkt man sich bei einem Spulenquerschnitt ein kleines Volumen um einen Rand der Spule, so folgt aus $\int \vec\,\diff V\, {\nabla}\vec{B} = \int \diff\vec{A}\, \vec{B} \stackrel{!}{=} 0$, dass $\diff A\cdot (B_r(r_\text{innen}) - B_r(r_\text{außen}))=0$ sein muss. Da das B-Feld vom Abstand zur Symmetrieachse $r$ abhängt, kann dies nur für 
+				$$B_r = 0$$
+			erfüllt sein. 
+		\end{itemize}
+		
+	Somit hat das B-Feld die Form
+		\begin{align*}
+			\vec{B} = \vec{B}(r) = 
+			\begin{pmatrix}
+				0\\ 0\\ B(r)
+			\end{pmatrix}
+		\end{align*}
+
+	Betrachte nun eine Stokes'sche Schleife um eine Seite des Spulenquerschnittes und verwende das Ampère'sche Durchflutungsgesetz. Die Schleife soll dabei im Außenraum ins Unendlich gehen, damit das B-Feld dort null wird.
+		\begin{align*}
+			\int_A \diff\vec{A}\, (\vec{\nabla} \times \vec{B}) &= \oint_{\partial A} \vec{B} = \int \diff\vec{l}_1\, \vec{B} + 0 + \int \diff\vec{l}_3\, \vec{0} + 0 = \int B(r) \cdot \diff\vec{l}_1 \equiv B(r)\cdot L =\\
+		&= \mu_0 \int_A\, \diff\vec{A}\, \vec{j} = \mu_0\cdot N\cdot I' \\
+		\Leftrightarrow B(r) = \mu_0 I' \frac{N}{L} \equiv \mu_0 I' n \\
+		\Rightarrow \vec{B}(r) = \mu_0 I' n \cdot \vec{e}_z
+		\end{align*}
+	
+	Da das Ergebnis für alle Stokes'schen Schleifen gelten soll, muss das B-Feld überall im Außenraum verschwinden.
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Magnetischer Dipol}
+System eines Ringstroms in der Fernfeldnäherung, das das folgende B-Feld erzeugt
+	\begin{equation}
+		\vec{B}(\vec{x}) = \frac{\mu_0}{4\pi} \lr{ \frac{3(\vec{x} \cdot \vec{m}) \vec{x}}{|\vec{x}|^5} - \frac{\vec{m}}{|\vec{x}|^3} }
+	\end{equation}
+
+mit dem magnetischen Dipolmoment $\vec{m} = I\cdot \vec{A}$.
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+	\includegraphics[width=0.75\textwidth]{Grafiken/b-feld magnetischer dipol.pdf}
+	}
+	\caption{B-Feld eines magnetischen Dipols mit $A = 10^{-6}\,\text{m}^2$ und $I=1\,\text{mA}$. Die blaue Ebene deutet die vom Strom eingeschlossene Fläche an. Der schwarze Pfeil zeigt entlang der Flächennormalen.}
+\end{figure}
+
+\textcolor{red}{Kraft und Drehmoment ergänzen}
+
+
+\newpage
+
+
+\subsubsection{Helmholtz-Spule}
+Die \textit{Helmholtz-Spule} ist eine Anordnung zweier kurzer Zylinderspulen mit Radius $R$ im Abstand $R$, die ein näherungsweise homogenes B-Feld
+	\begin{equation}
+		\vec{B}(z) = \frac{\mu_0 I'}{2} R^2 N \lr{ \frac{1}{(R^2 + (z+R/2)^2)^{3/2}} + \frac{1}{(R^2 + (z-R/2)^2)^{3/2}} } \cdot \vec{e}_z
+	\end{equation}
+
+Am Punkt $z=0$ zwischen der Helmholtz-Spule beträgt das B-Feld
+	\begin{equation}
+		B_z(z=0) = \frac{8}{5\sqrt{5}} \cdot \mu_0 I' \cdot \frac{N}{R}
+	\end{equation}
+
+erzeugen.
+
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+	\includegraphics[width=0.75\textwidth]{Grafiken/b-feld helmholtzspule.pdf}
+	}
+	\caption{B-Feld einer Helmholtz-Spule mit $N=150$ Windungen, $I=1\,\text{mA}$}
+\end{figure}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Zur Beschreibung der Helmholtz-Spule wird das Ergebnis des Kreisstroms verwendet. Für jede Spule der Helmholtz-Spule wird die Ausdehnung vernachlässigt und deshalb durch einen $N$-fach verstärkten Kreisstrom genähert. Bei der Positionierung der Magnetfelder muss lediglich $z'_{1,2} = \pm R/2$ gewählt werden.\\
+	\\
+	Der Abstand von $R$ zwischen den beiden Spulen folgt aus der Forderung, dass die zweite Ableitung des B-Felds bei $z=0$ verschwinden soll, also das Feld möglichst flach werden soll.
+		\begin{align*}
+			\left.\frac{\diff^2 B_z(z)}{\diff z^2} \right|_{z=0} = \frac{\mu_0 I'}{2} R^2 N \lr{ -\frac{6}{(R^2 + \alpha^2)^{5/2}} - \frac{30\alpha^2}{(R^2 + \alpha^2)^{7/2}} } &\stackrel{!}{=} 0 \\
+			\Leftrightarrow 24\alpha^2 -6R^2 &= 0\\
+			\Leftrightarrow \alpha &= \frac{R}{2} \qquad\blacksquare
+		\end{align*}
+
+\hrule
+}
+
+
+\newpage
+
+
+\section{Elektrodynamik}
+...
+
+
+\subsection{Grundlegende Definitionen}
+	\begin{itemize}
+		\item \textbf{Faraday'sche Induktionsgesetz}\\
+		Aus den Faraday'schen Experimenten zu zeitlich veränderlichen Strömen in Magnetfeldern ergibt sich die Gesetzmäßigkeit
+			\begin{equation}
+				\vec{\nabla} \times \vec{E} = -\frac{\partial\vec{B}}{\partial t}
+			\end{equation}
+
+
+		\item \textbf{Erweitertes Durchflutungsgesetz}\\
+		Maxwell erweiterte schließlich noch das Ampère'sche Durchflutungsgesetz zum \textit{erweiterten Durchflutungsgesetz}
+			\begin{equation}
+				\vec{\nabla} \times \vec{H} = \vec{\bar{j}}_\text{frei} + \frac{\partial \vec{D}}{\partial t}
+			\end{equation}
+		
+		um den Widerspruch zwischen Ampère'sche Durchflutungsgesetz und der Ladungserhaltung in Form der Kontinuitätsgleichung aufzulösen.\\
+	Diese Überlegung muss auch auf das Vakuum übertragen werden.
+	\end{itemize}
+
+
+
+
+
+
+\newpage
+
+
+\subsection{Elektromagnetische Wellen}
+...\\
+\\
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{lineares, homogenes Medium}
+		
+		
+		\item \textbf{keine freien Ladungen und Ströme}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Wellengleichungen}
+			\begin{align}
+				\lr{ \frac{1}{c_m^2}\frac{\partial^2}{\partial t^2} - \Delta } \vec{E} &= \vec{0} \\
+				\lr{ \frac{1}{c_m^2}\frac{\partial^2}{\partial t^2} - \Delta } \vec{B} &= \vec{0}
+			\end{align}
+		
+		mit $c_m := c \cdot \frac{1}{n} := \sqrt{ \frac{1}{\varepsilon_0 \mu_0} } \cdot \sqrt{ \frac{1}{ \varepsilon_r \mu_r } }$.
+		
+		
+		\item \textbf{Wellenfront in Richtung $\vec{k}$}\\
+		Die Lösung beschreibt eine Wellenfront, da
+			\begin{equation}
+				\vec{k}\cdot \vec{x}
+			\end{equation}
+		
+		$\forall \vec{x}$ denselben Wert hat, die senkrecht zu $\vec{k}$, dem sogenannten \textbf{Wellenvektor}, steht.\\
+		Diese Wellenfront kann je nach Lösung die Form einer ebene Welle oder einer Kugelwelle annehmen.
+
+
+		\item \textbf{Geschwindigkeit $c_m$}\\
+		Betrachtet man einen Punkt der Wellenfront zu zwei verschiedenen Zeitpunkten und dividiert durch die Zeitdifferenz, so folgt, dass sich die Ebene mit der Geschwindigkeit $c_m$ ausbreitet:
+			\begin{equation}
+				v = \frac{\omega}{|\vec{k}|} \stackrel{\comment{\omega}}{=} c_m.
+			\end{equation}
+
+
+		\item \textbf{Wellenlänge $\lambda$}\\
+		Der räumliche Abstand zwischen zwei Ebenen gleicher Phase ist
+			\begin{equation}
+				\lambda = \frac{2\pi}{|\vec{k}|}.
+			\end{equation}
+
+
+		\item \textbf{Periodendauer $T$} bzw. \textbf{Frequenz $\nu$} bzw. \textbf{Kreisfrequenz $\omega$}\\
+		Betrachtet man einen festen Punkt, so erreicht die Lösung nach der Zeit
+			\begin{equation}
+				T = \frac{2\pi}{\omega}
+			\end{equation}
+
+		erneut denselben Wert, was der Frequenz
+			\begin{equation}
+				\nu = \frac{\omega}{2\pi}
+			\end{equation}
+		
+		entspricht.\\
+		\\
+		$\omega$ ist die Kreisfrequenz, d. h. die zeitliche Änderung des Winkels zwischen Feldvektor und einem Refernzpunkt.
+	\end{itemize}
+
+
+
+
+
+
+\newpage
+
+
+\subsubsection{Ebene Welle}
+...\\
+\\
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{Propagationsrichtung $z$}
+	\end{itemize}
+
+
+\fbox{Resultate}
+\begin{itemize}
+	\item \textbf{E- und B-Feld}
+		\begin{align}
+			\vec{E} &=
+			\begin{pmatrix}
+				E_x \\ E_y \\ E_z
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				E_{0x} \cos(k z - \omega t) \\
+				E_{0y} \cos(k z - \omega t + \delta) \\
+				0
+			\end{pmatrix} \\
+			\vec{B} &=
+			\begin{pmatrix}
+				B_x \\ B_y \\ B_z
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				E_{0y} \cos(k z - \omega t + \delta) \\
+				-E_{0x} \cos(k z - \omega t) \\
+				0
+			\end{pmatrix}	
+		\end{align}
+	
+	Lösungen für E- und B-Feld mit $\omega = c_m \cdot |\vec{k}|$.
+
+
+		\item \textbf{Polarisationen}
+			\begin{itemize}
+				\item \textbf{Lineare Polarisation}\\
+				Die Felder schwingen entlang einer Geraden, d. h.
+					\begin{equation}
+						\delta = 0
+					\end{equation}
+					
+				
+				\item \textbf{Zirkulare Polarisation}\\
+				Die Felder schwingen in einem Kreis
+					\begin{equation}
+						\delta = \frac{\pi}{2}\cdot n
+					\end{equation}
+				
+				mit $n\in N$.
+				
+				
+				\item \textbf{Elliptische Polarisation}\\
+				Die Felder schwingen in einer Ellipse
+					\begin{equation}
+						\delta \in \mathbb{R}\setminus \left\{0,\frac{\pi}{2} \right\}
+					\end{equation}
+			\end{itemize}
+		\end{itemize}
+
+
+
+
+
+\newpage
+
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Grafiken/em welle lineare polarisation 2d.pdf}
+	\includegraphics[width=0.4\textwidth]{Grafiken/em welle lineare polarisation 3d.pdf}\\
+	\includegraphics[width=0.4\textwidth]{Grafiken/em welle zirkulare polarisation 2d.pdf}
+	\includegraphics[width=0.4\textwidth]{Grafiken/em welle zirkulare polarisation 3d.pdf}\\
+	\includegraphics[width=0.4\textwidth]{Grafiken/em welle elliptische polarisation 2d.pdf}
+	\includegraphics[width=0.4\textwidth]{Grafiken/em welle elliptische polarisation 3d.pdf}
+	\caption{Darstellung der drei Polarisationen elektromagnetischer Wellen. Auf der linken Seite sind jeweils die Bewegung von E- und B-Feld an einem festen Punkt in der Zeit dargestellt. Auf der rechten Seite ist die Propagation der em. Welle im 3d Raum dargestellt; oben: lineare Polarisation; mittig: zirkulare Polarisation; unten: elliptische Polarisation}
+\end{figure}
+
+
+\newpage
+
+
+\section{Appendix A: Relativistische Elektrodynamik}
+
+
+\newpage
+
+
+\section{Glossar}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		Coulomb-Kraft &  \\
+	\hline
+		Elektrisches Feld (E-Feld) &  \\
+	\hline
+		Elektrisches Potential &  \\
+	\hline
+		Elektrostatik &  \\
+	\hline
+		Helmholtz-Spule &  \\
+	\hline
+		Magnetfeld &  \\
+	\hline
+		Magnetisierung &  \\
+	\hline
+		Magnetostatik &  \\
+	\hline
+		Multipolentwicklung & Enwicklung des elektrischen Potentials $\phi$ einer kontinuierlichen Ladungsverteilung $\rho$ bzw. dem Vektorpotential $\vec{A}$ einer kontinuierlichen Stromdichte $\vec{j}$ unter der Fernfeldnäherung
+			{\begin{align*}
+			\phi(\vec{x}) &= \frac{1}{4\pi\varepsilon_0} \lr{ \frac{q}{|\vec{x}|} + \frac{\vec{x}\vec{p}}{|\vec{x}^3|} + \frac{1}{2} \sum_{i,j=1}^3 Q_{ij} \frac{x_i x_j}{|\vec{x}^5|} + ... } \\
+			\vec{A}(\vec{x}) &= \mu_0  \lr{ \frac{\vec{m} \times \vec{x}}{4\pi |\vec{x}|^3} + ... }
+			\end{align*}}
+		mit dem Monopolmoment $q$, Dipolmoment $\vec{p}$, Quadropolmoment $Q_{ij}$, etc. 
+			{\begin{align*}
+				q &= \int_{V'} \diff V'\, \rho(\vec{x}') \\
+				\vec{p} &= \int_{V'} \diff V'\, \vec{x}'\cdot \rho(\vec{x}') \\
+				Q_{ij} &= \int_{V'} \diff V'\, \rho(\vec{x}') \cdot \lr{ 3x_i' x_j' - \vec{x}'^2 \delta_{ij} }
+			\end{align*}}
+		bzw. dem magnetischen Moment
+			$$\vec{m} = \frac{1}{2} \int_{V'} \diff V'\, \vec{x}' \times \vec{j}(\vec{x}')$$	\\
+		\hline
+			Polarisation &  \\
+		\hline
+			Stromdichte & $$\vec{j}(\vec{x},t) := \rho(\vec{x},t)\cdot \vec{v}(\vec{x},t)$$ \\
+	\hline\hline
+\end{xltabular}
+\end{document}

@@ -1,0 +1,1233 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+\usepackage{slashed}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Theoretische Physik IV: Fortgeschrittene Quantenmechanik}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section{Grundlegende Konzepte und Definitionen}
+\subsection{Dirac-Notation}
+Die Notation der Eigenwert-Gl. in Dirac-Notation ist
+	\begin{equation}
+		\hat{A}\ket{a_i} = a_i\ket{a_i}
+	\end{equation}
+
+Bilden die diskreten (kontinuierlichen) Eigenzustände ein vollständiges System, so kann die Vollständigkeitsrelation geschrieben werden als
+	\begin{align}
+		\mathbb{1} &= \sum_{i} \ket{a_i}\bra{a_i}\\
+		\mathbb{1} &= \int \diff a\ \ket{a}\bra{a}
+	\end{align}
+
+Die Schrödinger-Gleichung in Dirac-Notation lautet
+	\begin{equation}
+		i\hbar\partial_t\ket{\psi} = \hat{H}\ket{\psi}.
+	\end{equation}
+
+
+\newpage
+
+
+\subsection{Zeitentwicklung in der Quantenmechanik}
+Die Zeitentwicklung wird durch den unitären Zeitentwicklungsoperator $U(t,t_0)$ beschrieben
+	\begin{equation}
+		\ket{\psi(t)} = U(t,t_0)\ket{\psi(t_0)}
+	\end{equation}
+
+Die Lösung des Zeitentwicklungsoperators erhält man, in dem man die Schrödinger-Gl. integriert. Dabei gibt es zwei Fälle, den Fall des zeitunabhängigen und des zeitabhängigen Hamilton-Operators\\
+\\
+\textbf{Fall 1) Zeitunabhängiger Hamilton-Operator $\hat{H}$}\\
+Die Schrödinger-Gl. mit $\ket{\psi(t)} = U(t,t_0)\ket{\psi(t_0)}$ wird gelöst durch
+	\begin{equation}
+		U(t,t_0) = e^{-\frac{i}{\hbar}\hat{H}\cdot (t-t_0)}
+	\end{equation}
+
+\textbf{Fall 2) Zeitabhängiger Hamilton-Operator $\hat{H}(t)$}\\
+Die Schrödinger-Gl. mit $\ket{\psi(t)} = U(t,t_0)\ket{\psi(t_0)}$ wird gelöst durch die \text{Dyson-Reihe}, die auch mit dem Zeitordnungsoperator $\hat{T}$ ausgedrückt werden kann.
+	\begin{align}
+		U(t,t_0) &= \mathbb{1} + \sum_{n=1}^\infty \lr{ -\frac{i}{\hbar} }^n \int_{t_0}^t \diff t_1 ... \int_{t_0}^{t_{n-1}} \diff t_{n} \hat{H}(t_1) \cdot ... \cdot \hat{H}(t_n) \\
+		&= \hat{T} \exp\lr{ -\frac{i}{\hbar}\int_{t_0}^t \diff t' \hat{H}(t') }
+	\end{align}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	In diesem Fall muss die Schrödinger-Gl. auf beiden Seiten über die Zeit integriert werden. \textcolor{gruen}{$t_1$ spielt dabei die Rolle von $t'$, ist also nur eine Umschreibung, weil $t$ eine Integrationsgrenze ist.}
+		\begin{align*}
+			\int_{t_0}^t \diff t_1 \partial_{t_1} U(t_1,t_0) &= U(t,t_0) - \underbrace{U(t_0,t_0)}_{\mathbb{1}} = -\frac{i}{\hbar} \int_{t_0}^t \diff t_1 \hat{H}(t_1) U(t_1,t_0) \\
+			\Leftrightarrow U(t,t_0) &= \mathbb{1} - \frac{i}{\hbar} \int_{t_0}^t \diff t_1 \hat{H}(t_1) U(t_1,t_0)
+		\intertext{Setzt man für $U(t_1,t_0)$ im Integral die Formel für $U(t,t_0)$ mit $t\to t_1$ ein \textcolor{gruen}{(und $t_1\to t_2$ wegen der Integrationsgrenze)}, ergibt sich}
+			\Rightarrow U(t,t_0) &= \mathbb{1} - \frac{i}{\hbar} \int_{t_0}^t \diff t_1 \hat{H}(t_1) \lr{ \mathbb{1} - \frac{i}{\hbar} \int_{t_0}^{t_1} \diff t_2 \hat{H}(t_2) U(t_2,t_0) } =\\
+			&= \mathbb{1} - \frac{i}{\hbar} \int_{t_0}^t \diff t_1 \hat{H}(t_1) - \mathbb{1} - \lr{ \frac{i}{\hbar} }^2 \int_{t_0}^t \diff t_1 \hat{H}(t_1) \int_{t_0}^{t_1} \diff t_2 \hat{H}(t_2) U(t_2,t_0)
+		\end{align*}
+
+	$n$-faches Wiederholen führt auf die Dyson-Reihe.	
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Bilder der Quantenmechanik}
+Die Bilder sind Formalismen, die aus einem bekannten Anfangszustand $\ket{\psi(t_0)}$ die Information des Systems (z.B. Erwartungswert, Aufenthaltswahrscheinlichkeit) zu einem späteren Zeitpunkt $t$ entwickeln. 
+
+\begin{itemize}
+	\item \textbf{Schrödinger-Bild}\\
+	Im Schrödinger-Bild entwickelt man den Anfangszustand $\ket{\psi(t_0)}$ mit dem Zeitentwicklungsoperator (Dyson-Reihe), während der Operator unverändert bleibt.
+		\begin{align}
+			\hat{A}_S &= \hat{A} \\
+			\ket{\psi_S(t)} &= U(t,t_0) \ket{\psi(t_0)} \\
+			\Rightarrow \braket{\hat{A}} &= \braket{\psi_S(t) | \hat{A}_S | \psi_S(t)} = \braket{ \psi(t_0) U^\dagger(t,t_0) | \hat{A} | U(t,t_0) \psi(t_0) }  \notag
+		\end{align}
+
+
+	\item \textbf{Heisenberg-Bild}\\
+	Im Heisenberg-Bild verwendet man einen zeitabhängigen Operator und lässt den Zustand unverändert.
+		\begin{align}
+			\ket{\psi_H(t)} &= \ket{\psi(t_0)} \\
+			\hat{A}_H &= U^\dagger(t,t_0) \hat{A} U(t,t_0) \\
+			\Rightarrow \braket{\hat{A}} &= \braket{\psi_H(t) | \hat{A}_H | \psi_H(t)} = \braket{ \psi(t_0) | U^\dagger(t,t_0) \hat{A} U(t,t_0) | \psi(t_0) } \notag
+		\end{align}
+
+\textcolor{gruen}{Der Operator im Heisenberg-Bild $\hat{A}_H$ kann auch gefunden werden, indem die Heisenberg-Gleichung gelöst wird. Sie entspricht der Schrödinger-Gleichung im Heisenberg-Bild.
+		\begin{equation}
+			\frac{\diff}{\diff t}\hat{A}_H = \frac{1}{i\hbar} [\hat{A}_H,\hat{H}_H] + (\partial_t \hat{A})_H
+		\end{equation}
+}
+
+
+	\item \textbf{Wechselwirkungsbild / Dirac-Bild}\\
+	Im Dirac-Bild teilt man den Hamilton-Operator in einen ungestörten und einen störenden Operator auf $\hat{H} = \hat{H}_0 + \hat{H}'$. Man entwickelt  den Anfangszustand $\ket{\psi(t_0)}$ mit dem Zeitenwicklungsoperator, der den Stör-Hamilton-Operator $\hat{H}'$ trägt, und transformiert den Operator mit dem Zeitenwicklungsoperator, der den ungestörten Hamilton-Operator $\hat{H}_0$ trägt.
+		\begin{align}
+			\ket{\psi_I(t)} &= U'(t,t_0) \ket{\psi(t_0)} = e^{-\frac{i}{\hbar} \hat{H}'(t-t_0)} \ket{\psi(t_0)} \\
+			\hat{A}_I(t) &= U_0^\dagger(t,t_0) \hat{A} U_0(t,t_0) = e^{\frac{i}{\hbar} \hat{H}_0(t-t_0)} \hat{A} e^{-\frac{i}{\hbar} \hat{H}_0(t-t_0)} \\
+			\Rightarrow \braket{\hat{A}} &= \braket{\psi_I(t) | \hat{A}_I | \psi_I(t)} = \braket{ \psi(t_0) | U^\dagger(t,t_0) \hat{A} U(t,t_0) | \psi(t_0) } \notag
+		\end{align}
+
+\textcolor{gruen}{Der Operator im Dirac-Bild $\hat{A}_I(t)$ kann auch gefunden werden, indem die angepasste Heisenberg-Gleichung ($\hat{A}_H\to \hat{A}_I,\ \hat{H}_H\to \hat{H}_0$) gelöst wird. Sie entspricht der Schrödinger-Gleichung im Dirac-Bild.
+		\begin{equation}
+			\frac{\diff}{\diff t}\hat{A}_I = \frac{1}{i\hbar} [\hat{A}_I,\hat{H}_0] + (\partial_t \hat{A})_I
+		\end{equation}
+}
+
+\end{itemize}
+
+
+\newpage
+
+
+\subsection{Dichtematrix}
+Die \textit{Dichtematrix} beschreibt die quantenmechanische gepaart mit der statistischen Unsicherheit eines Ensembles. Aus ihr lassen sich Erwartungswert und Wahrscheinlichkeiten für reine und, entscheidend, gemischten Zuständen bestimmen.\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{Dichtematrix}\\
+		Die Dichtematrix wird wie folgt gebildet
+			\begin{equation}
+				\hat{\rho} = \sum_i p_i \ket{\psi_i} \bra{\psi_i},
+			\end{equation}
+		
+		wobei $p_i$ die klassische Wahrscheinlichkeit ist den Zustand $\ket{\psi_i}$ zu ''ziehen''.
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Erwartungswert}\\
+		Der Erwartungswert einer Observablen $\hat{O}$ bestimmt sich mittels
+			\begin{equation}
+				\braket{O} = \text{Sp}(\hat{\rho}\hat{O}),
+			\end{equation}
+		
+		wobei Sp die Spurbildung notiert.\\
+	
+	
+		\item \textbf{von-Neumann-Gleichung}\\
+		Die zeitliche Entwicklung der Dichtematrix wird druch die \textbf{von Neumann-Gleichung}
+			\begin{equation}
+				\frac{\diff\hat{\rho}}{\diff t} = \frac{1}{i\hbar} [\hat{H}, \hat{\rho}]
+			\end{equation}
+		
+		beschrieben.
+		
+
+		\item \textbf{Unterscheidungskriterium reiner/gemischter Zustand}\\
+		Das Quadrat der Dichtematrix unterscheidet sich bei gemischten Zuständen von der unquadrierten Matrix. Dies ist bei reinen Zuständen nicht der Fall:
+			\begin{equation}
+				\hat{\rho}^2 =
+				\begin{cases}
+					\neq \hat{\rho}, & \text{gemischter Zustand} \\
+					= \hat{\rho}, & \text{reiner Zustand}
+				\end{cases}
+			\end{equation}
+	\end{itemize}
+
+
+\textcolor{red}{ERGÄNZEN Bild Vgl. Saenz}
+
+
+%\fbox{Eigenschaften}
+%	\begin{itemize}
+%		\item \textbf{Normiertheit}
+%			\begin{equation}
+%				\text{Sp}(\hat{\rho}) = 1
+%			\end{equation}
+%		
+%		
+%		\item \textbf{Hermitizität}
+%			\begin{equation}
+%				\hat{\rho}^\dagger = \hat{\rho}
+%			\end{equation}
+%		
+%		
+%		\item \textbf{Positive Definitheit}
+%		Die Eigenwerte einer Dichtematrix sind immer größer gleich Null, da diese den klassischen Wahrscheinlichkeiten entsprechen.
+%	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung von Neumann-Gleichung}\\
+	zz: $\frac{\diff\hat{\rho}}{\diff t} = \frac{1}{i\hbar} [\hat{H}, \hat{\rho}]$\\
+	\\
+	Betrachte die zeitliche Ableitung der Defintion der Dichtematrix:
+		\begin{align*}
+			\frac{\diff \hat{\rho}}{\diff t} &= \frac{\diff}{\diff t} \sum_i p_i \ket{\psi_i}\bra{\psi_i} = \sum_i p_i \lr{ \frac{\diff\ket{\psi_i}}{\diff t} \bra{\psi_i} + \ket{\psi_i} \cdot \frac{\diff\bra{\psi_i}}{\diff t} }
+		\end{align*}
+
+	Verwende nun die Schrödinger-Gleichung für $\psi_i$, indem nach der Zeitableitung umgestellt und in die soeben gefundene Gleichung eingesetzt wird:
+		\begin{align*}
+			i\hbar\partial_t \ket{\psi_i} &= \hat{H}\ket{\psi_i} \\
+			\Leftrightarrow \partial_t \ket{\psi_i} &= \frac{1}{i\hbar} \hat{H} \ket{\psi} \\
+			\Leftrightarrow \partial \bra{\psi_i} &= -\frac{1}{i\hbar} \partial_t \bra{\psi_i} \hat{H}
+		\end{align*}
+
+	Einsetzen in die zuvor gefundene Gleichung ergibt:
+		\begin{align*}
+			\frac{\diff\hat{\rho}}{\diff\rho} &= \sum_i p_i \lr{ \frac{1}{i\hbar}\hat{H} \ket{\psi_i} - \frac{1}{i\hbar} \ket{\psi_i} \bra{\psi_i} \hat{H} } = \\
+			&= \frac{1}{i\hbar} \lr{ \hat{H} \sum_i p_i \ket{\psi_i} \bra{\psi_i} - \sum_i p_i  \ket{\psi_i} \bra{\psi_i} \hat{H} } = \\
+			&= \frac{1}{i\hbar} \lr{ \hat{H} \hat{\rho} - \hat{\rho} \hat{H} } = \\
+			&= \frac{1}{i\hbar} [\hat{H},\hat{\rho}] \qquad\blacksquare
+		\end{align*}
+
+\hrule
+}
+
+
+\newpage
+
+
+\section{Näherungsmethoden}
+\subsection{Zeitunabhängige Störungstheorie}
+\subsubsection{Nichtentartete Zustände}
+Betrachte den Hamilton-Operator $\hat{H} = \hat{H}_0 + \lambda \hat{H}'$ mit den Eigenwert-Gleichungen $\hat{H} \ket{n'} = E_n \ket{n'}$ und $\hat{H}_0 \ket{n} = E_n^{(0)} \ket{n}$.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Energie}\\
+		Die Energie $i$-ter Ordnung Störungstheorie ist die 
+			\begin{equation}
+				E_n^{\text{i.ST}} = E_n^{(0)} + \lambda E_n^{(1)} + \lambda^2 E_n^{(2)} + ... + \lambda^i E_n^{(i)},
+			\end{equation}
+		
+		mit den Korrekturtermen
+			\begin{align}
+				E_n^{(1)} &= \braket{n | \hat{H}' | n} \\
+				E_n^{(2)} &= \sum_{k\neq n} \frac{ |\braket{k | \hat{H}' | n}|^2 }{E_n^{(0)} - E_k^{(0)}}.
+		\end{align}
+
+
+		\item \textbf{Zustand}
+			\begin{align}
+				\ket{n^{\text{i.ST}}} &= N(\lambda) \lr{ \ket{n} + \lambda \sum_{k\neq n} c_{nk}^{(1)} \ket{k} },
+			\end{align}
+		
+		mit dem Normierungskoeffizienten $N(\lambda)$ sowie dem Koeffizienten
+			\begin{equation}
+				c_{nk}^{(1)} = \frac{\braket{k | \hat{H}' | n}}{E_n^{(0)} - E_k^{(0)}}.
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $\hat{H} = \frac{1}{2m}(\hat{p}_1^2 + \hat{p}_2^2) + \frac{1}{2}m\omega^2(\hat{x}_1^2 + \hat{x}_2^2) + \lambda\frac{m^2\omega^3}{\hbar}\hat{x}_1^2\hat{x}_2^2$, \qquad 	ges: $E_{00}^\text{2. ST}$
+		\begin{align*}
+			E_{00}^{(0)} &= \braket{0 0 | \hat{H}^{(0)} | 0 0} = \hbar\omega(0 + 0 + 1) = \hbar\omega \\
+			E_{00}^{(1)} &= \braket{0 0 | \hat{H}' | 0 0} = \frac{m^2\omega^3}{\hbar} \braket{0 | \hat{x}_1^2 | 0} \braket{0 | \hat{x}_2^2| 0} = \frac{m^2\omega^3}{\hbar} \lr{\frac{1}{2}\frac{\hbar}{m\omega}}^2 = \frac{1}{4}\hbar\omega \\
+			E_{00}^{(2)} &= \sum_{\substack{k_1,k_2\\ (k_1,k_2)\neq (0,0)}} \frac{|\braket{k_1 k_2 | \hat{H}' | 0 0}|^2}{E_{00}^{(0)} - E_{k_1 k_2}^{(0)}} = \\
+			&= \sum_{\substack{k_1,k_2\\ (k_1,k_2)\neq (0,0)}} \frac{ \left| \frac{m^2\omega^3}{\hbar} \frac{1}{4}\frac{\hbar^2}{m^2\omega^2} (\sqrt{2}\delta_{n_1,2} + \delta_{n_1,0})(\sqrt{2}\delta_{n_2,2} + \delta_{n_2,0}) \right|^2 }{ \hbar\omega - \hbar\omega(k_1 + k_2 + 1) } = \\
+			 &= \sum_{\substack{k_1,k_2\\ (k_1,k_2)\neq (0,0)}} \frac{ \left| \frac{1}{4}\hbar\omega \lr{ 2\delta_{n_1,2}\delta_{n_2,2} + \sqrt{2}\delta_{n_1,2}\delta_{n_2,0} + \sqrt{2}\delta_{n_1,0}\delta_{n_2,2} + \delta_{n_1,0}\delta_{n_2,0} } \right|^2 }{-\hbar\omega( k_1 + k_2)} = \\
+			 &= \frac{1}{16} \hbar\omega \lr{ \frac{4}{-4} + \frac{2}{-2} + \frac{2}{-2} } = -\frac{3}{18}\hbar\omega \\
+			 \Rightarrow E_{00}^\text{2. ST} &= \hbar\omega\lr{ 1 + \frac{1}{4} \lambda - \frac{3}{18} \lambda^2 }
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Verwende für die Eigenzustände $\ket{n'}$ sowie die Energien $E_n$ jeweils einen Potenzreihenansatz mit dem Entwicklungskoeffizienten $\lambda$.\\
+	 Entwickle die Reihenglieder der Eigenzustände jeweils in der Basis der Eigenzustände des ungestörten Hamilton-Operators $\hat{H}_0$ $\{\ket{k}\}$:
+	\begin{align*}
+		E_n &= E_n^{(0)} + \lambda E_n^{(1)} + \lambda^2 E_n^{(2)} + ... \\
+		\ket{n'} &= N(\lambda) \lr{ \ket{n} + \lambda \ket{n^{(1)}} + \lambda^2 \ket{n^{(2)}} + ... } = \\
+			&= N(\lambda) \lr{ \ket{n} + \lambda \sum_{k\neq n} c_{nk}^{(1)}\ket{k} + \lambda^2 \sum_{k\neq n} c_{nk}^{(2)}\ket{k} + ... }
+	\end{align*}
+
+	Einsetzen der Ansätze in die Eigenwert-Gl. von $\hat{H} = \hat{H}_0 + \lambda\hat{H}'$ liefert
+	\begin{align*}
+		(\hat{H}_0 + \lambda\hat{H}') \ket{n'} &= E_n \ket{n'} \\
+		(\hat{H}_0 + \lambda\hat{H}') \cancel{N(\lambda)} \lr{ \ket{n} + \lambda \sum_{k\neq n} c_{nk}^{(1)}\ket{k} + ... } &= \lr{ E_n^{(0)} + \lambda E_n^{(1)} + ... } \cancel{N(\lambda)} \lr{ \ket{n} + \lambda \sum_{k\neq n} c_{nk}^{(1)}\ket{k} + ... }
+	\intertext{Koeffizientenvergleich nach \fbox{$\lambda^0$}, \fbox{$\lambda^1$} und \fbox{$\lambda^2$} ergeben}
+		\hat{H}_0 \ket{n} &= E_n^{(0)} \ket{n} \\
+		\hat{H}_0 \sum_{k\neq n} c_{nk}^{(1)} \ket{k} + \hat{H}' \ket{n} &= E_n^{(0)} \sum_{k\neq n} c_{nk}^{(1)} \ket{k} + E_n^{(1)} \ket{n} \\
+		\hat{H}_0 \sum_{k\neq n} c_{nk}^{(2)} \ket{k} + \hat{H}' \sum_{k\neq n} c_{nk}^{(1)} \ket{k} &= E_n^{(0)} \sum_{k\neq n} c_{nk}^{(2)} \ket{k} + E_n^{(1)} \sum_{k\neq n} c_{nk}^{(1)} \ket{k} + E_n^{(2)} \ket{n}
+	\intertext{Multipliziere \fbox{$\lambda^1$} mit $\bra{n}$ von links.}
+		\Rightarrow \underbrace{\bra{n} \hat{H}_0}_{=E_n^{(0)} \bra{n}} \sum_{k\neq n} c_{nk}^{(1)} \ket{k} + \bra{n} \hat{H}' \ket{n} &= 0  + E_n^{(1)} \\
+		\Leftrightarrow E_n^{(1)} &= \braket{n | \hat{H}' | n}
+	\intertext{Multipliziere \fbox{$\lambda^1$} mit $\bra{k'}$ von links.}
+		\Rightarrow \underbrace{\bra{k'} \hat{H}_0}_{=E_{k'}^{(0)} \bra{k'}} \sum_{k\neq n} c_{nk}^{(1)} \ket{k} + \bra{k'} \hat{H}' \ket{n} &= E_n^{(0)} \sum_{k\neq n} c_{nk}^{(1)} \underbrace{\braket{k' | k}}_{=\delta_{k',k}} + 0 \\
+		E_k^{(0)} c_{nk}^{(1)} + \bra{k'} \hat{H}' \ket{n} &= E_n^{(0)} c_{nk}^{(1)} \\
+		\Leftrightarrow c_{nk}^{(1)} &= \frac{\braket{k | \hat{H}' | n}}{E_n^{(0)} - E_k^{(0)}}
+	\intertext{Multipliziere \fbox{$\lambda^2$} mit $\ket{n}$ von links.}
+		0 + \bra{n} \hat{H}' \sum_{k\neq n} c_{nk}^{(1)} \ket{k} &= 0 + 0 + E_n^{(2)} \\
+		\Leftrightarrow E_n^{(2)} &= \sum_{k\neq n} c_{nk}^{(1)} \braket{n | \hat{H}' | k} \stackrel{\comment{c_{nk}^{(1)}}}{=} \sum_{k\neq n} \frac{|\braket{n | \hat{H}' | k}|^2}{E_n^{(0)} - E_k^{(0)}}
+	\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Entartete Zustände}
+Für entartete Zustände $\ket{a_j\ n}$ \textcolor{gruen}{(wobei $a_j$ die Entartung zählt)} sind die Energiekorrekturen in Störungstheorie 1. Ordnung die Eigenwerte des folgenden Eigenwertproblems.
+	\begin{equation}
+		\underline{h}\cdot\vec{\alpha} = E_n^{(1)}\cdot \vec{\alpha},
+	\end{equation}
+
+wobei die Matrix $\underline{h}$ die Elemente $h_{ij} = \braket{a_i\ n | \hat{H}' | a_j\ n}$ trägt, also die Form
+	\begin{equation}
+		\underline{h} =
+		\begin{pmatrix}
+			\braket{a_1\ n | \hat{H}' | a_1\ n} & \braket{a_1\ n | \hat{H}' | a_2\ n} & \braket{a_1\ n | \hat{H}' | a_3\ n} & ... \\
+			\braket{a_2\ n | \hat{H}' | a_1\ n} & \braket{a_2\ n | \hat{H}' | a_2\ n} & \braket{a_2\ n | \hat{H}' | a_3\ n} & ... \\
+			\braket{a_3\ n | \hat{H}' | a_1\ n} & \braket{a_3\ n | \hat{H}' | a_2\ n} & \braket{a_3\ n | \hat{H}' | a_3\ n} & ... \\
+			\vdots & \vdots & \vdots & \ddots
+		\end{pmatrix}
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $\hat{H} = \frac{1}{2m}(\hat{p}_1^2 + \hat{p}_2^2) + \frac{1}{2}m\omega^2(\hat{x}_1^2 + \hat{x}_2^2) + \lambda\frac{m^2\omega^3}{\hbar}\hat{x}_1^2\hat{x}_2^2$ \\
+	ges: Korrektur Energie erster angeregter Zustand 1. Ordnung ST \\
+	Lös: Der erste angeregte Zustand ist entartet, da die Zustände $\ket{0, 1}, \ket{1,0}$ dieselbe Energie haben $E_{01}^{(0)} = E_{10}^{(0)} = \hbar\omega(1+0+1) = \hbar\omega 2$.\\
+	Bestimme also die Eigenwerte der Matrix $h$, dessen Matrixelemente aus den entarteten Zuständen bestehen:
+		\begin{align*}
+			h &=
+			\begin{pmatrix}
+				\braket{0 1 | \hat{H}' | 0 1} & \braket{0 1| \hat{H}' | 1 0} \\
+				\braket{1 0 | \hat{H'} | 0 1} & \braket{1 0 | \hat{H}' | 1 0}
+			\end{pmatrix} =...=
+			\begin{pmatrix}
+				\frac{3}{4}\hbar\omega & 0 \\
+				0 & \frac{3}{4}\hbar\omega
+			\end{pmatrix} \\
+			\Rightarrow E_{10}^{(1)} &= E_{01}^{(1)} = \frac{3}{4}\hbar\omega \\
+			\Rightarrow E_{10} &= E_{01} = E_{01}^{(0)} + \lambda E_{01}^{(1)} = \hbar\omega \lr{ 2 + \lambda\frac{3}{4} }
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Mache den Ansatz \textcolor{gruen}{(der eine kleine Erweiterung des nichtentarteten Ansatzes ist)}
+	$$\ket{n'} = N(\lambda) \lr{ \sum_j \alpha_j \ket{a_j\ n} + \lambda \sum_{k\neq n}\sum_j \beta_j^k c_{nk}^{(1)} \ket{a_j\ k} + ... }$$
+	
+	Einsetzen der Ansätze in die Eigenwert-Gl. von $\hat{H} = \hat{H}_0 + \lambda\hat{H}'$ liefert
+	\begin{align*}
+		(\hat{H}_0 + \lambda\hat{H}') \ket{n'} &= E_n \ket{n'} \\
+		(\hat{H}_0 + \lambda\hat{H}') \cancel{N(\lambda)} \lr{ \sum_j \alpha_j \ket{a_j\ n} + \lambda \sum_{k\neq n}\sum_j \beta_j^k c_{nk}^{(1)} \ket{a_j\ k} + ... } &= (E_n^{(0)} + \lambda E_n^{(1)} + ...)  \cancel{N(\lambda)} \left( \sum_j \alpha_j \ket{a_j\ n} + \right. \\
+		 & \left. + \lambda \sum_{k\neq n}\sum_j \beta_j^k c_{nk}^{(1)} \ket{a_j\ k} + ... \right)
+	\intertext{Koeffizientenvergleich nach \fbox{$\lambda^1$}}
+		\hat{H}_0 \sum_{k\neq n}\sum_j \beta_j^k c_{nk}^{(1)} \ket{a_j\ k} + \hat{H}' \sum_j \alpha_j \ket{a_j\ n} &= E_n^{(0)} \sum_{k\neq n}\sum_j \beta_j^k c_{nk}^{(1)} \ket{a_j\ k} + E_n^{(1)} \sum_j \alpha_j \ket{a_j\ n}
+	\intertext{Multiplizieren mit $\bra{a_i\ n}$ von links.}
+		0 + \sum_j \alpha_j \underbrace{\braket{a_i\ n | \hat{H}' | a_j\ n}}_{=: h_{ij}} &= 0 + \alpha_i E_n^{(1)} \\
+		\Leftrightarrow h_{ij} \cdot \alpha_j &= E_n^{(1)} \cdot \alpha_i \\
+		\Leftrightarrow h\cdot \vec{\alpha}	&= E_n^{(1)} \cdot \vec{\alpha} \qquad \blacksquare
+	\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Zeitabhängige Störungstheorie}
+...\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Übergangswahrscheinlichkeit und -rate}\\
+		Die Übergangswahrscheinlichkeit und Übergangsrate (für große Zeitintervalle $T$) sind definiert als
+			\begin{align}
+				P_{n\to k} &= \left| a_k^{(1)} \right|^2 = \frac{1}{\hbar^2} \left| \int_{t_0}^t \diff t' \braket{k | \hat{H}'(t') | n} e^{i \omega_{kn}t'} \right|^2 \\
+				\Gamma_{n\to k} &= \frac{P_{n\to k}}{T}
+			\end{align}
+		
+		mit $\omega_{kn} = \frac{1}{\hbar}(E_k - E_n)$.
+
+	
+		\item \textbf{Fermis Goldene Regel}\\
+		Für den Fall einer zeitunabhängigen Störung und im Limes großer Zeiträume $T \to \infty$ ergeben sich die Übergangswahrscheinlichkeit und Übergangsrate
+			\begin{align}
+				P_{n \to k} &= \frac{| \braket{ k | \hat{H}' | n } |^2}{\hbar^2} \cdot \frac{\sin^2\lr{ \frac{\omega_{kn}}{2}T }}{ \lr{ \frac{\omega_{kn}}{2} }^2 } \\
+				\Gamma_{n \to k} &= \frac{2\pi}{\hbar^2} | \braket{ k | \hat{H}' | n } |^2 \cdot \rho(\omega_n) ,
+			\end{align}
+		
+		wobei man letztere Formel als \textit{Fermis Goldene Regel} bezeichnet.
+	\end{itemize}
+
+
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $\hat{H} = \underbrace{ \frac{\hat{p}^2}{2m} + \frac{1}{2}m\omega^2\hat{x}^2 }_{\hat{H}_0} + \underbrace{ e E \hat{x} e^{-t^2/\tau^2} }_{\hat{H}'(t)}$ \\
+	ges: Übergangswahrscheinlichkeit $P_{0\to k}$ für $t_0 \to -\infty$, $t\to +\infty$
+		\begin{align*}
+			P_{0\to k} &= \frac{1}{\hbar^2} \left| \int_{t_0}^t \diff t' \braket{k | \hat{H}'(t) | 0} e^{i \omega_{k0}t'} \right|^2 \stackrel{\comment{\hat{H}'(t)}}{=} \frac{e^2 E^2}{\hbar^2} \cdot |\braket{k | \hat{x} | 0}|^2 \cdot \left| \int_{-\infty}^\infty \diff t' e^{-t'^2/\tau^2} e^{i \omega_{k0} t'} \right|^2 = \\
+			&= \frac{e^2 E^2}{\hbar^2} \cdot |\braket{k | \sqrt{\frac{\hbar}{2m\omega}} (\hat{a} + \hat{a}^\dagger) | 0}|^2 \cdot \left| \int_{-\infty}^\infty \diff t' e^{-t'^2/\tau^2} e^{i \omega_{k0} t'} \right|^2 = \\
+			 &= \frac{e^2 E^2}{2m\omega\hbar} \cdot |0 + \braket{k|1}|^2 \cdot \left|\int_{-\infty}^\infty \diff t' e^{i\omega_{k0}t' - t'^2/\tau^2} \right|^2 \stackrel{\comment{(\star)}}{=} \\
+			 &= \frac{e^2 E^2}{2m\omega\hbar} \cdot \delta_{k1} \cdot \left| \int_{-\infty}^\infty \diff t' e^{-y(t' + \tilde{c})^2} e^{\tilde{c}^2y} \right|^2 = \frac{e^2 E^2}{2m\omega\hbar} \cdot \delta_{k1} \cdot \left| e^{\tilde{c}y} \right|^2 \cdot \left| \int_{-\infty}^\infty \diff t' e^{-y(t' + \tilde{c})^2} \right|^2 \\
+			 &= \frac{e^2 E^2}{2m\omega\hbar} \cdot \delta_{k1} \cdot \left| e^{\tilde{c}^2y} \right|^2 \cdot \left| \sqrt{\frac{\pi}{y}} \right|^2 \stackrel{\comment{\tilde{c},y}}{=} \frac{e^2 E^2}{2m\omega\hbar} \cdot \delta_{k1} \cdot e^{-\frac{1}{2}\tau^2 \omega_{k0}^2} \cdot \pi \tau^2 = 
+		\end{align*}
+	
+	mit der quadratische Ergänzung {\color{gruen}$(\star)$} im Exponenten
+		\begin{align*}
+			-t'^2/\tau^2 + i\omega_{k0}t' &= -\frac{1}{\tau^2}(t'^2 - i\tau^2\omega_{k0}t') \stackrel{\comment{c:=-i\tau^2 \omega_{k0}}}{=} -\frac{1}{\tau^2}(t'^2 + ct') \stackrel{\comment{0}}{=} -\frac{1}{\tau^2} \lreck{ t'^2 + ct' + \lr{\frac{c}{2}}^2 - \lr{\frac{c}{2}}^2} = \\
+			 &= -\frac{1}{\tau^2} \lreck{ (t' + \frac{c}{2})^2 - \lr{\frac{c}{2}}^2 } \stackrel{\comment{y:=1/\tau^2, \tilde{c}:=\lr{\frac{c}{2}}^2}}{=} -y(t' + \tilde{c})^2 + \tilde{c}^2 y
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $P_{n \to k}, \Gamma_{n \to k}$ im allgemeinen Fall\\
+	\\
+	Setze den Ansatz
+		$$\ket{\psi(t)} = \sum_j a_j(t) e^{-\frac{i}{\hbar} E_j(t-t_0)} \ket{j}$$
+	in die Schrödinger-Gleichung ein.
+		\begin{align*}
+			i\hbar\partial_t \ket{\psi(t)} &= \hat{H}\ket{\psi(t)} = (\hat{H}_0 + \hat{H}')\ket{\psi(t)} \\
+			\stackrel{\comment{\ket{\psi(t)}}}{\Rightarrow} i\hbar\partial_t \sum_j a_j(t) e^{-\frac{i}{\hbar} E_j(t-t_0)} \ket{j} &= (\hat{H}_0 + \hat{H}') \sum_j a_j(t) e^{-\frac{i}{\hbar} E_j(t-t_0)} \ket{j} \\
+			i\hbar \lr{ \sum_j \dot{a}_j(t) e^{\frac{i}{\hbar}(t-t_0)} \ket{j} - \cancel{ \sum_j \frac{i}{\hbar}E_j a_j(t) e^{-\frac{i}{\hbar}E_j(t-t_0)} \ket{j} } } &= \cancel{ \sum_j a_j(t) e^{-\frac{i}{\hbar}E_j(t-t_0)} E_j \ket{j} } + \sum_j a_j(t) e^{-\frac{i}{\hbar}E_j(t-t_0)} \hat{H}'\ket{j}
+		\intertext{Multiplikation mit $\bra{k}$ von links:}
+			i\hbar \sum_j \dot{a}_j(t) e^{\frac{i}{\hbar}E_j(t-t_0)} \braket{k|j} &= \sum_j a_j(t) e^{-\frac{i}{\hbar}E_j(t-t_0)} \braket{k | \hat{H}' | j} \\
+			\Rightarrow i\hbar \dot{a}_k(t) e^{-\frac{i}{\hbar}E_k(t-t_0)} &= \sum_j a_j(t) e^{-\frac{i}{\hbar}E_j(t-t_0)} \braket{k | \hat{H}' | j} \\
+			\Leftrightarrow \dot{a}_k(t) &= \frac{1}{i\hbar} \sum_j a_j(t) e^{-\frac{i}{\hbar}(E_j - E_k)(t-t_0)} \braket{k | \hat{H}' | j}
+		\intertext{Mache den Ansatz: $a_k(t) = a_k^{(0)} + \lambda a_k^{(1)} + \lambda^2 a_k^{(2)} + ...$ und setze $\hat{H}'\to \lambda \hat{H}'$. Führe dann einen Koeffizientenvergleich bezüglich \fbox{$\lambda$} durch:}
+			a_k^{(0)} + \lambda a_k^{(1)} + ... &= \frac{1}{i\hbar} \sum_j (a_k^{(0)} + \lambda a_k^{(1)} + ...) e^{-\frac{i}{\hbar}(E_j - E_k)(t-t_0)} \lambda \braket{k | \hat{H}' | j} \\
+			\stackrel{\commenttext{\fbox{$\lambda$}}}{\Rightarrow} \dot{a}_k^{(1)} &= \frac{1}{i\hbar} \sum_j a_k^{(0)} e^{-\frac{i}{\hbar}(E_j - E_k)(t-t_0)} \braket{k | \hat{H}' | j} \\
+			\Leftrightarrow \frac{\diff a_k^{(1)}}{\diff t} &= \frac{1}{i\hbar} \sum_j a_k^{(0)} e^{-\frac{i}{\hbar}(E_j - E_k)(t-t_0)} \braket{ k | \hat{H}' | j } \\
+			\Leftrightarrow \diff a_k^{(1)} &= \frac{1}{i\hbar} \sum_j a_k^{(0)} \diff t\, e^{-\frac{i}{\hbar}(E_j - E_k)(t-t_0)} \braket{ k | \hat{H}'(t) | j } \\
+			\stackrel{\int}{\Rightarrow} a_k^{(1)} &= \frac{1}{i\hbar} \sum_j a_k^{(0)} \int_{t_0}^t \diff t'\, e^{-\frac{i}{\hbar}(E_j - E_k)(t'-t_0)} \braket{ k | \hat{H}'(t') | j } \\
+		\intertext{Definiere $E_j - E_k = \hbar(\omega_j - \omega_k) =: \hbar \cdot \omega_{jk}$. Somit ist $-\frac{i}{\hbar}(E_j - E_k) = -\frac{i}{\hbar} \cdot \hbar \omega_{jk} = +i \omega_{kj}$:}
+			\Leftrightarrow a_k^{(1)} &= \frac{1}{i\hbar} \sum_j a_k^{(0)} \int_{t_0}^t \diff t'\, e^{+i \omega_{kj} (t'-t_0)} \braket{ k | \hat{H}'(t') | j }
+		\intertext{Mit der Anfangsbedingung $a_k^{(0)} = \delta_{jn}$ folgt dann:}
+			a_k^{(1)} &= \frac{1}{i\hbar} \int_{t_0}^t \diff t' e^{i\omega_{kn}(t'-t_0)} \braket{ k | \hat{H}'(t') | n }
+		\end{align*}
+
+	Die Übergangswahrscheinlichkeit ist dann das Betragsquadrat des Koeffizienten $a_k^{(1)}$:
+		\begin{align*}
+			P_{n\to k} &= |a_k^{(1)}|^2 = \left.| \frac{1}{i\hbar} \int_{t_0}^t \diff t' e^{i\omega_{kn}(t'-t_0)} \braket{ k | \hat{H}'(t') | n } \right|^2 = \\
+			&= \frac{1}{\hbar^2} \left| \int_{t_0}^t \diff t' e^{i\omega_{kn}(t'-t_0)} \braket{ k | \hat{H}'(t') | n } \right|^2 \qquad \blacksquare
+		\end{align*}
+
+	Die Übergangsrate ist definiert als die Übergangswahrscheinlichkeit pro Zeit $T$
+		\begin{align*}
+			\Gamma_{n \to k} := \frac{P_{n \to k}}{T}.
+		\end{align*}
+
+
+	\fbox{Herleitung}\\
+	zz: Fermis Goldene Regel\\
+	\\
+	\textcolor{red}{ERGÄNZEN}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Variationsmethode}
+Die \textit{Variationsmethode} liefert eine Abschätzung der Energie eines Zustands in Form von einer oberen Schranken.\\
+Dabei wird eine Testfunktion $\psi(\lambda_1,...,\lambda_m)$ geraten, wobei die $\lambda_i$ Paramter sind, die so gewählt werden, dass die obere Schranke minimal wird.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Grundzustand}
+		\begin{equation}
+			E_0 \leq f(\lambda_1,...\lambda_N) = \frac{\braket{\psi(\lambda_1,...\lambda_m | \hat{H} | \psi(\lambda_1,...,\lambda_m))}}{\braket{\psi(\lambda_1,...\lambda_m | \psi(\lambda_1,...,\lambda_m}}
+		\end{equation}
+	
+	Die Minimierung verläuft über $\vec{\nabla}_\lambda f \stackrel{!}{=} \vec{0}$.
+	
+		\item \textbf{Erster angeregter Zustand}\\
+	Möchte man die Energie des nächsthöheren Zustands abschätzen, nimmt man eine weitere Testfunktion $\ket{\phi}$ und modifiziert sie wie folgt:
+		\begin{equation}
+			\ket{\tilde{\phi}} = (\mathbb{1} - \ket{\psi}\bra{\psi}) \ket{\phi}
+		\end{equation}
+	
+	wobei $\ket{\psi}$ die Testfunktion mit den minimierenden Parametern vom Grundzustand $E_0$ ist.\\
+	Der erste angeregte Zustand wird also abgeschätzt durch
+		\begin{equation}
+			E_1 \leq \frac{\braket{\tilde{\phi} | \hat{H} | \tilde{\phi}}}{\braket{\tilde{\phi} | \tilde{\phi}}}
+		\end{equation}
+	\end{itemize}
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: Abschätzung Grundzustandsenergie für Li$^+$ \\
+	Lös: 
+		\begin{align*}
+			E_0 &\leq f(\tilde{Z}) = \braket{\psi(\tilde{Z}) | \hat{H} | \psi(\tilde{Z})} \stackrel{\commenttext{Virialtheorem}}{=} m_e c^2 \alpha^2 (\tilde{Z}^2 - 2\tilde{Z}Z + \frac{5}{8}\tilde{Z}) = \\
+			&= -2 (-13,6\,\text{eV}) (\tilde{Z}^2 - 2\tilde{Z}Z + \frac{5}{8}\tilde{Z}) \stackrel{\comment{Z=3}}{=} 27,2\ \text{eV} (\tilde{Z}^2 - 6\tilde{Z} + \frac{5}{8}\tilde{Z})
+		\intertext{Finde das $\tilde{Z}$, für das $f$ minimal wird.}
+			\frac{\diff}{\diff\tilde{Z}} f(\tilde{Z}) &= 27,2\ \text{eV} (2\tilde{Z} - 6 + \frac{5}{8}) = 27,2\ \text{eV} (2\tilde{Z} - \frac{43}{8}) \stackrel{!}{=} 0 \\
+			\Leftrightarrow \tilde{Z} &= \frac{43}{16} \\
+			\Rightarrow E_0 &\leq f(\tilde{Z} = \frac{43}{16}, Z=3) = -196,5\,\text{eV}
+		\end{align*}
+
+
+
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	\textcolor{red}{ERGÄNZEN}
+
+
+
+
+
+
+\hrule
+}
+
+
+
+\newpage
+
+
+\subsection{WKB-Näherung}
+Die \textit{WKB-Näherung} ist eine Näherungsmethode für langsam veränderliche Potentiale.\\
+\\
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{langsam veränderliche Potentiale}
+
+
+		\item \textbf{Ansatz Wellenfunktion}\\
+		Für klassisch erlaubte und klassisch verbotene Bereiche werden die folgenden Ansätze genutzt
+			\begin{equation}
+				u(x) = 
+				\begin{cases}
+					\frac{C_+}{\sqrt{k(x)}} \exp\lr{ i\int k(x)\,\diff x } + \frac{C_-}{\sqrt{k(x)}} \exp\lr{ -i\int k(x)\,\diff x }, & E > V(x) \\
+					\frac{\gamma_+}{\sqrt{\kappa(x)}} \exp\lr{ i\int \kappa(x)\,\diff x } + \frac{\gamma_-}{\sqrt{\kappa(x)}} \exp\lr{ -i\int \kappa(x)\,\diff x }, & E < V(x)
+				\end{cases}
+			\end{equation}
+
+mit $k(x) = \frac{1}{\hbar}\sqrt{2m(E-V(x))}$ und $\kappa(x) = \frac{1}{\hbar}\sqrt{2m(V(x)-E)}$.
+	\end{itemize}
+
+
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Anschlussbedingungen}\\
+		Für die klassischen Wendepunkte (klassisch erlaubt $\rightarrow$ klassisch verboten bzw. klassisch verboten $\rightarrow$ klassisch erlaubt) gelten für die WKB-Näherungsfunktionen die Anschlussbedingungen
+			\begin{align}
+				& \frac{2A}{\sqrt{k(x)}} \cos\lr{ \int_x^a k(x')\,\diff x' - \frac{\pi}{4} } - \frac{B}{\sqrt{k(x)}} \sin\lr{ \int_x^a k(x')\,\diff x' - \frac{\pi}{4} } \notag\\
+				\leftrightarrow & \frac{A}{\sqrt{\kappa(x)}} \exp\lr{ -\int_a^x \kappa(x')\,\diff x' } + \frac{B}{\sqrt{\kappa(x)}} \exp\lr{ \int_a^x \kappa(x')\,\diff x' }\\
+				& \frac{A}{\sqrt{\kappa(x)}} \exp\lr{ -\int_x^b \kappa(x')\,\diff x' } + \frac{B}{\sqrt{\kappa(x)}} \exp\lr{ \int_x^b \kappa(x')\,\diff x' } \notag \\
+				\leftrightarrow & \frac{2A}{\sqrt{k(x)}} \cos\lr{ \int_b^x k(x')\,\diff x' - \frac{\pi}{4} } - \frac{B}{\sqrt{k(x)}} \sin\lr{ \int_b^x k(x')\,\diff x' - \frac{\pi}{4} }
+			\end{align}
+		
+		
+		
+		\item \textbf{Bohr-Sommerfeld-Quantisierungsbedingung}\\
+		Für topfförmige Potentiale folgt aus den Anschlussbedingungen die Bohr-Sommerfeld-Quanti\-sierungsbedingung, mit der die Energie des Potentials bestimmt werden kann.
+			\begin{equation}
+				\int_b^a \diff x\ k(x) \stackrel{\comment{k(x)}}{=} \frac{1}{\hbar}\int_b^a \diff x \sqrt{2m(E-V(x))} = \lr{n + \frac{1}{2}}\pi,
+			\end{equation}
+
+		\textcolor{gruen}{Dabei wird verwendet, dass der linke klassische Umkehrpunkt $b$ und der Rechte $a$ ist.}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Verwende den Ansatz
+		$$\psi(\vec{x},t) = e^{\frac{i}{\hbar}(S(\vec{x}) - E t )} = e^{\frac{i}{\hbar}S(\vec{x})} e^{-\frac{i}{\hbar}Et} \equiv u(\vec{x})\cdot e^{-\frac{i}{\hbar}Et}$$
+	mit $S(\vec{x}) = \sum_k \lr{\frac{\hbar}{i}}^k S_k(\vec{x})$ und setze ihn in die Schrödinger-Gleichung ein
+		\begin{align*}			
+			i\hbar \partial_t \psi &= \hat{H}\psi = -\frac{\hbar^2}{2m}\Delta\psi + V(\vec{x})\psi \\
+			\stackrel{\comment{\psi}}{\Rightarrow} i\hbar e^{\frac{i}{\hbar}S(\vec{x})} \partial_t e^{-\frac{i}{\hbar}Et} &= -e^{-\frac{i}{\hbar}Et} \frac{\hbar^2}{2m} \vec{\nabla} (\vec{\nabla} e^{\frac{i}{\hbar}S(\vec{x})}) + V e^{\frac{i}{\hbar}S(\vec{x})} e^{-\frac{i}{\hbar}Et} \\
+			i\hbar e^{\frac{i}{\hbar}S} \lr{-\frac{i}{\hbar}E} e^{-\frac{i}{\hbar}Et} &= -e^{-\frac{i}{\hbar}Et} \frac{\hbar^2}{2m} \vec{\nabla}\lr{ \frac{i}{\hbar} (\vec{\nabla} S) e^{\frac{i}{\hbar}S} } + V e^{\frac{i}{\hbar}S(\vec{x})} e^{-\frac{i}{\hbar}Et} \\
+			E \cdot e^{\frac{i}{\hbar}S} e^{-\frac{i}{\hbar}Et} &= -e^{-\frac{i}{\hbar}Et} \frac{\hbar^2}{2m} \frac{i}{\hbar} \lr{  (\Delta S) e^{\frac{i}{\hbar}S(\vec{x})} + (\vec{\nabla}S) \frac{i}{\hbar} (\vec{\nabla}S) e^{\frac{i}{\hbar}S} } + V e^{\frac{i}{\hbar}S(\vec{x})} e^{-\frac{i}{\hbar}Et} \\
+			E \cdot \cancel{ e^{\frac{i}{\hbar}S} e^{-\frac{i}{\hbar}Et} } &= -\frac{i\hbar}{2m} (\Delta S) \cancel{ e^{-\frac{i}{\hbar}Et}e^{\frac{i}{\hbar}S} } + \frac{1}{2m}(\vec{\nabla}S)^2 \cancel{ e^{-\frac{i}{\hbar}Et} e^{\frac{i}{\hbar}S} } + V \cancel{ e^{-\frac{i}{\hbar}Et} e^{\frac{i}{\hbar}S} } \\
+			0 &= -\frac{i\hbar}{2m}(\Delta S) + \frac{1}{2m}(\vec{\nabla}S)^2 + V - E
+		\end{align*}
+		
+Einsetzen von $S = S_0 + \frac{\hbar}{i}S_1 + \lr{\frac{\hbar}{i}^2}S_2 + ...$ in die DGL und Koeffizientenvergleich nach \fbox{$\hbar^0$}, \fbox{$\hbar^1$}, \fbox{$\hbar^2$} ergibt:
+		\begin{align*}
+			0 &= \frac{1}{2m}(\vec{\nabla}S_0)^2 + V - E \\
+			0 &= 2(\Delta S_1)(\Delta S_0) + \Delta S_0 \\
+			0 &= \Delta S_1 + 2(\vec{\nabla}S_0)(\vec{\nabla}S_1) + (\vec{\nabla}S_1)^2
+		\end{align*}
+
+	Betrachte den 1d-Fall, d.h. $\vec{\nabla}\to \frac{\diff}{\diff x}$.\\
+	Lösen der DGLs \fbox{$\hbar^0$}, \fbox{$\hbar^1$}, \fbox{$\hbar^2$} (nach und nach) ergibt
+		\begin{alignat*}{3}
+			\frac{\diff}{\diff x} S_0 &= \pm\sqrt{2m(E-V(x))} =: p(x) \qquad && \Rightarrow S_0 &&= \pm\int p(x)\,\diff x + c \\
+			\frac{\diff}{\diff x} S_1 &= -\frac{1}{2}\frac{p'(x)}{p(x)} \qquad && \Rightarrow S_1 &&= \ln\lr{\sqrt{\frac{p_0}{p(x)}}} \\
+			\frac{\diff}{\diff x} S_2 &= \pm \lr{ \frac{1}{8}\frac{p'^2}{p^3} - \frac{1}{4}\frac{p''}{p^2}} && \Rightarrow S_2 &&= \pm \lr{ \frac{1}{4}\frac{p'}{p^2} + \frac{1}{8}\int\frac{p'^2}{p^3}\,\diff x}
+		\end{alignat*}
+	
+	Betrachte die Näherung der ortsabhängigen Wellenfunktion mit $S = S_0 + \frac{\hbar}{i}S_1$, also $u(\vec{x}) = e^{\frac{i}{\hbar}(S_0 + \frac{\hbar}{i}S_1)}$.\\
+	Betrachte den Fall \fbox{$E>V$}
+		\begin{align*}
+			u_\pm(x) &= e^{\frac{i}{\hbar}(S_0 + \frac{\hbar}{i}S_1)} = e^{\frac{i}{\hbar}S_0 + S_1} \stackrel{\comment{S_0, S_1}}{=} \exp\lreck{ \frac{i}{\hbar} \lr{\pm\int p(x)\,\diff x + c} + \ln\lr{\sqrt{\frac{p_0}{p(x)}}} } = \\
+			&= e^{\ln\lr{\sqrt{\frac{p_0}{p(x)}}}} \cdot e^{ \pm \frac{i}{\hbar} \lr{\int p(x)\,\diff x + c} } = \frac{c_\pm}{\sqrt{p(x)}} e^{\pm \frac{i}{\hbar}\int p(x)\,\diff x} \equiv \frac{c_\pm}{\sqrt{k(x)}} e^{\pm i\int k(x)\,\diff x} \\
+			\Rightarrow u(x) &= \frac{c_+}{\sqrt{k(x)}} e^{ i\int k(x)\,\diff x} + \frac{c_-}{\sqrt{k(x)}} e^{- i\int k(x)\,\diff x}
+		\end{align*}
+
+	Betrachte den Fall \fbox{$E<V$}\\
+	Hier wird $p(x) = \sqrt{2m(E-V(x))} = i\sqrt{2m(V(x)-E)} \equiv i\hbar\kappa(x)$ und somit
+		\begin{align*}
+			u_\pm(x) &= \exp\lreck{ \frac{i}{\hbar}\lr{ \pm i\int \kappa(x)\,\diff x } + \ln\lr{\sqrt{\frac{\kappa_0}{\kappa(x)}}} } = \frac{\gamma_\pm}{\sqrt{\kappa(x)}} e^{\pm \int\kappa(x)\,\diff x} \\
+	\Rightarrow u(x) &= \frac{\gamma_+}{\sqrt{\kappa(x)}} e^{\int\kappa(x)\,\diff x} + \frac{\gamma_-}{\sqrt{\kappa(x)}}e^{-\int\kappa(x)\,\diff x}
+		\end{align*}
+		
+
+\hrule
+}
+
+
+\newpage
+
+
+\section{Streutheorie}
+...\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Zusammenhang differentieller Wirkungsquerschnitt und Streuamplitude}
+			\begin{equation}
+				\frac{\diff\sigma}{\diff\Omega} = |f(\theta)|^2
+			\end{equation}
+
+
+		\item \textbf{•}
+	\end{itemize}
+
+
+\newpage
+
+
+\subsection{Born-Approximation}
+In der Born-Approximation ist die Streuamplitude durch den folgenden Ausdruck gegeben
+ 	\begin{equation}
+ 		f^{(1)}(\vec{k},\vec{k}') = -\frac{m}{2\pi\hbar^2}\int \diff^3x\ e^{i(\vec{k}-\vec{k}')\vec{x}} V(\vec{x})
+ 	\end{equation}
+ 		
+Für rotationssymmetrische Potentiale $V(\vec{x}) = V(r)$ gilt die nützliche Beziehung
+	\begin{equation}
+		f^{(1)}(\vec{k},\vec{k}') = -\frac{2m}{\hbar^2} \int_0^\infty \diff r\ r V(r)\cdot  \frac{\sin(qr)}{q}
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}
+		\begin{align*}
+			f^{(1)}(\theta) &= - \frac{m}{2\pi\hbar^2} \int \diff^3x' e^{-i\vec{q}\vec{x}'} V(\vec{x}) \stackrel{\commenttext{KK, V(r)}}{=} -\frac{m}{2\pi\hbar^2} \int_0^\infty \diff r' \int_0^\pi \diff\theta' \int_0^{2\pi} \diff\varphi'\ e^{-i\vec{q}\vec{x}} V(r') \cdot r'^2\sin\theta' = \\
+			&\stackrel{\comment{\vec{q}\vec{x}, u = \cos\theta'}}{=} -\frac{m}{\cancel{2\pi}\hbar}^2 \cdot \cancel{2\pi} \cdot \int_0^\infty \diff r'\ r'^2 V(r') \cdot \int_{-1}^{+1} \frac{\diff u}{\sin\cancel{\theta'}} \cdot \cancel{\sin\theta'} \cdot e^{-iqr' u} = \\
+			&= -\frac{m}{\hbar^2} \int_0^\infty \diff r'\ r'^{\cancel{2}} V(r') \cdot \lr{-\frac{1}{iq\cancel{r'}}} \cdot \left.e^{-iqr' u}\right|_{-1}^{+1} = \\
+			&= -\frac{m}{\hbar^2} \int_0^\infty \diff r'\ r' V(r') \cdot \frac{1}{q} \cdot \lr{-\frac{2}{2}\frac{1}{i}\lr{ e^{-iqr'} - e^{iqr'} }} = \\
+			&= -\frac{m}{\hbar^2} \int_0^\infty \diff r'\ r' V(r') \cdot \frac{1}{q} \cdot 2\sin(qr') = -\frac{2m}{\hbar^2} \int_0^\infty \diff r'\ r' V(r') \cdot \frac{\sin(qr')}{q} \qquad\blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Relativistische Quantenmechanik}
+Die relativistische Quantenmechanik wird durch die \textit{Dirac-Gleichung}
+	\begin{equation}
+		\lr{ i \slashed{\partial} + \frac{m\cdot c}{\hbar}} \psi(x^0, x^1, x^2, x^3) = 0
+	\end{equation}
+
+mit $\slashed{\partial} := \gamma^\mu\partial_\mu = \gamma_\mu\partial^\mu$ wobei $\gamma^\mu$ die Gamma-Matrizen sind.\\
+\\
+\textcolor{red}{ERGÄNZEN}
+
+
+\newpage
+
+
+\section{Glossar}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		$i\varepsilon$-Vorschrift & Ersetzung $x\to x\pm i\varepsilon$ zur Regularisierung von Integralen. \\
+		& Taucht in der Streutheorie auf, um die Greens-Funktion mittels Residuensatz zu bestimmen \\
+	\hline
+		Bell'sche Ungleichungen & Ungleichungen, die die Theorie über verborgene Parameter in der Quantenmechanik ausschließen.\\
+		& Sie zeigen, dass in der QM sowohl Realität \textcolor{gruen}{(= Zustand ist vor der Messung festegelegt)} als auch Lokalität \textcolor{gruen}{(= Physikalische Einflüsse können höchstens mit Lichtgeschwindigkeit propa-
+gieren)} verletzt sind. \\
+	\hline
+		Besetzungszahlendarstellung & Darstellung, in der z.B. ein photonischer Zustand durch Besetzungszahlen beschrieben wird
+			$$\ket{n_{\lambda_1,\vec{k}_1}, n_{\lambda_2,\vec{k}_2}, ...} = (\hat{a}_{\lambda_1,\vec{k}_1}'^\dagger)^{n_{\lambda_1,\vec{k}_1}} (\hat{a}_{\lambda_2,\vec{k}_2}'^\dagger)^{n_{\lambda_2,\vec{k}_2}} ... \ket{0}$$ \\
+	\hline
+		Besetzungszahlen & Zahlen $n_{\lambda,\vec{k}}$, die in der Besetzungszahlendarstellung die Anzahl der Photonen mit Polarisation $\lambda$ und Impuls $\hbar k$ angibt \\
+	\hline
+		Bohr-Sommerfeld Quantisierungsbedingung & Quantisierungsbedingung, die in der WKB-Näherung eines topfförmigen Potentials mit 2 klassischen Wendepunkten auftritt.
+			\begin{center}
+				\fbox{\includegraphics[width=0.5\textwidth]{Grafiken/bohr-sommerfeld-quantisierungsbedingung.png}}
+			\end{center}
+			$$\int_b^a k(x)\,\diff x \stackrel{!}{=} \lr{ n+\frac{1}{2} } \pi$$ 
+		mit $k(x) = \frac{1}{\hbar} \sqrt{2m(E-V(x))}$. \\
+	\hline
+		Born-Approximation & Leading-order der Streuamplitude $f^{(1)}(\vec{k},\vec{k}')$.\\
+		& Diese entsteht durch die störungstheoretische Behandlung der Wellenfunktion des Streuproblems {\color{gruen}$\psi_{\vec{k}} = \psi_{\vec{k}}^{(0)} + \psi_{\vec{k}}^{(1)} + ...$}. 
+			$$f^{(1)}(\vec{k},\vec{k}') = -\frac{m}{2\pi\hbar^2} \int \diff^3x'\ e^{i(\vec{k}-\vec{k}')\vec{x}'} V(\vec{x}')$$
+		bzw. für rotationssymmetrische Potentiale
+			$$f^{(1)}(\vec{k},\vec{k}') = -\frac{2m}{\hbar^2} \int_0^\infty \diff r\ r V(r) \frac{\sin(qr)}{q}$$ \\
+	\hline
+		Born-Oppenheimer-Näherung & Näherungsmethode zur Vereinfachung der Schrödinger-Gleichung bei z.B. Molekülen.
+		{\begin{enumerate}
+			\item Löse das elektronische Problem $\hat{H}_e \phi_n = \varepsilon_n \phi_n$ (Vernachlässigung der Kernbewegung)
+			\item Ansatz für die Wellenfunktion des gesamten Problems $\hat{H}\psi = E\psi$ mit $\psi = \sum_n u_n\phi_n$
+		\end{enumerate}} \\
+		& Oft genügt bereits die Kenntnis von $\varepsilon_n$, um darüber entscheiden zu können, ob Bindungen möglich sind. \\
+	\hline
+		Bornsche-Näherung & \textcolor{blue}{siehe Born-Näherung} \\
+	\hline
+		Bosonen & Teilchen mit ganzzahligem Spin \\	
+	\hline
+		chirale Darstellung & Darstellung der $\gamma$-Matrizen, in der die $\gamma^5$-Matrix diagonal ist (auch Weyl-Darstellung genannt).
+			$$\gamma^0 = 
+				\begin{pmatrix}
+					0 & -\mathbb{1}_2 \\
+					-\mathbb{1}_2 & 0
+				\end{pmatrix},\
+				\gamma^i = 
+				\begin{pmatrix}
+					0 & \sigma^i \\
+					-\sigma^i & 0
+				\end{pmatrix}$$
+		D.h. dass die Chiralitäten auf der Hauptdiagonalen stehen.
+			$$\gamma^5 = i\gamma^0\gamma^1\gamma^2\gamma^3 = 
+			\begin{pmatrix}
+				\mathbb{1}_2 & 0 \\
+				0 & -\mathbb{1}_2
+			\end{pmatrix}$$ \\
+	\hline
+		Chiralität & Eigenwert $\pm 1$ der $\gamma^5$-Matrix $\gamma^5 = i\gamma^0\gamma^1\gamma^2\gamma^3$. \\
+	\hline
+		Clifford-Algebra & Algebra von Elementen $\gamma^\mu$, die die Antikommutationsrelation
+			$$\{\gamma^\nu,\gamma^\mu\} = 2g^{\nu\mu}\mathbb{1}_4$$
+			erfüllen \\
+	\hline
+		Dipolstrahlung & \textcolor{blue}{siehe E1-Strahlung} \\
+	\hline
+		Dirac'sche Löchertheorie & Theorie, die ein qualitatives Verständnis für die Lösungen der Dirac-Gleichung mit ''negativer Energie'' liefert. \\
+		& Sie besagt, dass das Vakuum als ein vollständig besetzter See aus negativen Energiezuständen betrachtet werden kann (Dirac-See).\\
+		& Ein unbesetzter Zustand wird als Positron interpretiert.\\
+	\hline
+		E1-Strahlung & Elektromagnetische Strahlung, die bei einem Übergang zwischen zwei Zuständen eines Atoms oder Moleküls emittiert oder absorbiert wird, wenn die Wechselwirkung des Systems mit dem elektromagnetischen Feld durch das elektrische Dipolmoment beschrieben werden kann\\
+		& $\hat{H}' = \frac{e}{m_e}\vec{A}\hat{\vec{p}} = \frac{a_0}{2}\frac{e}{m_e} (e^{i(\vec{k}\vec{x} - \omega t)} + e^{-i(\vec{k}\vec{x} - \omega t)}) \vec{\varepsilon}\hat{\vec{p}} \approx $ \\
+		& $\phantom{\hat{H}'} \approx \frac{a_0}{2}\frac{e}{m_e} (e^{i\omega t} + e^{-i\omega t}) \vec{\varepsilon}\hat{\vec{p}}$ \\
+		& \textcolor{gruen}{wobei bei $\approx$ die entscheidende Dipolnäherung $e^{i\vec{k}\vec{x}} \approx 1$ gemacht wird} \\
+	\hline
+		E2-Strahlung & Elektromagnetische Strahlung, die bei einem Übergang zwischen zwei Zuständen eines Atoms oder Moleküls emittiert oder absorbiert wird, wenn die Wechselwirkung des Systems mit dem elektromagnetischen Feld durch das elektrische Quadrupolmoment beschrieben werden kann \\
+	\hline
+		Erzeugendefunktion & Potenzreihe $F(s,x)$, die eine Folge $a_n$ oder eine Sequenz von Funktionen $a_n(x)$ so kodieren kann, dass die einzelnen Folgeglieder/Funktionen durch Ableiten der Erzeugendenfunktion erzeugt werden.
+			$$F(s,x) = \sum_{n=0}^\infty a_n(x) s^n$$
+			$$\left.\frac{\diff^n}{\diff s^n} F(s,x)\right|_{s=0} = a_n(x)$$
+		Taucht bei der Berechnung der Korrektur $E_{\text{GZ}}^{(1)}$ des Heliumatoms auf (Integrationstrick).
+			$$\frac{1}{\sqrt{1 - 2\varepsilon z + \varepsilon^2}} = \sum_{l=0}^\infty P_l(\varepsilon) \varepsilon^l$$\\
+	\hline
+		entangelment & \textcolor{blue}{siehe verschränkte Zustände} \\
+	\hline
+		entangled states & \textcolor{blue}{siehe verschränkte Zustände} \\
+	\hline
+		Fermi's Goldene Regel & Beschreibt die Übergangsrate eines Systems von einem Anfangs- in einen Endzustand unter der Wirkung einer schwachen Störung
+			$$\Gamma_{a\to b} = \frac{2\pi}{\hbar} |\braket{b | \hat{H}' | a}|^2 \rho(E_b)$$
+		wobei $\rho(E_b)$ die Zustandsdichte ist \\
+	\hline
+		Fermi-Energie & Höchste besetzte Energie $\varepsilon_F$ in einem System von nicht wechselwirkenden, ununterscheidbaren Fermionen im Grundzustand \\
+	\hline
+		Fermi-Impuls & Impuls $p_F$, der der Fermi-Energie $\varepsilon_F$ entspricht
+			$$p_F = \sqrt{2m \varepsilon_F}$$ \\
+	\hline
+		Fermionen & Teilchen mit halbzahligem Spin \\
+	\hline
+		Feynman-Diagramme & Grafische Darstellung der Störungstheorie \\
+	\hline
+		fixed-target Experimente & Experimente, bei denen ein Teilchenstrahl
+auf ein festes Ziel geschossen wird \\
+	\hline
+		Fock-Raum & Zustandsraum für Vielteilchensysteme mit variabler Teilchenszahl {\color{gruen}$$\mathcal{F} = \ket{0} \oplus \mathcal{H}_{1\gamma} \oplus \mathcal{H}_{2\gamma} \oplus ...$$} \\
+	\hline
+		Greens-Funktion & Funktion, die die folgende Eigenschaft erfüllt
+			$$\hat{L} G_k(t) = \delta(t)$$
+		wobei $\hat{L}$ ein Differentialoperator ist, der wiederum die DGL $\hat{L} y = f$ erfüllt. \\
+	& \textcolor{gruen}{Taucht in der qm. Beschreibung der elastischen Streuung auf.} \\
+	\hline
+		Hamilton-Jacobi Gleichung & Partielle DGL, die in der klassischen Mechanik verwendet wird, um die Bewegung eines Systems zu beschreiben.\\
+		& Sie taucht in der QM auf, wenn man den WKB-Näherungs-Ansatz in die Schrödinger-Gleichung einsetzt und $\hbar=0$ betrachtet.
+		$$0 = \frac{1}{2m}(\vec{\nabla}W)^2 + V(\vec{x}) + \partial_t W$$ \\
+	\hline	
+		Hartree-Fock-Methode & Verbesserung der Hartree-Methode, die im Fall von Atomen mit $N$ Elektronen, die Slater-Determinante als Ansatz wählt.\\
+		& Im Gegensatz zur Hartree-Methode wird also die Antisymmetrie der Wellenfunktionen und die Orthogonalität der Einteilchenwellenfunktionen berücksichtigt. \\
+	\hline
+		Hartree-Methode & Variationsmethode für Mehrteilchensysteme mit dem Ansatz, dass die Wellenfunktion das Produkt der Einteilchenwellenfunktionen ist.
+			$$\psi = \prod_{i=1}^N \psi_i(\vec{x}_i)$$
+		Die Einteilchenwellenfunktionen sind dabei paarweise orthogonal und normiert.\\
+		& Im Fall von Atomen mit $N$ Elektronen wird jedoch die Antisymmetrie der Wellenfunktionen nicht berücksichtig. \\
+	\hline
+		Hellmann-Feynman theorem & Hängen Hamilton-Operator $\hat{H}_\lambda$, Eigenzustand $\ket{n_\lambda}$ und Eigenwert $E_\lambda$ von einem Parameter $\lambda$ ab, so gilt
+	$$\frac{\diff E_n(\lambda)}{\diff\lambda} = \braket{n(\lambda) | \frac{\diff H_\lambda}{\diff\lambda} | n(\lambda) }$$\\
+		& Mit diesem Theorem können z.B. Erwartungswerte relativ einfach berechnet werden. \\
+	\hline
+		Helmholtz-Gleichung & 
+			$$(\Delta + k^2)\psi = 0$$ 
+		\textcolor{gruen}{Taucht in der qm. Beschreibung der elastischen Streuung auf.} \\
+	\hline
+		Hundsche Regel & Regeln, die die Besetzungsreihenfolge von Elektronen in Atomen unter Berücksichtigung des Pauli-Prinzips beschreiben\\
+		 & 1. Der Gesamtspin $S$ wird maximal \\
+		 & 2. Der Gesamtbahndrehimpuls L wird maximal \\
+		 & 3. Für nicht mehr als halb gefüllte Schalen gilt
+		 		$$J = |L-S|$$
+		 	\phantom{3.} und für mehr als halb gefüllte Schalen
+		 		$$J = L+S$$ \\		 
+	\hline
+		Klein-Gordon-Gleichung & Gleichung, die die Kinematik kräftefreier Spin-0-Teilchen beschreibt.\\
+		& Sie ist forminvariant unter Lorenz-Transformation.
+			$$\lr{ \square + \frac{m^2c^2}{\hbar^2} } \psi(x) = 0$$
+		Sie wird aus der Energie-Impuls-Beziehung eines kräftefreien, massiven Teilchens $p^2 - mc^2 = 0$ abgeleitet. \\
+		& Ihre Probleme sind jedoch
+		{\begin{itemize}
+			\item Da sie eine DGL 2. Ordnung bzgl. der Zeit ist, ist eine zusätzliche AB nötig
+			\item Lösungen mit negativen Energien möglich, obwohl man ein freies Teilchen betrachtet
+		\end{itemize}} \\
+	\hline
+		Lamb-Verschiebung & Aufspaltung der Wasserstoffniveaus $2\ch{^2S_{1/2}}$ und $2\ch{^2P_{1/2}}$. \\
+		& Sie ist Folge der Quantisierung des elektromagnetischen Feldes und kann im Rahmen der Quantenelektrodynamik (QED) berechnet werden
+		\begin{center}
+			\fbox{\includegraphics[width=0.5\textwidth]{Grafiken/lamb-verschiebung.png}}
+		\end{center}\\
+	\hline
+		LCAO-Methode & Methode, bei der für die Wellenfunktion von Molekülen eine Linearkombination von Atomorbitalen gewählt wird. \\
+		& \textcolor{gruen}{Wird z.B. bei der Abschätzung der Grundzustandsenergie von $\text{H}_2^+$ verwendet.} \\
+	\hline
+		Methode des selbstkonsistenten Feldes & Iteratives, numerisches Lösungsverfahren für die Einteilchenwellenfunktionen in einem Vielteilchensystem.\\
+		& Bricht ab, wenn sich die Wellenfunktionen nicht mehr merklich ändert. \\
+	\hline
+		minimalen Substitution & Substitution in der kl. Mechanik, um die Wechselwirkung eines geladenen Teilchens mit einem B-Feld zu beschreiben.
+			$$\vec{p} \to \vec{p} - q\vec{A}$$
+		Die zusätzliche Berücksichtigung des skalaren Potentials $\varphi$ erfordert den Term $q\varphi$.\\
+		& Der Hamilton-Operator ist dann
+			$$\hat{H} = \frac{1}{2m} (\hat{\vec{p}} - q\vec{A})^2 + q\varphi$$ \\
+	\hline
+		Morse-Potential & Empirisches Potential, das die Energie eines zweiatomigen Moleküls in Abhängigkeit vom Kernabstand beschreibt. 
+		\begin{center}
+			\fbox{\includegraphics[width=0.3\textwidth]{Grafiken/morse potential.png}}
+		\end{center}
+		\textcolor{gruen}{Wurde im Zusammenhang mit dem H$_2$-Molekül genannt.} \\
+	\hline
+		optisches Theorem & Theorem, das den totalen Wirkungsquerschnitt $\sigma_{\text{tot}}$ mit dem Imaginärteil der Vorwärtsstreuamplitude $f(\vec{k},\vec{k})$ verknüpft
+			$$\text{Im} f(\vec{k},\vec{k}) = \frac{k}{4\pi}\sigma_\text{tot}$$ \\
+	\hline
+		Partialwellenanalyse & Methode, bei der eine ebene Welle gemäß
+			$$e^{ikz} = \sum_{l=0}^\infty (2l+1)\cdot i^l\cdot j_l(kr)\cdot P_l(\cos\theta)$$
+		in Drehimpulskomponenten ($l=0,1,2,...$) zerlegt wird. \\
+		& Diese werden für große Abstände als Partialwellen interpretiert. \\
+		& Sie taucht in der Streutheorie zur Beschreibung der Streuung an rotationssymmetrischen Potentialen auf. \\
+	\hline
+		Pauli-Prinzip & Zwei identische Fermionen können nicht im selben Zustand sein. \\
+	\hline
+		Pauli-Theorem & Besagt, dass falls zwei Sätze von Gamma-Matrizen die Clifford-Algebra erfüllen 
+		$$\{\gamma^\mu, \gamma^\nu\} = 2g^{\mu\nu},\qquad \{\gamma'^\mu, \gamma'^\nu\} = 2g^{\mu\nu}$$
+		eine nicht singuläre Matrix $S$ existiert, sodass die folgende Ähnlichkeitstransformation gilt
+			$$S \gamma^\mu S^{-1} = \gamma'^\mu$$ \\
+	\hline
+		Polarisation (des Ensembles) & Erwartungswert von $2\hat{S}_i$
+			$$\braket{2\hat{S}_i} = \text{Spur}(2\hat{\rho}\hat{S}_i)$$ \\
+	\hline
+		Potentialstreuung & Problem, in dem Teilchen an einem externen Potential gestreut werden.\\
+		& Dafür wird angenommen, dass das Targetpotential stationär ist und von der Streuung nicht beeinflusst wird. \\
+	\hline
+		Quadrupolstrahlung & \textcolor{blue}{siehe E2-Strahlung} \\
+	\hline
+		Ritzsches Variationsverfahren & Näherungsverfahren, mit dem eine obere Schranke für die Energien von Zuständen (meist des Grundzustands) gefunden werden kann
+			$$E_0 \leq \frac{\braket{\psi | \hat{H} | \psi}}{\braket{\psi | \psi}},\quad E_1 \leq \frac{\braket{\tilde{\phi} | \hat{H} | \tilde{\phi}}}{\braket{\tilde{\phi} | \tilde{\phi}}}, \quad ...$$  
+		mit $\ket{\tilde{\phi}} = (\mathbb{1} - \ket{0}\bra{0}) \ket{\phi}$ und $\ket{0} = \ket{\psi}$ in der Praxis. \\
+		& Die obere Schranke wird gemäß $\vec{\nabla}_\lambda f = 0$ minimiert, wobei $\lambda$ für die Parameter der Wellenfunktion $f$ steht. \\
+	\hline
+		Rutherford-Wirkungsquerschnitt & Differentieller Wirkungsquerschnitt für die Streuung eines geladenen Teilchens an einer Punktladung
+			$$\frac{\diff\sigma}{\diff\Omega} = \frac{\tilde{\alpha}^2}{16 E^2} \frac{1}{\sin^4(\theta/2)}$$ \\
+	\hline
+		Schalenmodell & Modell für ein fermionisches Vielteilchensystem, in dem die Wechselwirkung der Fermionen untereinander vernachlässigt wird.\\
+		& Die Einteilchenzustände werden dann in der Reihenfolge zunehmender Energie besetzt. \\
+	\hline
+		Slater-Determinante & Konstruiert für ein System aus Fermionen einen antisymmetrischen Zustand aus den Einteilchenlösungen 
+			$$\ket{\psi_E^F} = \frac{1}{\sqrt{N!}} \sum_P \text{sgn}(P) \ket{E_{\alpha_{P(1)}}} \otimes ...\otimes \ket{E_{\alpha_{P(N)}}}$$ \\
+	\hline
+		Spin-Statistik-Theorem & Besagt: \\
+		& $\bullet$ Die Wellenfunktion eines Systems aus $N$ identischen \textbf{Fermionen} ist \textbf{vollständig antisymmetrisch}, wechselt also ihr Vorzeichen unter Vertauschung zweier Teilchen
+				$$\hat{P}_{ij} \psi(1, ..., i, ..., j, ..., N) = -\psi(1,...,i,...,j,...N)$$
+		$\bullet$ Die Wellenfunktion eines Systems aus $N$ identischen \textbf{Bosonen} ist \textbf{vollständig symmetrisch}, behält also ihr Vorzeichen unter Vertauschung zweier Teilchen
+				$$\hat{P}_{ij} \psi(1, ..., i, ..., j, ..., N) = +\psi(1,...,i,...,j,...N)$$ \\
+	\hline
+		Streuamplitude & Term $f(\vec{k},\vec{k}')$ in der Lösung der Schrödinger-Gleichung für im Unendlichen verschwindende Potentiale
+			$$\psi_{\vec{k}}(\vec{x}) = \frac{1}{(2\pi)^{3/2}} \lr{ e^{i\vec{k}\vec{x}} + \frac{e^{ikr}}{r} f(\vec{k},\vec{k}') }$$
+		Das Betragsquadrat der Streuamplitude ist der differentielle Wirkungsquerschnitt
+			$$\frac{\diff\sigma}{\diff\Omega} = |f(\theta)|^2$$
+		\textcolor{gruen}{Taucht bei der Behandlung von Streuproblemen auf.}\\
+	\hline
+		Unitaritätsschranke (unitarity bound) & Obere Schranke für den partiellen WQ $\sigma_l(k)$ {\color{gruen}$\lr{ \sigma(k) = \sum_l \sigma_l(k) }$} in der Partialwellenanalyse und Niederenergiestreuung.
+			$$\sigma_l(k) = \frac{4\pi}{k^2}(2l+1) \sin^2(\delta_l) \leq \frac{4\pi}{k^2}(2l+1)$$ \\
+	\hline
+		Variationsmethode & \textcolor{blue}{siehe Ritzsches Variationsverfahren} \\
+	\hline
+		verborgene Parameter & Parameter, die nach Einstein, Podolsky und Rosen die probalistische Natur der Quantenmechanik erklären und somit auflösen sollten. \\
+	\hline
+		verschränkte Zustände & Zustände, die sich nicht als ein Tensorprodukt zweier separater Zustände schreiben lassen, sondern als Summe mehrerer Produktzustände vorliegen, z.B.
+			$\ket{\psi} = \frac{1}{\sqrt{2}}(\ket{\uparrow}\otimes\ket{\downarrow}\pm \ket{\downarrow}\otimes\ket{\uparrow})$. \\
+			& Das Messergebnis eines Teilchens ist bei solchen Zuständen mit dem Ergebnis anderer Teilchen korreliert. \\
+	\hline
+		von-Neumann-Gleichung & Gleichung, die die zeitliche Entwicklung der Dichtematrix beschreibt
+			$$\frac{\partial}{\partial t} \hat{\rho} = -\frac{i}{\hbar}[\hat{H},\hat{\rho}]$$ \\
+	\hline
+		Wentzel-Kramers-Brillouin Näherung & Methode zur näherungsweisen Lösung der Schrödinger-Gleichung für langsam veränderliche Potentiale gegenüber der Ausdehnung der de-Broglie-Wellenlänge des Teilchens. \\
+		& Sie verwendet den Ansatz $\psi(\vec{x},t) = e^{\frac{i}{\hbar}W(\vec{x},t)}$ bzw.
+			$$u(\vec{x}) = u^{\frac{i}{\hbar}S(\vec{x})} = \exp \lr{\frac{i}{\hbar} \sum_k \lr{\frac{\hbar}{i}}^k S_k(\vec{x})}$$
+		für stationäre Probleme. \\
+	\hline
+		WKB-Näherung & \textcolor{blue}{siehe Wentzel-Kramers-Brillouin Näherung} \\
+	\hline
+		Yukawa-Potential & Potential, das die endliche Reichweite der starken Wechselwirkung modelliert
+			$$V(r) = \frac{V_0}{\mu}\frac{e^{-\mu r}}{r}$$ \\
+	\hline
+		Zentralfeldnäherung & Mittelung der effektiven Potentiale in der Hartree- und Hartree-Fock-Methode über den Winkel. D.h. dass das Potential als kugelsymmetrisch genähert wird. \\
+	\hline
+		zweite Quantisierung & Quantisierung des relativistischen ''Wellenfeldes'' \\
+		& Dabei werden die Wellenfunktion zu Operatoren, um QFT-Effekte beschreiben zu können. \\
+	\hline\hline
+\end{xltabular}
+
+
+%\section{Addition von Drehimpulsen}
+%Ein Zustand aus zwei Drehimpulsen kann in zwei verschiedenen Basen ausgedrückt werden: In der Produktbasis $\ket{j_1, m_1, j_2, m_2} \equiv \ket{j_1, m_1} \otimes \ket{j_2, m_2}$ und der ''Gesamtbasis'' $\ket{j_1, j_2, j, m}_j \equiv \ket{j, m}$.\\
+%\\
+%Für die Werte $j$ und $m$ gelten dabei folgende Regeln.
+%	\begin{align}
+%		j &= |j_1 - j_2|, |j_1 - j_2 +1|, ..., |j_1 + j_2 - 1|, |j_1 + j_2| \\
+%		m &= -j, -j+1, ..., j-1, j
+%	\end{align}
+%
+%Der Basiswechsel zwischen $\ket{j,m}$ und $\ket{j_1, m_1}\otimes \ket{j_2, m_2}$ wird über die Clebsch-Gordan-Koeffizienten beschrieben, die leicht aus der folgenden Grafik bestimmt werden können.
+%
+%hello 
+%
+%
+%\begin{figure}[H]
+%	\centering
+%	\fbox{
+%		\includegraphics[width=0.7\textwidth]{Grafiken/clebsch gordan koeff.png}
+%	}
+%	\caption{Clebsch-Gordan-Koeffizienten}
+%\end{figure}
+%
+%
+%\newpage
+%
+%
+%\subsection{Manuelle Konstruktion}
+%Die Zustände können aber auch manuell konstruiert werden, indem vom Zustand mit höchstem $m$ begonnen wird (also $\ket{j,j}$), da für ihn die Darstellung in beiden Basen eindeutig ist. Dann wird mit dem Leiteroperator $\hat{J}_-$ in der jeweiligen Basis auf ihn gewirkt und die Ergebnisse gleichgesetzt.\\
+%\textcolor{gruen}{Alternativ kann auch beim Zustand mit kleinstem $m=$ (also $\ket{j,-j}$) begonnen und mit $\hat{J}_+$ darauf gewirkt werden.}
+%
+%\vspace{0.5cm}
+%
+%{\color{blue}
+%\hrule
+%	\fbox{Beispiel}\\
+%	Kopplung von $j_1=1/2$ und $j_2=1/2$.
+%	\begin{center}
+%	\begin{tabularx}{\textwidth}{X|X}
+%		\hline\hline
+%			Gesamtdrehimpulsbasis $\ket{j_1, j_2, j, m}_j \equiv \ket{j,m}$ & Produktbasis $\ket{j_1, m_1} \otimes \ket{j_2, m_2}$\\
+%		\hline
+%			$$\ket{1,1}$$ & $$\ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}}$$\\
+%		\hline
+%			{\begin{align*}
+%				\hat{J}_- \ket{1,1} &= \sqrt{(1-1+1)(1+1)}\ket{1,0}\\
+%				&= \sqrt{2} \ket{1,0}
+%			\end{align*}}
+%				 & 
+%			{\begin{align*}
+%				&\hat{J}_- \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}} = \\
+%				&= (\hat{J}_- \otimes \mathbb{1} + \mathbb{1} \otimes \hat{J}_-) \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}} = \\
+%				&=\hat{J}_- \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}} + \ket{\frac{1}{2}, \frac{1}{2}} \otimes \hat{J}_-\ket{\frac{1}{2}, \frac{1}{2}} = \\
+%				&= \ket{\frac{1}{2}, -\frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}} + \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, -\frac{1}{2}}
+%			\end{align*}}\\
+%		\hline
+%			\multicolumn{2}{c}{
+%				$\stackrel{\comment{:\sqrt{2}}}{\Leftrightarrow} \ket{1,0} = \frac{1}{\sqrt{2}} \lr{ \ket{\frac{1}{2}, -\frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}} + \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, -\frac{1}{2}} }$
+%			}\\
+%		\hline
+%			{\begin{align*}
+%				\hat{J}_- \ket{1,0} &= \sqrt{(1-0+1)(1+0)} \ket{1,-1}\\
+%				&= \sqrt{2} \ket{1,-1}
+%			\end{align*}}
+%				&
+%			{\begin{align*}
+%				&\hat{J}_- \frac{1}{\sqrt{2}} \lr{ \ket{\frac{1}{2}, -\frac{1}{2}} \otimes \ket{\frac{1}{2}, \frac{1}{2}} + \ket{\frac{1}{2}, \frac{1}{2}} \otimes \ket{\frac{1}{2}, -\frac{1}{2}} } = \\
+%				&= \frac{1}{\sqrt{2}} (\hat{J}_- \otimes \mathbb{1} + \mathbb{1} \otimes \hat{J}_-) \lr{...} = ... = \\
+%				&= \frac{2}{\sqrt{2}} \lr{ \ket{\frac{1}{2},-\frac{1}{2}} \otimes \ket{\frac{1}{2},-\frac{1}{2}} }
+%			\end{align*}}\\
+%		\hline
+%			\multicolumn{2}{c}{$\stackrel{\comment{:\sqrt{2}}}{\Leftrightarrow} \ket{1,-1} = \ket{\frac{1}{2}, -\frac{1}{2}} \otimes \ket{\frac{1}{2}, -\frac{1}{2}}$}\\
+%		\hline\hline
+%	\end{tabularx}
+%	\end{center}
+%\hrule
+%}
+%
+%\vspace{0.5cm}
+%
+%Die Zustände $\ket{2 1}$ und $\ket{1 1}$ müssen orthogonal zueinander sein. Ist $\ket{2 1}$ bestimmt, so kann man ein Vorzeichen ändern und die Koeffienten vertauschen.
+%
+%
+%
+%
+%\newpage
+%
+%
+%\section{Hellmann-Feynman-Theorem}
+%
+%
+%\vspace{0.5cm}
+%
+%{\color{blue}
+%\hrule
+%	\fbox{Beispiel}\\
+%	ges: $\braket{n,l,m\ |\  \frac{1}{r^2}\  |\  n,l,m}$ für ein Wasserstoffatom\\
+%	Lös: Wähle $\lambda = \frac{e^2}{4\pi\varepsilon_0}$ als Parameter, da dieser sowohl in Hamilton-Operator, Energien und Eigenzuständen des Wasserstoffatoms vorkommt.
+%	\begin{align*}
+%		\hat{H} &= \frac{\hat{p}^2}{2m} - \frac{e^2}{4\pi\varepsilon_0}\frac{1}{r} \\
+%		\Rightarrow \hat{H}_\lambda &= 	\frac{\hat{p}^2}{2m} - \frac{\lambda}{r} \\
+%		E_n &= -\frac{m}{2n^2} \alpha^2 \stackrel{\comment{\alpha}}{=} -\frac{m}{2n^2} \lr{ \frac{e^2}{4\pi\varepsilon_0 \hbar} }^2 \\
+%		\Rightarrow E_n(\lambda) &= -\frac{m}{2n^2 \hbar^2} \lambda^2
+%	\intertext{Einsetzen in das Hellmann-Feynman-Theorem liefert:}
+%		\frac{\diff E_n(\lambda)}{\diff\lambda} &= \braket{n(\lambda) | \frac{\diff H_\lambda}{\diff\lambda} | n(\lambda) } \\
+%		\stackrel{\comment{E_n(\lambda), \hat{H}_\lambda}}{\Rightarrow} \frac{\diff}{\diff\lambda} \lr{ -\frac{m}{2n^2} \lr{ \frac{e^2}{4\pi\varepsilon_0 \hbar} }^2 } &= \braket{n,l,m\  |\  \frac{\diff}{\diff\lambda} \lr{ \frac{\hat{p}^2}{2m} - \frac{\lambda}{r} }\ |\  n,l,m} \\
+%		\Rightarrow -\frac{2m}{2n^2\hbar^2}\lambda &= \braket{n,l,m\ |\  0 - \frac{1}{r}\  |\  n,l,m} \\
+%		\Leftrightarrow \braket{n,l,m\ |\ \frac{1}{r}\ |\ n,l,m} &= +\frac{2m}{2n^2\hbar^2}\lambda \\
+%		&\stackrel{\comment{\lambda}}{=} \frac{2m}{2n^2\hbar^2} \frac{e^2}{4\pi\varepsilon_0} = \frac{1}{a_0 n^2}
+%	\end{align*}
+%
+%wobei im letzten Schritt der Bohr-Radius erkannt wurde.\\
+%\hrule
+%}
+%
+%
+%\newpage
+%
+%
+%\section{Beweise Dirac-Notation}
+%\begin{itemize}
+%	\item \textbf{$\mathbb{1}$ einfügen}\\
+%	An Terme kann die Einheitsmatrix $\mathbb{1}$ in Form von vollständigen Systemen multipliziert werden, um vor allem Eigenwertgleichungen auszunutzen.
+%		\begin{align*}
+%			\mathbb{1} &= \sum_i \ket{i}\bra{i} \\
+%			\mathbb{1} &= \int \ket{i}\bra{i}\,\diff i
+%		\end{align*}
+%		
+%\begin{minipage}{0.9\textwidth}
+%{\color{blue}
+%\hrule
+%	\fbox{Beispiel}
+%	\begin{align*}
+%		\braket{x | \hat{p}^2 | \psi} &\stackrel{\comment{\mathbb{1}}}{=} \int \braket{x | \hat{p}^2 | p} \braket{p | \psi} \,\diff p \stackrel{\comment{\hat{p}\ket{p}=p\ket{p}}}{=} p^2 \int \braket{x | p} \braket{p | \psi} \,\diff p = ...
+%	\end{align*}
+%\hrule
+%}
+%\end{minipage}		
+%		
+%	\item \textbf{$\delta$-Funktionen erkennen}\\
+%	Die $\delta$-Funktion ausgedrückt mittels Exponentialfunktion ist im Allgemeinen die erste Form. In der QM taucht sie häufig in der zweiten Form (mit einem $\hbar$) auf.
+%	\begin{align*}
+%		\delta(x-a) &= \frac{1}{2\pi} \int_{-\infty}^\infty e^{ik(x-a)} \,\diff k \\
+%		\delta(x-a) &= \frac{1}{2\pi\hbar} \int_{-\infty}^\infty e^{i\frac{k}{\hbar}(x-a)} \,\diff k
+%	\end{align*}
+%
+%\begin{minipage}{0.9\textwidth}
+%{\color{blue}
+%\hrule
+%	\fbox{Beispiel}\\
+%	geg: $\braket{x | p} = \frac{1}{\sqrt{2\pi\hbar}} e^{\frac{i}{\hbar}px}$;\quad ges: $\braket{x | \hat{p} | x'}$
+%	\begin{align*}
+%		\braket{x | \hat{p} | x'} &\stackrel{\comment{\mathbb{1}}}{=} \int \braket{x | \hat{p} | p} \braket{p | x'} \,\diff p \stackrel{\comment{\hat{p}\ket{p}=p\ket{p}}}{=} p \int \braket{x | p} \braket{p | x'} \,\diff p = p \int \frac{1}{\sqrt{2\pi\hbar}} e^{\frac{i}{\hbar}px} \cdot \frac{1}{\sqrt{2\pi\hbar}} e^{-\frac{i}{\hbar}px'} \,\diff p = \\
+%		&= \frac{1}{2\pi\hbar} \int \underbrace{p\cdot e^{i\frac{p}{\hbar}(x-x')}}_{\comment{=\frac{\hbar}{i}\frac{\diff}{\diff x} e^{i\frac{p}{\hbar}(x-x')}}} \,\diff p = \frac{\hbar}{i}\frac{\diff}{\diff x} {\color{red}\frac{1}{2\pi\hbar} \int e^{i\frac{p}{\hbar}(x-x')} \,\diff p} \stackrel{\comment{\delta(x-x')}}{=} \frac{\hbar}{i}\frac{\diff}{\diff x} \color{red}{\delta(x-x')}
+%	\end{align*}
+%\hrule
+%}
+%\end{minipage}	
+%\end{itemize}
+%
+%
+%\newpage
+%
+%
+%\section{Bilder}
+%\subsection{Schrödinger-Bild}
+%	Im Schrödinger-Bild entwickelt man den Anfangszustand $\ket{\psi(t_0)}$ mit dem Zeitentwicklungsoperator (Dyson-Reihe), während der Operator unverändert bleibt.
+%		\begin{align}
+%			\hat{A}_S &= \hat{A} \\
+%			\ket{\psi_S(t)} &= U(t,t_0) \ket{\psi(t_0)} \\
+%			\Rightarrow \braket{\hat{A}} &= \braket{\psi_S(t)\  |\  \hat{A}_S\  |\  \psi_S(t)} = \braket{ \psi(t_0) U^\dagger(t,t_0)\  |\  \hat{A}\  |\  U(t,t_0) \psi(t_0) }
+%		\end{align}
+%		
+%\subsection{Heisenberg-Bild}
+%	Im Heisenberg-Bild verwendet man einen zeitabhängigen Operator und lässt den Zustand unverändert.
+%		\begin{align}
+%			\ket{\psi_H(t)} &= \ket{\psi(t_0)} \\
+%			\hat{A}_H &= U^\dagger(t,t_0) \hat{A} U(t,t_0) \\
+%			\Rightarrow \braket{\hat{A}} &= \braket{\psi_H(t)\  |\  \hat{A}_H\  |\  \psi_H(t)} = \braket{ \psi(t_0)\  |\  U^\dagger(t,t_0) \hat{A} U(t,t_0)\  |\  \psi(t_0) }
+%		\end{align}
+%
+%Der Operator im Heisenberg-Bild $\hat{A}_H$ kann auch gefunden werden, indem die Heisenberg-Gleichung gelöst wird.
+%		\begin{equation}
+%			\frac{\diff}{\diff t}\hat{A}_H = \frac{1}{i\hbar} [\hat{A}_H,\hat{H}_H] + (\partial_t \hat{A}_S)_H
+%		\end{equation}
+%
+%
+%\subsection{Dirac-Bild}
+%	Im Dirac-Bild teilt man den Hamilton-Operator in einen ungestörten und einen störenden Operator auf $\hat{H} = \hat{H}_0 + \hat{H}'$. Man entwickelt  den Anfangszustand $\ket{\psi(t_0)}$ mit dem Zeitenwicklungsoperator, der den Stör-Hamilton-Operator $\hat{H}'$ trägt, und transformiert den Operator mit dem Zeitenwicklungsoperator, der den ungestörten Hamilton-Operator $\hat{H}_0$ trägt.
+%		\begin{align}
+%			\ket{\psi_I(t)} &= U'(t,t_0) \ket{\psi(t_0)} = e^{-\frac{i}{\hbar} \hat{H}'(t-t_0)} \ket{\psi(t_0)} \\
+%			\hat{A}_I(t) &= U_0^\dagger(t,t_0) \hat{A} U_0(t,t_0) = e^{\frac{i}{\hbar} \hat{H}_0(t-t_0)} \hat{A} e^{-\frac{i}{\hbar} \hat{H}_0(t-t_0)} \\
+%			\Rightarrow \braket{\hat{A}} &= \braket{\psi_I(t)\ |\  \hat{A}_I\  |\  \psi_I(t)} = \braket{ \psi(t_0)\  |\  U^\dagger(t,t_0) \hat{A} U(t,t_0)\  |\  \psi(t_0) }
+%		\end{align}
+%
+%Der Operator im Dirac-Bild $\hat{A}_I(t)$ kann auch gefunden werden, indem die folgende Bestimmungsgleichung \textcolor{gruen}{(Heisenberg-Gleichung mit $\hat{A}_H\to \hat{A}_I,\ \hat{H}_H\to \hat{H}_0$)} gelöst wird.
+%		\begin{equation}
+%			\frac{\diff}{\diff t}\hat{A}_I = \frac{1}{i\hbar} [\hat{A}_I,\hat{H}_0] + (\partial_t \hat{A}_S)_I
+%		\end{equation}
+\end{document}

@@ -1,0 +1,967 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Analysis II: Mehrdimensionale Analysis}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section{Differenzierbarkeit}
+\subsection{Partielle Differenzierbarkeit}
+Die partiellen Ableitungen von $f$ am Punkt $\vec{a}$ sind die Richtungsableitungen entlang der Richtungsvektoren $\vec{e}_i$.
+	\begin{equation}
+		D_{\vec{e}_i}f(\vec{a}) \equiv \frac{\partial f}{\partial \vec{e}_i}(\vec{a}) \equiv \lim\limits_{h\to 0} \frac{f(\vec{a} + h \vec{e}_i) - f(\vec{a})}{h}
+	\end{equation}
+
+{\color{gruen} Merke: Die Richtungsableitung entlang $\vec{v}$ kann man sich aus der 1d Ableitung, die mit $h\to 0$ formuliert ist, ableiten
+	\begin{align*}
+		f'(a) &= \lim\limits_{h\to 0} \frac{f(a+h) - f(a)}{h} \\
+		\Rightarrow D_{\vec{v}}f(\vec{a}) &= \lim\limits_{h\to 0} \frac{f(\vec{a} + h\vec{v}) - f(\vec{a})}{h}
+	\end{align*}
+}
+
+
+\subsection{Totale Differenzierbarkeit}
+Eine Funktion $\vec{f}$ ist total differenzierbar, wenn sie in alle Richtungen differenzierbar ist. Dann wird der Ableitung am Punkt $\vec{a}$ die \textbf{Jacobi-Matrix} $J_f(a)$
+	\begin{equation}
+		\diff\vec{f}(\vec{a}) \equiv J_{\vec{f}}(\vec{a}) =
+		\begin{pmatrix}
+			\frac{\partial f_1}{\partial x_1}(a) & \dots & \frac{\partial f_1}{\partial x_n}(a) \\
+			\vdots & \ddots & \vdots \\
+			\frac{\partial f_m}{\partial x_1}(a) & \dots & \frac{\partial f_m}{\partial x_n}(a)
+		\end{pmatrix}
+	\end{equation}
+zugeordnet.\\
+\\
+Die Änderung der Funktion $\vec{f}$, wenn man in die Richtung $\vec{v}$ schreitet ergibt sich dann aus
+	\begin{equation}
+		J_{\vec{f}}(\vec{a})\vec{v} =
+		\begin{pmatrix}
+			\frac{\partial f_1}{\partial x_1}(\vec{a}) & \dots & \frac{\partial f_1}{\partial x_n}(\vec{a}) \\
+			\vdots & \ddots & \vdots \\
+			\frac{\partial f_m}{\partial x_1}(\vec{a}) & \dots & \frac{\partial f_m}{\partial x_n}(\vec{a})
+		\end{pmatrix}
+		\cdot
+		\begin{pmatrix}
+			v_1\\
+			\vdots\\
+			v_n
+		\end{pmatrix}
+	\end{equation}
+
+Im Falle einer skalaren Funktion $f:\mathbb{R}^3\to\mathbb{R}$ und einem infinitesimal kleinen Schritt $\diff \vec{x}$ ergibt sich das sogenannte \textbf{totale Differential}
+	\begin{equation}
+		\diff f := J_f(\vec{a})\cdot\diff\vec{x} = \frac{\partial f}{\partial x_1} \diff x_1 + \frac{\partial f}{\partial x_2} \diff x_2 + \frac{\partial f}{\partial x_3} \diff x_3 = \sum_{i=1}^3 \frac{\partial f}{\partial x_i} \diff x_i
+	\end{equation}
+
+Im Falle einer vektoriellen Funktion $f:\mathbb{R}^3\to\mathbb{R}^3$ und einem infinitesimal kleinen Schritt $\diff \vec{x}$ ergibt sich das \textbf{totale Differential}
+	\begin{equation}
+		\diff\vec{f} := J_{\vec{f}}(\vec{a})\cdot\diff\vec{x} =
+		\begin{pmatrix}
+			\frac{\partial f_1}{\partial x_1}(\vec{a}) & \frac{\partial f_1}{\partial x_2}(\vec{a}) & \frac{\partial f_1}{\partial x_3}(\vec{a}) \\
+			\frac{\partial f_2}{\partial x_1}(\vec{a}) & \frac{\partial f_2}{\partial x_2}(\vec{a}) & \frac{\partial f_2}{\partial x_3}(\vec{a}) \\
+			\frac{\partial f_3}{\partial x_1}(\vec{a}) & \frac{\partial f_3}{\partial x_2}(\vec{a}) & \frac{\partial f_3}{\partial x_3}(\vec{a})
+		\end{pmatrix}
+		\cdot
+		\begin{pmatrix}
+			\diff x_1 \\ \diff x_2 \\ \diff x_3
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			\sum_{i=1}^3 \frac{\partial f_1}{\partial x_i} \diff x_i\\
+			\sum_{i=1}^3 \frac{\partial f_2}{\partial x_i} \diff x_i\\
+			\sum_{i=1}^3 \frac{\partial f_3}{\partial x_i} \diff x_i
+		\end{pmatrix}
+	\end{equation}
+
+
+
+%Eine Funktion $f:\mathbb{R}^n\to\mathbb{R}^m$ ist in $a\in\Omega\subset \mathbb{R}^n$ differenzierbar, wenn sie durch $f(x) \approx f(a) + L(x+a)$ approximiert werden kann, d.h. für den Restterm $R(x-a) = f(x) - f(a) - L(x-a)$ gilt
+%	\begin{equation}
+%		\lim\limits_{x\to a} \frac{||R(x-a)||}{||x-a||} \stackrel{!}{=} 0
+%	\end{equation}
+%
+%Die \textbf{Ableitung von $f$ am Punkt $a$} ist die \underline{Abbildung} $L \equiv \diff f(a) \equiv f'(a)$.\\
+
+
+\newpage
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $f:\mathbb{R}^2\to \mathbb{R}^3,\ (x,y)\mapsto (x^2+y^2, x, y)^T$\\
+	\\
+	Die Ableitungen für die Jacobi-Matrix (die Ableitung von $f$) sind
+		$$\frac{\partial f_1}{\partial x} = 2x,\
+			\frac{\partial f_2}{\partial x} = 1,\
+			\frac{\partial f_3}{\partial x} = 0,\
+			\frac{\partial f_1}{\partial y} = 2y,\
+			\frac{\partial f_2}{\partial y} = 0,\
+			\frac{\partial f_3}{\partial y} = 1$$
+	
+	Somit ist die Jacobi-Matrix
+		$$J_f(a) =
+		\begin{pmatrix}
+			\frac{\partial f_1}{\partial x} & \frac{\partial f_1}{\partial y} \\[0.5em]
+			\frac{\partial f_2}{\partial x} & \frac{\partial f_2}{\partial y} \\[0.5em]
+			\frac{\partial f_3}{\partial x} & \frac{\partial f_3}{\partial y}
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			2x & 2y \\
+			1 & 0 \\
+			0 & 1
+		\end{pmatrix}
+		$$
+\hrule
+}
+
+
+\subsection{Rechenregeln}
+	\begin{itemize}
+		\item \textbf{Kettenregel}
+			\begin{equation}
+				\diff(f\circ g)(x) = \diff f(g(x)) \circ \diff g(x)
+			\end{equation}
+
+		\item \textbf{Produktregel}
+			\begin{equation}
+				\diff(f\cdot g)(x) = \diff f(x)\cdot g(x) + f(x)\cdot \diff g(x)
+			\end{equation}
+		
+		\item \textbf{Quotientenregel}
+			\begin{equation}
+				\diff\lr{ \frac{f}{g} }(x) = \frac{f'(x)\cdot g(x) - f(x)\cdot g'(x)}{g(x)^2}
+			\end{equation}
+	\end{itemize}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $g:[0,T]\to \mathbb{R}^3$, $f:\mathbb{R}^3\to \mathbb{R}$, $g(t) = (\cos t, \sin t, t)^T$, $f(x,y,z) = x + yz$\\
+	\\
+	Berechne die Ableitungen, d.h. die Jacobi-Matrizen für $f,g$.
+		\begin{align*}
+			\diff f(x,y,z) &=
+			\begin{pmatrix}
+				\frac{\partial f}{\partial x}(x,y,z) \\
+				\frac{\partial f}{\partial y}(x,y,z) \\
+				\frac{\partial f}{\partial z}(x,y,z)
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				1 \\
+				z \\
+				y
+			\end{pmatrix} \\
+			\diff g(t) &=
+			\begin{pmatrix}
+				\frac{\partial g_1}{\partial t}(t) \\
+				\frac{\partial g_2}{\partial t}(t) \\
+				\frac{\partial g_3}{\partial t}(t)
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				-\sin t\\
+				\cos t\\
+				1
+			\end{pmatrix} \\
+			\Rightarrow \diff(f\circ g)(t) &= \diff f(g(t)) \circ g(t) =
+			\begin{pmatrix}
+				1\\
+				t\\
+				\sin t
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				-\sin t\\
+				\cos t\\
+				1
+			\end{pmatrix}
+			=
+			\cancel{-\sin t} + t\cos t + \cancel{\sin t} = t\cos t
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Taylor-Entwicklung}
+Das Taylor-Polynom einer Funktion $f(x)$ am Entwicklungpunkt $h$ \textcolor{gruen}{(wobei $x,h$ Vektoren sind)} bis zur $k$-ten Ordnung, ist
+	\begin{align}
+		T_{f,h,k}(x) &= f(h) + \sum_{j=1}^k \frac{1}{j!} D^{(j)}f(h)(x-h)^j = \\
+		&= f(h) + D^{(1)}f(h)(x-h) + \frac{1}{2} \cdot D^{(2)}f(h)(x-h,x-h) + ... = \\
+		&= f(h) + D^{(1)}f(h)\cdot (x-h) + \frac{1}{2} \cdot  (x-h)^T \cdot D^{(2)}f(h) \cdot (x-h) + ...
+	\end{align}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: $T_{f,(0,0),2}(x,y)$ mit $f(x,y) = \exp(x\cdot y)$
+		\begin{align*}
+			T_{f,(0,0),2}(x,y) &= f(0,0) + D^{(1)}f(0,0)\cdot
+			\begin{pmatrix}
+				x\\y
+			\end{pmatrix}
+			 + 
+			 \frac{1}{2} \cdot
+			 \begin{pmatrix}
+				x & y
+			\end{pmatrix}
+			\cdot
+			D^{(2)}f(0,0)\cdot
+			\begin{pmatrix}
+				x\\y
+			\end{pmatrix}
+		\end{align*}
+	
+	Berechne die Ableitungen mittels Jacobi-Determinante.
+		\begin{align*}
+			D^{(1)}f(0,0) &=
+			\begin{pmatrix}
+				\partial_x f(0,0) & \partial_y f(0,0)
+			\end{pmatrix}
+			=
+			\left.
+			\begin{pmatrix}
+				y\exp(xy) & x\exp(xy)
+			\end{pmatrix}
+			\right|_{(0,0)}
+			=
+			\begin{pmatrix}
+				0 & 0
+			\end{pmatrix} \\
+			\Rightarrow D^{(2)}f(0,0) &=
+			D^{(1)}
+			\begin{pmatrix}
+				\partial_x f(0,0) & \partial_y f(0,0)
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				\partial_x^2f(0,0) & \partial_y \partial_x f(0,0) \\
+				\partial_y \partial_x f(0,0) & \partial_y^2f(0,0)
+			\end{pmatrix}
+			= \\
+			&=
+			\left.
+			\begin{pmatrix}
+				\partial_x y\exp(xy) & \partial_y y\exp(xy) \\
+				\partial_y x\exp(xy) & \partial_y x\exp(xy)		
+			\end{pmatrix}
+			\right|_{(0,0)} =
+			\left.
+			\begin{pmatrix}
+				y^2\exp(xy) & (1+xy)\exp(xy) \\
+				(1+xy)\exp(xy) & x^2\exp(xy)		
+			\end{pmatrix}
+			\right|_{(0,0)} =\\
+			&=
+			\begin{pmatrix}
+				0 & 1 \\
+				1 & 0
+			\end{pmatrix}
+		\end{align*}
+
+	Somit wird das Taylor-Polynom
+		\begin{align*}
+			T_{f,(0,0),2}(x,y) &= 1 +
+			\begin{pmatrix}
+				0 & 0
+			\end{pmatrix}
+			\begin{pmatrix}
+				x\\ y
+			\end{pmatrix}
+			+
+			\frac{1}{2}
+			\begin{pmatrix}
+				x & y
+			\end{pmatrix}
+			\begin{pmatrix}
+				0 & 1\\
+				1 & 0
+			\end{pmatrix}
+			\begin{pmatrix}
+				x\\y
+			\end{pmatrix}
+			= 1 + 0 + \frac{1}{2}
+			\begin{pmatrix}
+				x & y
+			\end{pmatrix}
+			\begin{pmatrix}
+				y\\x
+			\end{pmatrix}
+			=
+			1 + xy
+		\end{align*}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.45\textwidth]{Grafiken/Ana II Mehrdimensionale Taylor-Entwicklung.pdf}
+	\end{figure}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Lokale Extrema von Funktionen $f:\Omega\subset\mathbb{R}^n\to \mathbb{R}$}
+Ein Punkt $a$ ist ein lokales Minimum (Maximum) [Sattelpunkt], wenn
+	\begin{enumerate}
+		\item Der Gradient verschwindet
+			\begin{equation}
+				f'(a) = 0
+			\end{equation}
+		
+		\item Die Hesse-Matrix nur positive (negative) [positive und negative] Eigenwerte hat oder äquivalent
+			\begin{equation}
+				\forall x\in\Omega:\quad
+				\braket{x,Hf(...)x} 
+				\begin{cases}
+				> 0, & \text{Minimum} \\
+				< 0, & \text{Maximum} \\
+				\text{sonst}, & \text{Sattelpunkt}
+				\end{cases}
+			\end{equation}
+	\end{enumerate}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $f(x,y) = x^2+y^2+xy+1$\\
+	\\
+	Finde zunächst die kritischen Punkte. Berechne also den Gradienten und setze ihn null.
+		\begin{align*}
+			f'(x,y) &=
+			\begin{pmatrix}
+				\partial_x f(x,y)\\
+				\partial_y f(x,y)
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				2x + y\\
+				2y + x
+			\end{pmatrix}
+			\stackrel{!}{=}
+			\begin{pmatrix}
+				0\\
+				0
+			\end{pmatrix}
+		\end{align*}
+	
+	Dies wird erfüllt für den Punkt $a = (0,0)$.\\
+	Berechne also die Hesse-Matrix für diesen Punkt.
+		\begin{align*}
+			Hf(x,y) &=
+			\begin{pmatrix}
+				\partial_x^2f(0,0) & \partial_x\partial_y f(x,y)\\
+				\partial_y^2f(0,0) & \partial_y\partial_x f(x,y)		
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				2 & 1\\
+				1 & 2
+			\end{pmatrix}\\
+			\Rightarrow \braket{x, Hf(x,y)x} &=
+			\begin{pmatrix}
+				x & y
+			\end{pmatrix}
+			\begin{pmatrix}
+				2 & 1\\
+				1 & 2
+			\end{pmatrix}
+			\begin{pmatrix}
+				x\\
+				y
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				x & y
+			\end{pmatrix}
+			\begin{pmatrix}
+				2x + y\\
+				2y + x
+			\end{pmatrix}
+			=
+			2x^2 + yx + xy + 2y^2 = \\
+			&= (x + y)^2 + x^2 + y^2 > 0
+		\end{align*}
+	
+	Somit ist $a=(0,0)$ ein lokales Minimum.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.45\textwidth]{Grafiken/Ana II Lokale Extrema.pdf}
+	\end{figure}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Lokale Extrema unter Nebenbedingungen}
+Betrachte eine Funktion $g$, die unter $m$ Nebenbedingungen $f_i$ extremal, d.h. minimal oder maximal, werden soll.\\
+\\
+Die hinreichende Bedingung für Extremalität ist
+	\begin{enumerate}
+		\item Verschwinden des Gradienten (notwendige Bedingung)
+			\begin{equation}
+				\nabla G := \nabla g - \sum_{i=1}^m \lambda_i \nabla f_i = 0
+			\end{equation}
+		
+		\item Für alle Vektoren $v$, die senkrecht auf dem Gradienten an der Extremalstelle stehen, gilt
+			\begin{equation}
+				\braket{v,HG(z^\star) v}
+				\begin{cases}
+					> 0, & \text{Minimum}\\
+					< 0, & \text{Maximum}
+				\end{cases}
+			\end{equation}
+	\end{enumerate}
+
+\textbf{Anleitung}
+	\begin{enumerate}
+		\item \textbf{Funktionen aufstellen}\\
+		Stelle die zu minimierende (maximierende) Funktion $g$, die Nebenbedingungen $f_i$, sowie die Funktion
+			\begin{equation}
+				G = g - \sum_{i=1}^m \lambda_i f_i
+			\end{equation}
+		auf.
+
+
+		\item \textbf{Notwendige Bedingung für Extremalität}\\
+		Setze $g$ und die $f_i$ in die Gl.
+			\begin{equation}
+				\nabla G = \nabla g - \sum_{i=1}^m \lambda_i \nabla f_i = 0
+			\end{equation}
+
+		 ein und gewinne daraus durch Elimination der Lagrange-Multiplikatoren $\lambda_i$ und Verwendung der Nebenbedingung(en)
+		 	\begin{equation}
+				 f_i = 0
+		 	\end{equation}
+
+		die lokale(n) Extremstelle(n) $z^\star = (x^\star,y^\star,...)$.
+
+
+		\item \textbf{Lagrange-Multiplikatoren}\\
+		Bestimme die zu den Extremalstellen $z^\star$ gehörenden Lagrange-Multiplikatoren.
+
+
+		\item \textbf{Senkrechte Vektoren zu $\nabla f_i$}\\
+		Bestimme die zum Gradienten der Nebenbedingungen $f_i$ an der Extremalstelle $z^\star$ senkrechten Vektoren $v$ über die Bedingung
+			\begin{align*}
+				\braket{v,\nabla f(z^\star)} = 0
+			\end{align*}	
+
+
+		\item \textbf{Hesse-Matrix}\\
+		Bestimme die Hesse-Matrix
+			\begin{equation}
+				HG(z^\star)
+			\end{equation}
+		
+		und berechne
+			\begin{equation}
+				\braket{v,HG(z^\star) v}
+			\end{equation}
+	\end{enumerate}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $g(x,y) = xy + 14$, $f(x,y) = x^2 + y^2 - 18$\\
+	\\
+	Stelle zunächst $G(x,y)$ auf
+		$$G(x,y) = xy + 14 - \lambda(x^2 + y^2 - 18)$$
+	
+	Bestimme nun die Extremalstellen über 
+		\begin{align*}
+			\nabla G(x,y) &=
+			\begin{pmatrix}
+				\partial_x G(x,y)\\
+				\partial_y G(x,y)
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				y - 2\lambda x\\
+				x - 2\lambda y
+			\end{pmatrix}
+			\stackrel{!}{=}
+			\begin{pmatrix}
+				0\\
+				0
+			\end{pmatrix}
+		\end{align*}
+	
+	Eliminiere $\lambda$
+		\begin{align*}
+			\begin{cases}
+				y - 2\lambda x &= 0\\
+				x - 2\lambda y &= 0
+			\end{cases}
+			\Leftrightarrow
+			\begin{cases}
+				\lambda &= \frac{y}{2x}\\
+				\lambda &= \frac{x}{2y}
+			\end{cases}
+			\Leftrightarrow
+			\frac{y}{2x} = \frac{x}{2y}
+			\Leftrightarrow
+			x^2 = y^2
+		\end{align*}
+	
+	Verwende nun die Nebenbedingung $f=0$, um die Extremalstellen final zu bestimmen.
+		\begin{align*}
+			x^2 + y^2 - 18 &= 0 \Leftrightarrow x^2 + x^2 -18 = 0 \Leftrightarrow x = \pm 3
+		\end{align*}
+	
+	Somit sind die Extremalstellen $z_1^\star = (3,3), z_2^\star = (-3,3), z_3^\star = (3,-3), z_4^\star = (-3,-3)$.\\
+	Die dazugehörigen Lagrange-Multiplikatoren sind
+		\begin{align*}
+			\lambda_1 = \lambda_4 &= \frac{3}{2\cdot 3} = \frac{1}{2}\\
+			\lambda_2 = \lambda_3 &= -\frac{3}{2\cdot 3} = -\frac{1}{2}
+		\end{align*}
+
+	Bestimme nun die zu den Gradienten an den Extremalstellen senkrechten Vektoren.
+		\begin{align*}
+			\bullet \braket{v, \nabla f(3,3)} =
+			\begin{pmatrix}
+				v_1 & v_2
+			\end{pmatrix}
+			\cdot
+			\left.
+			\begin{pmatrix}
+				2x\\
+				2y
+			\end{pmatrix}
+			\right|_{(\pm 3,\pm 3)}
+			=
+			\pm 6v_1 + \pm 6v_2 \stackrel{!}{=} 0 \\
+			\Rightarrow v_1 &= v_2\\
+			\bullet \braket{v, \nabla f(3,3)} =
+			\begin{pmatrix}
+				v_1 & -v_2
+			\end{pmatrix}
+			\cdot
+			\left.
+			\begin{pmatrix}
+				2x\\
+				2y
+			\end{pmatrix}
+			\right|_{(\pm 3,\mp 3)}
+			=
+			\pm 6v_1 \mp 6v_2 \stackrel{!}{=} 0\\
+			\Rightarrow v_1 &= v_2
+		\end{align*}
+	
+	
+	Bestimme die Hesse-Matrix
+		\begin{align*}
+			HG(x,y) &=
+			\begin{pmatrix}
+				\partial_x^2 G(x,y) & \partial_x\partial_y G(x,y) \\
+				\partial_y\partial_x G(x,y)  & \partial_y^2 G(x,y) 
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				-2\lambda & 1 \\
+				1 & -2\lambda
+			\end{pmatrix}
+		\end{align*}
+	
+	Bestimme, ob die Extremalstellen Minima oder Maxima sind.
+		\begin{align*}
+			\bullet \braket{v, HG(3,3) v} = \braket{v, HG(-3,-3) v} &=
+			\begin{pmatrix}
+				v_1 & -v_1
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				-2\frac{1}{2} & 1\\
+				1 & -2\frac{1}{2}
+			\end{pmatrix}
+			=
+			-2v_1^2 < 0\\
+			\bullet \braket{v, HG(-3,3) v} = \braket{v, HG(3,-3) v} &=
+			\begin{pmatrix}
+				v_1 & v_1
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				-2\lr{-\frac{1}{2}} & 1\\
+				1 & -2\lr{-\frac{1}{2}}
+			\end{pmatrix}
+			=
+			2v_1^2 > 0
+		\end{align*}
+	
+	Somit sind $(3,3),(-3,-3)$ Maxima, während $(-3,3),(3,-3)$ Minima.
+	
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth]{Grafiken/Ana II Lokale Extrema mit Nebenbedingungen.pdf}
+	\end{figure}
+\hrule
+}
+
+
+
+\newpage
+
+
+\section{Integralrechnung in $\mathbb{R}^n$}
+\subsection{Rechenregeln}
+	\begin{itemize}
+		\item \textbf{Vertauschung von Integration und Differentiation}\\
+		Für überall stetige und in $y$ partiell differenzierbare Funktionen $f$ gilt
+			\begin{equation}
+				\frac{\partial}{\partial y_k} \int_Q f(x,y)\, \diff x\diff y = \int_Q \frac{\partial f}{\partial y_k}(x,y)\, \diff x\diff y
+			\end{equation}
+		
+		
+		\item \textbf{Satz von Fubini (Vertauschung von Integralen)}\\
+		Die Integrationsreihenfolge darf bei der Integration über kompakte Quader \textcolor{gruen}{(d.h. abgeschlossen und beschränkte Quader, z.B. $[a,b], [c,d]$)} vertauscht werden darf
+			\begin{align}
+				\int_{[a,b]\times [c,d]} f(x,y)\, \diff x\diff y &= \int_a^b \lr{ \int_c^d f(x,y)\,\diff y }\diff x = \int_c^d \lr{ \int_a^b f(x,y)\,\diff x }\diff y
+			\intertext{bzw. allgemeiner für zwei Quader $Q_1\in\mathbb{R}^p, Q_2\in\mathbb{R}^q$}
+				\int_{Q_1\times Q_2} f(x,y)\, \diff^{p\times q} (x,y) &= \int_{Q_1} \lr{ \int_{Q_2} f(x,y)\,\diff^q y }\diff^p x = \int_{Q_2} \lr{ \int_{Q_1} f(x,y)\,\diff^p  }\diff^q y 
+			\end{align}
+		
+		
+		\item \textbf{Transformationssatz}\\
+		Sei $\varphi: U\to V, u\mapsto \varphi(u)$ eine Koordinatentransformation und $f:V$ eine stetige Funktion
+			\begin{equation}
+				\int_V f(x) \diff^n x = \int_U f(\varphi(u)) \cdot |\det J_\varphi(u)|\, \diff^n u
+			\end{equation}
+	\end{itemize}
+
+	\textcolor{gruen}{Notation: $U$: Vektorraum der substituierten Variablen mit Elementen $u$; $V$: Vektorraum der Koordinaten zu Beginn mit Elementen $x$; $\varphi$: Funktion, die die substituierten Elemente auf die Elemente zu Beginn abbildet.}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: $\int\ln(x^2+y^2)\,\diff x\diff y$ mit $a\leq \sqrt{x^2 + y^2} \leq b$ und $x,y\geq 0$\\
+	\\
+	Das Integral entspricht der Integration über eine Kreisscheibe.\\
+	Gehe daher in Zylinderkoordinaten über.\\
+	Die Koordinatentrafo ist $\varphi:U = [a,b]\times[0,\frac{\pi}{2}]\to \mathbb{R}^2,
+	u
+	=
+	\begin{pmatrix}
+		r\\ \theta
+	\end{pmatrix}	
+	\mapsto
+	\varphi\lr{
+	\begin{pmatrix}
+		r\\ \theta
+	\end{pmatrix}}
+	=
+	\begin{pmatrix}
+		x\\ y
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		r\cos\theta \\
+		r\sin\theta
+	\end{pmatrix}$.\\
+	\textcolor{gruen}{$U$ ergibt sich aus den Beschränkungen für $x,y$.}
+		\begin{align*}
+			\int\ln(x^2+y^2)\,\diff x\diff y &= \int_a^b \lr{ \int_0^{\pi/2} \ln(r^2)\cdot
+			\begin{vmatrix}
+				\frac{\partial\varphi_1}{\partial r} & \frac{\partial\varphi_1}{\partial \theta} \\
+				\frac{\partial\varphi_2}{\partial r} & \frac{\partial\varphi_2}{\partial \theta}
+			\end{vmatrix}
+			\,\diff \theta
+			}
+			\diff r
+			= \frac{\pi}{2} \int_a^b 2\ln r \cdot
+			\begin{vmatrix}
+				\cos\theta & -r\sin\theta \\
+				\cos\theta & r\cos\theta
+			\end{vmatrix}
+			\,\diff r = \\
+			&= \pi \int_a^b \ln r\cdot r\,\diff r = ... = \pi \lr{ \frac{b^2\ln b - a^2\ln a}{2} - \frac{b^2 - a^2}{4}}
+		\end{align*}
+
+
+\newpage
+
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{Grafiken/Ana II Transformationssatz.pdf}
+	\end{figure}
+
+\hrule
+}
+
+
+\subsection{Volumen zwischen zwei Funktionen}
+Hängen die Integralgrenzen einer Variablen von einer anderen ab, so wird zunächst über die erste Variable integriert.\\
+Integration über die Menge $B = \{(x,y)\in D\times \mathbb{R}, h_-(x) \leq y \leq h_+(x)\}$ erfolgt über
+	\begin{equation}
+		\int_B f(x,y)\,\underbrace{\diff x}_{=\diff x_1\cdot ...\cdot \diff x_{n-1}}\diff y = \int_D \lr{ \int_{h_-(x)}^{h_+(x)} f(x,y),\diff y } \diff x
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	
+
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Volumen- und Oberflächenberechnung von Rotationskörpern im $\mathbb{R}^3$}
+Das Volumen eines Rotationskörpers, der durch die Rotation der Funktion $r:[a,b]\to \mathbb{R}, x\mapsto r(x)$ um die $x$-Achse erzeugt wird, ist
+	\begin{equation}
+		\text{vol}(K) = \pi \int_a^b r(x)^2\,\diff x
+	\end{equation}
+
+Die Oberfläche eines Rotationskörpers ergibt sich aus
+	\begin{equation}
+		\text{surf}(K) = 2\pi \int_a^b r(x)\cdot \sqrt{1 + r'(x)^2}\,\diff x
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	Berechne den Rotationskörper, der durch die Rotation der Fläche $\{(x,y,z)\in \mathbb{R}^3, x\in[0,8], y\in[0,\sqrt[3]{x}], z=0\}$ um die $x$-Achse entsteht.\\
+	\\
+	Für die zu rotierende Funktion gilt $r(x) = y = \sqrt[3]{x}$ und dessen Grenzen $r:[0,8]\to\mathbb{R}$.
+		\begin{align*}
+			\text{vol}(K) &= \pi \int_0^8 (\sqrt[3]{x})^2\,\diff x = \pi \int_0^8 x^{3/2}\,\diff x = \pi \frac{3}{5} \left. x^{\frac{5}{3}} \right|_0^8 = \pi \frac{3}{5} 8^{\frac{5}{3}} = \pi \frac{3}{5} (2^3)^{\frac{5}{3}} = \\
+			&= \pi \frac{3}{5} 2^5 = \frac{96\pi}{5}
+		\end{align*}
+		
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Grafiken/Ana II Rotationskörper.pdf}	
+	\end{figure}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $\text{vol}(K) = \pi \int_a^b r(x)^2\,\diff x$
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{Grafiken/Ana II Rotationskörper Herleitung.pdf}
+	\end{figure}
+
+	Berechne die Querschnittsfläche $\tilde{A}$ mittels ''Berechnung der Fläche zwischen 2 Funktionen'' \textcolor{gruen}{(siehe vorheriges Unterkapitel)}.\\
+	Finde dafür zunächst die beiden Funktionen $z_{1,2}(y) \equiv h_{\pm}(y)$. Diese ergeben sich über den Satz des Pythagoras für den Kreisradius
+		\begin{align*}
+			r(x)^2 &= y^2 + z^2 \qquad\Leftrightarrow\qquad z_{1,2} = \pm \sqrt{r(x)^2 - y^2} \equiv h_\pm(y)
+		\end{align*}
+	
+	$y$ muss einfach von -$r(x)$ bis $r(x)$ integriert werden. Somit ergibt sich
+		\begin{align*}
+			\tilde{A} &= \int_{\tilde{A}} 1\,\diff y\diff z = \int_{-r(x)}^{r(x)} \lr{ \int_{-\sqrt{r(x)^2-y^2}}^{+\sqrt{r(x)^2-y^2}} 1\,\diff z}\diff y = 2\int_{-r(x)}^{r(x)} \sqrt{r(x)^2 - y^2}\,\diff y \\
+			&= 2\int_{-r(x)}^{r(x)} r \sqrt{1- \lr{ \frac{y}{r} }^2} =
+		\intertext{Löse dieses Integral mittels der trigonometrischen Substitution $\sin(u) = \frac{y}{r}$, um $\cos(u) = \sqrt{1 - \sin^2(u)}$ verwenden zu können.}
+			&= 2r \int_{\arcsin\lr{-\frac{r}{r}}}^{\arcsin\lr{\frac{r}{r}}} \underbrace{\sqrt{1 - \sin^2(u)}}_{=\cos u}\,(\diff u\cdot \cos u\cdot r) = 2r^2 \int_{-\pi/2}^{\pi/2} \cos^2u\,\diff u = \\
+			&= 2r^2 \int_{-\pi/2}^{\pi/2} \frac{1}{2}\lr{ \cos(2u) + 1 }\,\diff u = r^2 \lr{ \cancel{\left.\frac{1}{2}\sin(2u) \right|_{-\pi/2}^{\pi/2}} + \lr{\pi/2 - (-\pi/2} } = \\
+			&= \pi r(x)^2
+		\intertext{Es verbleibt alle Querschnitte von $a$ bis $b$ zu integrieren, was die gesuchte Formel ergibt.}
+			\text{vol}(K) &= \pi \int_a^b r(x)^2\,\diff x \qquad\blacksquare
+		\end{align*}
+
+\hrule
+}
+
+
+\newpage
+
+
+\section{Vektoranalysis}
+\subsection{Kurvenintegrale}
+\subsubsection{Länge einer Kurve}
+Die Länge einer Kurve $C$ lässt sich über die zugehörige Parametrisierung $\alpha:[a,b]\to\mathbb{R}^n,t\mapsto \alpha(t)$ durch die folgende Formel berechnen
+	\begin{equation}
+		L(C) = \int_a^b ||\dot{\alpha}(t)||\,\diff t
+	\end{equation}
+
+\textcolor{gruen}{Anschaulich: $s=v\cdot t$ mit $v = ||\dot{a}(t)||$.}
+
+
+\subsubsection{Kurvenintegral von skalaren Funktionen}
+Das skalare Kurvenintegral ist definiert als
+	\begin{equation}
+		\int_C f\,\diff s = \int_a^b f(\alpha(t))\cdot ||\dot{a}(t)||\,\diff t
+	\end{equation}
+
+mit dem sog. skalaren Bogenelement $\diff s$.
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $f(x,y) = 1 + \frac{y}{3}$, $\alpha(t) = (-3\cos^2(t), 3\sin(t)^2)$
+		\begin{align*}
+			\int_C f\,\diff s &= \int_0^{2\pi} \lr{ 1 + \frac{3\sin^3(t)}{3} } \cdot
+		||
+		\begin{pmatrix}
+			-9\cos^2(t)\sin(t)\\
+			9\sin^2(t)\cos(t)
+		\end{pmatrix}
+		||\,\diff t
+		= \int_0^{2\pi} \lr{ 1 + \frac{3\sin^3(t)}{3} } 9\sin t\cos t = ... = \frac{63}{5}
+		\end{align*}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth]{Grafiken/Ana II skalares Kurvenintegral.pdf}
+	\end{figure}
+\hrule
+}
+
+
+
+
+
+\subsubsection{Kurvenintegral von vektoriellen Funktionen}
+Das vektorwertige Kurvenintegral ist definiert als
+	\begin{equation}
+		\int_C f\,\diff s := \int_a^b \braket{f(\alpha(t)),\dot{\alpha}(t)}\,\diff t
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Vektorfeld $K(x) = -x/||x||^3$, Parametrisierung $\alpha(t)$
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth]{Grafiken/Ana II vektorielles Kurvenintegral.pdf}
+	\end{figure}
+\hrule
+}
+
+\vspace{0.5cm}
+
+Konservative Vektorfelder erfüllen
+	\begin{equation}
+		\int_\gamma f\,\diff s = 0
+	\end{equation}
+
+
+\subsection{Potentiale von Vektorfeldern}
+\subsubsection{•}
+
+
+
+
+
+
+
+\newpage
+
+
+\section{Stichwortverzeichnis}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		Parametrisierung & Abbildung, die ein Intervall auf die Punkte einer Kurve abbildet
+			$$\alpha: I = [\bullet,\bullet] \to \mathbb{R}^n$$
+		{\color{gruen}
+		Beispiel: Archimedische Spirale
+			$$\alpha:[0,T] \to \mathbb{R}^2, t\mapsto
+			\begin{pmatrix}
+				t\cos t\\
+				t\sin t
+			\end{pmatrix}
+			$$}
+		
+		\includegraphics[width=0.5\textwidth]{Grafiken/Ana II Archimedische Spirale.pdf} \\
+		\hline
+			regulär & Eine Kurve $\alpha:I\to\mathbb{R}^n, t\mapsto\alpha(t)$ ist regulär, wenn
+				$$\dot{\alpha}(t) \neq 0$$ \\
+	\hline\hline
+\end{xltabular}
+
+\end{document}

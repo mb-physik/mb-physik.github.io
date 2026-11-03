@@ -1,0 +1,1101 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Allgemeine Relativitätstheorie}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section{Spezielle Relativitätstheorie}
+\subsection{Lorentz-Boost}
+Für einen Lorentz-Boost in $x$-Richtung, gilt
+	\begin{align}
+		t' &= \gamma \lr{ t - \frac{\beta}{c} x } \\
+		x' &= \gamma (x - \beta c t) \\
+		y' &= y \\
+		z' &= z
+	\end{align}
+
+mit dem $\beta$ und Lorentz-Faktor
+	\begin{align}
+		\beta &= \frac{v}{c} \\
+		\gamma &= \frac{1}{\sqrt{1 - \lr{ \frac{v}{c}}^2 } } \equiv \frac{1}{\sqrt{1 - \beta^2 }}
+	\end{align}
+
+In Matrixschreibweise ergibt sich für die Lorentz-Transformation und die dazu inverse Lorentz-Transformation \textcolor{gruen}{(die man durch $x'\leftrightarrow x, t'\leftrightarrow t, v\to -v$ erhält)})
+	\begin{align}
+		\begin{pmatrix}
+		ct' \\ x'
+		\end{pmatrix}
+		&=
+		\gamma
+		\begin{pmatrix}
+			1 & -\beta \\
+			-\beta & 1
+		\end{pmatrix}
+		\begin{pmatrix}
+		ct \\ x
+		\end{pmatrix} \\
+		\Leftrightarrow \begin{pmatrix}
+		ct \\ x
+		\end{pmatrix}
+		&=
+		\gamma
+		\begin{pmatrix}
+			1 & +\beta \\
+			+\beta & 1
+		\end{pmatrix}
+		\begin{pmatrix}
+		ct' \\ x'
+		\end{pmatrix}
+	\end{align}
+
+Das $\chi$ in der Herleitung des Boost-Transformation wird als Rapidität bezeichnet und hat die Eigenschaft
+	\begin{equation}
+		\theta = \text{arctanh}\frac{v}{c} \longrightarrow
+		\begin{cases}
+			0, & v\to 0 \\
+			\infty, & v\to c
+		\end{cases}
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Das System $\Sigma'$ (mit den Koordinaten $t',x',y',z'$) bewege sich mit der Geschwindigkeit $v$ in $x$-Richtung relativ zum System $\Sigma$ ($t,x,y,z$).\\
+	Nehme an, dass $y',z'$ vom Boost unverändert sind und $t',x'$ daher auch nicht von $y',z'$ abhängen.\\
+	Nehme weiter an, dass der Zusammenhang zwischen $t',x'$ und $t,x$ linear ist. \textcolor{red}{Warum?}
+		\begin{align*}
+			\begin{pmatrix}
+				ct'\\ x'
+			\end{pmatrix}
+			&=
+			\gamma
+			\begin{pmatrix}
+				L_{00} & L_{01} \\
+				L_{10} & L_{11}
+			\end{pmatrix}
+			\begin{pmatrix}
+				ct\\ x
+			\end{pmatrix}
+		\end{align*}
+	
+	Benutze nun die Invarianz des Vierervektors
+		\begin{align*}
+			-(ct')^2 + (x')^2 &= -( L_{00} ct + L_{01} x )^2 + (L_{10} ct + L_{11} x)^2 = \\
+			&= -(L_{00}^2 (ct)^2 + L_{01}^2 x^2 + 2L_{00} L_{01} ct x)	+ (L_{10}^2 (ct)^2 + L_{11}^2 x^2 + 2L_{10}L_{11} ct x) = \\
+			&= -(ct)^2 + x^2
+		\intertext{Führe einen Koeffizientenvergleich bzgl. \fbox{$(ct)^2$}, \fbox{$x^2$} und \fbox{$2ct x$}}
+			-1 &= -L_{00}^2 + L_{10}^2 \\
+			1 &= \phantom{-}L_{01}^2 + L_{11}^2 \\
+			0 &= -L_{00}L_{01} + L_{10}L_{11}
+		\end{align*}
+
+	Dieses Gleichungssystem wird gelöst durch $L_{00} = L_{11} = \cosh\chi$ und $L_{10} = L_{01} = \sinh\chi$. \textcolor{gruen}{Kann man sich merken, weil die Matrix der Lorentz-Transformation die Form einer Drehmatrix hat, nur mit sinh und cosh statt sin und cos.}
+		\begin{align*}
+			\begin{pmatrix}
+				ct'\\ x'
+			\end{pmatrix}
+			&=
+			\begin{pmatrix}
+				\cosh\chi & -\sinh\chi \\
+				-\sinh\chi & \cosh\chi
+			\end{pmatrix}
+			\begin{pmatrix}
+				ct\\ x
+			\end{pmatrix}
+		\end{align*}
+	
+	Betrachte nun den Ursprung des Systems $\Sigma'$, d.h. $x'=0$. Dieser Punkt wird im System $\Sigma$ durch $x=vt$ beschrieben. Löse dieses Gleichungssystem:
+		\begin{align*}
+			x' &= 0 \tag{1}\\
+			x &= v\cdot t \stackrel{\comment{1}}{=} \frac{v}{c}\cdot (ct) \tag{2}\\
+		\intertext{Setze für $x'$ die Matrixmultiplikation ein und verwende dann Gl. (2), um $x$ durch $v$ auszudrücken.}
+			\Rightarrow 0 &= x' = (-\sinh\chi \cdot ct + \cosh\chi \cdot x) = ct \underbrace{ \big( \cosh\chi \cdot \underbrace{\frac{x}{ct}}_{\stackrel{(2)}{=} \frac{v}{c}} - \sinh\chi \big) }_{\stackrel{!}{=}0}
+		\intertext{Die Forderung, dass hintere Faktor null sein muss kommt daher, dass im allgemeinen $t\neq 0$ gilt.}
+			\Rightarrow 0 &= \cosh\chi \cdot \frac{v}{c} - \sinh\chi \\
+			\Leftrightarrow \frac{\sinh\chi}{\cosh\chi} = \tanh\chi &= \frac{v}{c}
+		\end{align*}
+	
+	Nutze schließlich trigonometrische Funktionen, um $\sinh$ und $\cosh$ auszudrücken.
+		\begin{align*}
+			\cosh\chi &= \frac{1}{\sqrt{1 - \tanh^2\chi}} = \frac{1}{\sqrt{1 - \lr{ \frac{v}{c} }^2 }} \equiv \gamma \\
+			\sinh\chi &= \tanh\chi \cdot \cosh\chi = \frac{v}{c} \cdot \frac{1}{\sqrt{1 - \lr{ \frac{v}{c} }^2 }} \equiv \beta\gamma
+		\end{align*}
+	
+	Somit gilt für den Lorentz-Boost
+		$$\begin{pmatrix}
+		ct' \\ x'
+		\end{pmatrix}
+		=
+		\gamma
+		\begin{pmatrix}
+			1 & -\beta \\
+			-\beta & 1
+		\end{pmatrix}
+		\begin{pmatrix}
+		ct \\ x
+		\end{pmatrix}
+		$$
+	
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Viererimpuls und relativistische Energie}
+Der Viererimpuls ist definiert als
+	\begin{equation}
+		p = \lr{ \frac{E}{c}, \vec{p} }
+	\end{equation}
+
+Aus dem Quadrat des Viererimpulses ergibt sich die relativistische Energie
+	\begin{equation}
+		E = \sqrt{(m c^2)^2 + (c \vec{p})^2 }
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Das Quadrat des Viererimpulses ist eine Invariante, d.h. sie ist in allen Bezugssystemen gleich. Bestimme sie daher in einem einfach auszurechnenden System: Dem Ruhesystem.\\
+	Dort hat das Teilchen keine Geschwindigkeit und somit auch keinen Impuls.
+		\begin{align*}
+			p^2 &= -\frac{E^2}{c^2} + 0
+		\intertext{Die Energie entspricht der Ruhenergie des Teilchens $E=mc^2$.}
+			\Rightarrow p^2 &= -\frac{(mc^2)^2}{c^2} = -m^2c^2
+		\end{align*}
+
+	Setze dieses $p^2 = -m^2c^2$ in die allgemeine Formel für $p^2$ ein
+		\begin{align*}
+			p^2 &= -\frac{E^2}{c^2} + \vec{p}^2 \stackrel{!}{=} -m^2c^2 \\
+			\Leftrightarrow \frac{E^2}{c^2} &= \vec{p}^2 + m^2c^2 \\
+			\Leftrightarrow E^2 &= (c\vec{p})^2 + (mc^2)^2
+		\end{align*}
+
+
+\hrule
+}
+
+
+
+
+\newpage
+
+
+\section{Grundlegende Formeln und Konventionen in der ART}
+Gemäß der Einstein'schen Summenkonvention wird über gleichnamige Indizes, die paarweise oben bzw. unten stehen summiert
+	\begin{align}
+		A_{...,\mu,...} B^{...,\mu,...} &= \sum_{\mu=0}^3 A_{...,\mu,...} B^{...,\mu,...} \\
+		A^{...,\mu,...} B_{...,\mu,...} &= \sum_{\mu=0}^3 A^{...,\mu,...} B_{...,\mu,...}
+	\end{align}
+
+Kontravariante und kovariante Vektoren können wie folgt über die Metrik ineinander umgerechnet werden
+	\begin{align}
+		x^\mu &= g^{\mu\nu} x_\nu \\
+		x_\mu &= g_{\mu\nu} x^\nu
+	\end{align}
+
+Die Minkowski-Metrik im flachen Raum und für kartesische Koordinaten lautet
+	\begin{equation}
+		g_{\mu\nu} = 
+		\begin{pmatrix}
+			-1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 1
+		\end{pmatrix}
+	\end{equation}
+
+Das Kronecker-Delta lautet
+	\begin{equation}
+		g^{\mu{\color{gruen}\lambda}} g_{{\color{gruen}\lambda}\nu} = \delta^\mu_\nu
+	\end{equation}
+
+Das invariante Längenelement im Minkowski-Raum ist
+	\begin{equation}
+		\diff s^2 := {\color{gruen} \diff x_\mu \diff x^\mu} = -(\diff x^0)^2 + (\diff \vec{x})^2
+	\end{equation}
+
+Die Eigenzeit eines Objekts ist
+	\begin{equation}
+		\diff \tau = \sqrt{-\diff s^2}
+	\end{equation}
+
+
+\newpage
+
+
+\section{Koordinatentransformationen}
+Die Koordinatentransformation $x \leftrightarrow x'$ werden durch die Transformationsmatrix $S$ durchgeführt und lauten
+	\begin{alignat}{2}
+		x'^\mu &:= \frac{\partial x'^\mu}{\partial x^\alpha} \cdot x^\alpha &&\equiv  S^\mu{}_\alpha \cdot x^\alpha\\
+		x^\mu &:= \frac{\partial x^\mu}{\partial x'^\alpha} \cdot x'^\alpha &&\equiv (S^{-1})^\mu{}_\alpha \cdot x'^\alpha
+	\end{alignat}
+
+\textcolor{gruen}{Merke: Die Transformationen entstehen durch "Hinzufügen einer Eins", d.h. Kettenregel. Und $S$ ist definiert als die Transformation von $x$ nach $x'$.}
+
+Die Metrik transformiert gemäß
+	\begin{align}
+		g'_{\mu\nu} &= g_{\rho\sigma} \cdot \frac{\partial x^\rho}{\partial x'^\mu} \frac{\partial x^\sigma}{\partial x'^\nu} \\
+		g'^{\mu\nu} &= g^{\rho\sigma} \cdot \frac{\partial x'^\mu}{\partial x^\rho} \frac{\partial x'^\nu}{\partial x^\sigma}
+	\end{align}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Die Transformation der Metrik ergibt sich aus der Invarianz des Linienelements $\diff s^2$ unter Koordinatentransformation.
+		\begin{align*}
+			ds^2 = g'_{\mu\nu} \cdot \diff x'^\mu \cdot \diff x'^\nu &= g_{\rho\sigma} \cdot \diff x^\rho \cdot \diff x^\sigma = g_{\rho\sigma} \cdot \lr{ \frac{\partial x^\rho}{\partial x'^\alpha} \diff x'^\alpha } \cdot \lr{ \frac{\partial x^\sigma}{\partial x'^\beta} \diff x'^\beta } \\
+			&\stackrel{\comment{\alpha\to\mu,\beta\to\nu}}{=} g_{\rho\sigma} \cdot \frac{\partial x^\rho}{\partial x'^\mu} \frac{\partial x^\sigma}{\partial x'^\nu} \cdot \diff x'^\mu \diff x'^\nu \\
+			\Rightarrow g'_{\mu\nu} &= g_{\rho\sigma} \cdot \frac{\partial x^\rho}{\partial x'^\mu}\frac{\partial x^\sigma}{\partial x'^\nu}
+		\end{align*}
+\hrule
+}
+
+\subsection{Tensoren}
+Ein (m,n)-Tensor \textcolor{gruen}{($m$ Indizes oben und $n$ Indizes unten)} ist ein Objekt, das wie folgt transformiert:
+	\begin{equation}
+		T'^{\mu_1,...,\mu_m}{}_{\nu_1,...,\nu_n} = S^{\mu_1}{}_{\alpha_1} \cdot ... \cdot S^{\mu_m}{}_{\alpha_m} \cdot T^{\alpha_1,...,\alpha_m}{}_{\beta_1,...,\beta_n} \cdot (S^{-1})^{\beta_1}{}_{\nu_1} \cdot ... \cdot (S^{-1})^{\beta_m}{}_{\nu_m}
+	\end{equation}
+
+\subsubsection{Kontravariante und kovariante Vektoren}
+Ein kontravarianter Vektor $W^\mu$ bzw. kovarianter Vektor $W_\mu$ ist ein (1,0)- bzw. (0,1)-Tensor und somit definiert über die Transformation
+	\begin{alignat}{2}
+		W'^\mu(x') &= \frac{\partial x'^\mu}{\partial x^\alpha} \cdot W^\alpha(x) &&= S^\mu{}_\alpha \cdot W^\alpha(x) \\
+		W'_\mu(x') &= \frac{\partial x^\alpha}{\partial x'^\mu} \cdot W_\alpha(x) &&= {(S^{-1})}^\alpha{}_\mu \cdot W_\alpha(x)
+	\end{alignat}
+
+\subsubsection{Skalar}
+Ein Skalar ist ein (0,0)-Tensor und somit definiert über
+	\begin{equation}
+		\phi'(x') = \phi(x)
+	\end{equation}
+
+
+\newpage
+
+
+\section{Linienelement und Metrik}
+Das Linienelement $\diff s$, das in der Raum-Zeit zurückgelegt wird, ist durch die Metrik $g_{\mu\nu}$ mit den infinitesimalen $\diff t, \diff x, \diff y, \diff z$, die die Bewegung in der Raumzeit beschreiben, verknüpft.
+	\begin{equation}
+		ds^2 = g_{\mu\nu} \diff x^\mu \diff x^\nu
+	\end{equation}
+
+Die Metrik hängt dabei von der Raum-Zeit, sowei den Koordinaten ab, in denen man sie betrachtet.
+
+	\begin{itemize}
+		\item $\mathbb{R}^2$ kartesische Koordinaten $(x,y)$
+			$$g =
+			\begin{pmatrix}
+				1 & 0 \\
+				0 & 1
+			\end{pmatrix}$$
+		
+		\item $\mathbb{R}^2$ Polarkoordinaten $(r,\phi)$
+			$$g =
+			\begin{pmatrix}
+				1 & 0 \\
+				0 & r^2
+			\end{pmatrix}$$
+		
+		\item $\mathbb{R}^3$ Kugelkoordinaten $(r,\theta,\varphi)$
+			$$g =
+			\begin{pmatrix}
+			1 & 0 & 0 \\
+			0 & r^2 & 0 \\
+			0 & 0 & r^2\sin^2\theta
+			\end{pmatrix}
+			$$
+		
+		\item $\mathbb{R}^{1,3}$ in Kugelkoordainten $(t,r,\theta,\varphi)$\\
+		\textbf{De-Sitter-Metrik}
+			$$g = 
+			\begin{pmatrix}
+				-1 & 0 & 0 & 0 \\
+				0 & a^2(t) & 0 & 0 \\
+				0 & 0 & a^2(t) & 0 \\
+				0 & 0 & 0 & a^2(t)
+			\end{pmatrix}
+			$$
+		
+		mit $a(t) = e^{H t}$.
+		
+		\item $\mathbb{R}^{1,3}$ in Kugelkoordinate $(t,r,\theta,\varphi)$\\
+		\textbf{Schwarzschild-Metrik}
+			$$g = 
+			\begin{pmatrix}
+				-\lr{ 1 - \frac{2M}{r} } & 0 & 0 & 0 \\
+				0 & \frac{1}{1 - \frac{2M}{r}} & 0 & 0 \\
+				0 & 0 & r^2 & 0 \\
+				0 & 0 & 0 & r^2\sin^2\theta
+			\end{pmatrix}
+			$$
+		
+		\textbf{Friedmann-Robertson-Walker-Metrik (FRW)}
+			$$
+			g_{\mu\nu} = 
+			\begin{pmatrix}
+				-1 & 0 & 0 & 0 \\
+				0 & a(t)^2 \frac{1}{1 - k \frac{r^2}{L^2}} & 0 & 0 \\
+				0 & 0 & a(t)^2r^2 & 0 \\
+				0 & 0 & 0 & a(t)^2 r^2\sin^2\theta
+			\end{pmatrix}
+			$$
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	ges: Metrik für $\mathbb{R}^2$ in Polarkoordinaten
+		\begin{align*}
+			x &= r\cos\varphi \\
+			y &= r\sin\varphi
+		\end{align*}
+	
+	Betrachte den $\mathbb{R}^3$ in kartesischen Koordinaten.
+		$$ds^2 = \diff x^2 + \diff y^2$$
+
+	Formuliere zunächst die Infinitesimale $dx$, $dy$, $dz$ in Kugelkoordinaten und setze sie anschließend in $ds^2$ ein. Fasse dafür $x,y,z$ als Funktionen von $r,\theta,\varphi$ auf. Kleine Änderungen sind dann gemäß Kettenregel
+		\begin{align*}
+			dx &= \frac{\partial x}{\partial r} \diff r + \frac{\partial x}{\partial\phi} \diff\phi = \cos\phi \cdot \diff r - r\sin\phi \cdot \diff\phi \\
+			dy &= \frac{\partial y}{\partial r} \diff r + \frac{\partial y}{\partial\phi} \diff\phi = \sin\phi \cdot \diff r + r\cos\phi \cdot \diff\phi \\
+			\Rightarrow ds^2 &= \diff x^2 + \diff y^2 =
+			\lr{ \cos\phi \cdot \diff r - r\sin\phi \cdot \diff\phi }^2 + \lr{ \sin\phi \cdot \diff r + r\cos\phi \cdot \diff\phi }^2 = \\
+			&= \cos^2\phi \diff r^2 + r^2\sin^2\phi \diff\phi^2 - \cancel{2r\cos\phi\sin\phi \diff r\diff \phi} + \\
+			&+ \sin^2\phi \diff r^2 + r^2\cos^2\phi \diff\phi^2 + \cancel{2 r\sin\phi\cos\phi \diff r\diff \phi} = \\
+			&= \lr{\cos^2\phi + \sin^2\phi}\diff r^2 + r^2\lr{\sin^2\phi + \cos^2\phi} \diff \phi^2 = \diff r^2 + r^2 \diff \phi^2
+		\end{align*}
+	
+	Dies muss gleich sein mit
+		\begin{align*}
+			ds^2 &= g'_{\mu\nu} \diff x^\mu \diff^\nu = g_{r\phi} \diff x^r \diff x^\phi +  g_{\phi r} \diff x^r \diff x^\phi + g_{rr} (\diff x^r)^2 + g_{\phi\phi} (\diff x^\phi)^2 \stackrel{!}{=} \\
+			&\stackrel{!}{=} \diff r^2 + r^2\diff\phi^2 \\
+			\Rightarrow g_{r\phi} = g_{\phi r} &= 0\\
+			\Rightarrow g_{rr} &= 1 \\
+			\Rightarrow g_{\phi\phi} &= r^2\\
+			\Rightarrow g_{\mu\nu} &= 
+			\begin{pmatrix}
+				1 & 0 \\
+				0 & r^2
+			\end{pmatrix}
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Intrinsische und extrinsische Krümmung}
+	\begin{enumerate}
+		\item Aufstellen der  Gl. für die Mannigfaltigkeit
+		
+		\item Verschieben des interessierenden Punktes in den Ursprung
+		
+		\item Umstellen nach einer Variable
+		
+		\item Taylor-Entwicklung bis 2. Ordnung
+		
+		\item Extrinsische, intrinsische Krümmmung aus Hesse-Matrix bestimmen
+	\end{enumerate}
+
+
+	\begin{itemize}
+		\item \textbf{Intrinsische Krümmung}\\
+		Die intrinsische Krümmung ist die Krümmung, die durch Messungen auf der Mannigfaltigkeit bestimmt werden kann.
+			\begin{equation}
+				K_{\text{int}} = \det M
+			\end{equation}
+		
+		\item \textbf{Extrinsische Krümmung}\\
+		Die extrinsische Krümmung beschreibt, wie die Mannigfaltigkeit in der nächsthöheren Dimension eingebettet ist.
+			\begin{equation}
+				K_{\text{ext}} = \frac{1}{4} \text{Sp}(M)^2
+			\end{equation}
+	\end{itemize}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Kugel im $\mathbb{R}^3$\\
+	\\
+	Für den Kugeloberfläche gilt
+		$$x^2+y^2+z^2 = L^2$$
+	
+	Verschiebe die Kugel so, dass der interessierende Punkt, an dem die Krümmung bestimmt werden soll im Ursprung liegt. Verschiebe hier die Kugel entlang der $z$-Achse.
+		$$x^2+y^2+(z-L)^2 = L^2$$
+	
+	\textcolor{gruen}{Für $z=0$ und $z=2L$ müssen $x=y=0$ sein. Die verschobene Kugel liegt also zwischen $0$ und $2L$ entlang der $z$-Achse.}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.4\textwidth]{Grafiken/ART Krümmung Kugel.pdf}
+			\caption{Tangentialebene an einer Kugel}
+		\end{figure}
+		
+	Stelle nun nach $z = z(x,y)$ um. Dabei muss sich überlegt werden, welches Vorzeichen sinnvoll ist.
+		\begin{align*}
+			z-L &= \pm\sqrt{L^2 - x^2 - y^2} \\
+			\Leftrightarrow z &= L\pm\sqrt{L^2 - x^2 - y^2}
+		\end{align*}
+	
+	Betrachte die Lösung, die die Krümmung nach oben, also den unteren Punkt der Kugel beschreibt.\\
+	\\
+	Mache nun eine Taylor-Entwicklung von $z$ um den Punkt $(x_0,y_0)=(0,0)$
+		\begin{align*}
+			z(x,y) &\approx \left.z(x,y)\right|_{0,0} + \lreck{ \left.\frac{\partial z(x,y)}{\partial x}\right|_{0,0} (x-0) + \left.\frac{\partial z(x,y)}{\partial y}\right|_{0,0} (y-0) } + \\
+			 &+ \frac{1}{2} (x,y)
+			 \left.
+			\begin{pmatrix}
+				\partial_x^2 z(x,y) & \partial_x\partial_y z(x,y) \\
+				\partial_x\partial_y z(x,y) & \partial_y^2 z(x,y)
+			\end{pmatrix}
+			\right|_{0,0}
+			\begin{pmatrix}
+				x\\y
+			\end{pmatrix} + ...
+		\end{align*}
+
+	Berechne die Ableitugen
+		\begin{align*}
+			\partial_x z &= \partial_x L - \lr{L^2 - x^2 - y^2}^{1/2} = -\frac{1}{2} \frac{1}{\sqrt{L^2 - x^2 - y^2}} (-2x) = \frac{x}{\sqrt{L^2 -x^2 - y^2}} \\
+			\partial_x^2 z &= \partial_x \frac{x}{\sqrt{L^2 -x^2 - y^2}} = \frac{1}{\sqrt{L^2 -x^2 - y^2}} - \frac{2x^2}{\sqrt{L^2 -x^2 - y^2}}
+		\end{align*}
+
+	Einsetzen in die Taylor-Entwicklung liefert
+		\begin{align*}
+			z &\approx 0 + 0 + \frac{1}{2} (x,y)
+			\begin{pmatrix}
+				1/L & 0\\
+				0 & 1/L
+			\end{pmatrix}
+			\begin{pmatrix}
+				x\\y
+			\end{pmatrix}
+			\equiv \frac{1}{2} x^T M x
+		\end{align*}
+
+	Die intrinsische Krümmung ist somit
+		$$K_{\text{int}} = \det M =
+		\begin{vmatrix}
+			1/L & 0\\
+			0 & 1/L
+		\end{vmatrix} = \frac{1}{L^2}$$
+	
+	Die extrinsische Krümmung ist
+		$$K_{\text{ext}} = \frac{1}{4}\text{Sp} (M)^2 = \frac{1}{4} \lr{\frac{2}{L}}^2 = \frac{1}{L^2 }$$
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\section{Geodätengleichung}
+Die Geodätengleichung liefert die Bewegungsgleichungen $X^\rho(l)$, für ein Teilchen, das sich durch die durch $g_{\mu\nu}$ beschriebene gekrümmte Raumzeit bewegt.
+	\begin{align}
+		\frac{\diff^2X^\rho}{\diff l^2} + \Gamma^\rho_{\mu\nu} \frac{\diff X^\mu}{\diff l}\frac{\diff X^\nu}{\diff l} &= 0 \\
+		\Leftrightarrow \frac{\diff V^\rho}{\diff l} + \Gamma^\rho_{\mu\nu} V^\mu V^\nu &= 0
+	\end{align}
+
+mit dem Christoffel-Symbol
+	\begin{equation}
+		\Gamma^\rho_{{\color{red}\mu}{\color{blue}\nu}} := \frac{1}{2}g^{\rho{\color{gruen}\sigma}} \lr{ \partial_{\color{red}\mu} g_{{\color{gruen}\sigma}{\color{blue}\nu}} + \partial_{\color{blue}\nu} g_{{\color{red}\mu}{\color{gruen}\sigma}} - \partial_{\color{gruen}\sigma} g_{{\color{red}\mu}{\color{blue}\nu}} }
+	\end{equation}
+
+Diese haben
+	\begin{equation}
+		D\cdot \frac{D(D+1)}{2}
+	\end{equation}
+
+unabhängige Komponenten.\\
+\\
+Für die Bestimmung der Christoffel-Symbole gibt es die Methoden
+	\begin{itemize}
+		\item Nutzen der Definition
+		
+		\item $D_\lambda g_{\mu\nu} = 0$\\
+		Durch Einsetzen der kovarianten Ableitung folgt
+			$$\partial_\lambda g_{\mu\nu} - \Gamma^\alpha_{\lambda\mu}g_{\alpha\nu} - \Gamma^\alpha_{\lambda\nu}g_{\mu\alpha} = 0$$
+		
+		\item Geodätengleichung\\
+		Durch Einsetzen einer bekannten Lagrange-Funktion in die Euler-Lagrange-Gleichung und Vergleichen dieser DGLs mit denen aus der Geodätengleichung kann man die Christoffel-Symbole erkennen.
+	\end{itemize}
+
+
+\textbf{Staudachers ''Bonusgleichung''}
+	\begin{equation}
+		\mathcal{L} = 1 \qquad\Leftrightarrow\qquad g_{\mu\nu} \frac{\diff X^\mu}{\diff l}\frac{\diff X^\nu}{\diff l} = 1
+	\end{equation}
+
+\textcolor{gruen}{Z.B. für kartesische Koordinaten und flache Metrik: $\frac{d^2 x}{\diff l^2} + \frac{\diff^2 y}{\diff l^2} = 1$.}
+
+
+\newpage
+
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: Geodätengleichungen für Bewegung auf 2d Kugel $S^2$ \textcolor{gruen}{(PÜ 5.2 a), b))}\\
+	\\
+	Die Metrik der 2d Kugel $S^2$ ist
+		\begin{equation*}
+			g_{\mu\nu} = 
+			\begin{pmatrix}
+				1 & 0 \\
+				0 & \sin^2\theta
+			\end{pmatrix}
+		\end{equation*}
+
+	Bestimme nun die nicht verschwindenden Christoffel-Symbole
+		\begin{align*}
+			\Gamma^\rho_{\mu\nu} &= \frac{1}{2}g^{\rho\sigma} \lr{ \partial_\mu g_{\sigma\nu} + \partial_\nu g_{\mu\sigma} - \partial_\sigma g_{\mu\nu} } \\
+			\Rightarrow \Gamma^\theta_{\varphi\varphi} &= -\sin\theta\cos\theta \\
+			\Rightarrow \Gamma^\varphi_{\theta\varphi} = \Gamma^\varphi_{\varphi\theta} &= \cot\theta
+		\end{align*}
+
+	Führe nun die Summationen in der Geodätengleichung aus und setze die gefundenen Christoffel-Symbole ein.
+		\begin{align*}
+			\frac{\diff^2 X^\theta}{\diff l^2} + \Gamma^\theta_{\mu\nu} \frac{\diff X^\mu}{\diff l}\frac{\diff X^\nu}{\diff l} = 0 \\
+			\Leftrightarrow \frac{\diff^2 \theta}{\diff l^2} + \Gamma^\theta_{\varphi\varphi} \frac{\diff X^\varphi}{\diff l}\frac{\diff X^\varphi}{\diff l} = 0 \\
+			\Leftrightarrow \frac{\diff^2\theta}{\diff l^2} - \sin\theta\cos\theta \lr{\frac{\diff\varphi}{\diff l}}^2 = 0
+		\intertext{und}
+			\frac{\diff^2 X^\varphi}{\diff l^2} + \Gamma^\varphi_{\theta\varphi} \frac{\diff X^\theta}{\diff l} \frac{\diff X^\mu}{\diff l} + \Gamma^\varphi_{\varphi\theta} \frac{\diff X^\theta}{\diff l} \frac{\diff X^\mu}{\diff l} &= 0 \\
+			\frac{\diff \varphi^2}{\diff l^2} + 2\cot\theta \frac{\diff \theta}{\diff l} \frac{\diff \varphi}{\diff l} &= 0
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Die Geodätengleichung bestimmt den Weg zwischen einem Startpunkt A und einem Endpunkt B, für den das infinitesimale Linienelement in der Raum-Zeit $\diff s$ minimal wird.
+		\begin{align*}
+			\text{Länge}(A,B) &= \int \sqrt{ g_{\mu\nu} \diff X^\mu \diff X^\nu } = \int_{\lambda_A}^{\lambda_B} \diff\lambda\, \sqrt{ g_{\mu\nu} \frac{\diff X^\mu}{\diff\lambda} \frac{\diff X^\nu}{\diff\lambda} } \equiv \int_{\lambda_A}^{\lambda_B} \diff\lambda\, \sqrt{g_{\mu\nu} X'^\mu X'^\nu} \\
+			&\equiv \int_{\lambda_A}^{\lambda_B} \diff\lambda\, \mathcal{L}
+		\intertext{Dies ist äquivalent zur Euler-Lagrange-Gleichung}
+			\Leftrightarrow 0 &= \frac{\diff}{\diff\lambda} \frac{\partial \mathcal{L}}{\partial X'^\sigma } - \frac{\partial \mathcal{L}}{\partial X^\sigma} \\
+			\stackrel{\comment{\mathcal{L}}}{\Leftrightarrow} 0 &= \frac{\diff}{\diff\lambda} \frac{\partial \sqrt{g_{\mu\nu} X'^\mu X'^\nu} }{\partial X'^\sigma } - \frac{\partial \sqrt{g_{\mu\nu} X'^\mu X'^\nu} }{\partial X^\sigma} \\
+			\Leftrightarrow 0 &= \frac{\diff}{\diff\lambda} \frac{1}{2\mathcal{L}} \frac{\partial (g_{\mu\nu} X'^\mu X'^\nu)}{\partial X'^\sigma} - \frac{1}{2\mathcal{L}} \frac{\partial (g_{\mu\nu} X'^\mu X'^\nu)}{\partial X^\sigma} \\
+			0 &= \frac{\diff}{\diff\lambda} \frac{1}{2\mathcal{L}} \lr{ g_{\mu\nu} \delta^\mu_\sigma X'^\nu + g_{\mu\nu} X'^\mu \delta^\nu_\sigma } - \frac{1}{2\mathcal{L}} \frac{\partial (g_{\mu\nu})}{\partial X^\sigma} X'^\mu X'^\nu \\
+			0 &= \frac{\diff}{\diff\lambda} \frac{1}{\cancel{2}\mathcal{L}} \cancel{2} g_{\sigma\nu} X'^\nu - \frac{1}{2\mathcal{L}} \partial_\sigma (g_{\mu\nu}) X'^\mu X'^\nu \\
+		\intertext{Verwende nun $\lambda = l$ und somit $\mathcal{L}=1$.}
+			0 &= \frac{\diff}{\diff l} (g_{\sigma\nu} X'^\nu) - \frac{1}{2} \partial_\sigma (g_{\mu\nu}) X'^\mu X'^\nu \\
+			0 &= \underbrace{\frac{\diff g_{\sigma\nu}}{\diff l}}_{\comment{= \frac{\diff g_{\sigma\nu}}{\diff X^\mu} \frac{\diff X^\mu}{\diff l}}} X'^\nu + g_{\sigma\nu} \frac{\diff^2 X^\nu}{\diff l^2} - \frac{1}{2} \partial_\sigma (g_{\mu\nu}) X'^\mu X'^\nu \\
+			0 &= \partial_\mu (g_{\sigma\nu}) X'^\mu X'^\nu + g_{\sigma\nu} \frac{\diff^2 X^\nu}{\diff l^2} - \frac{1}{2} \partial_\sigma (g_{\mu\nu}) X'^\mu X'^\nu \\
+		\stackrel{\comment{\cdot g^{\rho\sigma}}}{\Leftrightarrow} 0 &= \delta^\rho_\nu \frac{\diff^2 X^\nu}{\diff l^2} + g^{\rho\sigma} \partial_\mu (g_{\sigma\nu}) X'^\mu X'^\nu - \frac{1}{2} g^{\rho\sigma} \partial_\sigma (g_{\mu\nu}) X'^\mu X'^\nu \\
+		\Leftrightarrow 0 &= \frac{\diff^2 X^\rho}{\diff l^2} + \frac{1}{2} g^{\rho\sigma} \lr{ 2 \partial_\mu g_{\sigma\nu} - \partial_\sigma g_{\mu\nu} } X'^\mu X'^\nu
+		\intertext{Nun kann man $2 \partial_\mu g_{\sigma\nu} = \partial_\mu g_{\sigma\nu} + \partial_\mu g_{\sigma\nu}$ schreiben und wegen der Kontraktion mit $X'^\mu X'^\nu$ in einem Term $\mu\leftrightarrow\nu$ tauschen. Dann lässt sich das Christoffel-Symbol erkennen.}
+			\Leftrightarrow 0 &= \frac{\diff^2 X^\rho}{\diff l^2} + \frac{1}{2} g^{\rho\sigma} \lr{\partial_\mu g_{\sigma\nu} + \partial_\nu g_{\sigma\mu} - \partial_\sigma g_{\mu\nu} } X'^\mu X'^\nu \\
+			\Leftrightarrow 0 &= \frac{\diff^2 X^\rho}{\diff l^2} + \Gamma^\rho_{\mu\nu} X'^\mu X'^\nu \qquad\blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Zeige, dass das Prinzip der kleinsten Wirkung äquivalent zu den Euler-Lagrange-Gleichungen ist.\\
+	\\
+	Betrachte die Wirkung
+		$$S[x^\mu,x'^\mu] = \int \diff l\, \mathcal{L}(t,x^\mu,x'^\mu)$$
+
+	Angenommen $x^\mu$ sind Lösungen, die $S$ minimieren. Betrachte nun die Addition einer anderen Funktion $\eta^\mu$, multipliziert mit einem Faktor $\varepsilon$. Sie soll die Randbedingungen erfüllen $\eta^\mu(l_i) = \eta^\mu(l_f) = 0$, also, dass die Variation am Rand verschwindet und die variierte Funktion mit der unvariierten übereinstimmt.
+		\begin{align*}
+			x^\mu &\to x^\mu + \varepsilon \eta^\mu \\
+			x'^\mu &\to x'^\mu + \varepsilon \eta'^\mu \\
+			\Rightarrow S[x^\mu + \varepsilon \eta^\mu, x'^\mu + \varepsilon \eta'^\mu] &= \int \diff l\, \mathcal{L}(l, x^\mu + \varepsilon \eta^\mu, x'^\mu + \varepsilon \eta'^\mu)
+		\end{align*}
+	
+	Da angenommen wird, dass $x^\mu$ $S$ maximiert, muss $S_\varepsilon$ maximal werden, wenn $\varepsilon$ null ist, d.h.
+		\begin{align*}
+			0 &\stackrel{!}{=} \left.\frac{\diff S_\varepsilon}{\diff\varepsilon} \right|_{\varepsilon = 0} = \int \diff l\, \left. \frac{\diff \mathcal{L}(l, x^\mu + \varepsilon\eta^\mu, x'^\mu + \varepsilon \eta'^\mu}{\diff\varepsilon} \right|_{\varepsilon = 0} = \\
+			&= \int \diff l\, \lr{ \frac{\partial \mathcal{L}(l, x^\mu + \varepsilon\eta^\mu, x'^\mu + \varepsilon \eta'^\mu)}{\partial (x^\sigma + \varepsilon\eta^\sigma)}\frac{\partial (x^\sigma + \varepsilon\eta^\sigma)}{\partial\varepsilon} + \frac{\partial \mathcal{L}(l, x^\mu + \varepsilon\eta^\mu, x'^\mu + \varepsilon \eta'^\mu)}{\partial (x'^\sigma + \varepsilon\eta'^\sigma)}\frac{\partial (x'^\sigma + \varepsilon\eta'^\sigma)}{\partial\varepsilon} } = \\
+			&= \int \diff l\, \lr{ \frac{\partial \mathcal{L}(l, x^\mu, x'^\mu)}{\partial x^\sigma}\eta^\sigma + \frac{\partial \mathcal{L}(l, x^\mu, x'^\mu)}{\partial x'^\sigma}\eta'^\sigma } = \\
+			&= \int \diff l\, \lreck{ \frac{\partial \mathcal{L}(l, x^\mu, x'^\mu)}{\partial x^\sigma}\eta^\sigma + \frac{\diff}{\diff l} \lr{ \frac{\partial \mathcal{L}(l, x^\mu, x'^\mu)}{\partial x'^\sigma}\eta^\sigma } - \frac{\diff}{\diff l} \lr{ \frac{\partial \mathcal{L}(l, x^\mu, x'^\mu)}{\partial x'^\sigma} } \eta^\sigma } = \\
+			&= \int \diff l\, \lreck{ \lr{ \frac{\partial\mathcal{L}}{\partial x'^\sigma}\eta^\sigma - \frac{\diff}{\diff l} \frac{\partial\mathcal{L}}{\partial x'^\sigma} } \eta^\sigma + \frac{\diff}{\diff l} \lr{ \frac{\partial \mathcal{L}}{\partial x'^\sigma}\eta^\sigma } } = \\
+			&= \int \diff l\, \underbrace{ \lr{ \frac{\partial\mathcal{L}}{\partial x'^\sigma} - \frac{\diff}{\diff l} \frac{\partial\mathcal{L}}{\partial x'^\sigma} } }_{\stackrel{!}{=}0} \eta^\sigma + \underbrace{ \left.\frac{\partial \mathcal{L}}{\partial x'^\sigma}\eta^\sigma \right|_{l_i}^{l_f} }_{=0}
+		\end{align*}
+
+	Damit diees Integral null wird, muss der Vorfaktor von $\eta^\sigma$ null werden, was den Euler-Lagrange-Gleichungen entspricht.
+		$$\Leftrightarrow \frac{\diff}{\diff l} \frac{\partial\mathcal{L}}{\partial x'^\sigma} - \frac{\partial\mathcal{L}}{\partial x'^\sigma} = 0 \qquad\blacksquare$$
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\section{Elektromagnetismus}
+Die Lagrange-Dichte des elektromagnetischen Feldes ist
+	\begin{equation}
+		\mathcal{L} = \mathcal{L}_\text{EM} + \mathcal{L}_J = -\frac{1}{4} F_{\mu\nu}F^{\mu\nu} + J^\mu A_\mu
+	\end{equation}
+
+mit dem elektromagnetischen Feldstärketensor
+	\begin{align}
+		F_{\mu\nu} &= 
+		\begin{pmatrix}
+			0 & E^1 & E^2 & E^3 \\
+			-E^1 & 0 & B^3 & -B^2 \\
+			-E^2 & -B^3 & 0 & B^1 \\
+			-E^3 & B^2 & -B^1 & 0
+		\end{pmatrix} = \\
+		&= \partial_\mu A_\nu - \partial_\nu A_\mu \\
+		F^{\mu\nu} &= 
+		\begin{pmatrix}
+			0 & -E^1 & -E^2 & -E^3 \\
+			E^1 & 0 & -B^3 & B^2 \\
+			E^2 & B^3 & 0 & -B^1 \\
+			E^3 & -B^2 & B^1 & 0
+		\end{pmatrix}
+	\end{align}
+
+Die Wirkung $S = \int \diff^4 x \sqrt{-g}\, \mathcal{L}$ wird extremal falls
+	\begin{equation}
+		\partial_\mu F^{\mu\nu} = -J^\nu
+	\end{equation}
+
+gilt \textcolor{gruen}{(folgt aus Variationsrechnung bzw. Euler-Lagrange-Gl.)}, was den Maxwell-Gleichungen
+	\begin{align}
+		\vec{\nabla} \vec{E} &= \rho \\
+		\vec{\nabla} \vec{B} &= 0 \\
+		\vec{\nabla} \times \vec{E} &= -\partial_t \vec{B} \\
+		\vec{\nabla} \times \vec{B} &= \vec{J} + \partial_t \vec{E}
+	\end{align}
+
+entspricht. {\color{gruen}Dabei folgen nur 2 der 4 Gln. aus $\partial_\mu F^{\mu\nu} = -J^\nu$. Die anderen folgen aus einer mathematischen Identität, die als $\partial_\mu \tilde{F}^{\mu\nu} = 0$ geschrieben werden kann. Dabei ist $\tilde{F}$ der duale elektromagnetische Felstärketensor
+	\begin{equation}
+		\tilde{F}_{\mu\nu} := -\frac{1}{2}\varepsilon_{\mu\nu\lambda\sigma} F^{\lambda\sigma} =
+		\begin{pmatrix}
+			0 & -B^1 & -B^2 & -B^3 \\
+			B^1 & 0 & -E^3 & E^2 \\
+			B^2 & E^3 & 0 & -E^1 \\
+			B^3 & -E^2 & E^1 & 0
+		\end{pmatrix}
+	\end{equation}
+
+}
+
+
+\newpage
+
+
+\section{Signalaustausch}
+Betrachte ein de-Sitter-Universum, d.h. es gelte die de-Sitter-Metrik mit $a(t) = e^{H\cdot t}$.\\
+Betrachte die Situation, dass zur Zeit $t=t_S$ und am Ort $x=0$ ein Signal zum Ort $x=R$ geschickt wird, das zu $t=t_U$ zurückgeschickt wird und zu $t=t_R$ wieder bei $x=0$ ankommt.
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+		\includegraphics[width=0.3\textwidth]{Grafiken/ART Signalaustausch.pdf}
+	}
+	\caption{Skizze Signalaustausch}
+\end{figure}
+
+
+
+Für einen Lichtstrahl gilt der räumliche Abstand
+	\begin{equation}
+		R = \frac{1}{H} \lr{ e^{-H t_S} - e^{-H t_U} }
+	\end{equation}
+
+Für $R > R_\text{grenz}$ kommt kein Signal mehr an, da $t_U\to\infty$ wird
+	\begin{equation}
+		R_\text{grenz} = \frac{1}{H} e^{-H t_S}
+	\end{equation}
+
+Der gesamte Abstand, also Hin- und Rückweg, ist
+	\begin{equation}
+		D(R,t_S) = {\color{gruen}\frac{t_R-t_S}{2}} = -\frac{1}{2H} \ln\lr{ 1 - 2HRe^{+H\cdot t_S}}
+	\end{equation}
+
+Dieser wird für $R = \frac{1}{2}R_\text{grenz}$ unendlich, d.h. das Signal kommt nicht mehr zurück.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+
+\section{Kovariante Ableitung}
+Das besondere an der kovarianten Ableitung ist, dass sie, angewendet auf einen Tensor, wieder einen Tensor ergibt. Dies ist bei der partiellen Ableitung nicht der Fall.\\
+Die kovariante Ableitung eines kontravarianten Vektores, kovarianten Vektors und eines ($m,n$)-Tensor ist
+	\begin{align}
+		D_\lambda W^\mu &:= \partial_\lambda W^\mu + \Gamma^\mu_{\lambda\alpha}W^\alpha \equiv W^{\mu}{}_{;\lambda} \\
+		D_\lambda W_\mu &:= \partial_\lambda W_\mu - \Gamma^\alpha_{\lambda\mu}W_\alpha \equiv W_{\mu;\lambda} \\
+		D_\lambda T^{\mu_1,...,\mu_m}{}_{\nu_1,...,\nu_n} &:= \partial_\lambda T^{\mu_1,...,\mu_m}{}_{\nu_1,...,\nu_n} + \Gamma^{{\color{red}\mu_1}}_{\lambda{\color{gruen}\alpha}} T^{{\color{gruen}\alpha},...,\mu_m}{}_{\nu_1,...,\nu_n} + ... - \\
+		 &\phantom{:=} - \Gamma^{{\color{gruen}\alpha}}_{\lambda{\color{blue}\nu_1}} T^{\mu_1,...,\mu_m}{}_{{\color{gruen}\alpha},...,\nu_n} - ... \notag
+	\end{align}
+
+\textbf{Rechenregeln}
+	\begin{itemize}
+		\item \textbf{Produktregel}
+			$$(U_\mu W^\mu)_{;\lambda} = U_{\mu;\lambda}W^\mu + U_\mu W^\mu{}_{;\lambda}$$
+		
+		\item \textbf{Rotation}\\
+		Die kovariante Rotation ist die gewöhnliche Rotation
+			$$\partial_\mu W_\nu - \partial_\nu W_\mu = D_\mu W_\nu - D_\nu W_\mu$$
+	\end{itemize}
+
+Insbesondere gilt
+	\begin{align*}
+		D_\lambda g_{\mu\nu} &= 0 \\
+		D_\lambda g^{\mu\nu} &= 0
+	\end{align*}
+
+
+\newpage
+
+
+\section{Riemann-Tensor}
+Der Riemann-Tensor wie folgt definierte Tensor hat aufgrund seiner Symmetrie- und Zyklizitätseigenschaften statt 256 nur 20 unabhängige Komponenten.
+	\begin{align}
+		R^\sigma{}_{\rho\mu\nu} &= \partial_\mu \Gamma^\sigma_{\nu\rho} + \Gamma^\sigma_{\mu\kappa}\Gamma^\kappa_{\nu\rho} - \partial_\nu \Gamma^\sigma_{\mu\rho} - \Gamma^\sigma_{\nu\kappa}\Gamma^\kappa_{\mu\rho} \\
+		R_{\tau\rho\mu\nu} &:= g_{\tau\lambda} R^\lambda{}_{\rho\mu\nu}
+	\end{align}
+
+\begin{itemize}
+	\item \textbf{Symmetrien}
+		\begin{align}
+			R_{\sigma\rho{\color{red}\mu}{\color{blue}\nu}} &= -R_{\sigma\rho{\color{blue}\nu}{\color{red}\mu}} \\
+			R_{{\color{red}\sigma}{\color{blue}\rho}\mu\nu} &= -R_{{\color{blue}\rho}{\color{red}\sigma}\mu\nu} \\
+			R_{{\color{red}\sigma\rho}{\color{blue}\mu\nu}} &= R_{{\color{blue}\mu\nu}{\color{red}\sigma\rho}}
+		\end{align}
+
+		\item \textbf{Zyklizität} in $\rho\mu\nu$
+			\begin{equation}
+				R_{\sigma\rho\mu\nu} + R_{\sigma\mu\nu\rho} + R_{\sigma\nu\rho\mu} = 0
+			\end{equation}
+			
+		\item \textbf{Komponenten}\\
+		Der Riemann-Tensor hat für $D$ Indizes
+			$$\frac{D^2(D^2-1)}{12}$$
+
+		Komponenten
+\end{itemize}
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Der Riemann-Tensor ist der Kommutator zweier kovarianter Ableitungen, die auf einen kovarianten Vektor wirken.\\
+	Tipp: Führe zuerst die ''äußeren'' Ableitungen aus.
+		\begin{align*}
+			[D_\mu,D_\nu] S_\rho &= D_\mu D_\nu S_\rho - D_\nu D_\mu S_\rho = \\
+			&\stackrel{\comment{D_\mu,D_\nu}}{=} \partial_\mu (D_\nu S_\rho) - \cancel{\Gamma^\alpha_{\mu\nu} D_\alpha S_\rho} - \Gamma^\alpha_{\mu\rho} D_\nu S_\alpha - \lr{ \partial_\nu (D_\mu S_\rho) - \cancel{\Gamma^\alpha_{\nu\mu} D_\alpha S_\rho} - \Gamma^\alpha_{\nu\rho} D_\mu S_\alpha } = \\
+			&\stackrel{\comment{D_\nu,D_\mu}}{=} \partial_\mu (\cancel{\partial_\nu S_\rho} - \Gamma^\alpha_{\nu\rho} S_\alpha) - \Gamma^\alpha_{\mu\rho} (\partial_\nu S_\alpha - \Gamma^\beta_{\nu\alpha} S_\beta) - \\
+			&\phantom{=} - \partial_\nu (\cancel{\partial_\mu S_\rho} - \Gamma^\alpha_{\mu\rho}S_\alpha) + \Gamma^\alpha_{\nu\rho} (\partial_\mu S_\alpha - \Gamma^\beta_{\mu\alpha} S_\beta) = \\
+			&\stackrel{\commenttext{Prod.reg.}}{=} -\partial_\mu (\Gamma^\alpha_{\nu\rho}) S_\alpha - \cancel{\Gamma^\alpha_{\nu\rho} \partial_\mu S_\alpha} - \Gamma^\alpha_{\mu\rho} (\bcancel{\partial_\nu S_\alpha} - \Gamma^\beta_{\nu\alpha} S_\beta) + \\
+			&\phantom{=} + \partial_\nu (\Gamma^\alpha_{\mu\rho}) S_\alpha + \bcancel{\Gamma^\alpha_{\mu\rho} \partial_\nu S_\alpha} + \Gamma^\alpha_{\nu\rho} (\cancel{\partial_\mu S_\alpha} - \Gamma^\beta_{\mu\alpha} S_\beta) = \\
+			&= -\partial_\mu(\Gamma^\alpha_{\nu\rho})S_\alpha + \Gamma^\alpha_{\mu\rho}\Gamma^\beta_{\nu\alpha} S_\beta + \partial_\nu (\Gamma^\alpha_{\mu\rho}) S_\alpha - \Gamma^\alpha_{\nu\rho}\Gamma^\beta_{\mu\alpha} S_\beta = \\
+			&= \lr{ \partial_\nu \Gamma^\alpha_{\mu\rho} + \Gamma^\alpha_{\nu\kappa}\Gamma^\kappa_{\mu\rho} - \partial_\mu\Gamma^\alpha_{\nu\rho} - \Gamma^\alpha_{\mu\kappa}\Gamma^\kappa_{\nu\rho} } S_\alpha =: \\
+			&=: (R^\alpha{}_{\rho\mu\nu}) S_\rho
+		\end{align*}
+\hrule
+}
+
+
+
+
+\subsection{Ricci-Tensor}
+	\begin{equation}
+		R_{\mu\nu} := g^{{\color{gruen}\tau}{\color{gruen}\mu}} R_{{\color{gruen}\tau}\rho{\color{gruen}\mu}\nu} = R^{\color{gruen}\mu}{}_{\rho{\color{gruen}\mu}\nu} = {\color{red}\text{Ergänzen Riemann-Tensor einsetzen}}
+	\end{equation}
+
+
+\subsection{Ricci-Skalar}
+	\begin{equation}
+		R := g^{\mu\nu}R_{\mu\nu}
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: Riemann-Tensor, Ricci-Tensor und Ricci-Skalar $S^2$ Kugel\\
+	\\
+	Die $S^2$ Kugel hat die Metrik
+		$$g_{\mu\nu} =
+		\begin{pmatrix}
+			1 & 0 \\
+			0 & \sin^2\theta
+		\end{pmatrix}$$
+
+	Die Christoffel-Symbole sind
+		\begin{align*}
+			\Gamma^\rho_{\mu\nu} &= \frac{1}{2}g^{\rho\alpha} (\partial_\mu g_{\alpha\nu} + \partial_\nu g_{\mu\alpha} - \partial_\alpha g_{\mu\nu}) \stackrel{\comment{\alpha \stackrel{!}{=} \rho}}{=} \frac{1}{2}g^{\rho\rho} (\partial_\mu g_{\rho\nu} + \partial_\nu g_{\mu\rho} - \partial_\rho g_{\mu\nu}) \\
+			\bullet \Gamma^\theta_{\mu\nu} &= \frac{1}{2} \cdot \frac{1}{1} \cdot (\partial_\mu g_{\theta\nu} + \partial_\nu g_{\mu\theta} - \partial_\theta g_{\mu\nu}) \\
+			\Rightarrow \Gamma^\theta_{\varphi\varphi} &= \frac{1}{2} (-\partial_\theta g_{\varphi\varphi}) = -\frac{1}{2} \partial_\theta (\sin^2\theta) = -\frac{1}{2} \cdot 2\sin\theta\cos\theta = -\sin\theta\cos\theta \\
+			\bullet \Gamma^\varphi_{\mu\nu} &= \frac{1}{2} \cdot \frac{1}{\sin^2\theta} \cdot (\partial_\mu g_{\varphi\nu} + \partial_\nu g_{\mu\varphi} - \partial_\varphi g_{\mu\nu}) \\
+			\Rightarrow \Gamma^\varphi_{\theta\varphi} &= \frac{1}{2} \cdot \frac{1}{\sin^2\theta} \cdot \partial_\theta g_{\varphi\varphi} = \frac{1}{2} \cdot \frac{1}{\sin^2\theta} \cdot \partial_\theta \sin^2\theta = \frac{1}{2} \cdot \frac{1}{\sin^2\theta} \cdot 2\sin\theta\cos\theta = \\
+			&= \frac{\cos\theta}{\sin\theta} = \cot\theta
+		\end{align*}
+	
+	\dotfill
+	
+	Da es 2 Indizes gibt, gibt es $\frac{2^2(2^2-1)}{12} = 1$ unabhängige Komponente des Riemann-Tensors.
+		\begin{align*}
+			R^\mu{}_{\nu\rho\sigma} &= \partial_\rho \Gamma^\mu_{\nu\sigma} + \Gamma^\mu_{\rho\kappa}\Gamma^\kappa_{\nu\sigma} - \partial_\sigma \Gamma^\mu_{\nu\rho} - \Gamma^\mu_{\sigma\kappa}\Gamma^\kappa_{\nu\rho} \\
+			\Rightarrow R^\theta{}_{\varphi\theta\varphi} &= \partial_\theta \Gamma^\theta_{\varphi\varphi} + \cancel{\Gamma^\theta_{\theta\kappa}}\Gamma^\kappa_{\varphi\varphi} - \cancel{\partial_\varphi \Gamma} - \Gamma^\theta_{\varphi\kappa}\Gamma^\kappa_{\theta\varphi} = \partial_\theta (-\sin\theta\cos\theta) - (-\sin\theta\cos\theta)\cdot \cot\theta = \\
+			&= -(\cos^2\theta - \sin^2\theta) + \cos^2\theta = \sin^2\theta
+		\end{align*}
+	
+	\dotfill
+	
+	Die Ricci-Tensoren sind somit
+		\begin{align*}
+			R_{\varphi\varphi} &= R^\theta{}_{\varphi\theta\varphi} = \sin^2\theta \\
+			R_{\theta\theta} &= R^\varphi{}_{\theta\varphi\theta} = g^{\varphi\varphi} g_{\theta\theta} R^\theta{}_{\varphi\theta\varphi} = \frac{1}{\sin^2\theta} \cdot 1 \cdot \sin^2\theta = 1 \\
+			R_{\theta\varphi} &= R^\alpha{}_{\theta\alpha\varphi} = R^\theta{}_{\theta\theta\varphi} + R^\varphi{}_{\theta\varphi\varphi} = 0 = R_{\varphi\theta}
+		\end{align*}
+	
+	\dotfill
+	
+	Der Ricci-Skalar ist dann
+		\begin{align*}
+			R &= g^{\mu\nu}R_{\mu\nu} = g^{\theta\theta}R_{\theta\theta} + g^{\theta\varphi}R_{\theta\varphi} + g^{\varphi\theta}R_{\varphi\theta} + g^{\varphi\varphi}R_{\varphi\varphi} = \\
+			&= 1\cdot 1 + \frac{1}{\sin^2\theta} \cdot \sin^2\theta = 2
+		\end{align*}
+	
+
+\hrule
+}
+
+
+
+
+
+\newpage
+
+
+\section{Einstein-Gleichungen}
+Die Wirkung des Universums wird durch die Einstein-Hilbert- und die Energie-Materie-Wirkung beschrieben
+	\begin{align}
+		S &= S_\text{EH} + S_\text{EM} = \frac{c^3}{16\pi G} \int \diff^4x\,\sqrt{-g}\, R - \frac{1}{c} \int \diff^4x\,\sqrt{-g}\, \frac{1}{2} T^{\mu\nu} g_{\mu\nu}
+	\end{align}
+
+Variation nach der Metrik $g_{\mu\nu}$ ergibt die \textbf{Einstein'schen Feldgleichungen}
+	\begin{equation}
+		G_{\mu\nu} := R_{\mu\nu} - \frac{1}{2} g_{\mu\nu} R = \frac{8\pi G}{c^4} T_{\mu\nu}
+	\end{equation}
+
+mit dem Einstein-Tensor $G_{\mu\nu}$ und dem Energie-Materie-Tensor
+	\begin{equation}
+		T^{\mu\nu} :=
+		\begin{pmatrix}
+			\text{Energiedichte} & (\text{Impulsdichte})^2 \\
+			\text{Impusldichte} & \text{Impulsfluss}
+		\end{pmatrix}
+	\end{equation}
+
+
+Im Vakuum wird die Einstein-Gleichung zu
+	\begin{align*}
+		R_{\mu\nu} - \frac{1}{2}g_{\mu\nu} R &= 0 \\
+		\stackrel{\comment{\cdot g^{\mu\nu}}}{\Leftrightarrow} -R &= 0 \\
+		\stackrel{\commenttext{R in erste Gl.}}{\Leftrightarrow} R_{\mu\nu} &= 0
+	\end{align*}
+
+
+\newpage
+
+
+\section{Schwarze Löcher}
+Die Metrik eines nichtrotierenden, statischen Körpers ist die Schwarzschild-Metrik
+	\begin{align}
+		\diff s^2 &= -\lr{ 1 - \frac{2GM}{c^2r} } \diff t^2 + \frac{1}{1 - \frac{2GM}{c^2r}} \diff r^2 + r^2 \diff\theta^2 + r^2\sin^2\theta \diff\varphi^2 \\
+		\stackrel{\commenttext{Koordinatentrafo}}{\Leftrightarrow} \diff s^2 &= -\frac{r - r_S}{r} \lr{ \diff\bar{t} + \diff r } \lr{ \diff\bar{t} - \frac{r+r_S}{r-r_S}\diff r } + r^2\diff\Omega^2
+	\end{align}
+
+\textcolor{blue}{Diese folgt durch das lösen der Vakuum-Einstein-Gleichungen mit einer Randbedingung, die den massiven Körper beschreibt.}\\
+\\
+Für eine Bewegung mit $\diff\Omega = 0$ muss eine der beiden Klammern null werden, d.h.
+	\begin{equation}
+		\begin{cases}
+			\diff \bar{t} &= -\diff r \\
+			\diff \bar{t} &= \frac{r+r_S}{r-r_S}\diff r
+		\end{cases}
+		\Leftrightarrow
+		\begin{cases}
+			\text{negative Lsg.: immer einlaufend, $\frac{\diff\bar{t}}{\diff r} = -1$ {\color{gruen}(Raum-Zeit-Diagramm)}} \\
+			\text{positive Lsg. für $r<r_S$, negative Lsg. für $r>r_S$}
+		\end{cases}		
+	\end{equation}
+
+
+\begin{figure}[H]
+	\caption{Raum-Zeit-Diagramme eines Lichtstrahls, der sich mit $\diff \Omega = 0$ entweder auf das schwarze Loch zubewegt oder sich davon entfernt; jede Grafik zeigt eine andere Startposition; für $r<r_S$ kann der Strahl nicht mehr entkommen}
+	\centering
+	\fbox{
+		\includegraphics[width=0.75\textwidth]{Grafiken/Lichtkegel Schwarzschild Metrik.pdf}
+	}
+\end{figure}
+
+
+\newpage
+
+
+\section{Kosmologie}
+Betrachte das Friedmann-Robertson-Walker-Universum, d.h. die Metrik
+	\begin{equation}
+		\diff s^2 = -\diff t^2 + a(t)^2 \lr{ \frac{1}{1 - k\frac{r^2}{L^2}} \diff r^2 + \diff\Omega^2}
+	\end{equation}
+
+Berechnen der Christoffel-Symbole, Riemann-Tensoren, Ricci-Tensoren und -Skalare ergibt die Einstein'schen Feldgleichungen, unter Berücksichtigung der kosmologischen Konstante
+	\begin{equation}
+		G_{\mu\nu} =
+		\begin{pmatrix}
+			3 \frac{\dot{a}^2}{a^2} + 3K\frac{1}{L^2a^2} - \Lambda & 0 \\
+			0 & -(2 a\ddot{a} + \dot{a}^2 + \frac{K}{L^2} - a^2\Lambda) \delta_{ij}
+		\end{pmatrix}
+		=
+		8\pi G
+		\begin{pmatrix}
+			\rho & 0\\
+			0 & a^2 p \cdot \delta_{ij} \
+		\end{pmatrix}
+	\end{equation}
+
+Die 00-Komponente der Tensorgleichung ergibt die erste Friedmann-Gl.
+	\begin{equation}
+		\frac{\dot{a}^2}{a^2} = \frac{8\pi G}{3} \rho - K\frac{1}{L^2a^2} + \frac{\Lambda}{3}
+	\end{equation}
+
+Die $ii$-Komponente liefert die zweite Friedmann-Gl.
+	\begin{equation}
+		\frac{\ddot{a}}{a} = -\frac{4\pi G}{3}(\rho + 3p) - \frac{\Lambda}{3}
+	\end{equation}
+
+
+\subsection{Urknall}
+Aus $\rho, p, a(t) > 0$ folgt, dass die Beschleunigung $a(t) < 0$. Das Universum ist \underline{nicht statisch}.\\
+\\
+Die experimentelle Beobachtung von Hubble zeigt, dass
+	\begin{equation}
+		\dot{a} > 0
+	\end{equation}
+
+Aus diesen beiden Erkenntnissen folgt, dass $a(t)$ zu einem bestimmten Zeitpunkt 0 gewesen sein muss.
+
+
+\subsection{Kosmologisches Prinzip}
+Das Universum ist auf Längenskalen $\gg$ Galaxiengrößen homogen und isotrop.\\
+D.h. es gibt keinen ausgezeichneten Ort und keine ausgezeichnete Richtung.
+
+
+
+
+
+
+
+
+\newpage
+
+
+\section{Stichwortverzeichnis}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		Äquivalenzprinzip (schwach) & Besagt, dass die träge Masse in $\vec{F} = m\vec{a}$ gleich der schweren Masse in $F_G = G \frac{mM}{r^2}$ ist \\
+	\hline
+		Äquivalenzprinzip (stark) & Besagt, dass in einer infinitesimal kleinen Raum-Zeit-Umgebung kein Experiment durchgeführt werden kann, das darüber aufklärt, ob man sich in einem beschleunigten System oder in einem System im Gravitationsfeld befindet.\\
+	\hline
+		lichtartig &  \\
+	\hline
+		raumartig &  \\
+	\hline
+		Relativitätsprinzip &  \\
+	\hline
+		zeitartig &  \\
+	\hline\hline
+\end{xltabular}
+\end{document}

@@ -1,0 +1,1492 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+\definecolor{gruen}{HTML}{038133}
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+\begin{center}
+	\Large{\textbf{Nichtlineare Dynamik}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+
+\tableofcontents
+
+
+\newpage
+
+
+\section*{Abstrakt}
+Die nichtlineare Dynamik (NLD) ist die Disziplin, die die Dynamik von Systemen, die das Superpositionsprinzip verletzen, untersucht. Das Hauptaugenmerk liegt dabei auf
+	\begin{itemize}
+		\item \textbf{Gleichgewichtspunkten und periodischen Lösungen}
+		
+		
+		\item \textbf{deren Stabilität}
+		
+		
+		\item \textbf{Bifurkationen}
+		
+		
+		\item \textbf{Chaos}
+	\end{itemize}
+
+Die mathematischen Theoreme finden Anwendung in der Populationsdynamik, Elektronik, Neurodynamik, Wettervorhersage, usw.
+
+
+
+
+\newpage
+
+
+\section{Grundlegende Definitionen und Theoreme}
+\subsection{Phasenportrait}
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=\textwidth]{Grafiken/schema phasenportrait.pdf}
+		}
+		\caption{Schema eines Phasenportraits}
+	\end{figure}
+
+
+	\begin{itemize}
+		\item \textbf{dynamisches System}\\
+		Mathematisches Modell eines zeitabhängigen Prozesses
+			\begin{equation}
+				\dot{\vec{x}} = \vec{f}(\vec{x})
+			\end{equation}
+		
+		
+%		\item \textbf{dynamische Variablen}\\
+%		Satz von Größen, der den Systemzustand zu jedem Zeitpunkt vollständig charakterisiert
+		
+		
+		\item \textbf{Anfangszustand}\\
+		Zustand des dynamischen Systems zu einem Anfangszeitpunkt $t_0$
+		
+		
+		\item \textbf{Phasenraumtrajektorie}\\
+		Menge von Punkten im Phasenraum, die der Zeitentwicklung eines Anfangszustands entspricht
+		
+
+		\item \textbf{Gleichgewichtspunkt}\\
+		Punkt im Phasenraum, alle Zustandsvariablen des Systems konstant sind
+			\begin{equation}
+				\dot{\vec{x}} = \vec{0}
+			\end{equation}
+		
+				
+		\item \textbf{Attraktor}\\
+		Menge von Punkten im Phasenraum, die einem Endprozess entsprechen
+		
+		
+		
+		\item \textbf{Einzugsgebiet}\\
+		Menge von Anfangsbedingungen, die zu einem Attraktor führen
+		
+		
+		\item \textbf{Grenzzyklus}\\
+		isolierte periodische Lösung
+		
+		
+		\item \textbf{Phasenraumportrait}\\
+		Darstellung des Phasenraums eines dynamischen Systems inklusive Gleichgewichtspunkten, exemplarischer Phasenraumtrajektorie, Grenzzyklen, etc.
+	\end{itemize}
+
+
+\newpage
+
+
+\subsection{Stabilität}
+Unter Stabilität versteht man die Unempfindlichkeit dynamischer Merkmale gegenüber nicht allzustarken Störungen.\\
+\\
+Seien $\vec{x}(t)$ eine Referenzlösung und $\vec{y}(t)$ eine beliebige Störung der Referenzlösung des nichtlinearen Systems $\dot{\vec{x}} = \vec{f}(\vec{x})$:
+	\begin{itemize}
+		\item \textbf{Lagrange-stabil}\\
+		Eine Lösung $\vec{x}$ ist Lagrange-stabil, wenn eine Störung $\vec{y}$, die zur Startzeit $t_0$ hinreichend nahe an $\vec{x}$ starten für alle Zeiten \textbf{beschränkt} bleiben
+			\begin{equation}
+				\exists \delta \text{ s.d. } \forall t > t_0: ||\vec{y}(t_0) - \vec{x}(t_0)|| < \delta \Rightarrow ||\vec{y}(t)|| < \infty
+			\end{equation}
+		
+		
+		\item \textbf{Lyapunov-stabil}\\
+		Eine Lösung $\vec{x}$ ist Lyapunov-stabil, wenn dessen Störung $\vec{y}$ sich für alle Zeiten \textbf{nahe} $\vec{x}$ befinden
+			\begin{equation}
+				\forall \varepsilon > 0 \ \exists \delta(\varepsilon) \text{ s.d. } \forall t > t_0: ||\vec{y}(t_0) - \vec{x}(t_0)|| < \delta \Rightarrow ||\vec{y}(t) - \vec{x}(t)|| < \varepsilon
+			\end{equation}
+		
+		
+		\item \textbf{quasiasymptotische Stabilität}\\
+		Eine Lösung $\vec{x}$ ist quasiasymptotisch stabil, wenn dessen Störungen $\vec{y}$ für $t\to\infty$ gegen \textbf{denselben Grenzert} konvergieren
+			\begin{equation}
+				\exists \delta > 0 : ||\vec{y}(t_0) - \vec{x}(t_0)|| < \delta \Rightarrow \lim_{t \to \infty} ||\vec{y}(t) - \vec{x}(t)|| = 0
+			\end{equation}
+		
+		
+		\item \textbf{asymptotische Stabilität}\\
+		Eine Lösung $\vec{x}$ ist asymptotisch Stabil, wenn sie Lyapunov- und quasiasymptotisch stabil ist.
+		
+		
+		\item \textbf{orbitale Stabilität}\\
+		Eine Lösung $\vec{x}$ ist orbital Stabil, wenn die Bahn von dessen Störung $\vec{y}$ in der Umgebung der ungestörten Bahn liegt.
+		
+		
+		\item \textbf{Poisson-stabil}\\
+		Eine Lösung $\vec{x}$ heißt Poisson-stabil, wenn sie ihrem Anfangszustand beliebig oft beliebig nahe wiederkommt.
+		
+		
+		\item \textbf{strukturelle Stabilität}\\
+		Ein System $\dot{\vec{x}} = \vec{f}(\vec{x})$ heißt strukturell stabil, wenn dessen Störungen $\dot{\vec{x}} = \vec{f}(\vec{x}) + \vec{g}(\vec{x})$ qualitativ dieselbe Struktur im Phasenraum aufweist.
+	\end{itemize}
+
+
+\newpage
+
+
+\subsubsection{Lyapunov-Theorem}
+Das Lyapunov-Theorem gibt auskunft darüber, ob ein Gleichgewicht $\vec{x}^\star$ Lyapunov-stabil oder asymptotisch stabil ist.
+
+\vspace{0.5cm}
+
+\hrule
+	\fbox{Lyapunov-Theorem}\\
+	Sei $\vec{x}^\star$ ein Gleichgewichtspunkt im Phasenraum des Systems $\dot{\vec{x}} = \vec{f}(\vec{x})$ und $V(\vec{x})$ eine Lyapunov-Funktion, d.h.
+		\begin{itemize}
+			\item \textbf{positiv definit}\\
+				\begin{equation}
+					V(\vec{x}) > V(\vec{x}^\star) \qquad \forall \vec{x} \neq \vec{x}^\star \in G
+				\end{equation}
+			
+			mit der Gebung um den Gleichgewichtspunkt $G$
+			
+			
+			\item \textbf{keine zeitliche Zunahme}
+				\begin{equation}
+					\frac{\diff V}{\diff t}(\vec{x}) = \vec{\nabla} V(\vec{x}) \cdot f(\vec{x}) \leq 0 \qquad \forall \vec{x} \in G
+				\end{equation}
+		\end{itemize}
+
+	dann gilt
+		\begin{equation}
+			\begin{cases}
+				\exists V: \dot{V} \leq 0, & \text{Lyapunov-stabil} \\
+				\exists V: \dot{V} < 0, & \text{asymptotisch stabil} \\
+				\exists V: \dot{V} > 0, & \text{instabil}
+			\end{cases}
+		\end{equation}
+\hrule
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Nichtlinearer Oszillator
+		\begin{align*}
+			\ddot{x} + c \dot{x} + a x + b x^3 = 0
+		\end{align*}
+	
+	mit $a, b, c > 0$\\
+	\\
+	ges: Gleichgewichte und deren Stabilitäten \\
+	\\
+	Lös: Verwende die folgende Lösungsstrategie:\\
+	1) Umschreiben der DGL in ein DGS \\
+	2) Gleichgewichte finden \\
+	3) Kandidat für Lyapunov-Funktion aufstellen und überprüfen\\
+	4) Schlussfolgerung Lyapunov-/asymptotisch stabil \\
+	\\
+	1) Wandle zunächst die DGL 2-ter Ordnung in 2 DGLs erster Ordnung um. Führe dazu die Variable $y := \dot{x}$ ein. Somit ergibt sich das DGS
+		\begin{align*}
+			\dot{x} &= y \\
+			\dot{y} &= - c y - a x - b x^3.
+		\end{align*}
+	
+	2) Das Gleichgewicht erfüllt
+		\begin{align*}
+			\dot{\vec{x}} &\equiv
+			\begin{pmatrix}
+				\dot{x} \\
+				\dot{y}
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				y \\
+				- c y - a x - b x^3
+			\end{pmatrix}
+			\stackrel{!}{=}
+			\begin{pmatrix}
+				0 \\
+				0
+			\end{pmatrix}
+		\end{align*}
+
+	Lösen des Gleichungssystems ergibt den Gleichgewichtspunkt $\vec{x}^\star = (0,0)^T$.\\
+	\\
+	3) Rate nun eine Lyapunov-Funktion, d.h. eine Funktion, die am Gleichgewicht ein Minimum aufweist. Wähle dafür ein Polynom mit positiven Koeffizienten. \textcolor{red}{(Evtl. Ergänzen: Motivation der Höhe der Potenzen]}. Wähle die Funktion
+		\begin{align*}
+			V(x,y) = \alpha x^2 + \beta x^4 + \gamma y^2
+		\end{align*}
+	
+	mit $\alpha, \beta, \gamma > 0$.\\
+	Die positive Definitheit $V(x,y) > V(0,0)$ ist somit offensichtlich erfüllt. $\qquad \checkmark$\\
+	Ebenso erfüllt die Funktion keine zeitliche Zunahme, da
+		\begin{align*}
+			\dot{V} = \vec{\nabla}_{\vec{x}} V(\vec{x}) \cdot \vec{f}(\vec{x}) = (2\alpha - 2\gamma a) x y + (4\beta - 2\gamma b) x^3 y - 2\gamma c y^2
+		\end{align*}
+	
+	mit der Wahl der Koeffizienten $\gamma = \frac{\alpha}{a}$ und $\beta = \alpha \frac{b}{2a}$ die ersten Terme verschwinden lässt:
+		\begin{align*}
+			\dot{V} = - 2\gamma c y^2.
+		\end{align*}
+	
+	Da alle Koeffizienten positiv gewählt wurden, gilt $\dot{V} \leq 0. \qquad \checkmark$\\
+	\\
+	4) Da $\dot{V} \leq 0$, ist das Gleichgewicht Lyapunov-stabil.
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Linearisierung}
+Unter \underline{linearer Stabilität} versteht man, dass das betrachtete nichtlineare System $\dot{\vec{x}} = \vec{f}(\vec{x})$ um den Gleichgewichtspunkt $\vec{x}^\star$ linear genähert wird, um die asymptotische Stabilität des Gleichgewichts zu untersuchen.\\
+\\
+\fbox{Algorithmus}
+	\begin{enumerate}
+		\item \textbf{Gleichgewicht $\vec{x}^\star$ finden}\\
+		Die Gleichgewichtspunkte ergeben sich aus der Bedingung
+			\begin{equation}
+				\dot{\vec{x}} = \vec{f}(\vec{x}) \stackrel{!}{=} \vec{0}
+			\end{equation}
+	
+	
+		\item \textbf{Jacobi-Matrix $\underline{J}$ bestimmen}\\
+		Für die Taylor-Entwicklung von $\vec{f}(\vec{x})$ um den Gleichgewichtspunkt $\vec{x}^\star$ gilt:
+			\begin{equation}
+				\dot{\vec{x}} = \underline{J} \cdot (\vec{x} - \vec{x}^\star),
+			\end{equation}
+
+		mit dem $ij$-ten Element der Jacobi-Matrix $J_{ij} := \left. \frac{\partial f_i}{\partial x_j} \right|_{\vec{x}^\star}$
+	
+	
+		\item \textbf{Eigenwerte $\lambda$ bestimmen}
+			\begin{equation}
+				\begin{cases}
+					\forall \lambda: \Re \lambda < 0, & \text{asymptotisch stabil} \\
+					\exists\lambda: \Re \lambda > 0, & \text{asymptotisch instabil} \\
+					\forall\lambda: \Re \lambda \neq 0, & \text{hyperbolisches Gleichgewicht}					
+				\end{cases}
+			\end{equation}
+\end{enumerate}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Lorenz-Gleichungen (siehe \ref{lorenz-gleichungen})\\
+	ges: Linearisierung um Gleichgewicht $\vec{x}^\star = (0,0,0)^T$ \\
+	Lös: Führe die mehrdimensionale Taylor-Entwicklung um $\vec{x}^\star$ bis zur 1. Ordnung durch:
+		\begin{align*}
+			T_{\vec{f},\vec{x}^\star,1}(x) = 0 + (x,y,z)^T \cdot
+			\underbrace{
+			\begin{pmatrix}
+				-\sigma & \sigma & 0 \\
+				r & -1 & 0 \\
+				0 & 0 & -b
+			\end{pmatrix}
+			}_{=:\underline{J}}
+			\cdot
+			\begin{pmatrix}
+				x \\ y \\ z
+			\end{pmatrix}
+		\end{align*}
+
+	Bestimme die Eigenwerte der Jacobi-Matrix.\\
+	Der Eigenwert $\lambda_1 = -b$ ist offensichtlich, womit lediglich die Untersuchung der $2 \times 2$ Matrix verbleibt
+		\begin{align*}
+			\det(\underline{J}' - \lambda \mathbb{1}_2) &=
+			\left| 
+			\begin{pmatrix}
+				-\sigma - \lambda & \sigma \\
+				r & -1 - \lambda \\
+			\end{pmatrix}
+			\right|
+			=
+			(-\sigma - \lambda) \cdot (-1 - \lambda) - (-\sigma r) = \\
+			&=\lambda^2 + (\sigma+1)\lambda + \sigma(1-r) \stackrel{!}{=} 0 \\
+			\Rightarrow \lambda_{2,3} &= \frac{-(\sigma+1)\pm\sqrt{(\sigma+1)^2-4\sigma(1-r)}}{2} 
+	\end{align*}
+	
+	Für $r<1$ sind alle Eigenwerte negativ, weshalb dann ein asymptotisch stabiles Gleichgewicht vorliegt.\\
+	
+	
+	
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Periodische Lösungen}
+Die Stabilität einer periodischen Lösung kann mittels der folgenden Theoreme untersucht werden:
+
+\vspace*{0.5cm}
+
+\hrule
+	\fbox{Floquet-Theorie}\\
+	Sei $\vec{x}_p(t)$ eine periodische Lösung eines dynamischen Systems $\dot{\vec{x}}(t) = \vec{f}(\vec{x})$ und $\vec{\tilde{x}}(t)$ eine kleine Störung dieser Lösung. Die Fundamentalmatrix $\tilde{\underline{X}}$ beschreibt die zeitliche Entwicklung der Störung und erfüllt $\tilde{\underline{X}}(t+T) = \tilde{\underline{X}}(t) \underline{C}$.\\
+\\
+Dann folgt aus den Eigenwerten $\mu_1, ..., \mu_N$ von $\underline{C}$ (Floquet-Multiplikatoren), wobei ein $\mu_i=1$ sein muss:
+	\begin{equation}
+		\begin{cases}
+			\text{alle übrigen } \mu_i: |\mu_i|<1, & \text{asymptotisch stabil} \\
+			\text{ein $|\mu_i|>1$}, & \text{instabil}
+		\end{cases}
+	\end{equation}
+\hrule
+
+\vspace{0.5cm}
+
+\hrule
+	\fbox{Poincaré-Abbildung}\\
+	Betrachte eine periodische Lösung eines $N$-dimensionalen nichtlinearen Systems. Betrachte weiter eine $N-1$-dimensionale Hyperfläche, die diese Lösung transversal schneidet. Benachbarte Bahnen schneiden die Fläche ebenfalls. Dann ist die Poincaré-Abbildung die Abbildung, die einem Durchstoßpunkt durch die Hyperfläche den nächsten Durchstoßpunkt zuordnet. Linearisiere $P$ um den Fixpunkt (Punkt mit $P(x)=x$).\\
+	 \\
+	 Dann folgt aus den Eigenwerten der Jacobi-Matrix, unter Vernachlässigung des trivialen Eigenwerts 1 für die Stabilität
+		\begin{equation}
+			\begin{cases}
+				\forall \lambda: |\lambda| < 1, & \text{asymptotisch stabil} \\
+				\exists \lambda: |\lambda| > 1, & \text{instabil}
+			\end{cases}
+		\end{equation}
+
+	sowie die Bifurkationen
+		\begin{equation}
+			\begin{cases}
+				\exists \lambda = 1, & \text{Sattel-Knoten Bifurkation von periodischen Lösungen} \\
+				\exists \lambda = -1, & \text{\underline{Periodenverdopplungsbifurkation}} \\
+				\exists \lambda = e^{\pm i \theta}, & \text{\underline{Torus-Bifurkation}} \\
+			\end{cases}
+		\end{equation}
+\hrule
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.3\textwidth]{Grafiken/poincare-abbildung.png}
+		}
+		\caption{Schema der Poincaré-Abbildung $P(x)$ auf einer Hyperfläche $s$}
+	\end{figure}
+
+\newpage
+
+
+\subsection{Bifurkationstheorie}
+Unter einer \underline{Bifurkation} versteht man die qualitative Veränderung des Phasenportraits durch das Verändern von Paramtern.\\
+Gebiete mit demselben qualitativen Phasenportrait sind im Parameterraum $m$-dimensional. Sie sind durch ($m-1$)-dimensionalen \underline{Bifurkationsflächen} voneinander getrennt.
+
+
+\subsubsection{Grundlegende mathematische Begriffe}
+	\begin{itemize}
+		\item \textbf{stabile Mannigfaltigkeit} (eines Gleichgewichts $\vec{x}^\star$)\\
+		Gesamtheit aller Anfangspunkte $\vec{x}$ von Trajektorien, die bei $t \to \infty$ gegen $\vec{x}^\star$ streben
+			\begin{equation}
+				W^s := \{ \vec{x} | \lim_{t \to \infty} \vec{x}(t) = \vec{x}^\star \}
+			\end{equation}
+		
+		\textcolor{gruen}{Notation: s steht für stable}
+		
+		
+		\item \textbf{instabile Mannigfaltigkeit} (eines Gleichgewichts $\vec{x}^\star$)\\
+		Gesamtheit aller Anfangspunkte $\vec{x}$ von Trajektorien, die bei $t \to -\infty$ gegen $\vec{x}^\star$ streben
+			\begin{equation}
+				W^u := \{ \vec{x} | \lim_{t \to -\infty} \vec{x}(t) = \vec{x}^\star \}
+			\end{equation}
+		
+		\textcolor{gruen}{Notation: u steht für unstable}
+		
+		
+		\item \textbf{Zentrumsmannigfaltigkeit} (eines Gleichgewichts $\vec{x}^\star$)\\
+		Invariante Mannigfaltigkeit, auf der nach abklingen der schnellen Dynamik die langsame Dynamik stattfindet
+		
+		
+		\item \textbf{Heterokline}\\
+		Trajektorie $\Gamma(t)$, die vom Gleichgewicht $A$ zum Gleichgewicht $B$ führt
+			\begin{equation}
+				\lim_{t \to -\infty} \Gamma(t) = A \qquad \wedge \qquad \lim_{t \to \infty} \Gamma(t) = B
+			\end{equation}
+		
+		
+		\item \textbf{Homokline}\\
+		Trajektorie $\Gamma(t)$, die vom Gleichgewicht $A$ wieder zu sich selber führt
+			\begin{equation}
+				\lim_{t \to -\infty} \Gamma(t) = A \qquad \wedge \qquad \lim_{t \to \infty} \Gamma(t) = A
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+\subsubsection{Bestimmung des Bifurkationstyps}
+\fbox{Algorithmus}
+	\begin{enumerate}
+		\item \textbf{Gleichgewichte berechnen}
+		
+		
+		\item \textbf{Linearisierung}
+		
+		
+		\item \textbf{Bestimmung Bifurkationsparameterwert}\\
+		Ein Bifurkationsparameterwert $\bar{\mu}$ ist im allgemeinen der Wert, für den ein Eigenwert $\lambda$ der Linearisierung auf der imaginären Achse liegt, d.h. $\Re\lambda=0$ gilt.
+		
+		
+		\item \textbf{Bestimmung der Mannigfaltigkeitsdimensionen}\\
+		Die Dimension der stabilen, instabilen sowie Zentrumsmannigfaltigkeit $n, p, z$ ergeben sich wie folgt aus den Eigenwerten
+			\begin{align}
+				n &:= \text{Anzahl EW mit } \Re \lambda < 0 \\
+				p &:= \text{Anzahl EW mit } \Re \lambda > 0 \\
+				z &:= \text{Anzahl EW mit } \Re \lambda = 0.
+			\end{align}
+		
+		Falls $z=0$: keine Bifurkation an diesem GGW; fertig\\
+		Falls $z \geq 1$: weiter
+		
+		
+		\item \textbf{Zerlegung in invariante Unterräume}\\
+		Führe eine Koordinatentransformation durch, s.d. die Dynamik in die drei Unterräume $E^n$, $E^p$ und $E^z$ mit den Koordinaten $\vec{\alpha}$, $\vec{\beta}$ und $\vec{\zeta}$ separiert wird.
+		
+		
+		\item \underline{\textbf{Dimensionsreduktion}}\\
+		Reduziere die Dynamik des Systems auf die Dimension Zentrumsmannigfaltigkeit.\\
+		Wähle dazu einen Potenzreihenansatz für die schnelle Variable $\alpha, \beta$ in Abhängigkeit der langsamen $\zeta$
+			\begin{equation}
+				(\vec\alpha,\vec\beta)=h(\vec\zeta,\nu),\qquad h(0,0)=0,\quad Dh(0,0)=0.
+			\end{equation}
+		
+		
+		\item \underline{\textbf{Komplexitätsreduktion}}\\
+		Führe eine Koordinatentransformation durch, die die Dynamik des dimensionsreduzierten Systems auf eine der \underline{Normalformen} in Tabelle \ref{tabelle bifurkationstypen} zurückführt
+	\end{enumerate}
+
+
+\newpage
+
+
+	\begin{table}[h]
+		\centering
+		\caption{Übersicht der Bifurkationstypen und ihren zugehörigen Normalformen}
+		\label{tabelle bifurkationstypen}
+		\begin{tabularx}{\textwidth}{p{3cm}|l|l|X}
+			\hline\hline
+				Typ & Eigenwert & Normalform & Beschreibung \\
+			\hline
+				Sattel-Knoten & $\lambda=0$ & $\dot{x} = \mu \pm x^2$ & Erzeugung zweier Gleichgewichte \\
+			\hline
+				transkritisch & $\lambda=0$ & $\dot{x} = \mu x \pm x^2$ & 2 Gleichgewichte tauschen ihre Stabilität  \\
+			\hline
+				superkritische Heugabel & $\lambda=0$ & $\dot{x} = \mu x - x^3$ & Stabiles GGW wird instabil + Erzeugung von 2 neuen stabile GGWs \\
+			\hline
+				subkritische Heugabel & $\lambda=0$ & $\dot{x} = \mu x + x^3$ & Stabiles GGW wird instabil + Vernichtung zweier instabiler GGWs \\
+			\hline
+				superkritische Andronov-Hopf & $\lambda=\pm i\omega$ & $\dot{r} = \mu r - r^3,\ \dot{\theta} = \omega$ & Stabiles GGW wird zu stabilem Grenzzyklus \\
+			\hline
+				subkritische Andronov-Hopf & $\lambda=\pm i\omega$ & $\dot{r} = \mu r + r^3,\ \dot{\theta} = \omega$ & Stabiles GGW wird instabil + Vernichtung eines instabilen Grenzzyklus \\
+			\hline\hline
+		\end{tabularx}
+	\end{table}
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=\textwidth]{Grafiken/übersicht bifurkationen.pdf}
+		}
+		\caption{Schematische Bifurkationsdiagramme der 6 Normalformen. Linien stellen Gleichgewichte, Kreise periodische Lösungen und Strichelung Instabilität dar.\\
+		Oben links: Sattel-Knoten; oben rechts: transkritisch; mitte links: superkritische Heugabel; mitte rechts: subkritische Heugabel; unten links: superkritische Andranov-Hopf; unten rechts: subkritische Andranov-Hopf}
+	\end{figure}
+
+
+\newpage
+
+
+\subsection{Chaotische Dynamik} %VL15
+Ein \underline{chaotisches System} ist ein deterministisches System, das ein aperiodisches, beschränktes Verhalten aufweist und sehr sensibel auf Änderungen in den Anfangsbedingungen reagiert.\\
+Veranschaulicht wird das Systems durch eine Punktwolke, die von Trajektorien mit leicht veränderten Anfangsbedingungen stammt.
+
+
+\subsubsection{Grundlegende mathematische Begriffe}
+Chaotische Systeme können durch die folgenden mathematischen Konzepte (Maß bzw. Verteilungsfunktion, Ergodizität bzw. Mischung und dem Lyapunov-Exponenten) beschrieben werden:
+	\begin{itemize}
+		\item \underline{\textbf{Maß}}\\
+		Abbildung $\mu$, die einem Phasenraumvolumen $V$ die Wahrscheinlichkeit zuordnet, einen Zustand darin anzutreffen.\\
+		 Es heißt \underline{invariant}, wenn eine gemäß ihr verteilte Punktwolke für alle Zeiten dieselbe Verteilung aufweist.\\
+		 Es heißt \underline{natürlich}, wenn es die Verteilung auf dem Attraktor des Systems beschreibt.
+		
+
+		\item \underline{\textbf{Verteilungsdichte}}\\
+		Wahrscheinlichkeitsdichte $\rho(\vec{x})$ für den Ort des Zustands im Phasenraum, falls sie existiert. Dann gilt
+			\begin{equation}
+				\mu(V) = \int_V \rho(\vec{x})\,\mathrm{d}\vec{x}.
+			\end{equation}
+		
+		
+		\item \textbf{Ergodizität}\\
+		Ein dynamisches System $\dot{\vec{x}} = \vec{f}(\vec{x})$ ist ergodisch, wenn für eine Observable $O$ Zeit- und Ensemblemittelwert identisch sind
+			\begin{equation}
+				\braket{O} = \lim_{T\to\infty} \frac{1}{T} \int_0^T O(\vec{x}(t)) \, \diff t = \int O(\vec{x}) \, \diff \mu,
+			\end{equation}
+		
+		d.h. eine ausreichend lange Trajektorie $\vec{x}(t)$ verrät die Statistik des Systems.
+
+
+		\item \textbf{Mischung}\\
+		Ein System mischt, wenn es im Grenzwert $t \to \infty$ ''vergisst'', aus welchem Bereich des Phasenraums es sich in einen anderen entwickelt hat
+	\end{itemize}
+
+
+\newpage
+
+
+\subsubsection{Lyapunov-Exponent}
+Der \underline{Lyapunov-Exponent} beschreibt, wie schnell eine Referenztrajektorie $\vec{x}$ und eine gestörte Trajektorie $\vec{\tilde{x}}$ eines $N$-dimensionalen Systems auseinanderlaufen.\\
+\\
+\fbox{Algorithmus}
+	\begin{itemize}
+		\item \textbf{Lineariserung}\\
+		Linearisiere die Dynamik der Störung $\vec{\tilde{x}}$
+			\begin{equation}
+				\dot{\vec{\tilde{x}}}(t) = \underline{A}(\vec{\tilde{x}}_0(t)) \cdot \vec{\tilde{x}}(t)
+			\end{equation}
+		
+		
+		\item \textbf{Lyapunov-Exponent}\\
+		Bestimme für alle $N$ Störungsvektoren jeweils den Lyapunov-Exponent
+			\begin{equation}
+				\Lambda := \limsup_{t \to \infty} \lr{ \frac{1}{t} \ln \frac{||\vec{\tilde{x}}(t)||}{||\vec{\tilde{x}}(0)||} }
+			\end{equation}
+		
+		
+		\item \textbf{Schlussfolgerung aus Lyapunov-Exponent-Spektrum}\\
+		Aus den Lyapunov-Exponenten folgt für die Stabilität der betrachteten Trajektorie
+			\begin{equation}
+				\begin{cases}
+					\Lambda_\text{max} < 0, & \text{asymptotische Stabilität} \\
+					\Lambda_\text{max} > 0, & \text{instabil} \\
+					\text{$\exists$ mindestens 2 } \Lambda > 0, & \text{Hyperchaos}					
+				\end{cases}
+			\end{equation}
+		
+		sowie für das dynamische System im allgemeinen
+			\begin{equation}
+				\begin{cases}
+					\sum_{i=1}^N \Lambda_i < 0, & \text{dissipatives System} \\
+					\sum_{i=1}^N \Lambda_i = 0, & \text{konservatives System}
+				\end{cases}.
+			\end{equation}
+	\end{itemize}
+	
+	
+\newpage
+
+
+\section{Dynamik in 1d}
+Ein 1d-System hat die Form
+	\begin{equation}
+		\dot{x} = f(x; \vec{\mu}).
+	\end{equation}
+
+
+\subsection{Allgemeine Resultate}
+	\begin{itemize}
+		\item \textbf{Gleichgewichte}\\
+		Die Gleichgewichte $x_i^\star$ sind die Nullstellen der Funktion $f(x,\mu)$, d.h. aus der Gleichung
+			\begin{equation}
+				f(x, \mu) = 0.
+			\end{equation}
+
+		
+		\item \textbf{Stabilität}
+		\begin{itemize}
+			\item \textbf{Bestimmung}\\
+			Die Stabilität des Gleichgewichts $x^\star$ folgt aus dem Vorzeichen der Ableitung am Gleichgewichtspunkt
+				\begin{equation}
+					\left. \frac{\partial f}{\partial x} \right|_{x=x^\star}
+					\begin{cases}
+						<0, & \text{stabiles GGW} \\
+						>0, & \text{instabiles GGW}
+					\end{cases}
+				\end{equation}
+			
+			
+			\item \textbf{instabile und stabile Gleichgewichte wechseln sich ab}
+		\end{itemize}					
+		
+
+		\item \textbf{Bifurkation}
+		\begin{itemize}
+			\item \textbf{Phänomen: paarweises Verschwinden/Auftauchen von Nullstellen}
+			
+			
+			\item \textbf{Bifurkationsparameterwert}\\
+			Der Bifurkationsparamterwert $\bar{\mu}$ ergibt sich aus den Bedingungen
+				\begin{equation}
+					\left. \frac{\partial f}{\partial x} \right|_{x^\star, \bar{\mu}} = 0
+				\end{equation}
+		\end{itemize}
+		
+		
+		\item \textbf{Chaos}\\
+		Für eindimensionale Systeme mit diskreten Zeiten $x_{i+1} = f(x_i)$ berechnet sich der Lyapunov-Exponent über
+			\begin{equation}
+				\lambda = \lim_{n \to \infty} \frac{1}{n} \ln \lr{ \left| \prod_{i=1}^n f'(x_i) \right| }.
+			\end{equation}
+	\end{itemize}
+
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+		\includegraphics[width=0.2\textwidth]{Grafiken/1d dynamik.png}
+	}
+	\caption{Phasenportrait eines 1d Systems}
+\end{figure}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $\dot{x} = f(x,\mu) = (\mu - x^2)(\mu + 1 - 2x^2)$ \\
+	ges: Gleichgewichte, Stabilität, Bifurkationsparameterwerte, Bifurkationsdiagramm \\
+	Lös: Die Gleichgewichte ergeben sich aus der Bedingung
+		\begin{align*}
+			\dot{x} = (\mu - x^2)(\mu + 1 - 2x^2) \stackrel{!}{=} 0.
+		\end{align*}
+	
+	Dies ist erfüllt, wenn entweder die erste oder zweite Klammer null wird, d.h.
+		\begin{align*}
+			\bullet \ \mu - x^2 &= 0 \\
+			\Rightarrow x_{1,2}^\star &= \pm \sqrt{\mu} \\
+			\bullet \ \mu + 1 - 2x^2 &= 0 \\
+			\Rightarrow x_{3,4}^2 &= \pm \sqrt{ \frac{\mu+1}{2} }.
+		\end{align*}
+	
+	Bestimme zur Stabilitätsuntersuchung die Ableitung der Funktion $f$:
+		\begin{align*}
+			f'(x,\mu) &= (-2x)(3\mu + 1 - 4x^2)
+		\end{align*}
+	
+	An den GGWs ergeben sich die folgenden Werte:
+		\begin{align*}
+			\bullet \ f'(x_1^\star, \mu) &= -2\sqrt{\mu}(3\mu+1-4\mu) = 2\sqrt{\mu}(\mu-1)
+			\begin{cases}
+				<0, & 0<\mu<1 \\
+				=0, & \mu \in \{0, 1\}\\
+				>0, & \mu>1
+			\end{cases} \\
+			\bullet \ f'(x_2^\star, \mu) &= ... = 2\sqrt{\mu}(1-\mu) =
+			\begin{cases}
+				<0, & \mu>1 \\
+				=0, & \mu \in \{0, 1\}\\
+				>0, & 0<\mu<1
+			\end{cases} \\
+			\bullet \ f'(x_3^\star,\mu) &= ... = 2\sqrt{\frac{\mu+1}{2}}(1-\mu) = 
+			\begin{cases}
+				<0, & \mu>1 \\
+				=0, & \mu \in \{-1, 1\}\\
+				>0, & -1<\mu<1
+			\end{cases} \\
+			\bullet \ f'(x_4^\star,\mu) &= ... = 2\sqrt{\frac{\mu+1}{2}}(\mu-1) = 
+			\begin{cases}
+				<0, & -1<\mu<1 \\
+				=0, & \mu \in \{-1, 1\}\\
+				>0, & \mu>1
+			\end{cases}
+		\end{align*}
+	
+	Die Bifurkationsparameterwerte sind somit $\bar{\mu} \in \{0,1\}$ für $x_{1,2}^\star$ und $\bar{\mu} \in \{-1,1\}$ für $x_{3,4}^\star$.\\
+	\\
+	Das Bifurkationsdiagramm stellt nun alle Gleichgewichte in Abhängigkeit des Bifurkationsparameters dar. Durchgezogene Linie markiert dabei stabile, gestrichelte instabile Gleichgewichte.
+
+
+\newpage
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/bifurkationsdiagramm 1d.pdf}
+		}
+		\caption{Bifurkationsdiagramm mit 2 Sattel-Knoten- und einer transkritischen Bifurkation}
+	\end{figure}
+	
+\hrule
+}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Gleichgewicht bei Nullstelle von $f(x, \mu)$\\
+	Lös: Folgt aus der Definition des Gleichgewichtes
+		\begin{align*}
+			\dot{x} = \left. f(x,\mu) \right|_{x^\star} \stackrel{!}{=} 0 \qquad \blacksquare
+		\end{align*}
+	
+	
+	\fbox{Herleitung}\\
+	zz: instabile und stabile Gleichgewichte wechseln sich ab\\
+	Lös:	 Folgt aus dem Satz von Rolle, der besagt, dass zwischen zwei Punkten mit identischem Funktionswert ein Punkt mit Steigung null existiert. Da die Steigung an einer Nullstelle ihr Vorzeichen wechselt, müssen aufeinanderfolgende Nullstellen ein unterschiedliches Vorzeichen besitzen. Aus der linearen Stabilität folgt dann, dass das eine Gleichgewicht stabil, das andere instabil ist. $\qquad \blacksquare$\\
+	\\
+	\fbox{Herleitung}\\
+	zz: paarweises Verschwinden/Auftauchen von Nullstellen\\
+	Lös: Entwickle die Funktion bis zum ersten nicht-verschwindenden Term und betrachte sie am Bifurkationsparameterwert. Aus letzterem folgt, dass der 2. Term der nicht-verschwindende ist. \textcolor{red}{ERGÄNZEN}\\
+\\
+	\fbox{Herleitung}\\
+	zz: Bifurkationsparameterwert bei $f'(x^\star,\bar{\mu}) = 0$\\
+	Lös: Eine Bifurkation findet ausschließlich an nicht-hyperbolischen Gleichgewichten statt. Dies ist genau dann der Fall, wenn alle Eigenwerte gleich null sind. Da das 1d-System lediglich den Eigenwert $f'(x,\mu)$ hat (das ist in dieser Dimension die gesamte Jacobi-Matrix), muss dieser verschwinden, d.h. $f'(x^\star,\bar{\mu}). \qquad \blacksquare$
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Anwendungsbeispiel: Logistische Abbildung}
+Die logistische Abbildung ist eine rekursive Gleichung, die die Entwicklung einer einzigen Population beschreibt
+	\begin{equation}
+		x_{n+1} = a x_n(1 - x_n),
+	\end{equation}
+
+mit der Wachstumsrate $a$, der gegenwärtigen Population $x_n$ und der Populationen einen Zeitschritt später $x_{n+1}$.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Gleichgewichte}\\
+		Das System hat ein Gleichgewicht bei $x_1^\star=0$ und $x_2^\star = 1 - \frac{1}{a}$.\\
+		Das Gleichgewicht $x_1^\star$ ist stabil für $a<1$ und instabil für $a>1$.\\
+		Das Gleichgewicht $x_2^\star$ ist stabil für $1 < a < 3$ und instabil für $a<1$.
+		
+		
+		\item \textbf{Bifurkationen}\\
+		Es finden unendlich viele Periodenverdopplungsbifurkationen bei $\bar{a}_1=3$, $\bar{a}_2 = 1 + \sqrt{6} \approx 3,449$, etc. statt
+		
+		
+		\item \textbf{Chaos}\\
+		Für $a \gtrsim a_\infty = 3,56995...$ zeigt das System chaotisches Verhalten, kehrt jedoch abschnittsweise zu einem nicht-chaotischen Verhalten zurück.
+	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/bifurkationsdiagramm logistische abbildung.png}
+		}
+		\caption{Bifurkationsdiagramm der logistischen Abbildung}
+	\end{figure}
+
+
+\newpage
+
+
+\section{Dynamik in 2d}
+Ein 2d-System hat die Form
+	\begin{equation}
+			\dot{\vec{x}}
+			=
+			\begin{pmatrix}
+				\dot{x}_1 \\
+				\dot{x}_2
+			\end{pmatrix}
+			=
+			\vec{f}(x,y;\vec{\mu}) \\
+			=
+			\begin{pmatrix}
+				f_1(x,y;\vec{\mu}) \\
+				f_2(x,y;\vec{\mu})
+			\end{pmatrix}.
+	\end{equation}
+
+
+\subsection{Allgemeine Resultate}
+	\begin{itemize}
+		\item \textbf{Gleichgewicht}\\
+		Das Gleichgewicht ergibt sich aus dem Gleichungssystem
+			\begin{equation}
+				\begin{cases}
+					0 &= f_1(x,y,\vec{\mu}) \\
+					0 &= f_2(x,y,\vec{\mu})
+				\end{cases}
+			\end{equation}
+		
+		
+		\item \textbf{Stabilität}\\
+		Die Eigenwerte der Jacobi-Matrix
+			\begin{equation}
+				\underline{J} 
+				=
+				\begin{pmatrix}
+					\frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} \\
+					\frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2}
+				\end{pmatrix}
+			\end{equation}
+		
+		beschreiben 5 Typen von Gleichgewichten:
+			\begin{equation}
+				\begin{cases}
+					\lambda_1, \lambda_2\ \text{reell und negativ}, & \text{stabiler Knoten} \\
+					\lambda_1, \lambda_2\ \text{reell und positiv}, & \text{instabiler Knoten} \\
+					\lambda_1, \lambda_2\ \text{reell und unterschiedliche Vorzeichen}, & \text{Sattel} \\
+					\Re\lambda_1 = \Re\lambda_2 < 0, & \text{stabiler Fokus (Strudel)} \\
+					\Re\lambda_1 = \Re\lambda_2 > 0, & \text{instabiler Fokus (Strudel)} \\
+					\lambda_1, \lambda_2\ \text{rein imaginär}, & \text{Zentrumspunkt}
+				\end{cases}
+			\end{equation}
+		
+		
+		\item \textbf{periodische Lösungen}\\
+		Für die Existenz von periodischen Lösungen existiert ein positives Kriterium\\ (\underline{Poincaré-Bendixon-Kriterium}) und ein negatives Theorem (\underline{Dulac-Kriterium})		
+	\end{itemize}
+
+
+\newpage
+
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+		\includegraphics[width=\textwidth]{Grafiken/stabilität 2d dynamik.png}
+	}
+	\caption{Stabilitäten des Gleichgewichts in Abhängigkeit der Jacobi-Determinante und -Spur; links oben: stabiler Knoten; links mittig: instabiler Knoten; links unten: Sattel; rechts oben: stabiler Fokus; rechts mittig: instabiler Fokus; rechts unten: Zentrumspunkt}
+\end{figure}
+
+
+\newpage
+
+
+\subsection{Anwendungsbeispiel: Populationsdynamik zweier Arten}
+Die Dynamik von 2 wechselwirkenden Populationen wird durch das System 
+	\begin{equation}
+		\begin{cases}
+			\dot{x}_1 &= x_1 \cdot ( \alpha_1 + \kappa_{11} x_1 + \kappa_{12} x_2) \\
+			\dot{x}_2 &= x_2 \cdot ( \alpha_2 + \kappa_{22} x_2 + \kappa_{21} x_1),
+		\end{cases}
+	\end{equation}
+
+mit dem intrinsischen Wachstumskoeffizient $\alpha_{i}$, Selbstbegrenzungskoeffizienten $\kappa_{ii}$ und Wechselwirkungskoeffizienten $\kappa_{ij}$, beschrieben.\\
+Die Vorzeichen der Koeffizienten entscheiden dabei über die Wechselwirkungstypen der Populationen:
+	\begin{equation}
+		\begin{cases}
+			\kappa_{ij} > 0, \kappa_{ji} > 0, & \text{Symbiose} \\
+			\kappa_{ij} < 0, \kappa_{ji} < 0, & \text{Wettbewerb} \\
+			\kappa_{ij} \cdot \kappa_{ji} < 0, & \text{Räuber-Beute}
+		\end{cases}
+	\end{equation}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Gleichgewichte}\\
+		Im Falle von Symbiose und Wettbewerb: 4 Gleichgewichtspunkte: Die triviale Lösung $x_1 = x_2 = 0$, reine Lösungen (mit $x_1=0$ oder $x_2=0$) sowie einer gemischten Lösung $x_1,x_2 \neq 0$.
+		
+		
+		\item \textbf{periodische Lösung}\\
+		Im Falle von Räuber-Beute ohne Selbstbeschränkung: Die Bahn einer periodischen Lösung wird durch die folgende Kurvengleichung beschrieben
+			\begin{equation}
+				\kappa_2 x_1 + \alpha_2 \ln x_1 - \kappa_1 x_2 - \alpha_1 \ln x_2 = C,
+			\end{equation}
+		
+		wobei jedes $C$ eine andere geschlossenen Bahn beschreibt.
+	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=\textwidth]{Grafiken/populationsdynamik.png}
+		}
+		\caption{links und mitte: Phasenportrait der Gleichgewichtspunkte der Wettbewerb-Beziehung; rechts: Phasenportrait der periodischen Lösungen der Räuber-Beute-Beziehung ohne Selbstbeschränkung}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Kurvengleichung
+		\begin{align*}
+			\kappa_2 x_1 + \alpha_2 \ln x_1 - \kappa_1 x_2 - \alpha_1 \ln x_2 = C
+		\end{align*}
+	
+	für Räuber-Beute ohne Selbstbeschränkung\\
+	\\
+	Lösungsstrategie:\\
+	1) Aufstellen des DGS \\
+	2) Dividieren beider Gleichungen zur Elemination von $\diff t$ \\
+	3) Separation der Variablen\\
+	\\
+	Die Räuber-Beute-Beziehung ohne Selbstbegrenzung ergibt das dynamische System:
+		\begin{align*}
+			\begin{cases}
+				\frac{\diff x_1}{\diff t} &= x_1 (\alpha_1 + \kappa_1 x_2) \\
+				\frac{\diff x_2}{\diff t} &= x_2 (\alpha_2 + \kappa_2 x_1)
+			\end{cases}
+		\end{align*}
+	
+	Dividiere die erste Gleichung durch die zweite:
+		\begin{align*}
+			\frac{\diff x_1}{\diff x_2} &= \frac{x_1 (\alpha_1 + \kappa_1 x_2)}{x_2 (\alpha_2 + \kappa_2 x_1)}
+		\end{align*}
+
+	Separiere die Variablen und integriere:
+		\begin{align*}
+			\int \frac{\alpha_2 + \kappa_2 x_1}{x_1} \, \diff  x_1 &= \int \frac{\alpha_1 + \kappa_1 x_2}{x_2} \, \diff x_2 \\
+			\Leftrightarrow \alpha_2 \ln x_1 + \kappa_2 x_1 - \alpha_1 \ln x_2 - \kappa_1 x_2 &= C,
+		\end{align*}
+	
+	wobei $C$ eine Integrationsvariable ist. $\qquad \blacksquare$
+
+
+
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Anwendungsbeispiel: Elektrotechnik (van-der-Pol-Gleichung)} %VL10
+Die van-der-Pol-Gleichung beschreibt die Dynamik eines van-der-Pol-Oszillators
+	\begin{equation}
+		\ddot{x} - (A - x^2) \dot{x} + x = 0,
+	\end{equation}
+
+mit der skalierten Kondensatorladung $x(\tau=\omega_0 t) \propto Q(t)$ und der Konstante $A = -\omega_0( RC + a_0)$, wobei $\omega_0$ die Eigenfrequenz des ungedämpften Schwingkreises und $a_0$ ein Entwicklungskoeffizient für den Anodenstrom ist.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Gleichgewicht}\\
+		Das System hat für alle $A$ ein Gleichgewicht bei $\vec{x}^\star = (0,0)^T$. Es wechselt bei $A=-2$ von einem stabilen Knoten zu einem stabilen Fokus, bei $A=0$ zu einem instabilen Fokus und schließlich bei $A=2$ zu einem instabilen Knoten.
+		
+		
+		\item \textbf{periodische Lösung}\\
+		Das System bildet für $A>0$ eine stabile periodische Lösung aus.
+		
+		
+		\item \textbf{Bifurkation}\\
+		Am Bifurkationsparameterwert $\bar{A}=0$ findet eine superkritische Andronov-Hopf-Bifurkation statt. 
+	\end{itemize}
+
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=\textwidth]{Grafiken/phasenportrait van-der-pol.png}
+		}
+		\caption{Phasenportrait sowie dynamik der Kondensatorladung $x$ der van-der-Pol-Gleichung für 3 verschiedene Bifurkationsparameterwerte}
+	\end{figure}
+
+
+\newpage
+
+
+\subsection{Anwendungsbeispiel: Neurodynamik (FitzHugh-Nagumo-Gleichungen)} %VL11
+Die FitzHugh-Nagumo-Gleichungen stellen eine Vereinfachung der Hodgkin-Huxley-Gleichungen dar und beschreiben ebenfalls die Dynamik der Membranspannung eines Axons
+	\begin{equation}
+		\begin{cases}
+			\varepsilon \dot{x} &= x - \frac{x^3}{3} - y \\
+			\dot{y} &= x + a
+		\end{cases}
+	\end{equation}
+
+mit dem Membranpotential $x$, der zusammengefassten Torvariable $y$, der Zeitskalentrennung $\varepsilon \ll 1$ \textcolor{gruen}{(macht $x$ schnell, $y$ langsam)} und dem Anregbarkeitsparameter $a$.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Gleichgewicht}\\
+		Es existiert ein Gleichgewicht bei $\vec{x}^\star = (-a, -a + \frac{a^3}{3})^T$.\\
+		Das Gleichgewicht ist für $a>1$ stabil und für $a<1$ instabil.
+		
+		
+		\item \textbf{periodische Lösungen}\\
+		Für $a<1$ existiert ein stabiler Grenzzyklus.
+		
+		
+		\item \textbf{Bifurkation}\\
+		Bei $a=1$ findet eine superkritische Andronov-Hopf-Bifurkation statt.
+	\end{itemize}
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=\textwidth]{Grafiken/fitzhugh-nagumo.png}
+		}
+		\caption{Phasenportrait der FitzHugh-Nagumo-Gleichungen am Bifurkationspunkt (links) und mit periodischer Lösung (rechts)}
+	\end{figure}
+
+\newpage
+
+
+\section{Dynamik in $\geq 3$d}
+\subsection{Anwendungsbeispiel: Wettervorhersage (Lorenz-Attraktor)} %VL13, 14
+Die Lorenz-Gleichungen beschreiben die Dynamik von Konvektionsströmen in der Atmosphäre. Sie stellen eine Vereinfachung der Rayleigh-Bénard-Konvektion dar, die den Luftstrom als 2-dimensionale rollenförmige inkompressible Flüssigkeit modelliert und über die Navier-Stokes-Gleichung beschrieben wird. Sie nehmen die folgende Form an
+	\begin{equation}
+	\label{lorenz-gleichungen}
+		\begin{cases}
+			\dot{x} &= \sigma (y - x) \\
+			\dot{y} &= r x - y - x z \\
+			\dot{z} &= x y - b z
+		\end{cases},
+	\end{equation}
+
+wobei $x,y,z$ Amplituden der Fourier-Moden der Strömungsfunktion \textcolor{gruen}{(aus der die Geschwindigkeit folgt)} und des Temperaturfeldes sowie $\sigma, r, b$ Parameter sind.\\
+\\
+\fbox{Resultate}
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.5\textwidth]{Grafiken/lorenz-attraktor.png}		
+		}
+		\caption{Lorenz-Attraktor}
+	\end{figure}
+	
+	
+	\begin{itemize}
+		\item \textbf{Gleichgewichte}\\
+		Das Gleichgewicht $\vec{x}_1^\star = (0,0,0)^T$ existiert für alle Parameterwerte. Die zwei Gleichgewichte $\vec{x}_{2,3}^\star = (\pm \sqrt{b(r-1)}, \pm \sqrt{b(r-1)}, r-1)^T$ existieren lediglich für $r>1$.
+				
+		
+		\item \textbf{Lorenz-Attraktor}\\
+		Der Lorenz-Attraktor ist eine schmetterlingsförmige Menge im Phasenraum, zu der fast alle Trajektorien im Laufe der Zeit konvergieren
+		
+		
+		\item \textbf{periodische Lösungen}\\
+		Im Lorenz-Attraktor sind unendlich viele instabile periodische Lösungen eingebettet
+		
+		
+		\item \textbf{Stabilität}\\
+		$\vec{x}_1^\star$ ist für $r<1$ asymptotisch stabil.
+		
+		
+		\item \textbf{Bifurkation}\\
+		Es gibt 3 Bifurkationen:
+			\begin{itemize}
+				\item superkritische Heugabel-Bifurkation\\
+				Bei $r=1$ findet eine superkritische Heugabel-Bifurkation statt und es entstehen Gleichgewichte im $x<0$- und $x>0$-Halbraum.
+				
+				
+				\item homokline Bifurkation\\
+				Bei $r=13,926...$ findet eine \underline{homokline Bifurkation} statt, d.h. dass eine homokline Bahn verschwindet und daraus unendlich viele instabile periodische Lösungen entstehen, die durch die Umdrehungen im jeweiligen Halbraum beschrieben werden (z.B. RLLLL). Sie bilden das Gerippe des Lorenz-Attraktors.
+				
+				
+				\item subkritische Andronov-Hopf-Bifurkation\\
+				Bei $r = r_\text{AH} := \frac{\sigma + b + 3}{\sigma - b - 1} \approx 24,74$ findet eine subkritische Andronov-Hopf-Bifurkation statt.
+			\end{itemize}
+		 
+		
+		
+		\item \textbf{Chaos}\\
+		Das System wird für $r>24,0579$ chaotisch, da dort jede Trajektorie instabil ist
+	\end{itemize}
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/lorenz-attraktor collage.png}
+		}
+		\caption{Entstehung des Lorenz-Attraktors}
+	\end{figure}
+
+
+\newpage
+
+
+\subsection{Anwendungsbeispiel: Neurodynamik (Hodgkin-Huxley-Gleichungen)}
+Die Hodgkin-Huxley-Gleichungen beschreiben die Dynamik der Membranspannung $V$ eines Axons. Die Axonmembran verfügt über Natrium- und Kalium-Ionenkanäle, über die Ladung von innen nach außen und umgekehrt transportiert werden kann. Daneben existieren Leckströme durch die Membran. Das System kann durch einen kurzen Reizstrom $I_\text{app}$ angeregt werden, der, sobald ein bestimmter Grenzwert überschritten ist eine typische Dynamik der Membranspannung, genannt \underline{Aktionspotential} hervorruft.
+	\begin{equation}
+		\begin{cases}
+			C_m \dot V = -\bar g_{\mathrm{Na}} m^3 h (V-V_{\mathrm{Na}}) - \bar g_{\mathrm{K}} n^4 (V-V_{\mathrm{K}}) - g_{\mathrm{L}}(V-V_{\mathrm{L}}) + I_{\mathrm{app}} \\
+			\dot m = \alpha_m(V)(1-m)-\beta_m(V)\, m \\
+			\dot n = \alpha_n(V)(1-n)-\beta_n(V)\, n \\
+			\dot h = \alpha_h(V)(1-h)-\beta_h(V)\, h
+		\end{cases},
+	\end{equation}
+
+mit der Membrankapazität $C_m$, den mittleren Leitfähigkeiten der Ionenkanäle $\bar{g}_i$ sowie den sogenannten Torvariablen $m, h, n$, die die Leitfähigkeiten variieren.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Aktionspotential}\\
+		Die Hodgkins-Huxley-Gleichungen ergeben die Dynamik des Aktionspotentials, das in folgende Phasen eingeteilt wird:
+			\begin{enumerate}
+				\item \textbf{Ruhepotential}\\
+				Natrium- und Kaliumkanäle sind geschlossen
+								
+				
+				\item \textbf{Depolarisation}\\
+				Überschreitet ein äußerer Reiz das Schwellenpotential, öffnen sich die Natriumkanäle und Natrium strömt von außen nach innen. Das Potential wird positiv.
+				
+				
+				\item \textbf{Repolarisation}\\
+				Inaktivierung der Natriumkanäle und Öffnung der Kaliumkanäle. Kalium strömt von innen nach außen.
+				
+				
+				\item \textbf{Hyperpolarisation}\\
+				Potential fällt unter Ruhepotential
+				
+				
+				\item \textbf{Rückkehr zum Ruhepotential}\\
+			\end{enumerate}
+	\end{itemize}
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.2\textwidth]{Grafiken/aktionspotential.png}
+		}
+		\caption{Qualitativer Verlauf des Aktionspotentials für Reize unterhalb und oberhalb der Schwellspannung}
+	\end{figure}
+
+
+\newpage
+
+
+%\section{Appendix A: Populationsdynamik in $N$d}
+%Die Dynamik von $N$ Populationen wird durch die verallgemeinerten \underline{Lotka-Volterra-Gleichungen}
+%	\begin{equation}
+%		\dot{x}_i = x_i \cdot \lr{ \alpha_i + \sum_{j=1}^N \kappa_{ij} \cdot x_j } \qquad i = 1, ..., N
+%	\end{equation}
+%
+%mit dem intrinsischen Wachstumskoeffizient $\alpha_i$, Selbstbegrenzungskoeffizient $\kappa_{ii}$ und Wechselwirkungskoeffizient $\kappa_{ij}$ beschrieben.\\
+%\\
+%Man unterscheidet die Wechselwirkungstypen:
+%	\begin{itemize}
+%		\item \textbf{Symbiose}\\
+%		Beide Populationen profitieren voneinander
+%			\begin{equation}
+%				\kappa_{ij} > 0, \kappa_{ji} > 0
+%			\end{equation}
+%			
+%		
+%		\item \textbf{Wettbewerb}\\
+%		Beide Populationen stören einander
+%			\begin{equation}
+%				\kappa_{ij} < 0, \kappa_{ji} < 0
+%			\end{equation}
+%		
+%		
+%		\item \textbf{Räuber-Beute}\\
+%		Eine Population profitiert auf Kosten der anderen
+%			\begin{equation}
+%				\kappa_{ij} \cdot \kappa_{ji} < 0
+%			\end{equation}
+%	\end{itemize}
+
+
+\newpage
+
+
+\section{Appendix A: Fraktale}
+Ein Fraktal ist ein \underline{selbstähnliches} Objekt mit nichtganzzahliger fraktaler Dimension
+	\begin{equation}
+		D := - \lim_{\varepsilon \to 0} \frac{\log N}{\log \varepsilon}
+	\end{equation}
+
+mit der Menge an ''Kästchen'' $N(\varepsilon)$, die das Objekt ausfüllen und der ''Kantenlänge'' der ''Kästchen'' $\varepsilon$. Für dynamische Systeme wird diese Definition auf die generalisierte Fraktale Dimension
+	\begin{equation}
+		D_q := \frac{1}{1-q} \lim_{\varepsilon \to 0} \frac{\ln \sum_{p_i \neq 0} p_i^q}{\ln\varepsilon},
+	\end{equation}
+
+wobei $p_i$ die Wahrscheinlichkeit beschreibt und $q$ ein Parameter ist, der die Dimensionstypen Kapazitätsdimension ($q=0$), Korrelationsdimension ($q=1$) und Informationsdimension ($q=2$) unterscheidet.\\
+\\
+\fbox{Kategorisierung}
+	\begin{itemize}
+		\item \textbf{konstruktive Fraktale}\\
+		Fraktale, die nach einer rekursiven Vorschrift konstruiert werden, z.B. Koch-Kurve
+		
+		
+		\item \textbf{dynamische Fraktale}\\
+		Fraktale, die aus einer dynamischen Gleichung folgen, z.B. Mandelbrot-Menge, Julia-Menge, chaotischer Attraktor
+		
+		
+		\item \textbf{natürliche Fraktale}\\
+		Fraktale, die in der Natur vorkommen und somit durch die atomare Ebene begrenzt sind, z.B. Schneeflocke, Flussbetten, Ländergrenzen
+	\end{itemize}
+
+	
+	\begin{figure}[H]
+		\centering
+		\fbox{	\includegraphics[width=0.4\textwidth]{Grafiken/fraktale.png}
+		}
+		\caption{Beispiele der Fraktaltypen; oben links: Pythogaros-Baum; oben rechts: Küste Großbritannien; unten: Julia-Menge}
+	\end{figure}
+
+
+\newpage
+
+
+\section{Appendix B: Synchronisation}
+Unter \underline{Synchronisation} versteht man die Anpassung von Rhythmen oszillierender Objekte infolge einer schwacher Wechselwirkung.\\
+\\
+\fbox{Kategorisierung}
+	\begin{itemize}
+		\item \textbf{einseitige Synchronisation}\\
+		Ein Antrieb synchronisiert einen Oszillator ohne Rückwirkung, z.B. Tageslicht und Organismus
+		
+		
+		\item \textbf{gegenseitige Synchronisation}\\
+		Oszillatoren synchronisieren sich gegenseitig, z.B. Huygens'sche Pendeluhren
+	\end{itemize}
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Kreisabbildung}\\
+		Im Falle einer einseitigen Synchronisation reduziert sich die Dynamik auf die sogenannte Kreisabbildung
+			\begin{equation}
+				\varphi_{n+1} = \varphi_n + \Omega - \frac{K}{2\pi} \sin(2 \pi \varphi_n),
+			\end{equation}
+		
+		mit der Phase auf dem Grenzzyklus nach $n$ Perioden $\varphi_n$, dem Phasenvorsprung der äußeren Kraft $\Omega$ und der Stärke der Nichtlinearität $K$.\\
+		Die Kreisabbildung wird durch die \underline{Windungszahl} charakterisiert.
+		
+		
+		\item \textbf{Kuramoto-Modell}\\
+		Für $N$ schwach gekoppelte Oszillatoren gilt
+			\begin{equation}
+				\dot{\varphi}_i = \omega_i + \frac{K}{N} \sum_{j=1}^N \sin(\varphi_j - \varphi_i),
+			\end{equation}
+		
+		mit der Phase des $i$-ten Oszillators auf dem Grenzzyklus $\varphi_i$, der Eigenfrequenz des $i$-ten Oszillators $\omega_i$ und der Kopplungsstärke $K$.
+	\end{itemize}
+
+
+\newpage
+
+
+\section{Glossar}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		Aktionspotential & Kurze, schnelle Änderung des Membranpotentials eines Axons, sobald ein äußerer Reiz eine bestimmte Schwelle überschreitet \\
+	\hline
+		Attraktor & Menge von Punkten im Phasenraum,
+die einem dieser Endprozesse entsprechen \\
+	\hline
+		Attraktor, seltsam/chaotisch & Im Gegensatz zum Attraktor eines Grenzzyklusses nicht eine einzelne Bahn, sondern eine Menge von unendlich vielen Bahnen, z.B. Lorenz-Attraktor \\
+	\hline
+		Bifurkation & qualitative Veränderung der Struktur des Phasenportraits, verursacht durch die Variation eines Parameters \\
+	\hline
+		Bifurkationsfläche & $(m-1)$-dimensionale Hyperfläche im $m$-dimensionalen Parameterraum, die zwei qualitativ verschiedene Phasenportraits voneinander trennt \\
+	\hline
+		Bifurkationsparameterwert & Wert eines Parameters, s.d. eine kleine Änderung dieses Parameters eine \underline{Bifurkation} bewirkt \\
+	\hline
+		chaotisches System & deterministisches System, das ein aperiodisches, beschränktes Verhalten aufweist und sehr sensibel auf Änderungen in den Anfangsbedingungen reagiert \\
+	\hline
+		Dimensionsreduktion & Schritt in der Bifurkationsanalyse, bei dem die Dimension des dynamischen Systems auf die Dimension der Zentrumsmannigfaltigkeit - typischerweise 1 oder 2 - reduziert wird \\
+	\hline
+		dissipatives System & System, dessen Phasenraumvolumen mit der Zeit schrumpft \\
+	\hline
+		Dulac-Kriterium & Negatives Kriterium für die Existenz von periodischen Lösunge in einem 2d-System\\
+		& {\color{gruen}
+				In einem Gebiet $G$ existiert keine periodische Lösung, falls in diesem Gebiet eine stetig differenzierbare Funktion $g(x_1, x_2)$ existiert, s.d.
+				\begin{equation}
+					\forall (x_1, x_2) \in G :
+					\begin{cases}
+						g(x_1, x_2) > 0 \\
+						\vec{\nabla} \lr{ g(x_1, x_2) \vec{f}(x_1, x_2) } \neq 0
+					\end{cases}
+				\end{equation}
+				} \\
+	\hline
+		Dynamik & Beschreibung von Prozessen, die sich im Laufe der Zeit entwickeln \\
+	\hline
+		dynamische Variablen & Satz von Variablen, der den Systemzustand zu jedem Zeitpunkt vollständig charakterisiert \\
+	\hline
+		\textcolor{gruen}{Eindeutigkeitssatz} & Ein Zustand im Phasenraum hat eine eindeutige Zukunft und eine eindeutige Vergangenheit \\
+		& Alt.: Zwei Phasenraumtrajektorien kreuzen sich nicht \\
+	\hline
+		Einzugsgebiet & Menge von Anfangsbedingungen, die zu einem Attraktor führen \\
+	\hline
+		Evolutionsoperator & Abbildung, die
+die Werte von allen dynamischen Variablen zu jedem späteren Zeitpunkt aus deren Anfangssatz eindeutig bestimmt \\
+	\hline
+		fraktale Dimension & Verallgemeinerung des Dimensionsbegriffes
+			$$D := - \lim_{\varepsilon \to 0} \frac{\ln N}{\ln \varepsilon}$$
+		
+		mit der Anzahl der ''Kästchen'', die das Objekt abdecken $N$ und deren ''Kantenlänge'' $\varepsilon$ \\
+	\hline
+		Gleichgewichtspunkt & - Punkt im Phasenraum, an dem die Änderungsrate aller Zustandsvariablen des Systems verschwindet \\
+		& - Schnittpunkt aller Nullklinen \\
+	\hline
+		Grenzzyklus & isolierte periodische Lösung \\
+	\hline
+		Heterokline & Trajektorie $\vec{\Gamma}(t)$, die vom Gleichgewicht $\vec{x}_\text{A}^\star$ zum Gleichgewicht $\vec{x}_\text{B}^\star$ führt 
+			$$\lim_{t \to -\infty} \vec{\Gamma}(t) = \vec{x}_\text{A}^\star \wedge \lim_{t \to +\infty} \vec{\Gamma}(t) = \vec{x}_\text{B}^\star $$ \\
+	\hline
+		Homokline & Trajektorie $\vec{\Gamma}(t)$, die von einem Gleichgewicht $\vec{x}_\text{A}^\star$ wieder zum selben Gleichgewicht $\vec{x}_\text{A}^\star$ führt 
+			$$\lim_{t \to \pm\infty} \vec{\Gamma}(t) = \vec{x}_\text{A}^\star$$ \\
+	\hline
+		homokline Bifurkation & Bifurkation, bei der eine Homokline in periodische Lösungen zerfällt, z.B. Lorenz-Gleichungen bei $r \approx 13,926$ \\
+	\hline
+		hyperbolisches Gleichgewicht & - Gleichgewicht, auf das sowohl Trajektorien zu- als auch weglaufen \\
+		& - mathematisch: der Realteil aller Eigenwerte ist von null verschieden $\Re \lambda \neq 0$ \\
+	\hline
+		Komplexitätsreduktion & Schritt in der Bifurkationsanalyse, bei dem das bereits \underline{dimensionsreduzierte} dynamische System auf eine bekannte \underline{Normalform} zurückgeführt wird \\
+	\hline
+		konservatives System & System, dessen Phasenraumvolumen mit der Zeit konstant bleibt \\
+	\hline
+		Lorenz-Attraktor & schmetterlingsförmige Menge im Phasenraum, zu der fast alle Trajektorien im Laufe der Zeit konvergieren \\
+	\hline
+		Lotka-Volterra-Gleichungen & System aus zwei nichtlinearen gekoppelten Differentialgleichungen erster Ordnung, das die Räuber-Beute-Beziehung zweier tierischer Populationen beschreibt (z.B. zwischen Schaf und Wolf) \\
+	\hline
+		Lyapunov-Exponent & Exponent $\Lambda$, der beschreibt, wie schnell eine Referenztrajektorie $\vec{x}$ und eine gestörte Trajektorie $\vec{\tilde{x}}$ eines $N$-dimensionalen Systems auseinanderlaufen \\
+	\hline
+		Lyapunov-Funktion & skalare Hilfsfunktion, mit der sich die Stabilität eines Gleichgewichts eines dynamischen Systems beweisen lässt, ohne die Differentialgleichung zu lösen \\
+	\hline
+		Mannigfaltigkeit eines Gleichgewichts, instabil & Menge $W^u$ aller Anfangspunkte $\vec{x}$ von Trajektorien, die für $t \to -\infty$ gegen das Gleichgewicht $\vec{x}^\star$ streben
+			$$\lim_{t \to -\infty}\vec{x}(t) = \vec{x}^\star$$ \\
+	\hline
+		Mannigfaltigkeit eines Gleichgewichts, stabil & Menge $W^u$ aller Anfangspunkte $\vec{x}$ von Trajektorien, die für $t \to +\infty$ gegen das Gleichgewicht $\vec{x}^\star$ streben
+			$$\lim_{t \to +\infty}\vec{x}(t) = \vec{x}^\star$$ \\
+	\hline
+		nichtlineare Dynamik & Disziplin, die sich mit \underline{nichtlinearen} \underline{Schwingungen} befasst \\
+	\hline
+		nichtlinearer Prozess & Prozess, dessen Änderung des Outputs nicht proportional zur Änderung des Inputs ist \\
+	\hline
+		Normalform & Einfachste Darstellung eines dynamischen Systems nahe eines Gleichgewichts \\
+		& Man unterscheidet: \\
+		& - Sattel-Knoten \\
+		& - transkritisch \\
+		& - superkritische Heugabel \\
+		& - subkritische Heugabel \\
+		& - superkritische Andranov-Hopf \\
+		& - subkritische Andranov-Hopf \\
+	\hline
+		Nullkline & Menge aller Punkte im Phasenraum, an denen die Änderungsrate einer Zustandsvariablen verschwindet \\
+	\hline
+		Periodenverdopplungsbifurkation & Eine stabile periodische Lösung wird instabil und es entsteht eine periodische Lösung doppelter Periodendauer \\
+	\hline
+		periodische Lösung & Unter einer periodischen Lösung versteht man eine Lösung, die als Endzustand eine geschlossene Kurve im Phasenraum aufweist \\
+	\hline
+		Phasenportrait & geometrische Darstellung einer Trajektorie im Phasenraum \\
+	\hline
+		Phasenraum & Gesamtheit aller Werte aller dynamischer Variablen \\
+	\hline
+		Phasenraumtrajektorie & Menge von Punkten im Phasenraum, die der Zeitentwicklung eines Anfangszustands entspricht \\
+	\hline
+		Poincaré-Bendixon-Kriterium & Positives Kriterium für die Existenz von periodischen Lösungen in einem 2d-System \\
+		& {\color{gruen}
+				In einem Gebiet $G$ existiert mindestens eine asymptotisch stabile pariodische Bahnkurve, falls
+				\begin{itemize}
+					\item entlang der Gebiet-Grenze alle Vektoren nach innen zeigen
+			
+			
+					\item in $G$ kein Gleichgewicht liegt
+				\end{itemize}
+		} \\
+	\hline
+		quasiperiodisch & Dynamik mit irrationaler \underline{Windungszahl} \\
+	\hline
+		Relaxationsschwingung & starke nichtlineare Schwingungen \\
+	\hline
+		Satz von Grobman und Hartman & In einer Umgebung eines hyperbolischen Gleichgewichts existiert eine eindeutige und umkehrbare stetige Abbildung, die die Trajektorie des linearisierten Problems auf die des nichtlinearisierten Problems abbildet \\
+	\hline
+		Satz von Liouville & das Phasenraumvolumen bleibt bie hamiltonischen Systemen erhalten \\
+	\hline
+		Satz von Vieta &  \\
+	\hline
+		Schmetterlingseffekt & Phänomen in chaotischen Systemen, dass eine kleine Veränderung der Anfangsbedingungen zu langfristig unvorhersagbaren Auswirkungen führen kann \\
+	\hline
+		Schwingung & Prozess, dessen Observablen im Laufe der Zeit unaufhörlich abwechselnd zu- und abnehmen \\
+	\hline
+		Stabilität & Unter Stabilität versteht man die Unempfindlichkeit dynamischer Merkmale gegenüber nicht allzustarken Störungen, wobei man folgende Definitionen unterscheidet: \\
+		& - Lagrange (Störung divergiert nicht) \\
+		& - Lyapunov (Störung bleibt in der Nähe) \\
+		& - quasiasymptotisch (Störung konvergiert gegen selben Grenzwert) \\
+		& - asymptotisch (Lyapunov + quasiasymptotisch) \\
+		& - orbital (gestörter Orbit liegt nahe an ungestörtem) \\
+		& - Poisson (Unendliche Wiederkehr in eigene Trajektorien-Umgebung) \\
+		& - strukturell (gestörtes System hat ähnliches Phasenportrait) \\
+	\hline
+		selbstähnlich (Objekt) & Objekt, dessen Vergrößerung ähnlich bzw. identisch zu seiner unvergrößerten Struktur ist \\
+	\hline
+		selbsterregte Schwingung & Schwingung eines nichtlinearen Systems ''aus sich heraus'', ohne äußere Energiezufuhr \\
+	\hline
+		strukturell instabil & Zustand des dynamischen Systems, bei dem eine kleine Änderung von Parametern eine \underline{Bifurkation} bewirkt \\
+	\hline
+		Synchronisation & Anpassung von Rhythmen oszillierender Objekte infolge einer schwacher Wechselwirkung \\
+	\hline
+		Torus-Bifurkation & Bifurkation, bei der eine stabile periodische Lösung instabil wird und ein torusförmiger Attraktor entsteht bzw. vernichtet wird \\
+	\hline
+		Universalität Periodenverdopplung & Für alle unimodalen Abbildungen gilt: Der Quotient zweier aufeinanderfolgender Bifurkationsparameter-Abstände nimmt im unenlichen Limes denselben Wert an
+			$$\lim_{n\to\infty} \frac{a_{n+1} - a_n}{a_{n+2} - a_{n+1}} \approx 4,669201$$ \\
+	\hline
+		Verteilungsdichte & Wahrscheinlichkeitsdichte $\rho(\vec{x})$ für den Ort des Zustands im Phasenraum \\
+	\hline
+		Windungszahl & Mittlere Phasenänderung pro Periode
+			$$\rho := \lim_{n \to \infty} \frac{\phi_n - \phi_0}{n}$$ \\
+	\hline
+		Zentrumsmannigfaltigkeit & invariante Mannigfaltigkeit, auf der nach abklingen der schnellen Dynamik die langsame Dynamik von statten geht \\
+	\hline\hline
+\end{xltabular}
+\end{document}

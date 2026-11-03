@@ -1,0 +1,925 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Theoretische Physik I: Analytische Mechanik}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section*{Übersicht}
+Die analytische Mechanik führt neben dem Newton'schen Formulismus neue Formalismen, die zur Beschreibung klassischer mechanischer Systeme dienen, sowie das Prinzip der kleinsten Wirkung ein.\\
+Diese Konzepte sind in anderen Bereichen der Physik ebenso von großer Bedeutung.\\
+\\
+Mit dem Noether-Theorem gelingt die Verbindung zwischen den Symmetrien des betrachteten Systems und den Erhaltungsgrößen.\\
+\\
+Zuletzt werden das Zweikörperproblem sowie die Mechanik des starren Körpers mithilfe des Lagrange-Formalismus beschrieben.
+
+
+\newpage
+
+
+\section{Mathematische Grundlagen}
+\subsection{Transformationen}
+Die Rotationen um die $x-,y-,z-$Achse um den Winkel $\varphi$, sowie dessen Verbindungen mit den Erzeugenden $T_{x,y,z}$ lauten
+	\begin{alignat}{2}
+		\underline{A}_{x,\varphi} &=
+		\begin{pmatrix}
+			1 & 0 & 0 \\
+			0 & \cos\varphi & \sin\varphi \\
+			0 & -\sin\varphi & \cos\varphi
+		\end{pmatrix}
+		&& = \exp\lr{\varphi\underline{T}_x} = \exp\lreck{\varphi 
+		\begin{pmatrix}
+			0 & 0 & 0 \\
+			0 & 0 & 1 \\
+			0 & -1 & 0
+		\end{pmatrix}} \\
+		\underline{A}_{y,\varphi} &=
+		\begin{pmatrix}
+			\cos\varphi  & 0 & -\sin\varphi \\
+			0 & 1 & 0 \\
+			\sin\varphi & 0 & \cos\varphi
+		\end{pmatrix}
+		&& = \exp\lr{\varphi\underline{T}_y} = \exp\lreck{\varphi 
+		\begin{pmatrix}
+			0 & 0 & -1 \\
+			0 & 0 & 0 \\
+			1 & 0 & 0
+		\end{pmatrix}} \\
+		\underline{A}_{z,\varphi} &=
+		\begin{pmatrix}
+			\cos\varphi & \sin\varphi & 0 \\
+			-\sin\varphi & \cos\varphi & 0 \\
+			0 & 0 & 1
+		\end{pmatrix}
+		&& = \exp\lr{\varphi\underline{T}_z} = \exp\lreck{\varphi 
+		\begin{pmatrix}
+			0 & 1 & 0 \\
+			-1 & 0 & 0 \\
+			0 & 0 & 0
+		\end{pmatrix}}
+	\end{alignat}
+
+Spiegelung
+	\begin{equation}
+		\underline{S} =
+		\begin{pmatrix}
+			1 & 0 & 0 \\
+			0 & 1 & 0 \\
+			0 & 0 & -1
+		\end{pmatrix}
+	\end{equation}
+
+
+\subsection{Bogenlänge und Zerlegung der Beschleunigung}
+Die Bogenlänge ist der Betrag des infinitesimalen Wegelements
+	\begin{equation}
+		\diff s := \sqrt{\diff\vec{x} \cdot \diff\vec{x}} = |\vec{v}| \cdot \diff t
+	\end{equation}
+
+Tangenten-, Normalen- und Binomialvektor sind
+	\begin{align*}
+		\vec{e}_T &= \frac{\diff\vec{x}}{|\diff\vec{x}|} \equiv \frac{\diff\vec{x}}{\diff s} \\
+		\vec{e}_N &= \frac{\diff \vec{e}_T}{\diff s} \frac{1}{|\frac{\diff \vec{e}_T}{\diff s}|} \\
+		\vec{e}_B &= \vec{e}_T \times \vec{e}_N
+	\end{align*}
+
+Betrachtet man die Bahnkurve auf infinitesimaler Ebene bereits als gekrümmte Bahn, lässt sich die Beschleunigung in Tangential- und Normalbeschleunigung wie folgt zerlegen
+	\begin{equation}
+		\ddot{\vec{a}} = \dot{x} \cdot \vec{e}_T + \frac{\dot{x}^2}{R} \cdot \vec{e}_N
+	\end{equation}
+	
+mit dem Radius des Schmiegekreises $R$.
+
+
+\newpage
+
+
+\subsection{Wegintegrale}
+Um Wegintegrale zu berechnen, geht man wie folgt vor
+\begin{enumerate}
+	\item Parametrisierung der Raumkurve
+		$$\vec{x} = \vec{x}(\tau),\qquad \tau\in [\tau_0,\tau_1]$$
+	s.d. $\vec{x}(\tau_0) = P_0$ und $\vec{x}(\tau_1) = P_1$.
+	
+	\item Formuliere das Differential
+		$$\diff\vec{x} = \frac{\diff \vec{x}}{\diff \tau} \diff\tau = \lr{ \frac{\diff x_1}{\diff \tau}\vec{e}_1 + \frac{\diff x_2}{\diff \tau}\vec{e}_2 + \frac{\diff x_3}{\diff \tau}\vec{e}_3 } \diff\tau$$
+		
+	\item Formuliere die Kraft
+		$$\vec{K}(\vec{x}) = \vec{K}(\vec{x}(\tau))$$
+	
+	\item Einsetzen in das Integral
+		$$A = \int_c \vec{K} \diff\vec{x} = \int_{\tau_0}^{\tau_1} \diff\tau \lr{ K_1(\tau)\cdot \frac{\diff x_1}{\diff \tau}\vec{e}_1 + K_2(\tau)\cdot \frac{\diff x_2}{\diff \tau}\vec{e}_2 + K_3(\tau)\cdot \frac{\diff x_3}{\diff \tau}\vec{e}_3 }$$
+\end{enumerate}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: Wegintegral im Kraftfeld $\vec{K} = (axy^3, bx^2y^2, cz^3)^T$ von $P_0 = (1,0,0)$ nach $P_1 = (0,1,1)$ auf einem schraubenförmigen Weg\\
+	\\
+	1) Parametrisierung der Raumkurve
+		$$\vec{x}(\tau) = 
+		\begin{pmatrix}
+			\cos\tau \\ \sin\tau \\ \tau \frac{2}{\pi}
+		\end{pmatrix},\qquad \tau\in [0,\frac{\pi}{2}]$$
+	
+	2) Formuliere das Differential
+		$$\diff\vec{x} =
+		\begin{pmatrix}
+			-\sin\tau \\ \cos\tau \\ \frac{2}{\pi}
+		\end{pmatrix} \diff\tau$$
+	
+	3) Formuliere die Kraft
+		$$\vec{K} = 
+		\begin{pmatrix}
+			a\cos\tau\sin^3\tau \\
+			b\cos^2\tau\sin^2\tau \\
+			c \lr{\frac{2\tau}{\pi}}^3
+		\end{pmatrix}$$
+	
+	4) Einsetzen in das Integral
+		\begin{align*}
+			A &= \int_0^{\pi/2} \diff\tau \begin{pmatrix}
+			a\cos\tau\sin^3\tau \\
+			b\cos^2\tau\sin^2\tau \\
+			c \lr{\frac{2\tau}{\pi}}^3
+		\end{pmatrix} \begin{pmatrix}
+			-\sin\tau \\ \cos\tau \\ \frac{2}{\pi}
+		\end{pmatrix} = \\
+			 &= \int_0^{\pi/2} \diff\tau \lreck{ -a \frac{\diff}{\diff \tau} \frac{\sin^5\tau}{5}  + b \frac{\diff}{\diff\tau} \lr{ \frac{\sin^3\tau}{3} - \frac{\sin^5\tau}{5} } + c \lr{\frac{2}{\pi}}^4 \tau^3 } = -\frac{a}{5} + \frac{2b}{15} + \frac{c}{4}
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Legendre-Transformation}
+Die Legendre-Transformation für eine Funktion, die von einer Variablen abhängt ist
+	\begin{equation}
+		g(p) = f(x) - \frac{\diff f}{\diff x}\cdot x
+	\end{equation}
+
+Für mehrdimensionale Funktionen gibt es die Möglichkeit eine oder mehrere Variablen zu tauschen.
+	\begin{align*}
+		g(p_1, x_2, ..., x_n) &= f(x_1,...,x_n) - \lr{ \frac{\partial f}{\partial x_1} }_{x_2,...,x_n} \cdot x_1 \\
+		g(p_1, ..., p_n) &= f(x_1,...,x_n) - \sum_{i} \lr{ \frac{\partial f}{\partial x_i} }_{x_j,\ j\neq i} \cdot x_i
+	\end{align*}
+
+\textbf{Algorithmus}
+\begin{enumerate}
+	\item Notiere die alte Funktion $f$ und die neue Funktion $g$ auf
+	\item Notiere die zu tauschende Variable $x_i$
+	\item Berechne und notiere die neue Variable $p_i = \lr{ \frac{\partial f}{\partial x_i} }_{x_j}$
+	\item Setze in die entsprechende Formel ein
+\end{enumerate}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	\textcolor{red}{ERGÄNZEN}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Formalismen der Analytischen Mechanik}
+\subsection{Lagrange-Gleichungen 1. Art}
+	\begin{align}
+		m\ddot{\vec{x}} &= \vec{K} + \vec{Z} \equiv \vec{K} + \lambda \cdot \vec{\nabla}\varphi \\
+		\varphi(\vec{x},t) &= \text{konst}.
+	\end{align}
+
+\textbf{Lösungsstrategie für kartesische Koordinaten}
+	\begin{enumerate}
+		\item Umstellen nach einer Koordinate
+			\begin{align*}
+				\varphi(x,y,z,t) &= \text{konst} \\
+				\Leftrightarrow z &= f(x,y,t)
+			\end{align*}
+			
+		\item Lagrange-Multiplikator mit eliminierter Koordinate\\
+		Betrachte die Bewegungsgl. der zu eliminierenden Koordinate (hier $z$), setze $z$ und dessen Ableitungen ein und stelle nach $\lambda$ um.
+			\begin{align*}
+				m\ddot{z} &= K_z + \lambda(x,y,z,t) \\
+				\Leftrightarrow \lambda(x,y,\dot{x},\dot{y},\ddot{x},\ddot{y},t) &= ...			
+			\end{align*}
+			
+		\item Setze $z,\lambda$ in die Bewegungsgln. für $x,y$ ein\\
+		Dann verbleiben
+			\begin{align*}
+				m\ddot{x} &= K_x(x,y,\dot{x},\dot{y},t) + \lambda(x,y,\dot{x},\dot{y},\ddot{x},\ddot{y},t) \cdot \frac{\partial\varphi}{\partial x}(x,y,z,t)\\
+				m\ddot{y} &= K_y(x,y,\dot{x},\dot{y},t) + \lambda(x,y,\dot{x},\dot{y},\ddot{x},\ddot{y},t) \cdot \frac{\partial\varphi}{\partial y}(x,y,z,t)		
+			\end{align*}
+		
+		\item Integration liefert $x(t),y(t)$ und somit $z(t),\lambda(t)$
+	\end{enumerate}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Schiefe Ebene mit konstantem Neigungswinkel $\alpha$\\
+	ges: $\vec{x}(t)$\\
+	\\
+	Es gilt die Zwangsbedingung
+		$$\varphi(x,y,z,t) = \frac{z}{x} = \tan\alpha = \text{konst.}$$
+	
+	Somit sind die Lagrange'schen Bewegungsgleichungen 1. Art:
+		\begin{align*}
+			m\ddot{x} &= -\lambda\tan\alpha \\
+			m\ddot{y} &= 0 \\
+			m\ddot{z} &= -mg + \lambda
+		\end{align*}
+	
+	Verwende nun die im Kapitel gegebene Lösungsstrategie zur Lösung des Gleichungssystems:\\
+	1) Umstellen von $\varphi = \text{konst.}$ nach $z$ und bestimme deren Ableitungen
+		\begin{align*}
+			\varphi &= z - x\tan\varphi = 0 \\
+			\Leftrightarrow z &= x\tan\alpha \\
+			\Rightarrow \dot{z} &= \dot{x}\tan\alpha \\
+			\Rightarrow \ddot{z} &= \ddot{x}\tan\alpha
+		\end{align*}
+	
+	2) Einsetzen in die Bew.gl. der zu eliminierenden Koordinate
+		\begin{align*}
+			m\ddot{z} &= -mg + \lambda \\
+			\Rightarrow m (\ddot{x}\tan\alpha) &= -mg + \lambda \\
+			\Leftrightarrow \lambda &= m\ddot{x}\tan\alpha + mg
+		\end{align*}
+	
+	3) Einsetzen von $\lambda$ in die Bew.gl. von $x$
+		\begin{align*}
+			\cancel{m}\ddot{x} &= -(\cancel{m}\ddot{x}\tan\alpha + \cancel{m}g) \tan\alpha \\
+			\Leftrightarrow \ddot{x} \underbrace{\lr{ \tan\alpha + \frac{1}{\tan\alpha}} }_{= \frac{\sin\alpha}{\cos\alpha} + \frac{\cos\alpha}{\sin\alpha} = \frac{1}{\cos\alpha\sin\alpha}} &= -g \\
+			\Leftrightarrow \ddot{x} = -g\cos\alpha\sin\alpha
+		\end{align*}
+		
+	4) Integration von $\ddot{x}$, um $x(t)$ und somit $z(t)$ zu erhalten
+		\begin{align*}
+			\stackrel{\comment{\int}}{\Rightarrow} x(t) &= -\frac{1}{2} g \cos\alpha\sin\alpha + v_0\cdot t + x_0 \\
+			\Rightarrow z(t) &= x\cdot \tan\alpha \stackrel{\comment{x(t)}}{=} - \frac{1}{2} g \sin^2\alpha\cdot t^2 + (v_0\cdot t + x_0) \tan\alpha
+		\end{align*}
+
+
+\newpage
+
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.6\textwidth]{lagrange 2 art schiefe ebene.pdf}
+		\caption{Bewegung eines Massenpunkts entlang einer schiefen Ebene unter dem Winkel $\alpha=20^\circ$, Anfangsgeschwindigkeit $v_0 = 15\,\,\text{m/s}$ und Anfangsposition $x_0 = 15\,\text{m}$}
+	\end{figure}
+
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	\textcolor{red}{ERGÄNZEN}
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Lagrange-Gleichungen 2. Art}
+\subsubsection{Einteilchensystem}
+Bei $r$ holonomen Zwangsbedingungen
+	$$\varphi_\nu = \text{konst},\qquad \nu = 1,..,r$$
+
+besitzt der Massenpunkt
+	$$f = 3-r$$
+
+Freiheitsgrade. Dann werden nur $f$ geeignet gewählte Koordinaten $q_1,...,q_f$ benötigt, um die Bewegung des Körpers zu beschreiben. \textcolor{gruen}{Die restlichen Koordinaten werden mit den Zwangsbedingungen gleichgesetzt $q_{f+1}=\varphi_1,q_{f+2}=\varphi_2,...$}\\
+\\
+Stelle dann die Lagrange-Funktion $L = T - V$ auf (die nur von den geeignet gewählten Koordinaten $q_k$ abhängt)
+	\begin{align}
+		T &= \frac{m}{2}(\dot{x}_1^2 + \dot{x}_2^2 + \dot{x}_3^2) \\
+		V &= -\int \vec{F}\,\diff \vec{x}
+	\end{align}
+		
+und bestimme die Bewegungsgln. mittels
+	$$\frac{\diff}{\diff t} \frac{\partial L}{\partial\dot{q}_k} - \frac{\partial L}{\partial q_k} = 0,\qquad k=1,...,f$$
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Schiefe Ebene mit konstantem Neigungswinkel $\alpha$\\
+	\\
+	Es gilt die Zwangsbedingung 
+		$$\varphi(x,y,z,t) = \frac{z}{x} = \tan\alpha = \text{konst.}$$
+
+	Somit ist der Freiheitsgrad $f = 3-1 = 2$. Es genügen also zwei Koordinaten, um das Problem zu beschreiben. Wähle die Polarkoordinaten, d.h. $q_1 = d, q_2 = y$ und
+		\begin{align*}
+			x &= d\cdot \cos\alpha \\
+			z &= d\cdot \sin\alpha
+		\end{align*}
+
+	Bestimme die Lagrange-Funktion.\\
+	Stelle dafür die kinetische Energie und das Potential auf, die nur von den geeignet gewählten Koordinaten $q_k$ abhängen dürfen.
+		\begin{align*}
+			T &= \frac{m}{2}(\dot{x}^2 + \dot{y}^2 + \dot{z}^2) = \frac{m}{2} \lr{ \dot{d}^2\cos^2\alpha + \dot{y}^2 + \dot{d}^2\sin\alpha} = \frac{m}{2} \lr{ \dot{d}^2 + \dot{y}^2 } \\
+			F &= -mg \\
+			\Rightarrow V &= mgz \stackrel{\comment{z}}{=} mg\cdot d\sin\alpha \\
+			\Rightarrow L &= T - V = \frac{m}{2} \lr{ \dot{d}^2 + \dot{y}^2 } - mg\cdot d\sin\alpha
+		\end{align*}
+
+	Die Bewegungsgln. sind somit
+		\begin{align*}
+			\frac{\diff}{\diff t} \frac{\partial L}{\partial\dot{q}_k} - \frac{\partial L}{\partial q_k} &= 0 \\
+		\intertext{\fbox{$d$}}
+			\frac{\diff}{\diff t} m\dot{d} + mg\sin\alpha &= 0 \\
+			\Leftrightarrow \ddot{d} &= -mg\sin\alpha \\
+			\stackrel{\comment{\int}}{\Rightarrow} d(t) &= -\frac{1}{2}g\sin\alpha t^2 + \dot{d}_0 t + d_0
+		\intertext{\fbox{$y$}}
+			\frac{\diff}{\diff t}m\ddot{y} &= 0 \\
+			\stackrel{\comment{\int}}{\Rightarrow} y(t) &= \dot{y}_0 t + y_0
+		\end{align*}
+	
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	\textcolor{red}{ERGÄNZEN}
+
+
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Mehrteilchensystem}
+Für Systeme mit mehreren Teilchen gilt dieselbe Lagrange-Gleichung, jedoch werden kinetische Energie und Potential wie folgt formuliert:
+	\begin{align}
+		T &= \sum_{j=1}^N \sum_{i=1}^3 \frac{m_i}{2} \lr{ \dot{x}_i^{(j)} }^2 \\
+		 V &= \sum_{j=1}^N V^{(j)},
+	\end{align}
+
+wobei der hochgestellte Index $(j)$ das $j$-te Teilchen kennzeichnet.
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Doppelpendel in der x-y-Ebene, die Gravitationskraft zeige in y-Richtung\\
+	\\
+	Es gelten die Zwangsbedingungen
+		\begin{align*}
+			z^{(1)} &= 0 \\
+			l_1 &= |\vec{x}^{(1)}| = \sqrt{ (x^{(1)})^2 + y^{(1)})^2 } \\
+			z^{(2)} &= 0 \\
+			l_2 &= |\vec{x}^{(2)} - \vec{x}^{(1)}|
+		\end{align*}
+	
+	Somit gibt es
+		$$f = 3N - 4 = 3\cdot 2 - 4 = 2$$
+
+	Freiheitsgrade.\\
+	Wähle die Winkel $q_1 = \varphi_1, q_2 = \varphi_2$ als Koordinaten, die die Bewegung beschreiben.\\
+	Bestimme die Lagrange-Funktion.
+		\begin{align*}
+			T &= \frac{m_1}{2} \lreck{ (\dot{x}_1^{(1)})^2 + (\dot{x}_2^{(1)})^2  } + \frac{m_2}{2} \lreck{ (\dot{x}_1^{(2)})^2 + (\dot{x}_2^{(2)})^2 } = \\
+			 &= \frac{m_1}{2}\lreck{ \lr{ \frac{\diff}{\diff t} l_1\sin\varphi_1 }^2 + \lr{ \frac{\diff}{\diff t} l_1\cos\varphi_2 }^2 } + \frac{m_2}{2} \left\{ \lreck{ \frac{\diff}{\diff t} (l_1\sin\varphi_1 + l_2\sin\varphi_2) }^2 + \right.\\
+			  &+ \left.\lreck{ \frac{\diff}{\diff t} (l_1\cos\varphi_1 + l_2\cos\varphi_2) }^2 \right\} = \\
+			  &=...= \frac{m_1}{2} l_1^2\dot{\varphi}^2 + \frac{m_2}{2} (l_1^2\dot{\varphi}_1^2 + l_2^2\dot{\varphi}_2^2 + 2l_1l_2\dot{\varphi}_1\dot{\varphi}_2 \cos(\varphi_1 - \varphi_2)) \\
+			  V &= V^{(1)} + V^{(2)} = -m_1 g y^{(1)} - m_2 g y^{(2)} = \\
+			  &= -m_1 g l_1\cos\varphi_1 - m_2 g (l_1\cos\varphi_1 + l_2\cos\varphi_2) = \\
+			  &= -(m_1 + m_2) g l_1\cos\varphi_1 - m_2 g l_2\cos\varphi_2 \\
+			  L &= T-V = \lr{ \frac{m_1 + m_2}{2} l_1^2\dot{\varphi}_1^2 + \frac{m_2}{2} l_2^2\dot{\varphi}_2^2 + m_2l_1l_2\dot{\varphi}_1\dot{\varphi}_2 \cos(\varphi_1 - \varphi_2)) } + \\
+			   &+ \lr{ (m_1 + m_2) g l_1\cos\varphi_1 + m_2 g l_2\cos\varphi_2 }
+		\end{align*}
+
+	\fbox{$\varphi_1$}
+		\begin{align*}
+			\frac{\diff}{\diff t} \frac{\partial L}{\partial\dot{\varphi}_1} - \frac{\partial L}{\partial\varphi_1} &= 0 \\
+			\Leftrightarrow \frac{\diff}{\diff t} \lr{(m_1 + m_2)l_1^2\dot{\varphi}_1 + 2m_2 l_1 l_2 \dot{\varphi}_2\cos(\varphi_1 - \varphi_2) } - \lr{ -m_2l_1l_2\dot{\varphi}_1^2\dot{\varphi}_2^2 \sin(\varphi_1 - \varphi_2)} &= 0 \\
+			\Leftrightarrow ...
+		\end{align*}
+
+	\fbox{$\varphi_2$}
+		\begin{align*}
+			\frac{\diff}{\diff t} \frac{\partial L}{\partial\dot{\varphi}_2} - \frac{\partial L}{\partial\varphi_2} &= 0 \\
+			\Leftrightarrow ...
+		\end{align*}
+	
+	Numerisches Lösen ergibt
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Grafiken/doppelpendel.pdf}
+	\end{figure}
+		
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Hamilton-Formalismus}
+	\begin{enumerate}
+		\item Stelle die Lagrange-Funktion auf:
+			$$L(q_1, ..., q_f, \dot{q}_1, ..., \dot{q}_f, t)$$
+		
+		\item Bilde die kanonisch konjugierten Impulse zu den $q_a$:
+			$$p_a = \frac{\partial L}{\partial \dot{q}_a}$$
+
+		\item Stelle die Hamilton-Funktion auf:
+			\begin{equation}
+				H(q_1, ..., q_f, p_1, ..., p_f, t) = \sum_{b = 1}^f p_b \cdot \dot{q}_b - L(q_1, ..., q_f, \dot{q}_1, ..., \dot{q}_f, t)
+			\end{equation}
+		
+		\item Berechne die Hamilton'schen Bewegungsgleichungen
+			\begin{align}
+				\frac{\partial H}{\partial p_a} &= \dot{q}_a \\
+				\frac{\partial H}{\partial q_a} &= -\dot{p}_a,
+			\end{align}
+		
+		mit $a = 1, ..., f$.
+	\end{enumerate}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+
+
+
+
+
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	\textcolor{red}{ERGÄNZEN}
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Routh'sche Funktion}
+
+
+\newpage
+
+
+\subsection{Hamilton-Jacobi-Theorie}
+
+
+\newpage
+
+
+\section{Prinzip der kleinsten Wirkung}
+
+
+\newpage
+
+
+\section{Noether-Theorem}
+
+
+\newpage
+
+
+\section{Zweikörperproblem}
+\subsection{Finite und infinite Bewegung am Diagramm}
+Aus der Energieerhaltung und der Tatsache, dass die Bewegung in der Ebene statt findet ($x$-$y$-Ebene) folgt
+	\begin{equation}
+		E - \frac{l^2}{2mr^2} - V(r) \equiv E - V_\text{eff}(r) \geq 0
+	\end{equation}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{l|l|l}
+		\hline\hline
+			$E < E_0$ & finite Bewegung & $r\in [ r_\text{min}, r_\text{max} ]$ \\
+		\hline
+			$E > E_0$ & infinite Bewegung & $r\in [ r_\text{min}, \infty)$ \\
+		\hline\hline
+	\end{tabular}
+\end{table}
+
+
+\subsection{Bahnkurve durch Integration}
+Die Bahnkurve $r(\varphi)$ oder $\varphi(r)$ lässt sich mittels Integration bestimmen
+	\begin{equation}
+		\varphi - \varphi_0 = l \int_{r_0}^r \frac{1}{r^2} \frac{\diff r'}{\sqrt{ 2m(E - V(r')) - \frac{l^2}{r^2} }}
+	\end{equation}
+
+
+
+
+
+
+
+\subsection{Wirkungsquerschnitt}
+
+
+\newpage
+
+
+\section{Starrer Körper}
+Für einen starren Körper gilt die Lagrange-Funktion
+	\begin{align}
+		L &= T - V = T_\text{Trans} + T_\text{Rot} - V = \frac{M}{2}\vec{V}^2 + \frac{1}{2} \vec{\omega}^T \underline{T} \vec{\omega} - V(X, Y, Z, \varphi, \theta, \psi)
+	\end{align}
+
+
+\subsection{Trägheitstensor $\underline{T}$}
+Der Trägheitstensor taucht im Rotationsanteil der kinetischen Energie eines starren Körpers auf und lautet für den diskreten bzw. kontinuierlichen Fall
+	\begin{align}
+		\underline{T} &=
+		\begin{pmatrix}
+			\sum m (y^2 + z^2) & - \sum m x y & -\sum m x z \\
+			- \sum m x y & \sum m (x^2 + z^2) & -\sum m y z \\
+			-\sum m z x & -\sum m y z & \sum m (x^2 + y^2)
+		\end{pmatrix} = \\
+		&= 
+		\begin{pmatrix}
+			\int \diff V\, \rho (y^2 + z^2) & - \int \diff V\, \rho x y & -\int \diff V\, \rho x z \\
+			- \int \diff V\, \rho x y & \int \diff V\, \rho (x^2 + z^2) & -\int \diff V\, \rho y z \\
+			-\int \diff V\, \rho z x & -\int \diff V\, \rho y z & \int \diff V\, \rho (x^2 + y^2)
+		\end{pmatrix}
+	\end{align}
+
+Für ein ausgewähltes körperfestes Koordinatensystem werden die Nebendiagonalelemente null und der Trägheitstensor somit diagonal
+	\begin{align}
+		\underline{T} &=
+		\begin{pmatrix}
+			I_1 & 0 & 0 \\
+			0 & I_2 & 0 \\
+			0 & 0 & I_3
+		\end{pmatrix} =
+		\begin{pmatrix}
+			\sum m (y^2 + z^2) & 0 & 0 \\
+			0 & \sum m (x^2 + z^2) & 0 \\
+			0 & 0 & \sum m (x^2 + y^2)
+		\end{pmatrix} = \\
+		&= 
+		\begin{pmatrix}
+			\int \diff V\, \rho (y^2 + z^2) & 0 & 0 \\
+			0 & \int \diff V\, \rho (x^2 + z^2) & 0 \\
+			0 & 0 & \int \diff V\, \rho (x^2 + y^2)
+		\end{pmatrix}
+	\end{align}
+
+\fbox{
+\parbox{\textwidth}{
+	Für hochsymmetrische Körper (z. B. Würfel, Kugel, Zylinder) liegen die Hauptachsen oft entlang der Symmetrieachsen.
+}
+}
+
+Dann ist der rotationsanteil der kinetischen Energie
+	\begin{equation}
+		T_\text{Rot} = \frac{1}{2} \lr{ I_1\omega_1^2 + I_2\omega_2^2 + I_3\omega_3^2 }
+	\end{equation}
+
+
+\vspace{0.5cm}
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: Trägheitstensor eines homogenen Quaders\\
+	\\
+	Verwende das Koordinatensystem, das entlang der Symmetrieachsen des Quaders liegt, d.h. $\vec{e}_{x,y,z}$. Dann sind die Hauptträgheitsmomente einfach $I_{1,2,3}$.
+		\begin{align*}
+			I_1 &= \int \diff V\, \rho (y^2 + z^2) \stackrel{\comment{\rho = \frac{M}{V}}}{=} \frac{M}{V} \int_{-a/2}^{a/2} \diff x \int_{-b/2}^{b/2} \diff y \int_{-c/2}^{c/2} \diff z\, (y^2 + z^2) = \\
+			&= \frac{M}{abc} \lreck{ ac\cdot \frac{1}{3} \lr{ (b/2)^3 - (-b/2)^3 } + ab\cdot \frac{1}{3} \lr{ (c/2)^3 - (-c/2)^3 } } = \\
+			&= \frac{M}{abc} \frac{2}{3} \frac{1}{2^3} \lr{ ac b^3 + ab c^3} = \frac{M}{12} (b^2 + c^2)
+		\end{align*}
+\hrule
+}
+
+
+\subsection{Intrinsischer Drehimpuls $\vec{M}$}
+
+
+\subsection{Drehmoment $\vec{D}$}
+
+
+\subsection{Euler'sche Gleichungen}
+
+
+\newpage
+
+
+\section*{Appendix A: Rotierendes Bezugssystem um einen festen Punkt}
+Sei $\Sigma$ das ruhende System. Ein Teilchen, das sich im rotierenden System $\Sigma'$ bewegt, folgt der Bewegungsgl.
+	\begin{equation}
+		m \frac{\diff'^2\vec{x}'}{\diff t} = \underbrace{\frac{\diff^2\vec{x}}{\diff t^2}}_{\color{gruen}=\vec{F}_{\text{ext}}} - 2m\vec{\omega} \times \frac{\diff'\vec{x}}{\diff t} - m\vec{\omega}\times(\vec{\omega}\times\vec{x}') - m\dot{\vec{\omega}}\times\vec{x}'
+	\end{equation}
+
+mit der neu definierten Ableitung $\frac{\diff'\vec{x}}{\diff t} = \sum_{i=1}^3 \dot{x}_i(t) \cdot \vec{e}_i(t)$ \textcolor{gruen}{(d.h. die Geschwindigkeit/Beschleunigung aus Sicht des rotierenden Systems)}, der Drehachse $\vec{\omega}$ und der Kreisfrequenz, mit der Sich das System dreht $\omega$.\\
+\\
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+
+
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\section*{Appendix B: Umrechnung der Newton'schen Gleichungen}
+Betrachte die Koordinatentransformation $\{x_1,x_2,x_3\} \to \{q_1,q_2,q_3\}$ durch die Funktionen
+	$$x_i = f_i(q_1,q_2,q_3,t)$$
+
+Die Newton'schen Bewegungsgleichungen im Satz der neuen Variablen $\{q_1,q_2,q_3\}$ ergeben sich über
+	\begin{equation}
+		Q_k \equiv \sum_{j=1}^3 \frac{\partial f_j}{\partial q_k} K_j = \frac{\diff}{\diff t} \frac{\partial}{\partial \dot{q}_k} T(q,\dot{q},t) - \frac{\partial}{\partial q_k} T(q,\dot{q},t)
+	\end{equation}
+
+mit der verallgemeinterten kinetischen Energie 
+	$$T(q,\dot{q},t) = \frac{m}{2}\sum_{j=1}^3 \lr{ \sum_{i=1}^3 \frac{\partial f_j(q,t)}{\partial q_i} \dot{q}_i + \frac{\partial f_j(q,t)}{\partial t}  }^2 = \frac{m}{2} \sum_{i=1}^3 \dot{x}_i^2$$
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	Newton'sche Bewegungsgln. in Zylinderkoordinaten
+		\begin{alignat*}{2}
+			x_1 &= f_1(q,t) =  q_1 \cos q_2 &&\equiv \rho \cos\varphi \\
+			x_2 &= f_2(q,t) = q_1 \sin q_2 &&\equiv \rho \sin\varphi \\
+			x_3 &= f_3(q,t) = q_3 &&\equiv z
+		\end{alignat*}
+	
+	Die kinetische Energie ergibt sich aus
+		\begin{align*}
+			T &= \frac{m}{2}(\dot{x}_1^2 + \dot{x}_2^2 + \dot{x}_3^2) = \frac{m}{2} \lreck{ (\dot{\rho}\cos\varphi -\rho\dot{\varphi}\sin\varphi)^2 + (\dot{\rho}\sin\varphi + \rho\dot{\varphi}\cos\varphi)^2 + (\dot{z})^2 } = \\
+			&= \frac{m}{2} (\dot{\rho}^2 + \rho^2\dot{\varphi}^2 + \dot{z}^2)
+		\end{align*}
+
+	Verwende nun die Gleichung für die generalisierten Kräfte\\
+	1) $Q_1 \equiv Q_{\rho}$
+		\begin{align*}
+			& \frac{\partial}{\partial \rho} (\rho\cos\varphi) K_1 + \frac{\partial}{\partial \rho} (\rho\sin\varphi) K_2 + \frac{\partial}{\partial \rho} (z) K_3 =
+			\begin{pmatrix}
+				K_1\\K_2\\K_3
+			\end{pmatrix}
+			\begin{pmatrix}
+				\cos\varphi\\ \sin\varphi\\ 0
+			\end{pmatrix}
+			= \vec{K} \vec{e}_r = K_r = \\
+			=& \frac{\diff}{\diff t} \frac{\partial}{\partial \rho} \lr{ \frac{m}{2} (\dot{\rho}^2 + \rho^2\dot{\varphi}^2 + \dot{z}^2) } - \frac{\partial}{\partial \rho} \lr{ \frac{m}{2} (\dot{\rho}^2 + \rho^2\dot{\varphi}^2 + \dot{z}^2) } = m \ddot{\rho} - m\rho\dot{\varphi}^2 \\
+			\Leftrightarrow & K_r =  m (\ddot{\rho} - \rho\dot{\varphi}^2)
+		\end{align*}
+	
+	2) $Q_2 \equiv Q_{\varphi}$
+		$$...\Rightarrow K_{\varphi} = m(\rho\ddot{\varphi} + 2\dot{\rho}\dot{\varphi})$$
+		
+	3) $Q_3 \equiv Q_z$
+		$$...\Rightarrow K_z = m\ddot{z}$$
+\hrule
+}
+
+
+\newpage
+
+
+\section{Stichwortverzeichnis}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		Bogenlänge &  \\
+	\hline
+		Drehmoment &  \\
+	\hline
+		Euler'sche Gleichungen &  \\
+	\hline
+		Galilei-Transformation &  \\
+	\hline
+		generalisierte Kräfte &  \\
+	\hline
+		Hauptträgheitsachse &  \\
+	\hline
+		Hauptträgheitsmoment &  \\
+	\hline
+		homogene Funktion &  \\
+	\hline
+		Inertialsystem & Koordinatensystem, in dem sich ein Körper, auf den keine Kraft wirkt, in gleichförmiger Bewegung oder in Ruhe verbleibt \\
+	\hline
+		intrinsischer Drehimpuls &  \\
+	\hline
+		kanonische Transformationen &  Transformationen, die die Hamilton'schen Bewegungsgleichungen forminvariant lassen \\
+	\hline
+		kanonisch konjugierter Impuls &  \\
+	\hline
+		Kepler'sche Gesetze &  \\
+	\hline
+		Konfigurationsraum &  \\
+	\hline
+		konservative Kräfte & Kräfte, die aus einem Potential folgen
+			$$\vec{K} = -\vec{\nabla}V$$ \\
+	\hline
+		Phasenraum &  \\
+	\hline
+		Prinzip der kleinsten Wirkung &  \\
+	\hline
+		Reparametrisierungsinvarianz &  \\
+	\hline
+		Schwerpunktsatz &  \\
+	\hline
+		Schwerpunktsystem &  \\
+	\hline
+		Trägheitstensor &  \\
+	\hline
+		verallgemeinerter Impuls &  \\
+	\hline
+		Virialsatz &  \\
+	\hline
+		Wegunabhängigkeit &  \\
+	\hline
+		Zwangsbedingung &  \\
+	\hline
+		Zwangskraft &  \\
+	\hline
+		zyklische Variable &  \\
+	\hline\hline
+\end{xltabular}
+
+
+\end{document}
+
+
+
+
+\section{Erhaltungsgrößen}
+%\subsection{Energieerhaltung}
+%Hängt das Potential $V$ nicht explizit von der Zeit ab, d.h. $\frac{\partial V}{\partial t} = 0$, ist die Energie
+%	\begin{equation}
+%		E := T + V = \text{konst.}
+%	\end{equation}
+%
+%eine Erhaltungsgröße.
+%
+%\vspace{0.5cm}
+%
+%{\color{violet}
+%\hrule
+%	\fbox{Herleitung}\\
+%	Sei $\frac{\partial V}{\partial t} = 0$ und $x_a(t)$ erfüllen die Newton'sche Bewegungsgl. \\
+%	Untersuche die zeitliche Ableitung des Potentials.
+%		\begin{align*}
+%			\frac{\diff}{\diff t} V(x_1(t),...,x_{3N}(t)) &= \sum_{a=1}^{3N} \frac{\partial V}{\partial x_a} \frac{\partial x_a}{\partial t} + \underbrace{0}_{=\frac{\partial V}{\partial t}} = -\sum_{a=1}^{3N} F_a \dot{x}_a = - \sum_{a=1}^{3N} m \ddot{x}_a \dot{x}_a = -\frac{\diff}{\diff t} \sum_{a=1}^{3N} m \frac{1}{2} \dot{x}_a^2 = -\frac{\diff}{\diff t} T \\
+%			\Leftrightarrow \frac{\diff}{\diff t} (T + V) &\equiv \frac{\diff}{\diff t} E = 0 \\
+%			\Rightarrow E &= \text{konst.} \qquad\blacksquare
+%		\end{align*}
+%
+%
+%
+%\hrule
+%}
+%
+%
+%
+%\subsection{Impulserhaltung}
+%Ist das Potential $V$ translationsinvariant, d.h. $V(\vec{x}^I,t) = V(\vec{x}^I + \vec{a},t)$, ist der Gesamtimpuls \textcolor{gruen}{(der die Summe über die Einzelimpulse aller Teilchen ist)}
+%	\begin{equation}
+%		\vec{P} := \sum_{I=1}^N \vec{p}^I = \sum_{I=1}^N m_I\dot{\vec{x}}^I
+%	\end{equation}
+%
+%eine Erhaltungsgröße.
+%
+%\vspace{0.5cm}
+%
+%{\color{violet}
+%\hrule
+%	\fbox{Herleitung}\\
+%	Sei $V(\vec{x}^I,t) \stackrel{!}{=} V(\vec{x}^I + \vec{a},t)$.
+%		\begin{align*}
+%			V(\vec{x}^I + \vec{a},t) &= T_{V,\vec{x}_0 = \vec{x}^I}(\vec{x}^I) = \\
+%			&= V(\vec{x}^I,t) + \sum_{I=1}^N \left.\lr{ \frac{\partial V}{\partial x_1^{I}}((\cancel{x_1^I} + a_1) - \cancel{x_1^I}) + \frac{\partial V}{\partial x_2^{I}}((\cancel{x_2^I} + a_2) - \cancel{x_2^I}) + \frac{\partial V}{\partial x_3^{I}}((\cancel{x_3^I} + a_3) - \cancel{x_3^I}) }\right|_{\vec{x}^I} + \mathcal{O}(a^2) = \\
+%			&= V(\vec{x}^I,t) + \sum_{i=1}^3 a_i \sum_{I=1}^N \frac{\partial V}{\partial x_i}(\vec{x}^I,t) + \mathcal{O}(a^2) \stackrel{!}{=} V(\vec{x}^I,t) \\
+%		\Rightarrow 0 &\stackrel{!}{=} \sum_{i=1}^3 a_i \sum_{I=1}^N \frac{\partial V}{\partial x_i}(\vec{x}^I,t) \\
+%		\Leftrightarrow 0 &\stackrel{!}{=} \sum_{I=1}^N \frac{\partial V}{\partial x_i}(\vec{x}^I,t) = -\sum_{I=1}^N K_i^I = -\sum_{I=1}^N m_I \ddot{\vec{x}}^I = \frac{\diff}{\diff t} \lr{ \sum_{I=1}^N m_I \dot{\vec{x}}^I } \equiv - \frac{\diff}{\diff t} \sum_{I=1}^N \vec{p}^I \equiv -\frac{\diff}{\diff t} \vec{P} \qquad\blacksquare
+%		\end{align*}
+%\hrule
+%}
+%
+%
+%\newpage
+%
+%
+%\subsection{Drehimpulserhaltung}
+%Ist das Potential $V$ rotationsinvariant, d.h. $V(\vec{x}^I,t) = V(\underline{A} \vec{x}^I,t)$, ist der Drehimpuls
+%	\begin{equation}
+%		\vec{L} = \sum_{I=1}^N m_I \vec{L}^I = \sum_{I=1}^N m_I^2 \vec{x}^I \times \dot{\vec{x}}^I
+%	\end{equation}
+%
+%erhalten.
+%
+%\vspace{0.5cm}
+%
+%{\color{violet}
+%\hrule
+%	\fbox{Herleitung}\\
+%	\textcolor{red}{ERGÄNZEN}
+%
+%
+%
+%\hrule
+%}

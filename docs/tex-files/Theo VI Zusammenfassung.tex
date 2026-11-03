@@ -1,0 +1,1911 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Theoretische Physik VI: Statistische Physik}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section*{Abstrakt}
+Die statistische Physik stellt den Zusammenhang zwischen dem mikroskopischen Verständnis und der makroskopischen Beschreibung eines Systems her. Damit liefert sie den theoretischen Unterbau der phänomenologischen Thermodynamik.\\
+\\
+In diesem Dokument werden sowohl im Rahmen der klassischen als auch der quantenmechanischen statistischen Physik das mikrokanonische, kanonische und großkanonische Ensemble betrachtet. Für jedes Ensemble wird die sogenannte Zustandssumme hergeleitet, aus der die interessierenden thermodynamischen Größen des Systems (Temperatur, Druck, Entropie, chemisches Potential, Teilchenzahl, etc.) abgeleitet werden können.\\
+Diese Ensembles erlauben schließlich die Modellierung von physikalischen Problem wie z.B.:
+	\begin{itemize}
+		\item \textbf{ideales Gas}
+		
+		
+		\item \textbf{Schwarzkörperstrahlung}
+		
+		
+		\item \textbf{Wärmekapazität}
+		
+		
+		\item \textbf{barometrische Höhenformel}
+	\end{itemize}
+
+
+\newpage
+
+
+\section{Mathematische Grundlagen}
+\subsection{Kombinatorik}
+\begin{figure}[h]
+	\centering
+	\fbox{
+		\includegraphics[width=\textwidth]{Grafiken/kombinatorik.png}
+	}
+	\caption{Übersicht Permutation, Variation und Kombination}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: mit Reihenfolge, ohne Zurücklegen $\frac{n!}{(n-k)!}$\\
+	\\
+	Ziehe $k$ mal aus $n$ möglichen Ereignissen. Ohne Zurücklegen, gibt es für die erste Ziehung $n$ mögliche Ergebnisse, für die zweite Ziehung $n-1$, ..., und bei der $k$-ten Ziehung $n+1-k$. Somit gilt für die Zahl der möglichen Ausgänge des Zufallsexperiments
+		\begin{align*}
+			\# &= n\cdot (n-1) \cdot ... \cdot (n-k+1) \stackrel{\comment{1}}{=} n\cdot (n-1) \cdot ... \cdot (n-k+1) \cdot \frac{(n-k)!}{(n-k)!} = \\
+			&= \frac{n!}{(n-k)!} \qquad \blacksquare
+		\end{align*}
+	
+	
+	\fbox{Herleitung}\\
+	zz: Ohne Reihenfolge, ohne Zurücklegen $\binom{n}{k}$\\
+\\
+	Gehe von dem Ergebnis mit Reihenfolge, ohne Zurücklegen aus. Dieses Ergebnis muss durch die Anzahl der möglichne Permutationen geteilt werden, da hier nach der Reihenfolge differenziert wird \textcolor{gruen}{($\{1,2\} = \{2,1\}$ für $k=2$, d.h. es muss durch 2 geteilt werden)}.
+		\begin{align*}
+			\# = \frac{n!}{(n-k)!} \frac{1}{k!} \equiv \binom{n}{k} \qquad \blacksquare
+		\end{align*}
+
+	\fbox{Herleitung}\\
+	zz: Mit Reihenfolge, mit Zurücklegen $n^k$\\
+	\\
+	Beim Zurücklegen gibt es für jeden Zug $n$ Möglichkeiten, d.h.
+		\begin{align*}
+			\underbrace{n\cdot n\cdot ... \cdot n}_{\color{gruen}k\ \text{mal}} = n^k
+		\end{align*}
+	
+	
+	\fbox{Herleitung}\\
+	zz: Mit Reihenfolge, mit Zurücklegen $\binom{n-1+k}{k}$\\
+	\\
+	Transformiere das Problem auf das \textit{stars and bars} Problem.\\
+	Jedes Ereignis, das gezogen werden kann, sei eine Box. Es gibt somit $n$ Boxen.\\
+	Eine Ziehung wird durch einen Stern $\star$ repräsentiert. Es gibt somit $k$ Sterne.\\
+	Eine Ziehung wird dann durch
+		$$\star\star\star | \star \star | \star | ... $$
+
+	repräsentiert. Hier wurde das Ereignis 1 3mal gezogen, das 2. Ereignis 2mal, das 3. einmal, etc.\\
+	Man benötigt $n-1$ Trennstriche, um die Boxen einzuteilen.\\
+	Suche nun alle Kombinationen von Sternen und Strichen.
+	
+	
+	\newpage
+	
+	
+	\fbox{Variante 1}\\
+	Gesucht sind alle Permutationen von $n-1+k$ Elementen (Striche + Sterne), wobei es 2 Typen von Elementen gibt, die $n-1$-mal und $k$-mal vorkommen. Somit
+		\begin{align*}
+			\frac{(n-1+k)!}{(n-1)!\cdot k!} \equiv \frac{\tilde{n}!}{(\tilde{n}-k)! \cdot k!} = \binom{\tilde{n}}{k} = \binom{n-1+k}{k} \qquad \blacksquare
+		\end{align*}
+	
+	\fbox{Variante 2}\\
+	Ziehe aus den $n-1+k$ möglichen Positionen eines Sterns $k$ mal bzw. für Striche $n-1$ mal (ohne Zurücklegen und Beachtung der Reihenfolge), d.h.
+		\begin{align*}
+			\binom{n-1+k}{n-1} \qquad\text{bzw.}\qquad \binom{n-1+k}{k} \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Multivariate Zufallsvariablen}
+\subsubsection{Transformation multivariater Zufallsvariablen}
+Um die Wahrscheinlichkeitsdichte $\rho_{\hat{X}}$ mit den Argumenten $\vec{x} = x_1, x_2, ...$ auf die Wahrscheinlichkeitsdichte $\rho_{\hat{Y}}$ mit den Argumenten $\vec{y} = y_1, y_2, ...$ zu transformieren, verwende
+	\begin{equation}
+		\rho_{\vec{Y}}(\vec{y}) =
+		\left| \frac{\partial(x_y, x_2, ...)}{\partial (y_1, y_2, ...)} \right| \cdot \rho_{\vec{X}}(\vec{x}) \equiv
+		\left| 
+		\begin{matrix}
+			\frac{\partial x_1}{\partial y_1} & \frac{\partial x_1}{\partial y_2} & ... \\
+			\frac{\partial x_2}{\partial y_1} & \frac{\partial x_2}{\partial y_2} & ... \\
+			\vdots & \vdots & \ddots
+		\end{matrix}
+		\right| \cdot \rho_{\vec{X}}(\vec{x}).
+	\end{equation}
+
+Unter Umständen ist es einfacher die Ableitungen $\partial_{x_i} y_j$ statt $\partial_{y_i} x_j$ auszurechnen. Dafür kann der Zusammenhang
+	\begin{equation}
+		\left| \frac{\partial(x_y, x_2, ...)}{\partial (y_1, y_2, ...)} \right| = \frac{1}{\left| \frac{\partial(y_y, y_2, ...)}{\partial (x_1, x_2, ...)} \right|}
+	\end{equation}
+
+genutzt werden.
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: 2 Gleichverteilte Variablen $X_1, X_2$ auf $[0;1]$, d.h. $\rho(x_1,x_2) = \rho(x_1)\cdot \rho(x_2) = 1\cdot 1$\\
+	ges: $\rho(y_1,y_2)$ mit $Y_1 = \sqrt{-2\ln X_2} \cos(2\pi X_1), Y_2 = \sqrt{-2\ln X_2} \sin(2\pi X_1),$\\
+	\\
+	Bestimme der Einfachheit halber die Transformationsmatrix $\frac{1}{\left| \frac{\partial(Y_1,Y_2)}{\partial(X_1,X_2)} \right|}$
+		\begin{align*}
+			\left| \frac{\partial(Y_1, Y_2)}{\partial(X_1, X_2)}\right| &= 
+			\begin{vmatrix}
+				\frac{\partial Y_1}{\partial X_1} & \frac{\partial Y_1}{\partial X_2} \\
+				\frac{\partial Y_2}{\partial X_1} & \frac{\partial Y_2}{\partial X_2}
+			\end{vmatrix}
+			=
+			\begin{vmatrix}
+				-\sqrt{-2\ln X_2} \cdot \sin(2\pi X_1) \cdot 2\pi & -\frac{1}{X_2 \sqrt{-2\ln X_2}} \cos(2\pi X_1) \\
+				\sqrt{-2\ln X_2} \cdot \cos(2\pi X_1) \cdot 2\pi & - \frac{1}{X_2 \sqrt{-2\ln X_2}} \cdot \sin(2\pi X_1)
+			\end{vmatrix} = \\
+			&= \frac{+ \cancel{\sqrt{-2\ln X_2}} \cdot \sin^2(2\pi X_2)\cdot 2\pi}{\cancel{\sqrt{-2\ln X_2}} X_2} - \lr{ -\frac{\cancel{\sqrt{-2\ln X_2}} \cdot \cos^2(2\pi X_1) \cdot 2\pi}{\cancel{\sqrt{-2\ln X_2}} X_2}} = \frac{2\pi}{X_2}
+		\end{align*}
+	
+	Drücke nun $X_2$ durch $Y_1, Y_2$ aus. Addiere dafür $Y_1^2$ und $Y_2^2$:
+		\begin{align*}
+			Y_1^2 + Y_2^2 &= -2\ln X_2 (\sin^2(2\pi X_1) + \cos^2(2\pi X_2)) = -2\ln X_2 \\
+			\Leftrightarrow X_2 &= e^{-\frac{1}{2}(Y_1^2 + Y_2^2)}
+		\end{align*}
+	
+	Somit ist die Wahrscheinlichkeitsdichte in den neuen Koordinaten
+		\begin{align*}
+			\tilde{\rho}(Y_1,Y_2) &= \frac{1}{\left|\frac{\partial(Y_1,Y_2)}{\partial(X_1,X_2)}\right|} \cdot \rho(X_1,X_2) = \frac{1}{\frac{2\pi}{X_2}} \cdot 1 = \frac{1}{2\pi} e^{-\frac{1}{2}(Y_1^2 + Y_2^2)}
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Marginalisierung}
+Um eine Wahrscheinlichkeitsdichte mit mehreren Argumenten, z.B. $\rho(x,y,z,w)$, auf eine Wahrscheinlichkeitsdichte mit weniger Argumenten, z.B. $\rho(x,y)$, zu überführen, wird über die nicht interessierenden Argumente summiert/integriert.
+	\begin{equation}
+		\rho(x,y) = \int \diff z\, \diff w\, \rho(x,y,z,w)
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Die Wahrscheinlichkeitsdichte eines harmonischen Oszillators in 2d lässt sich berechnen zu $\rho(x,y,p_x,p_y) = \frac{1}{Z} \cdot e^{-\beta H(x,y,p_x,p_y)} = \frac{1}{\frac{1}{\hbar^2\omega^2\beta^2}} \cdot e^{-\beta\lreck{ \frac{1}{2m}(p_x^2 + p_y^2) + \frac{1}{2}m\omega^2(x^2 + y^2) }}$\\
+	ges: $\rho(x,y)$
+		\begin{align*}
+			\rho(x,y) &= \frac{1}{(2\pi\hbar)^2} \int_{-\infty}^{+\infty} \diff p_x \diff p_y\, \rho(x,y,p_x,p_y) = \\
+			&= \frac{1}{(2\pi\hbar)^2} \hbar^2\omega^2\beta^2 \int_{-\infty}^{+\infty} \diff p_x \diff p_y\, e^{-\beta\lreck{ \frac{1}{2m}(p_x^2 + p_y^2) + \frac{1}{2}m\omega^2(x^2 + y^2) }} = \\
+			&= \frac{1}{(2\pi\hbar)^2} \cdot \hbar^2\omega^2\beta^2 \cdot e^{-\beta\frac{1}{2}m\omega^2(x^2 + y^2) } \int_{-\infty}^{+\infty} \diff p_x \diff p_y e^{-\frac{\beta}{2m} (p_x^2 + p_y^2)} = \\
+			&= \frac{1}{(2\pi\hbar)^2} \cdot \hbar^2\omega^2\beta^2 \cdot e^{-\beta\frac{1}{2}m\omega^2(x^2 + y^2) } \lr{ \sqrt{\frac{\pi}{\frac{\beta}{2m}}} }^2	= \frac{2m\pi\hbar^2\omega^2\beta}{(2\pi\hbar)^2} \cdot e^{-\beta\frac{1}{2}m\omega^2(x^2 + y^2) } = \\
+			&= \frac{m\omega^2\beta}{2\pi} \cdot e^{-\beta\frac{1}{2}m\omega^2(x^2 + y^2) }
+		\end{align*}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Grafiken/Theo VI Marginalisierung.pdf}
+	\end{figure}
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Lagrange-Multiplikator}
+Die Methode der Lagrange-Multiplikatoren ermöglicht es, eine Funktion unter Nebenbedingungen zu minimieren/maximieren.
+	\begin{enumerate}
+		\item Zu minimierende Funktion $f(x_1,x_2,...,x_N)$ und die $M$ Nebenbedingung $g_i(x_1,x_2,...,x_N) = 0$ (mit $i\in\{1,2,...,M\}$) aufstellen.
+		
+		\item Lagrange-Funktion mit Lagrange-Multiplikator $\lambda$ aufstellen
+		\begin{equation}
+			L(x_1,x_2,,...,x_N,\lambda_1, \lambda_2,...,\lambda_N) = f(x_1,x_2,...,x_N) + \sum_{i=1}^M \lambda_i \cdot g_i(x,y,z,...)
+		\end{equation}
+		
+		\item Gradienten von $L$ bilden und gleich null setzen
+			\begin{align}
+			\begin{pmatrix}
+				\partial_{x_1}\\
+				\partial_{x_2}\\
+				\vdots\\
+				\partial_{x_N}\\
+				\partial_{\lambda_1}\\
+				\partial_{\lambda_2}\\
+				\vdots\\
+				\partial_{\lambda_M}
+			\end{pmatrix}
+			L(x_1,x_2,...,x_N,\lambda_1, \lambda_2,...,\lambda_M)
+			\stackrel{!}{=}
+			\begin{pmatrix}
+				0\\
+				0\\
+				\vdots\\
+				0\\
+				0\\
+				0\\
+				\vdots\\
+				0
+			\end{pmatrix}
+			\end{align}
+			
+		\item Resultierendes Gleichungssystem lösen
+	\end{enumerate}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: Warscheinlichkeit $P_i$, die die Entropie unter den Nebenbedinungen der Normierung $\sum_i P_i - 1 = 0$ und dem Erwartungswert der Energie $\sum_i P_i E_i - E = 0$ extremalisiert.\\
+	\\
+	Die Lagrange-Funktion ist
+		$$L = -k_B \sum_i P_i \ln P_i - \lambda_0 \lr{ \sum_i P_i - 1 } - \lambda_1 \lr{ \sum_i P_i E_i - E }$$
+	
+	Extremalisiere $\vec{\nabla} L = \vec{0}$.
+		\begin{align*}
+			\frac{\partial L}{\partial P_i} &= -k_B \lr{ \ln P_i + \cancel{P_i} \frac{1}{\cancel{P_i}} } - \lambda_0 - \lambda_1 E_i \stackrel{!}{=} 0 \\
+			\Leftrightarrow P_i &= e^{ -\frac{1}{k_B} \lr{ \lambda_0 + \lambda_1 E_i } - 1 } = e^{-\lr{ \frac{\lambda_0}{k_B} + 1 }} \cdot e^{-\frac{\lambda_1}{k_B} E_i}
+		\end{align*}
+	
+	Betrachte die Nebenbedingung der Normierbarkeit
+		$$\sum_i P_i \stackrel{\comment{P_i}}{=} \underbrace{e^{-\lr{ \frac{\lambda_0}{k_B} + 1 }}}_{=:1/Z} \underbrace{\sum_i e^{-\frac{\lambda_1}{k_B} E_i}}_{=:Z}  \stackrel{!}{=} 1$$
+	
+	Somit ist $P_i$
+		$$P_i = \frac{1}{Z} e^{ -\frac{\lambda_1}{k_B}E_i }$$
+	
+	Identifiziere den Lagrange-Multiplikator $\lambda_1$ \textcolor{red}{ERGÄNZEN}
+%	über $\lr{\frac{\partial S}{\partial E}}_{V} = \frac{1}{T}$.
+%		\begin{align*}
+%			\lr{\frac{\partial S}{\partial E}}_V &= \frac{\partial}{\partial E} \lr{-k_B \sum_i P_i \ln P_i}_V = \frac{\partial}{\partial E} \lr{-k_B \sum_i P_i \ln\lr{ \frac{1}{Z} e^{ -\frac{\lambda_1}{k_B}E_i } } }_V = \\
+%			&= \frac{\partial}{\partial E} \lr{ -k_B \sum_i P_i \lr{ -\ln Z - \frac{\lambda_1}{k_B}E_i } }_V = \frac{\partial}{\partial E} \lr{ k_B \ln Z \sum_i P_i + \lambda_1 \sum_i P_i E_i }_V = \\
+%			&= \frac{\partial}{\partial E} \lr{ k_B \ln Z + \lambda_1 E }_V = \lambda_1 \stackrel{!}{=} \frac{1}{T}
+%		\end{align*}
+%		
+%	Somit ist die kanonische Zustandssumme
+%		$$Z = \sum_i e^{-\frac{1}{k_B T} E_i} \equiv \sum_i e^{-\beta E_i}$$
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Legendre-Transformation}
+Die Legendre-Transformation für eine Funktion, die von einer Variablen abhängt ist
+	\begin{equation}
+		g(p) = f(x) - \frac{\diff f}{\diff x}\cdot x.
+	\end{equation}
+
+Für mehrdimensionale Funktionen gibt es die Möglichkeit eine oder mehrere Variablen zu tauschen
+	\begin{align*}
+		g(p_1, x_2, ..., x_n) &= f(x_1,...,x_n) - \lr{ \frac{\partial f}{\partial x_1} }_{x_2,...,x_n} \cdot x_1 \\
+		g(p_1, ..., p_n) &= f(x_1,...,x_n) - \sum_{i} \lr{ \frac{\partial f}{\partial x_i} }_{x_j,\ j\neq i} \cdot x_i.
+	\end{align*}
+
+\begin{itemize}
+	\item \textbf{Algorithmus}\\
+		\begin{enumerate}
+			\item Notiere die alte Funktion $f$ und die neue Funktion $g$ auf
+			\item Notiere die zu tauschende Variable $x_i$
+			\item Berechne und notiere die neue Variable $p_i = \lr{ \frac{\partial f}{\partial x_i} }_{x_j}$
+			\item Setze in die entsprechende Formel ein
+		\end{enumerate}
+		
+	
+	\item \textbf{''Schneller Weg''}\\
+	Schaue, welches Differential addiert/subtrahiert werden muss, damit die Variablen der neuen Funktionen ebenfalls Differentiale sind:
+	{\color{blue}
+		\begin{align*}
+			\diff U(S,V,N) &= T\diff S - p \diff V + \mu\diff N \\
+			\Rightarrow \diff F(V,T,N) &= \diff U - \diff(TS) \\
+			&= -S \diff T - \diff V + \mu\diff N \\
+			\stackrel{\comment{\int}}{\Rightarrow} F &= U - TS
+		\end{align*}
+	}
+\end{itemize}
+
+
+
+
+
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+%	Gehe vom thermodynamischen Potential $U(S,V)$ zu $F(T,V$ über.\\
+%	$f = U$, $g = F$, $x_1 = S$.
+%		\begin{align*}
+%			p_1 &= \lr{ \frac{\partial U}{\partial S} }_V \stackrel{\commenttext{GGH}}{=} T \\
+%			\Rightarrow F &= U - T\cdot S
+%		\end{align*}
+%
+%	\dotfill
+%	
+	ges: Legendre-Transformation von $U(S,V)$ zu $G(p,T)$\\
+	\\
+	Für die gewünschte Transformation gilt $f=U$, $g=G$, $x_1 = S$, $x_2 = V$.\\
+	Somit ergeben sich die neuen Variablen zu:
+		\begin{align*}
+			p_1 &= \lr{ \frac{\partial U}{\partial S} }_V = T \\
+			p_2 &= \lr{ \frac{\partial U}{\partial V} }_S = -p
+		\end{align*}
+	
+	Schließlich ist das neue thermodynamische Potential
+		\begin{align*}
+			G &= U - T\cdot S + p\cdot V
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Euler-Lagrange-Gleichung}
+Aus der Variationsrechnung folgt, dass
+	\begin{equation}
+		S = \int \diff t\, L(t, q,\dot{q}) \qquad \Leftrightarrow \qquad \frac{\diff}{\diff t} \frac{\partial L}{\partial \dot{q}} - \frac{\partial L}{\partial q} = 0
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $S = \int \diff t\, L(t, q,\dot{q}) \qquad \Leftrightarrow \qquad \frac{\diff}{\diff t} \frac{\partial L}{\partial \dot{q}} - \frac{\partial L}{\partial q} = 0$\\
+	\\
+	Betrachte die Definition der Wirkung
+		\begin{align*}
+			S[q,\dot{q}] &= \int \diff t\, L(t,q,\dot{q}).
+		\end{align*}
+	
+	Angenommen $q$ sind Lösungen, die $S$ maximieren. Betrachte nun die Addition einer anderen Funktion $\eta$, multipliziert mit einem Faktor $\varepsilon$. Sie soll die Randbedingungen erfüllen $\eta(t_1) = \eta(t_2) = 0$, also, dass die Variation am Rand verschwindet und die variierte Funktion mit der unvariierten übereinstimmt.
+		\begin{align*}
+			q &\to q + \varepsilon \eta \\
+			\dot{q} &\to \dot{q} + \varepsilon \dot{\eta} \\
+			\Rightarrow S[q + \varepsilon\eta,\dot{q} + \varepsilon \dot{\eta}] &= \int \diff t\, L(t,q + \varepsilon\eta,\dot{q}+\varepsilon\dot{\eta})
+	\intertext{Da angenommen wird, dass $q$ $S$ maximiert, muss $S_\varepsilon$ maximal werden, wenn $\varepsilon$ null ist. D.h.}
+			0 &\stackrel{!}{=} \left.\frac{\diff S_\varepsilon}{\diff\varepsilon} \right|_{\varepsilon = 0} = \int \diff t\, \left. \frac{\diff L(t,q + \varepsilon\eta,\dot{q}+\varepsilon\dot{\eta})}{\diff\varepsilon} \right|_{\varepsilon = 0} =\\
+			&= \int \diff t\, \lr{ \frac{\partial L(t,q + \varepsilon\eta,\dot{q}+\varepsilon\dot{\eta})}{\partial (q+\varepsilon\eta)}\frac{\partial (q+\varepsilon\eta)}{\partial\varepsilon} + \frac{\partial L(t,q + \varepsilon\eta,\dot{q}+\varepsilon\dot{\eta})}{\partial (\dot{q}+\varepsilon\dot{\eta})}\frac{\partial (\dot{q}+\varepsilon\dot{\eta})}{\partial\varepsilon} } = \\
+			&= \int \diff t\, \lr{ \frac{\partial L(t,q,\dot{q})}{\partial q}\eta + \frac{\partial L(t,q,\dot{q})}{\partial \dot{q}}\dot{\eta} } = \\
+			&= \int \diff t\, \lreck{ \frac{\partial L(t,q,\dot{q})}{\partial q}\eta + \frac{\diff}{\diff t} \lr{ \frac{\partial L(t,q,\dot{q})}{\partial \dot{q}}\eta } - \frac{\diff}{\diff t}\lr{\frac{\partial L(t,q,\dot{q})}{\partial \dot{q}}} \eta } = \\
+			&= \int \diff t\, \lreck{ \lr{ \frac{\partial L}{\partial q} - \frac{\diff}{\diff t} \frac{\partial L}{\partial\dot{q}} }\eta + \frac{\diff}{\diff t} \lr{ \frac{\partial L(t,q,\dot{q})}{\partial\dot{q}}\eta } } = \\
+			&= \int \diff t\, \lr{ \frac{\partial L}{\partial q} - \frac{\diff}{\diff t} \frac{\partial L}{\partial\dot{q}} }\eta + \underbrace{ \left. \frac{\partial L(t,q,\dot{q})}{\partial\dot{q}} \eta \right|_{t_1}^{t_2} }_{= 0\commenttext{, da $\eta(t_1) = \eta(t_2) = 0$}}
+	\intertext{Damit dieses Integral null wird, muss der Vorfaktor von $\eta$ null werden, was die Euler-Lagrange-Gleichung ist.}
+			\Leftrightarrow 0 &= \frac{\diff}{\diff t}\frac{\partial L}{\partial\dot{q}} - \frac{\partial L}{\partial q} \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Residuensatz}
+Das Residuum einer Funktion $f(z)$ an der Polstelle $z_0$ ist der Koeffizient $a_{n-1}$ in der Laurent-Reihe
+	\begin{equation}
+		f(z) = \sum_{n=-\infty}^\infty a_n (z-z_0)^n = ... + \frac{a_{n-2}}{(z-z_0)^2} + \frac{\color{red}{a_{-1}}}{z-z_0} + a_0 + a_1 (z-z_0) + a_2 (z-z_0)^2 + ... .
+	\end{equation}
+
+Der Residuensatz lautet:
+	\begin{equation}
+		\oint_C \diff z\, f(z) = 2\pi i\cdot \sum_i \text{Res}_{=z_i} f(z),
+	\end{equation}
+
+wobei $C$ der in der komplexen Ebene geschlossene Integrationsweg und $z_i$ die von $C$ eingeschlossenen Polstellen sind.\\
+\\
+Für einen einfachen Pol bestimmt sich das Residuum über
+	\begin{equation} \label{residuum}
+		\text{Res}_{z=z_i} f(z) = \lim_{z\to z_i} (z - z_i) \cdot f(z)
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: $\int_{-\infty}^\infty \diff x\, \frac{\gamma}{\pi} \frac{1}{(x-\mu)^2 + \gamma^2}\cdot e^{ikx}$\\
+	\\
+	Überführe das Integral, nach einer einfachen Substitution, in ein Kurvenintegral in der komplexen Ebene. Wähle dann einen Integrationsweg, der entlang der reellen $x$-Achse verläuft vom einen Ende zum anderen einen Halbkreis zurückschlägt. Wende den Residuensatz für die von der Kurve eingeschlossenen Pole an. Bestimme schließlich noch das Residuum mittels Gl. (\ref{residuum}) und fasse zusammen.
+	\begin{align*}
+		\int_{-\infty}^\infty \diff x\, \frac{\gamma}{\pi} \frac{1}{(x-\mu)^2 + \gamma^2}\cdot e^{ikx} &\stackrel{\comment{ u=x-\mu }}{=} \frac{1}{\pi} \int_{-\infty}^\infty \diff u\, \frac{\gamma}{u^2 + \gamma^2}\cdot e^{ik(u+\mu)} = \\
+		= \frac{\gamma}{\pi} e^{ik\mu} \lim_{R\to\infty} \oint_C \diff z\, \frac{1}{z^2 + \gamma^2} \cdot e^{ikz} &= \frac{\gamma}{\pi} e^{ik\mu} \lim_{R\to\infty} \oint_C \diff z\, \frac{1}{(z - i\gamma)(z + i\gamma)} \cdot e^{ikz} = \\
+		= \frac{\gamma}{\pi} e^{ik\mu} \cdot 2\pi i \cdot \text{Res}_{z=i\gamma} \frac{1}{(z - i\gamma)(z + i\gamma)} \cdot e^{ikz} &= \frac{\gamma}{\pi} e^{ik\mu} \cdot 2\pi i \cdot \lim_{z\to i\gamma} \cancel{(z - i\gamma)} \frac{1}{\cancel{(z - i\gamma)}(z + i\gamma)} \cdot e^{ikz} = \\
+		= \frac{\gamma}{\pi} e^{ik\mu} \cdot 2\pi i \cdot \lim_{z\to i\gamma} \frac{e^{ikz}}{z + i\gamma} &= \frac{\gamma}{\pi} e^{ik\mu} \cdot 2\pi i \cdot \frac{e^{-k\gamma}}{2i\gamma} = e^{k(i\mu - \gamma)}
+	\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Grundlegende Postulate und Definitionen}
+Definiere zunächst einige elementare Begriffe:
+	\begin{itemize}
+		\item \textbf{Mikrozustand}\\
+		Zustand, der durch einen Punkt im Phasenraum
+			$$(q_1,...,q_N, p_1, ..., p_N)$$
+		
+		beschrieben wird, wobei die Position des $i$-ten Teilchens $q_i$ und der Impuls des $i$-ten Teilchens $p_i$ ist.
+		
+		\item \textbf{Makrozustand}\\
+		Zustand, der durch wenige makroskopische Größen beschrieben wird
+		
+
+		\item \textbf{mikrokanonische Ensemble}\\
+		Abgeschlossenes System, d.h. Energie $E$, Volemen $V$ und Teilchenzahl $N$ ist konstant
+	
+		\item \textbf{kanonische Ensemble}\\
+		 System, das mit einem Wärmebad in Kontakt steht, d.h. Temperatur $T$, Volumen $V$ und Teilchenzahl $N$ sind konstant
+	
+		\item \textbf{großkanonische Ensemble}\\
+		 System, das sowohl mit einem Wärmebad als auch mit einem Teilchenreservoir in Kontakt steht, d.h. Temperatur $T$, Volumen $V$ und chemisches Potential $\mu$ sind konstant
+	\end{itemize}
+
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+		\includegraphics[width=0.75\textwidth]{Grafiken/Theo VI Ensembles.pdf}
+	}
+	\caption{a) Mikrokanonisches Ensemble; b) Kanonisches Ensemble; c) Großkanonisches Ensemble; vermerkt sind die in dem jeweiligen System konstanten Größen}
+\end{figure}
+
+\fbox{
+\begin{minipage}{\textwidth}
+Die zwei Grundlegenden Postulate der statistischen Physik sind:
+	\begin{itemize}
+		\item \textbf{Ergodenhypothese}\\
+		Zeitmittel und Ensemblemittel liefern das gleiche Ergebnis
+			\begin{equation}
+				\int \diff\Gamma \, \rho(\{q_i\}, \{p_i\}) \cdot O \stackrel{!}{=} \lim_{T \to \infty} \frac{1}{T} \int_{t_0}^{t_0+T} \diff t \, O(\{q_i(t)\}, \{p_i(t)\})
+			\end{equation}
+		
+		\item \textbf{Prinzip der maximalen Unvoreingenommenheit}\\
+		In einem abgeschlossenen System sind alle Mikrozustände gleich wahrscheinlich
+	\end{itemize}
+\end{minipage}
+}
+
+
+\newpage
+
+
+\section{Klassische statistische Physik}
+\subsection{Mikrokanonisches Ensemble}
+	\begin{itemize}
+		\item \textbf{Mikrokanonische Zustandssumme}\\
+		Normierungsfaktor der Wahrscheinlichkeitsdichte des mikrokanonischen Ensembles
+			\begin{equation}
+				\Omega = \frac{1}{\gamma}\int \diff\Gamma\, \Theta\lr{ E - H(\{q_\alpha\}, \{p_\alpha\}) }
+			\end{equation}
+		
+		
+		\item \textbf{Wahrscheinlichkeitsverteilung}\\
+		Die Wahrscheinlichkeitsverteilung $\rho$ bzw. Wahrscheinlichkeit des $i$-ten Mikrozustands $P_i$ ist:
+			\begin{equation}
+				\rho = P_i = \frac{1}{\Omega}
+			\end{equation}
+		
+		
+		\item \textbf{Thermodynamisches Potential}
+			\begin{align}
+				S &:= k_B \ln \Omega \\ 
+				&= -k_B \sum_i P_i \ln P_i
+			\end{align}
+	\end{itemize}
+
+Wichtige Zusammenhänge zu thermodynamischen Größen sind (siehe Guggenheim-Schema):
+	\begin{align}
+		T &= \frac{1}{\lr{ \frac{\partial S}{\partial E} }_{V,N}} \\
+		p &= T\cdot \lr{ \frac{\partial S}{\partial V} }_{E,N}
+	\end{align}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $\Omega = \frac{1}{N!}\frac{\Gamma}{\gamma} = \frac{1}{(2\pi\hbar)^{3N}} \frac{1}{N!} \Gamma$\\
+	\\
+	Betrachte eine vorgegebene Energie $E$, inklusive einer Unschärfe $\delta E$. Das Volumen, das diese alle Zustände zusammen im Phasenraum einnehmen wird als $\Gamma$ bezeichnet. Das minimale Volumen eines Zustands wird durch das minimale Phasenraumvolumen $\gamma$ abgeschätzt.\\
+	\\
+	Für 1 Teilchen in einer Dimension ergibt sich für die beiden Größen:
+		\begin{align*}
+			\Gamma &= \int_{E-\delta E \leq H \leq E} \diff q\, \diff p \equiv \int_{E-\delta E \leq H \leq E} \diff\Gamma_{q,p}\\
+			\gamma &= \Delta q \cdot \Delta p = 2\pi\hbar \\
+			\Rightarrow \Omega &= \text{Anzahl aller möglichen Zustände} = \frac{\Gamma}{\gamma}
+		\end{align*}
+
+	Für $N$ Teilchen in drei Dimensionen muss zum einen das minimale Volumen im Phasenraum angepasst werden und Permutationen in $\Gamma$ berücksichtigt werden.
+		\begin{align*}
+			\gamma &= (\Delta q_1)^3 (\Delta p_1)^3 \cdot ... \cdot (\Delta q_N)^3 (\Delta p_N)^3 = (\Delta q \Delta p)^3 \cdot ... \cdot (\Delta q_N \Delta p_N)^3 = \\
+			 &= (2\pi\hbar)^3 \cdot ... \cdot (2\pi\hbar)^3 = (2\pi\hbar)^{3N} \\
+			 \Gamma &= \int_{E-\delta E \leq H \leq E} \diff \Gamma_{q,p} = \int_{E-\delta E \leq H \leq E} \diff^3 q_1\, \diff^3 p_1 \cdot ... \cdot \diff^3q_N\, \diff^3 p_N \\
+		\intertext{Bei Betrachtung identsicher Teilchen müssen Permutationen von Zuständen ignoriert werden, daher wird für $\Omega$ durch $N!$ geteilt.}
+			\Rightarrow \Omega &= \frac{1}{N!}\frac{\Gamma}{\gamma} = \frac{1}{(2\pi\hbar)^{3N}} \frac{1}{N!} \Gamma
+		\end{align*}
+	
+	
+	\fbox{Herleitung}\\
+	zz: $P_i = \frac{1}{\Omega}$\\
+	\\
+	Entspricht dem Prinzip der maximalen Unvoreingenommenheit $\qquad \blacksquare$\\
+	\\
+	\fbox{Herleitung}\\
+	zz: $S = k_B \ln\Omega$\\
+	\\
+	\textcolor{red}{ERGÄNZEN Herleitung Boltzmann Formel}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel: Einfaches Modell eines Festkörpers}\\
+	geg: Ein Festkörper aus $N$ Teilchen habe die Gesamtenergie $E$. Jeder Freiheitsgrad eines Teilchens kann durch beliebig viele Energiepakete $\varepsilon$ angeregt werden oder im nicht angeregten Zustand die Energie $0$ trägen. Somit gibt es $m = E/\varepsilon$ auf die Freiheitsgrade zu verteilende Energiepakete. \\
+	\\
+	a) ges: Mikrokanonische Zustandssumme $\Omega$\\
+	\\
+	Gesucht ist also die Anzahl aller möglichen Auteilungen der $m$ Energiepakete auf die $3N$ Freiheitsgrade. Das Problem lässt sich auf das \textit{stars and bars} Problem zurückführen. D.h. man interpretiert die $3N$ Freiheitsgrade als Boxen und die $m$ Energiepakete als Sterne, die auf die Boxen verteilt werden.\\
+	Suche also alle möglichen Permutationen der $m$ Sterne und $3N-1$ Trennwände der Boxen.
+		$$\Rightarrow \Omega = \frac{(3N-1+m)!}{(3N-1)! \cdot m!}$$
+
+	b) ges: Kalorische Zustandsgleichung $E(T,V,N)$\\
+	\\
+	Bestimme zunächst die Entropie
+		\begin{align*}
+			S &= k_B \ln\Omega = k_B \ln \lr{ \frac{(3N-1+m)!}{(3N-1)! \cdot m!} } = k_B \lreck{ \ln((3N-1+m)!) - \ln((3N-1)!) - \ln(m!) } = \\
+			&\stackrel{\commenttext{Stirling}}{\approx} k_B \Big[ (3N-1+m) \ln (3N-1+m) - \cancel{(3N-1+m)} - (3N-1)\ln (3N-1) + \\
+			&+ \cancel{(3N-1)} - m\ln m + \cancel{m} \Big] = \\
+			&= k_B \lreck{ (3N-1+m) \ln (3N-1+m) - (3N-1)\ln (3N-1) - m\ln m } = \\
+			&\stackrel{\comment{m}}{=} k_B \lreck{ \lr{ 3N-1+\frac{E}{\varepsilon} } \ln \lr{ 3N-1+\frac{E}{\varepsilon} } - (3N-1)\ln (3N-1) - \frac{E}{\varepsilon}\ln \frac{E}{\varepsilon} }
+		\intertext{Verwende nun $\frac{1}{T} = \lr{ \frac{\partial S}{\partial E} }_{V,N}$ und stelle nach $E$ um.}
+			\lr{ \frac{\partial S}{\partial E} }_{V,N} &= k_B \lreck{ \frac{1}{\varepsilon}\ln \lr{3N - 1 + \frac{E}{\varepsilon}} + \lr{3N - 1 + \frac{E}{\varepsilon}} \frac{1}{\lr{3N - 1 + \frac{E}{\varepsilon}}} \frac{1}{\varepsilon} - \frac{1}{\varepsilon}\ln\frac{E}{\varepsilon} - \frac{E}{\varepsilon} \frac{1}{\frac{E}{\varepsilon}}\frac{1}{\varepsilon} } = \\
+			&= \frac{k_B}{\varepsilon} \ln \lr{ \frac{3N - 1 + \frac{E}{\varepsilon}}{\frac{E}{\varepsilon}} } \stackrel{!}{=} \frac{1}{T}\\
+			\Leftrightarrow e^{ \frac{\varepsilon}{k_B T} } &= \frac{3N - 1 + \frac{E}{\varepsilon}}{\frac{E}{\varepsilon}} = \frac{(3N - 1) \varepsilon}{E} + 1
+			\Leftrightarrow E = \frac{(3N - 1)\varepsilon}{\exp\lr{\frac{\varepsilon}{k_B T}} - 1}
+		\end{align*}
+	
+	c) ges: Wärmekapazität\\
+	Die Wärmekapazität ist das Verhältnis aus Wärme und Temperaturdifferenz.
+		\begin{align*}
+			C &:= \lr{ \frac{\partial E}{\partial T} } = ... = \frac{(3N - 1)\varepsilon^2}{\exp\lr{ \frac{\varepsilon}{k_B T} -1 }^2 k_B} \frac{1}{T^2} \exp{\frac{\varepsilon}{k_B T}}
+		\end{align*}
+	
+	Die Limes-Betrachtung liefert
+		\begin{align*}
+			\lim_{T\to 0} C &= 0 \\
+			\lim_{T\to\infty} C &= k_B(3N - 1)\approx 3k_B N
+		\end{align*}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth]{Grafiken/Theo VI Einfacher Festkörper.pdf}
+	\end{figure}
+	
+	Die Wärme, die benötigt wird, um einen kalten Festkörper um z.B. $1°C$ zu erwärmen ist also geringer als die Wärme, um einen warmen Festkörper um dieselbe Temperaturdifferenz zu erwärmen. Denn die Joule pro Kelvin nehmen zu.\\
+	\\
+	Sie kann errechnet werden über
+		\begin{align*}
+			Q = \int_{Q(T_1)}^{Q(T_2)}\diff Q &= \int_{T_1}^{T_2}C(T)\,\diff T = E(T_2) - E(T_1).
+		\end{align*}
+		
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Beispiel: Klassisches ideales Gas}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{3 Dimensionen}
+
+
+		\item \textbf{$N$ ununterscheidbare Teilchen}
+		
+		
+		\item \textbf{punktförmige Teilchen}
+		
+		
+		\item \textbf{wechselwirkungsfreie Teilchen}
+
+
+		\item \textbf{Vernachlässigung qm. Effekte}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{mikrokanonische Zustandssumme}
+			\begin{align}
+				\Omega &= \frac{1}{(2\pi\hbar)^{3N}} \frac{1}{N!} \frac{1}{\Gamma \lr{ \frac{3N}{2} + 1 }} V^N (2 \pi m E)^{\frac{3N}{2}} \approx \\
+				&\stackrel{\commenttext{Stirling}}{\approx} \frac{1}{N!} \frac{1}{\lr{\frac{3N}{2}}!} V^N \lr{\frac{mE}{2\pi\hbar^2}}^{\frac{3N}{2}}
+			\end{align}
+		
+		
+		\item \textbf{Entropie}
+			\begin{equation}
+				S = k_B \cdot \ln \lr{ \frac{1}{N!} \frac{1}{\lr{\frac{3N}{2}}!} V^N \lr{\frac{mE}{2\pi\hbar^2}}^{\frac{3N}{2}} }
+			\end{equation}
+			
+		
+		\item \textbf{Energie}
+			\begin{equation}
+				E = \frac{3}{2} N k_B T
+			\end{equation}
+		
+		
+		\item \textbf{Wärmekapazität}
+			\begin{equation}
+				C_V = \frac{3}{2} N k_B
+			\end{equation}
+		
+		
+		\item \textbf{Druck}
+			\begin{equation}
+				p V = N k_B T
+			\end{equation}
+	\end{itemize}
+
+
+%\vspace{0.5cm}
+%
+%{\color{violet}
+%\hrule
+%	\fbox{Herleitung}\\
+%	zz: $\Omega = \frac{1}{(2\pi\hbar)^{3N}} \frac{1}{N!} \int \diff^3 q_1 \cdot ... \cdot \diff^3 p_N\, \Theta\lr{ E - H(\{q_\alpha\}, \{p_\alpha\}) }$\\
+%	\\
+%	Herleitungsskizze:\\
+%	1) \textcolor{red}{ERGÄNZEN Herleitung Uwer S}
+%
+%
+%\hrule
+%}
+
+
+\newpage
+
+
+\subsection{Kanonisches Ensemble}
+	\begin{itemize}
+		\item \textbf{Kanonische Zustandssumme}\\
+		Normierung der Wahrscheinlichkeitsdichte des kanonischen Ensembles
+			\begin{equation}
+				Z = \sum_r e^{-\beta E_r}
+			\end{equation}
+		
+		
+		\item \textbf{Wahrscheinlichkeitsdichte}
+			\begin{equation}
+				\rho(\{q_\alpha\},\{p_\alpha\}) = \frac{1}{Z} e^{-\beta H}
+			\end{equation}
+		
+		
+		\item \textbf{Kanonisches Potential}
+			\begin{equation}
+				F = -\frac{1}{\beta} \cdot \ln Z
+			\end{equation}
+	\end{itemize}
+
+Wichtige Zusammenhänge zu thermodynamischen Größen sind:
+	\begin{align}
+		\braket{H} &= - \frac{\partial}{\partial\beta} \ln Z \\
+		S &= -\lr{ \frac{\partial F}{\partial T} }_{V,N} \\
+		p &= -\lr{ \frac{\partial F}{\partial V} }_{T,N} \\
+		\mu &= \lr{ \frac{\partial F}{\partial N} }_{V,T}
+	\end{align}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $Z = \sum_r e^{-\beta E_r}$\\
+	\\
+	Zur Herleitung der kanonischen Zustandsdichte werden zunächst das betrachtete System, das Wärmebad und das Gesamtsystem beschrieben. Das betrachtete System habe die Energie $E_1$, das Volumen $V_1$ und die Teilchenzahl $N_1$, das Wärmebad $E_2, V_2, N_2$ und das Gesamtsystem $E = E_1 + E_2, V = V_1 + V_2, N = N_1 + N_2$. \\
+	Die Wahrscheinlichkeitsdichte das System in $E_1$ zu finden, ist
+		\begin{align*}
+			\rho(E_1) &= \frac{(\text{\# Zustände s.d. $E_1$ im betrachteten Sys.}) \cdot \text{(\# Zustände s.d. $E-E_1$ im Wärmebad)}}{\text{Alle möglichen Zustände bei beliebiger Energie}} \hat{=} \\
+			&\hat{=} \frac{\Omega_1(E_1) \cdot \Omega_B(E-E_1)}{A}
+		\intertext{Annahme: $E_1\ll E_2$. Entwickle daher $\ln\Omega_B$ in $E_1$ um 0. Nutze den Logarithmus, weil so die Entropie wiedererkannt werden kann.}
+			k_B\ln\Omega_B(E-E_1) &= k_B\ln\Omega_B(E) + k_B\left.\frac{\diff \ln\Omega_B(E-E_1)}{\diff E_1}\right|_{E_1=0}\cdot (E_1 - 0) + ... = \\
+			&= k_B\ln\Omega_B(E) + \underbrace{\frac{\diff S_B(E_2)}{\diff E_2}}_{=\frac{1}{T}} \cdot \underbrace{\frac{\diff E_2}{\diff E_1}}_{\frac{\diff}{\diff E_1}(E-E_1) = -1}\bigg|_{E_1=0} \cdot E_1 + ... = S_B - \frac{1}{T}E_1 + ... \\
+			\stackrel{\comment{:k_B, e^{()}}}{\Leftrightarrow} \Omega_B(E-E_1) &= e^{\ln\Omega_B(E) - \frac{1}{k_B T}E_1} = \Omega_B(E)\cdot e^{-\beta E_1}
+		\intertext{Einsetzen in die Wahrscheinlichkeitsdichte liefert:}
+			\rho(E_1) &= \frac{\Omega_1(E_1) \cdot \Omega_B(E)\cdot e^{-\beta E_1}}{A} \equiv \frac{\Omega_1(E_1) e^{-\beta E_1}}{A'}
+		\end{align*}
+
+	Formuliere nun die Wahrscheinlichkeitsdichte bzgl. der Variablen des Phasenraums
+		\begin{align*}
+			\rho(\{q_\alpha\},\{p_\alpha\}) &= \rho(\{q_\alpha\},\{p_\alpha\} | E_1) \cdot \rho(E_1) = \frac{1}{\cancel{\Omega_1(E_1)}} \cdot \frac{\cancel{\Omega_1(E_1)} e^{-\beta E_1}}{A'} = \frac{1}{A'} e^{\beta H(\{q_\alpha\},\{p_\alpha\})} \\
+			\stackrel{\int}{\Rightarrow} 1 &= \frac{\int \diff\Gamma_{q,p}}{(2\pi\hbar)^{3N}\cdot N!} \frac{1}{A'} e^{\beta H(\{q_\alpha\},\{p_\alpha\})} \\
+			\Leftrightarrow Z &\equiv A' = \frac{1}{(2\pi\hbar)^{3N}}\frac{1}{N!} \int \diff\Gamma_{q,p}\, e^{-\beta H} \qquad\blacksquare
+		\end{align*}
+
+	
+	\fbox{Herleitung}\\
+	zz: $\braket{H} = -\partial_\beta \ln Z$
+		\begin{align*}
+			\frac{\partial \ln Z}{\partial\beta} \stackrel{\commenttext{Kettenregel}}{=} \frac{1}{Z} \cdot \frac{\partial Z}{\partial \beta} \stackrel{\comment{Z}}{=} \frac{1}{Z} \cdot \frac{1}{(2\pi\hbar)^{3N}}\frac{1}{N!} \int \diff\Gamma_{q,p}\, (-H) e^{-\beta H} = -\braket{H} \qquad\blacksquare
+		\end{align*}
+
+	\fbox{Herleitung}\\
+	zz: $S = k_B \ln Z + \frac{1}{T} \braket{H}$
+		\begin{align*}
+			S &= -k_B \braket{\ln\rho} = -k_B \int \frac{d\Gamma}{(2\pi\hbar)^{3N}\cdot N!}\, \rho \ln \rho = -k_B \int \diff\Gamma\, \rho \ln\lr{\frac{1}{Z}e^{-\beta H}} = -k_B \int \diff\Gamma\, \rho \lr{ -\ln Z - \beta H } = \\
+			&= -k_B \lr{-\braket{Z} - \beta\braket{H}} \stackrel{\comment{\beta = \frac{1	}{k_B T}}}{=} k_B \ln Z + \frac{1}{T} \underbrace{\braket{H}}_{=E}
+		\end{align*}
+
+	\fbox{Herleitung}\\
+	zz: $F = -k_B T \ln Z$\\
+	\\
+	Stelle den für die Entropie gefundenen Zusammenhang so um, dass die freie Energie $F$ identifiziert werden kann.
+		\begin{align*}
+			S &= k_B \ln Z + \frac{1}{T}E \\
+			\Leftrightarrow -k_B T \ln Z &= E - TS = F \\
+			\Rightarrow F &= -k_B T \ln Z \qquad \blacksquare
+		\end{align*}
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Großkanonisches Ensemble}
+	\begin{itemize}
+		\item \textbf{Großkanonische Zustandssumme}
+		Normierung der Wahrscheinlichkeitsdichte des großkanonischen Ensembles
+			\begin{align}
+				Y(T, \mu, N) &= \sum_{N=0}^\infty (e^{\beta\mu})^N \cdot Z(T,V,N) \\
+				&\equiv \sum_{N=0}^\infty z^N \cdot Z(T,V,N)
+			\end{align}
+		
+		mit der \underline{Fugazität} $z$
+		
+		
+		\item \textbf{Wahrscheinlichkeitsdichte}
+			\begin{equation}
+				\rho(\{q_\alpha\},\{p_\alpha\},N) = \frac{1}{Y} e^{-\beta H + \beta\mu N}
+			\end{equation}
+		
+		
+		\item \textbf{Großkanonisches Potential}
+			\begin{equation}
+				J(T,V,\mu) = -\frac{1}{\beta}\ln Y
+			\end{equation}
+	\end{itemize}
+
+Wichtige Zusammenhänge zu thermodynamischen Größen sind:
+	\begin{align}
+		\braket{N} &= z \frac{\partial}{\partial z} \ln Y \\
+		\braket{H} &= -\lr{ \frac{\partial}{\partial \beta} \ln Y }_{z,V} \\
+		p &= -\lr{ \frac{\partial J}{\partial V} }_{T,\mu} \\
+		S &= -\lr{ \frac{\partial J}{\partial T} }_{V,\mu} \\
+		N &= -\lr{ \frac{\partial J}{\partial \mu} }_{T,V}
+	\end{align}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $Y = \sum_{N=0}^\infty z^N \cdot Z(T,V,N)$\\
+	\\
+	Zur Herleitung der großkanonischen Zustandssumme werden zunächst, wie bei der Herleitung der kanonischen Zustandssumme, dem betrachteten System, Wärmebad + Teilchenreservoir und dem Gesamtsystem die Größen Energie, Volumen und Teilchenzahl zugeordnet.\\
+	Die Wahrscheinlichkeitsdichte das betrachtete System bei Energie $E_1$ und Teilchenzahl $N_1$ bei vorgegebener Temperatur, chemischem Potential und Gesamtvolumen ist, ebenfalls analog zum Ansatz der kanonischen Zustandssumme
+		\begin{align*}
+			\rho(E_1, N_1 | T, \mu, V) &= \frac{\Omega_1(E_1,N_1)\Omega_B(E-E_1,N-N_1)}{A}
+		\end{align*}
+
+	Mache die Annahme, dass die Energie und Teilchenzahl des betrachteten Systems im Vergleich zum Wärmebad und Teilchenreservoir vernachlässigbar klein ist, also $E_1\ll E$, $N_1\ll N$. Entwickle daher $\ln\Omega_B(E-E_1,N-N_1)$ in $E_1,N_1$ um $(0,0)$. Nutze erneut den Logarithmus, um die Entropie wiedererkennen zu können.
+		\begin{align*}
+			k_B\ln\Omega_B(E-E_1,N-N_1) &\approx k_B \ln\Omega_B(E,N) + k_B \left.\frac{\partial \ln\Omega_B(E_2,N_2)}{\partial E_1}\right|_{0} E_1 + k_B \left.\frac{\partial \ln\Omega_B(E_2,N_2)}{\partial N_1}\right|_{0} N_1 + ... = \\
+			&= k_B \ln\Omega_B(E,N) + \frac{\partial S(E_2,N_2)}{\partial E_2}\frac{\partial E_2}{\partial E_1} E_1 + \frac{\partial S(E_2,N_2)}{\partial N_2}\frac{\partial N_2}{\partial N_1} + ... = \\
+			&= k_B \ln\Omega_B(E,N) - \frac{1}{T}E_1 + \frac{\mu}{T} N_1 + ... \\
+			\stackrel{\comment{:k_B, e^{()}}}{\Leftrightarrow} \Omega_B(E_2,N_2) &\approx \Omega_B(E,N) \cdot e^{-\beta E_1 + \beta\mu N_1}
+		\end{align*}
+
+	Einsetzen in die Wahrscheinlichkeitsdichte liefert:
+		\begin{align*}
+			\rho(E_1, N_1 | T, \mu, V) &= \frac{\Omega_1(E_1,N_1) \cdot \Omega_B(E,N) \cdot e^{-\beta E_1 + \beta\mu N_1}}{A} \equiv \frac{\Omega_1(E_1,N_1) \cdot e^{-\beta E_1 + \beta\mu N}}{A'}
+		\end{align*}
+
+	Formuliere nun die Wahrscheinlichkeitsdichte bzgl. der Variablen des Phasenraums
+		\begin{align*}
+			\rho(\{q_\alpha,p_\alpha\} | T,\mu,V) &= \rho(\{q_\alpha,p_\alpha\} | E_1, N_1, V ) \cdot \rho(E_1, N_1 | T, \mu, V) = \\
+			&= \frac{1}{\cancel{\Omega_1(E_1,N_1)}} \cdot \frac{\cancel{\Omega_1(E_1,N_1)} \cdot e^{-\beta E_1 + \beta\mu N}}{A'}
+		\end{align*}
+	
+	Normierung liefert die Normierungskonstante, die als großkanonische Zustandssumme bezeichnet wird.
+		\begin{align*}
+			1 &\stackrel{!}{=} \sum_{N_1=0}^\infty \int \frac{\diff\Gamma_{q,p}}{(2\pi\hbar)^{3N}\cdot N_1!} \frac{e^{-\beta H + \beta\mu N_1}}{A'} = \frac{1}{A'} \sum_{N_1=0}^\infty \underbrace{e^{\beta\mu N_1}}_{\comment{\equiv z^{N_1}}} \frac{1}{(2\pi\hbar)^{3N}\cdot N_1!} \int \diff\Gamma_{q,p}\, e^{-\beta H} = \\
+			&= \frac{1}{A'} \sum_{N_1=0}^\infty z^{N_1} \cdot Z(T,V,N_1) \\
+			\Leftrightarrow Y \equiv A' &= \sum_{N_1=0}^\infty z^{N_1} \cdot Z(T,V,N_1) \qquad \blacksquare
+		\end{align*}
+
+
+	\fbox{Herleitung}\\
+	zz: $\braket{N} = z \partial_z \ln Y$
+		\begin{align*}
+			\braket{N} &= \sum_N \int \frac{\diff\Gamma_{q,p}}{(2\pi\hbar)^{3N} \cdot N!}\, \rho(\{q_\alpha, p_\alpha\}) \cdot N = \sum_N \int \frac{\diff\Gamma_{q,p}}{(2\pi\hbar)^{3N} \cdot N!}\, \frac{1}{Y} \underbrace{e^{-\beta H + \beta\mu N}}_{= e^{-\beta H} \cdot z^N} \cdot N = \\
+			&= \frac{1}{Y} \sum_N z^N \cdot Z\cdot N = \frac{1}{Y} z \frac{\partial}{\partial z} Y = z\frac{\partial}{\partial z} \ln Y \qquad \blacksquare
+		\end{align*}
+	
+	
+	\fbox{Herleitung}\\
+	zz: $\braket{H} = \partial_\beta \ln Y$
+		\begin{align*}
+			\braket{H} &= \sum_N \int \frac{\diff\Gamma_{q,p}}{(2\pi\hbar)^{3N} \cdot N!}\, \rho(\{q_\alpha, p_\alpha\}) \cdot H = \sum_N \int \frac{\diff\Gamma_{q,p}}{(2\pi\hbar)^{3N} \cdot N!}\, \frac{1}{Y} \underbrace{e^{-\beta H + \beta\mu N}}_{= e^{-\beta H} \cdot z^N} \cdot H = \\
+			&= \frac{1}{Y} \sum_N z^N \cdot H \int \frac{\diff\Gamma_{q,p}}{(2\pi\hbar)^{3N} \cdot N!}\, e^{-\beta H} = \frac{1}{Y} \sum_N z^N  \int \frac{\diff\Gamma_{q,p}}{(2\pi\hbar)^{3N} \cdot N!}\, \lr{-\frac{\partial}{\partial\beta} e^{-\beta H} }_{z,V} = \\
+			&= -\frac{1}{Y}\frac{\partial}{\partial \beta}Y = -\frac{\partial}{\partial \beta} \lr{\ln Y}_{z,V}
+		\end{align*}
+
+
+	\fbox{Herleitung}\\
+	zz: $S = k_B \ln Y + \frac{1}{T} \braket{H} - \frac{\mu}{T} \braket{N}$\\
+	\\
+	Benutze den Trick, nur die Wahrscheinlichkeitsdichte im Logarithmus einzusetzen. So können nämlich ganz einfach die Erwartungswerte wiedererkannt werden.
+		\begin{align*}
+			S &= -k_B\braket{\ln\rho} = -k_B \sum_{N=0}^\infty \int \frac{\diff\Gamma}{(2\pi\hbar)^{3N} \cdot N!}\, \rho \cdot \underbrace{\ln\lr{ \frac{1}{Y} e^{-\beta H + \beta\mu N} } }_{-\ln Y - \beta H + \beta\mu N} = \\
+			&= -k_B \big(-\ln Y - \underbrace{\beta}_{\frac{1}{k_B T}} \braket{H} + \beta\mu \braket{N} \big) = \\
+			&= k_B\ln Y + \frac{1}{T} \braket{H} - \frac{\mu}{T} \braket{N}
+		\end{align*}
+
+	
+	\fbox{Herleitung}\\
+	zz: $J = -k_B T \ln Y$
+		\begin{align*}
+			TS &= k_B T \ln Y + \braket{H} - \mu \braket{N} \\
+			\Leftrightarrow -k_B T \ln Y &= \braket{H} - TS - \mu \braket{N} = J \\
+			\Rightarrow J &= -k_B T \ln Y \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Quantenmechanische statistische Physik}
+\subsection{Mikrokanonisches Ensemble}
+	\begin{itemize}
+		\item \textbf{mikrokanonische Zustandssumme}
+			\begin{equation}
+				\Omega_\text{QM} = \sum_{n\\ E-\delta E \leq E_n \leq E} 1
+			\end{equation}
+		
+		
+		\item \textbf{Dichteoperator}
+			\begin{equation}
+				\hat{\rho} = \frac{1}{\Omega_\text{QM}} \sum_{n\\ E-\delta E \leq E_n \leq E} \ket{n}\bra{n}
+			\end{equation}
+		
+		
+		\item \textbf{Thermodynamisches Potential}
+			\begin{equation}
+				S = k_B \ln \Omega_\text{QM}
+			\end{equation}
+	\end{itemize}
+
+Aus der Entropie können, wie in der klassischen statistischen Physik, die gewünschten thermodynamischen Größen bestimmt werden.\\\\
+Aus der Eigenschaft $\braket{O} = \text{Sp}(\hat{\rho}\hat{O})$ folgt eine weitere nützliche Formel zur Bestimmung der Energie
+	\begin{equation}
+		\braket{H} = \frac{1}{\Omega_\text{QM}} \cdot \sum_{n\\ E-\delta E \leq E_n \leq E} E_n.
+	\end{equation}
+
+
+\subsection{Kanonisches Ensemble}
+	\begin{itemize}
+		\item \textbf{kanonische Zustandssumme}
+			\begin{equation}
+				Z_\text{QM} = \text{Sp} \lr{ e^{-\beta \hat{H}} }
+			\end{equation}
+		
+		
+		\item \textbf{Dichteoperator}
+			\begin{equation}
+				\hat{\rho} = e^{-\beta \hat{H}}
+			\end{equation}
+	\end{itemize}
+
+Alle weiteren Gleichungen stimmen mit der klassischen Behandlung überein.
+
+\newpage
+
+
+\subsubsection{Beispiel: Planck'sches Strahlungsgesetz}
+Das Planck'sche Strahlungsgesetz beschreibt die spektrale Energiedichte von schwarzen Strahlern.\\
+\\
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{Photonengas}\\
+		Betrachte ein Photonengas in einem festen Volumen $V$ und der Temperatur $T$.\\
+Da Photonen von den Wänden emittiert und absorbiert werden können, wird $N$ nicht als konstant betrachtet.
+		
+		
+		\item \textbf{Dispersionsrelation}
+			\begin{equation}
+				\omega = c k
+			\end{equation}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{kanonisches Potential}
+			\begin{equation}
+				F = - \frac{4}{3}\frac{\sigma}{c}V T^4
+			\end{equation}
+		
+		\item \textbf{Energie}
+			\begin{equation}
+				E = 4 \frac{\sigma}{c} V T^4
+			\end{equation}
+		
+		
+		\item \textbf{spezifische Wärmekapazität}
+			\begin{equation}
+				C_V = 16 \frac{\sigma}{c} V T^3
+			\end{equation}
+		
+		
+		\item \textbf{spektrale Energiedichte}\\
+		Die spektrale Energiedichte wird durch das Planck'sche Strahlungsgesetz
+			\begin{align}
+				u_{\text{P}}(\omega,T) &= \frac{\hbar}{\pi^2 c^3} \frac{\omega^3}{e^{\beta \hbar\omega} - 1} \\
+				u_{\text{P}}(\lambda,T) &= \frac{8\pi h c}{\lambda^5} \frac{1}{e^{\beta h c / \lambda} - 1}
+			\end{align}
+
+		beschrieben, die im Grenzfall $\hbar\omega\gg k_B T$ bzw. $\hbar\omega\ll k_B T$ in das Rayleigh-Jeans bzw. Wien'sche Gesetz
+			\begin{align}
+				u_{\text{RJ}}(\omega, T) &\approx \frac{1}{\pi^2 c^3} k_B T \omega^2 \\
+				u_{\text{W}}(\omega,T) &\approx \frac{\hbar}{\pi^2 c^3} \omega^3 e^{-\beta \hbar \omega} \\
+				u_{\text{RJ}}(\lambda, T) &\approx \frac{8\pi}{\lambda^4} k_B T \\
+				u_{\text{W}}(\lambda,T) &\approx \frac{8\pi h c}{\lambda^5} e^{-\beta h c/\lambda}
+			\end{align}
+
+		übergeht.
+	\end{itemize}
+
+
+\newpage
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Grafiken/Theo VI Plancksches Strahlungsgesetz.pdf}
+	\caption{Spektrale Energiedichte in Abhängigkeit der Wellenlänge $\lambda$ für verschiedene Temperaturen}
+	
+	\vspace*{0.5cm}
+	
+	\includegraphics[width=0.7\textwidth]{Grafiken/Theo VI Planck RJ Wien.pdf}
+	\caption{Plot der spektralen Energiedichte beschrieben durch das Planck'sche, Rayjeigh-Jeans'sche und Wien'sche Strahlungsgesetz für $T=300\,$K}
+	
+	\vspace*{0.5cm}
+	
+	\includegraphics[width=0.7\textwidth]{Grafiken/Theo VI Planck RJ Wien Wellenlänge.pdf}
+	\caption{Plot der spektralen Energiedichte beschrieben durch das Planck'sche, Rayjeigh-Jeans'sche und Wien'sche Strahlungsgesetz in Abhängigkeit der Wellenlänge für $T=300\,$K}
+\end{figure}
+
+
+\newpage
+
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $w(\omega,T) = \frac{\hbar}{\pi^2 c^3} \frac{\omega^3}{e^{\beta\hbar\omega} - 1}$\\
+	\\
+	Die spektrale Energiedichte ist die Energiedichte (hier meint Dichte bezüglich der Frequenz) normiert auf das Volumen. Sie kann aus der mittleren Besetzungszahl hergeleitet werden.
+		\begin{align*}
+			E &= \sum_{\vec{k},\lambda} \braket{n_{\vec{k}}^\lambda} \varepsilon_{\vec{k}} \longrightarrow \int \diff^3 n\, \sum_\lambda \braket{n_{\vec{k}}^\lambda} \varepsilon_{\vec{k}} = \int \lr{\frac{V}{(2\pi\hbar)^3}4\pi p^2\diff p }\, \sum_\lambda \braket{n_{\vec{k}}^\lambda} \varepsilon_{\vec{k}} =\\
+			&= \int \frac{V}{(2\pi\hbar)^3} 4\pi \lr{\frac{\hbar}{c}\omega}^2 \lr{\frac{\hbar}{c} \diff\omega} \sum_\lambda \braket{n_{\vec{k}}^\lambda} \varepsilon_{\vec{k}} = \frac{V}{2\pi^2c^2} \int\diff\omega \sum_\lambda \frac{\omega^2}{e^{\beta\hbar\omega} - 1} \hbar\omega= \\
+			\Rightarrow w(\omega,T) &= \frac{\hbar}{\pi^2 c^3} \frac{\omega^3}{e^{\beta\hbar\omega} - 1} \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+\subsection{Großkanonisches Ensemble}
+	\begin{itemize}
+		\item \textbf{großkanonische Zustandssumme}
+			\begin{equation}
+				Y_\text{QM} = \text{Sp} \lr{ e^{-\beta(\hat{H} - \mu\hat{N})} }
+			\end{equation}
+		
+		
+		\item \textbf{Dichteoperator}
+			\begin{equation}
+				\hat{\rho} = \frac{1}{Y_\text{QM}} e^{-\beta(\hat{H} - \mu\hat{N})}
+			\end{equation}
+	\end{itemize}
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $\rho, J$\\
+	\\
+	Bestimme die großkanonische Zustandssumme $Y$.
+		\begin{align*}
+			Y &= \sum_{N=0}^\infty z^N\cdot Z(T,V,N) = \sum_{N=0}^\infty e^{\beta \mu N} \cdot \sum_{ r, N = \text{konst} } e^{-\beta E_r} =
+		\intertext{Da die Summe $\sum_{r,N}$ verwendet, dass $N$ konstant ist, kann die Fugazität $z^N$ in die Summe gezogen werden:}
+			&= \cancel{ \sum_{N=0}^\infty } \sum_{ r, \cancel{ N = \text{konst} } } e^{\beta (\mu N} \cdot e^{-\beta E_r} = \sum_r e^{\beta (\mu N - E_r)} = 
+		\intertext{Die Teilchenzahl eines Mikrozustands ist $N = \sum_{\vec{k}}\sum_{S_z} n_{\vec{k}}^{S_z}$ und dessen Energie $E_r = \sum_{\vec{k}}\sum_{S_z} \varepsilon_{\vec{k}}\cdot n_{\vec{k}}^{S_z}$.}
+			&= \sum_r e^{\beta (\mu \sum_{\vec{k}}\sum_{S_z} n_{\vec{k}}^{S_z} - \sum_{\vec{k}}\sum_{S_z} \varepsilon_{\vec{k}}\cdot n_{\vec{k}}^{S_z})} = \sum_r e^{ \beta \sum_{\vec{k},S_z} (\mu - \varepsilon_{\vec{k}}) n_{\vec{k}}^{S_z} } =
+		\intertext{Der Mikrozustand kann deutlicher gemacht werden $r \equiv (n_{\vec{k}_1^{-S}}, ..., n_{\vec{k}_1^{S}}, n_{\vec{k}_2^{-S}}, ..., n_{\vec{k}_1^{S}}, ...) \equiv \{n_{\vec{k}}^{S_z}\}$. Somit $\sum_r = \sum_{ \{n_{\vec{k}}^{S_z}\} } = \sum_{n_{\vec{k}_1}^{-S}}...\sum_{n_{\vec{k}_1}^{S}} \sum_{n_{\vec{k}_2}^{-S}}...\sum_{n_{\vec{k}_2}^{S}}... \equiv \sum_{ n_{\vec{k}}^{-S} }... \sum_{ n_{\vec{k}}^{S} }$}
+			&= \sum_{ n_{\vec{k}}^{-S} }... \sum_{ n_{\vec{k}}^{S} }  e^{ \beta \sum_{\vec{k}} (\mu - \varepsilon_{\vec{k}}) n_{\vec{k}}^{-S} }... e^{ \beta \sum_{\vec{k}} (\mu - \varepsilon_{\vec{k}}) n_{\vec{k}}^{+S} } = \sum_{ n_{\vec{k}}^{-S} } e^{ \beta \sum_{\vec{k}} (\mu - \varepsilon_{\vec{k}}) n_{\vec{k}}^{-S} } ... \sum_{ n_{\vec{k}}^{S} } e^{ \beta \sum_{\vec{k}} (\mu - \varepsilon_{\vec{k}}) n_{\vec{k}}^{+S} } = \\
+			&= \lr{ \sum_{n_{\vec{k}}} e^{\beta \sum_{\vec{k}} (\mu - \varepsilon_{\vec{k}}) n_{\vec{k}}} }^{g_s} = \lr{ \sum_{n_{\vec{k}_1}} \sum_{n_{\vec{k}_2}} ... e^{\beta (\mu - \varepsilon_{\vec{k}_1}) n_{\vec{k}_1}}e^{\beta (\mu - \varepsilon_{\vec{k}_2}) n_{\vec{k}_2}} ... }^{g_s} = \prod_{\vec{k}} \lr{ \sum_n e^{\beta(\mu - \varepsilon_{\vec{k}}) n} }^{g_s}
+		\end{align*}
+
+	Betrachte nun die Fälle von Fermionen und Bosonen.\\
+	\\
+	$\bullet$ \textbf{Fermionen}\\
+	Bei Fermionen können die Besetzungszahlen lediglich die Werte $0,1$ annehmen.\\
+	Somit wird die finale Summe in $Y$
+		\begin{align*}
+			\sum_{n=0}^1 e^{\beta(\mu - \varepsilon_{\vec{k}}) n} = 1 + e^{\beta(\mu - \varepsilon_{\vec{k}})} = 1 + z e^{-\beta\varepsilon_{\vec{k}}}
+		\end{align*}
+		
+	$\bullet$ \textbf{Bosonen}\\
+	Bei Bosonen können die Besetzungszahlen die Werte $0,1,...$ annehmen.
+		\begin{align*}
+			\sum_{n=0}^\infty e^{\beta(\mu - \varepsilon_{\vec{k}}) n} &= \sum_{n=0}^\infty \lr{ e^{\beta(\mu - \varepsilon_{\vec{k}})} }^n = \frac{1}{1 - e^{\beta(\mu - \varepsilon_{\vec{k}}) }} = \frac{1}{1 - z e^{-\beta\varepsilon_{\vec{k}}}}
+		\end{align*}
+
+	Die Ergebnisse für Fermionen und Bosonen lassen sich zusammenfassen zu
+		\begin{align*}
+			(1 - \sigma z e^{-\beta \varepsilon_{\vec{k}}})^{-\sigma}
+		\end{align*}
+	
+	mit $\sigma=\begin{cases}-1,& \text{Fermionen}\\+1,&\text{Bosonen}\end{cases}$.\\
+	\\
+	Somit folgt
+		\begin{align*}
+			\rho &= \frac{1}{Y} e^{\beta(\mu N - E) } = \frac{1}{Y} e^{\beta \sum_{\vec{k},S_z}(\mu - \varepsilon_{\vec{k}}) n_{\vec{k}}^{S_z} } \qquad \blacksquare
+		\end{align*}
+	
+	und	
+		\begin{align*}
+			J &= -\frac{1}{\beta} \ln Y = -\frac{1}{\beta} \ln \lreck{ \prod_{\vec{k}} \lr{ (1 - \sigma z e^{-\beta \varepsilon_{\vec{k}}})^{-\sigma} }^{g_s} } = +\sigma g_s k_B T \sum_{\vec{k}} \ln (1 - \sigma z e^{-\beta \varepsilon_{\vec{k}}}) \qquad \blacksquare
+		\end{align*}
+	
+	\fbox{Herleitung}\\
+	zz: mittlere Besetzungszahl $\braket{\tilde{n}_{\vec{k}}^{\tilde{S}_z}}$
+		\begin{align*}
+			\braket{n_{\vec{\tilde{k}}}^{\tilde{S}_z}} &= \sum_{\{n_{\vec{k}}^{S_z}\}} \rho\cdot  \tilde{n}_{\vec{k}}^{\tilde{S}_z} = \\
+			&= \frac{1}{Y} \sum_{\vec{k}_1^{-S}} ... \sum_{\vec{k}_1^{S}} \sum_{\vec{k}_2^{-S}} ... e^{\beta(\mu - \varepsilon_{\vec{k}_1} ) n_{\vec{k}}^{-S}} \cdot ... \cdot e^{\beta(\mu - \varepsilon_{\vec{k}_1} ) n_{\vec{k}}^{+S}} \cdot ... = \\
+			&\stackrel{\comment{Y}}{=} \frac{ \sum_{\vec{k}_1^{-S}} ... \sum_{\vec{k}_1^{S}} \sum_{\vec{k}_2^{-S}} ... e^{\beta(\mu - \varepsilon_{\vec{k}_1} ) n_{\vec{k}}^{-S}} \cdot ... \cdot e^{\beta(\mu - \varepsilon_{\vec{k}_1} ) n_{\vec{k}}^{+S}} \cdot ... \cdot {\color{red} n_{\tilde{k}}^{\tilde{S}_z} } }{ \sum_{\vec{k}_1^{-S}} ... \sum_{\vec{k}_1^{S}} \sum_{\vec{k}_2^{-S}} ... e^{\beta(\mu - \varepsilon_{\vec{k}_1} ) n_{\vec{k}}^{-S}} \cdot ... \cdot e^{\beta(\mu - \varepsilon_{\vec{k}_1} ) n_{\vec{k}}^{+S}} \cdot ... } =
+		\intertext{Dabei faktorisieren die Summen und es kürzen sich alle, bis auf die mit $\tilde{k}$, $\tilde{S}_z$. Nenne die Besetzungszahl dieses Zustand im folgenden $n$.}
+			&= \frac{\sum_n n\cdot e^{\beta(\mu - \varepsilon_{\vec{k}}) n}}{\sum_n e^{\beta(\mu - \varepsilon_{\vec{k}}) n}} = 
+		\end{align*}
+	
+	\textcolor{red}{ERGÄNZEN}
+\hrule
+}
+
+
+
+
+\newpage
+
+
+\subsubsection{Fermionengas}
+Für ein Gas aus nicht wechselwirkenden Fermionen beschreibt die  \textbf{Fermi-Dirac-Verteilung} die mittlere Besetzungszahl des Zustands $(\vec{k},S_z)$
+	\begin{equation}
+		f_\text{FD}(\varepsilon_{k}) \equiv \braket{n_{\vec{k}}^{S_z}} = \frac{1}{e^{\beta(\varepsilon_k - \mu)} + 1}.
+	\end{equation}
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.8\textwidth]{Grafiken/Theo VI Fermi-Dirac-Verteilung.pdf}
+		}
+		\caption{Fermi-Dirac-Verteilung für $T=0$ und $T>0$}
+	\end{figure}
+
+
+	\begin{itemize}
+		\item \textbf{$\mathbf{T=0}$}\\
+		Die Zustände sind bis zu einer bestimmten Energie, der Fermi-Energie $E_F$, besetzt.\\
+Für Gesamtteilchenzahl und -energie ergibt sich:
+			\begin{align}
+				N &= g_s \frac{V}{(2\pi\hbar)^3} \frac{4}{3}\pi p_F^3 \\
+				E &= \frac{3}{5} N \varepsilon_F
+			\end{align}
+	
+	
+		\item \textbf{$\mathbf{T>0}$}\\
+		Für die Gesamtteilchen und -energie ergibt sich analog zum $T=0$ Fall
+			\begin{align}
+				N &= g_s\frac{V}{\lambda^3} \cdot f_{3/2}(z) \approx \\
+				&\stackrel{\commenttext{Sommerfeld}}{\approx} g_s\frac{V}{\lambda^3} \cdot \frac{4}{3}\frac{1}{\sqrt{\pi}} \lr{\frac{\mu}{k_B T}}^{3/2} \lr{ 1 + \frac{\pi^2}{8} \lr{\frac{k_B T}{\mu}}^2 + ...}\\
+				E &= \frac{3}{5}N\varepsilon_F \lr{ 1 + \frac{5}{12}\pi^2 \lr{\frac{T}{T_F}}^2 + ...}
+			\end{align}
+
+		mit der Fermi-Dirac-Funktion $f_\nu$.	
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $N = g_s \frac{V}{(2\pi\hbar)^3} \frac{4}{3}\pi p_F^3$\\
+	\\
+	Für die Gesamtteilchenzahl muss für jeden Impuls $\vec{p}$, der betragsmäßig kleiner als der Fermi-Impuls ist ein Zustand (mal Entartungsgrad $g_s$) gezählt werden, d.h.
+		\begin{align*}
+			N &= g_s \sum_{|\vec{p}| < p_F} 1 = g_s \int \frac{V}{(2\pi\hbar)^3} \diff^3p = g_s \frac{V}{(2\pi\hbar)^3} \int_0^{p_F} \diff p\, p^2 \int \diff\Omega =\\
+			&= g_s \frac{V}{(2\pi\hbar)^3} \cdot 4\pi \cdot \frac{p_F^3}{3}
+		\end{align*}
+	
+	\fbox{Herleitung}\\
+	zz: $E = \frac{3}{5} N \varepsilon_F$\\
+	\\
+	Für die Gesamtenergie muss über alle Energien bis zur Fermi-Energie (mal Entartungsgrad) summiert werden, d.h.
+		\begin{align*}
+			E &= g_s \sum_{\varepsilon_{\vec{k}} < \varepsilon_F} \varepsilon_{\vec{k}} = g_s \sum_{p < p_F} \frac{p^2}{2m} = g_s \cdot \frac{V}{(2\pi\hbar)^3} \int d^3p\, \frac{p^2}{2m} = \\
+			&= g_s \cdot \frac{V}{(2\pi\hbar)^3} \cdot 4\pi \cdot \frac{1}{2m} \cdot \int_0^{p_F} \diff p\, p^2\cdot p^2 = g_s \cdot \frac{V}{(2\pi\hbar)^3} \cdot 4\pi \cdot \frac{1}{2m} \cdot \frac{p_F^5}{5} = \\
+			&= 3N \cdot \frac{1}{2m} \cdot \frac{p_F^2}{5} = \frac{3}{5}N\varepsilon_F
+		\end{align*}
+
+
+	\fbox{Herleitung}\\
+	\textcolor{red}{ERGÄNZEN Sommerfeld-Entwicklung}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Bose-Gas}
+Für ein Gas aus nicht wechselwirkenden Bosonen beschreibt die \textbf{Bose-Einstein-Verteilung} die mittlere Besetzungszahl des Zustands $(\vec{k},S_z)$
+	\begin{equation}
+		f_\text{BE}(\varepsilon_{k}) \equiv \braket{n_{\vec{k}}^{S_z}} = \frac{1}{e^{\beta(\varepsilon_k - \mu)} - 1}.
+	\end{equation}
+
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+		\includegraphics[width=0.8\textwidth]{Grafiken/bose-einstein-verteilung.pdf}
+	}
+	\caption{Bose-Einstein-Verteilung für $\mu=-0,1$ und verschiedene Temperaturen $T$}
+\end{figure}
+
+
+	\begin{itemize}
+		\item \textbf{Gesamtteilchenzahl}
+			\begin{equation}
+				N = g_s\frac{z}{1-z} + g_s\frac{V}{\lambda(T)^3} h_{3/2}(z) \stackrel{\commenttext{$T$ groß}}{\approx} g_s\frac{V}{\lambda(T)^3} h_{3/2}(z)
+			\end{equation}
+		
+		mit der Bose-Einstein-Funktion $h_\nu$.
+		
+		
+		\item \textbf{Energie}
+			\begin{equation}
+				E = \frac{3}{2} g_s \frac{V}{\lambda^3} k_B T h_{5/2}(z)
+			\end{equation}
+		
+		mit der thermischen Wellenlänge $\lambda$, der Fugazität $z$ und der Bose-Einstein-Funktion $h_{5/2}(z)$
+		
+		
+		\item \textbf{chemisches Potential}\\
+		Aus der Bose-Einstein-Verteilung folgt, dass für den Grundzustand $\varepsilon=0$
+			\begin{equation}
+				\mu\leq 0 \qquad\Rightarrow\qquad 0<z\leq 1
+			\end{equation}
+		
+		gelten muss.
+	\end{itemize}
+
+
+\newpage
+
+
+\subsubsection{Beispiel: Bose-Einstein-Kondensation}
+Unterschreitet die Temperatur bzw. das Volumen eines Bose-Gases aus $N$ Teilchen die kritische Temperatur $T_c$ bzw. $v_c$ so weist der Grundzustand $\varepsilon=0$ eine makroskopische Besetzung auf.
+
+
+	\begin{itemize}
+		\item \textbf{kritische Temperatur/Volumen}
+			\begin{align}
+				T_c &= \frac{h^2}{2\pi m k_B} \cdot \lr{ \frac{1}{g_s v \zeta(3/2)} }^{2/3}\\
+				v_c &= \frac{\lambda(T)^3}{g_s \zeta(3/2)}
+			\end{align}
+		
+		
+		\item \textbf{Druck}\\
+		Der Druck ist für $T<T_c$ konstant (in Abh. vom Volumen)
+			\begin{equation}
+				p_c = g_s \frac{k_B T}{\lambda(T)^3} \zeta(5/2)
+			\end{equation}
+		
+		
+		\item \textbf{Energie}
+			\begin{equation}
+				E \propto T^{5/2}
+			\end{equation}
+		
+		
+		\item \textbf{spezifische Wärmekapazität}
+			\begin{equation}
+				C_v \propto T^{3/2}
+			\end{equation}
+	\end{itemize}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Motivation}\\
+	Betrachte ein System mit $N$ Teilchen.\\
+	Für die angeregten Teilchen gilt
+		$$N_{\text{angeregt}} = g_s\frac{V}{\lambda(T)^3} h_{3/2}(z)$$
+
+	Die Funktion $h_{3/2}(z)$ ist eine monoton steigende Funktion. Bei größer werdenden $z$, muss also das $T$, das in der thermischen Wellenlänge vorkommt, kleiner werden, damit die Teilchenzahl konstant bliebt. Da $z$ maximal 1 werden kann, gibt es eine korrespondierende ''minimale'' kritische Temperatur $T_c$. Für $T<T_c$ sinkt also die Besetzung der angeregten Zustände
+		$$N_{\text{angeregt}} = g_s \frac{V}{\lambda(T_c)^3} h_{3/2}(1)$$
+
+	Umstellen liefert
+		\begin{equation}
+			T_c = \frac{h^2}{2\pi m k_B} \cdot \lr{ \frac{1}{g_s v \zeta(3/2)} }^{2/3}
+		\end{equation}
+
+	Denkbar ist auch, dass die Temperatur konstant gehalten und das Volumen verändert wird.
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Beispiel: Einstein-Modell}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{3d Festkörper mit $N$ Atomen}
+		
+		
+		\item \textbf{eine Schwingungsfrequenz}\\
+		Alle Atome schwingen unabhängig voneinander mit derselben Frequenz $\omega_E$. Dies entspricht der Zustandsdichte
+			\begin{equation}
+				Z(\omega) = 3N\delta(\omega - \omega_E)
+			\end{equation}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Energie}
+			\begin{equation}
+				E = 3N \hbar \omega_E \lr{ \frac{1}{2} + \frac{1}{e^{\beta \hbar \omega_e} - 1} }
+			\end{equation}
+		
+		\item \textbf{Wärmekapazität}
+			\begin{align}
+				C_V
+				\begin{cases}
+					\approx 3N k_B, & T \gg \theta_E \\
+					\propto e^{-\theta_E/T}, & T \ll \theta_E
+				\end{cases}
+			\end{align}
+		
+		mit der Einstein-Temperatur $\theta_E = \frac{\hbar\omega_E}{k_B}$
+	\end{itemize}
+
+
+\newpage
+
+
+\subsubsection{Beispiel: Debye-Modell}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{3d Festkörper mit $N$ Atomen}
+		
+		
+		\item \textbf{lineare Dispersionsrelation}
+			\begin{equation}
+				\omega = c_s \cdot k
+			\end{equation}
+		
+		
+		\item \textbf{Debye-Frequenz}\\
+		Die Gitterschwingungen können maximal die Debye-Frequenz $\omega_D$ annehmen
+		
+		
+		\item \textbf{isotropes Medium}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Zustandsdichte}
+			\begin{equation}
+				Z(\omega) = \frac{3}{2}\frac{V}{\pi^2 c^3} \omega^2 \cdot \Theta(-\omega + \omega_D)
+			\end{equation}
+		
+		
+		\item \textbf{Debye-Frequenz}
+			\begin{equation}
+				\omega_D = c_s \sqrt[3]{\frac{N}{V}6\pi^2}
+			\end{equation}
+		
+		
+		\item \textbf{Energie}
+			\begin{equation}
+				E
+				\begin{cases}
+					\propto T^4, & T\ll T_D \\
+					\approx 3k_B N T, & T\gg T_D
+				\end{cases}
+			\end{equation}
+		
+		mit der Debye-Temperatur $T_D = \frac{\hbar\omega_D}{k_B}$
+		
+		
+		\item \textbf{spezifische Wärmekapazität}
+			\begin{equation}
+				C_V
+				\begin{cases}
+					\propto T^3, & T\ll T_D \\
+					\approx 3 k_B N, & T\gg T_D
+				\end{cases}
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $Z(\omega), \omega_D$\\
+	\\
+	Ansatz: Integration der Moden über $\omega$ muss alle $3N$ Moden liefern. Dabei beginnt man mit der Summe über die Quantenzahlen.
+		\begin{align*}
+			3N &\stackrel{!}{=} 3\sum_{n_1,n_2,n_3} 1 \longrightarrow 3\int \diff^3n = 3\int \lr{\frac{L}{2\pi}}^3 \diff^3 k = \frac{3V}{(2\pi)^3} \int_0^{k_D} \diff k\, 4\pi k^2 = \\
+			&= \frac{3V}{2\pi^2} \int_0^{\omega_D} \lr{\frac{\diff\omega}{c_s}} \lr{\frac{\omega}{c_s}}^2 = \frac{3V}{2\pi^2c_s^3} \int_0^{\omega_D} \diff\omega\,\omega^2 = \int_0^{\omega_D} \diff\omega\, Z(\omega) \\
+			\Rightarrow Z(\omega) &= \frac{3V}{2\pi^2c_s^3} \omega^2 \qquad\blacksquare
+		\end{align*}
+
+	Ausintegrieren ergibt
+		\begin{align*}
+			\int_0^{\omega_D} \diff\omega\, Z(\omega) &= \frac{3V}{2\pi^2c_s^3}\int_0^{\omega_D} \diff\omega\,\omega^2 = \frac{3V}{2\pi^2c_s^3} \frac{\omega_D^3}{3} \stackrel{!}{=} 3N \\
+			\Leftrightarrow \omega_D &= \lr{\frac{6\pi^2c_s^3}{V}}^{1/3} \qquad\blacksquare
+		\end{align*}
+	
+	\fbox{Herleitung}\\
+	zz: $E, C_V$
+		\begin{align*}
+			E &= \sum_n \braket{n}\cdot \varepsilon_{\vec{k}} = \sum_n \frac{1}{e^{\beta\hbar\omega} - 1} \cdot \hbar\omega \longrightarrow \int \lr{ \diff\omega\, Z(\omega) } \cdot \frac{1}{e^{\beta\hbar\omega} - 1} \cdot \hbar\omega = \\
+			&= \frac{3V}{2\pi^2c_s^3} \hbar \int_0^{\omega_D} \diff\omega\, \frac{\omega^3}{e^{\beta\hbar\omega} - 1} \stackrel{\comment{x=\beta\hbar\omega}}{=} \frac{3V}{2\pi^2c_s^3}\hbar \int_0^{\beta\hbar\omega_D} \frac{\lr{\frac{x}{\beta\hbar}}^3}{e^x - 1} = 
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+%\section{Magnetische Eigenschaften von Materie}
+%Die Suszeptibilitäten
+%	\begin{equation}
+%		\chi_x = \frac{1}{V} \lr{ \frac{\partial m}{\partial B } }_x \equiv \frac{\partial M}{\partial B}
+%	\end{equation}
+%
+%beschreiben die Reaktion des thermodynamischen Systems (Magnetisierung $M$) auf äußere Parameter (Magnetfeld).
+
+
+\newpage
+
+
+\section{Appendix A: Phänomenologische Thermodynamik}
+Die Fundamentalrelationen ergeben sich mittels Guggenheim-Schema
+	$$\begin{array}{c|c|c}
+			p & H & S \\
+		\hline
+			G & \mathrel{\ooalign{$\swarrow$\cr $\searrow$}} & U \\
+		\hline
+			T & F & V
+	\end{array}$$
+
+zu:
+	\begin{alignat}{5}
+		\diff U &= \lr{ \frac{\partial U}{\partial T} }_V\diff T &&+ \lr{ \frac{\partial U}{\partial V} }_T \diff V &&= &&S\,\diff T &&- p\,\diff V \\
+		\diff F &= \lr{ \frac{\partial F}{\partial V} }_T \diff V &&+ \lr{ \frac{\partial F}{\partial V} }_V \diff T  &&= -&&p\,\diff V &&- S\,\diff T \\
+		\diff G &= \lr{ \frac{\partial G}{\partial p} }_T \diff p &&+ \lr{ \frac{\partial G}{\partial T} }_p \diff T &&= &&V\,\diff p &&- S\,\diff T \\
+		\diff H &= \lr{ \frac{\partial H}{\partial p} }_S \diff p &&+ \lr{ \frac{\partial H}{\partial S} }_p \diff S &&= &&V\,\diff p &&+ T\,\diff S
+	\end{alignat}
+
+Die Maxwell-Relationen ergeben sich aus dem Satz von Schwartz. Die thermodynamischen Potentiale werden in beiden Reihenfolgen nach den jeweiligen natürlichen Variablen partiell abgeleitet und die Ergebnisse gleichgesetzt.
+	\begin{alignat}{2}
+		\lr{ \frac{\partial p}{\partial S} }_V &= -&&\lr{ \frac{\partial T}{\partial V} }_S \\
+		\lr{ \frac{\partial S}{\partial V} }_T &= &&\lr{ \frac{\partial p}{\partial T} }_V \\
+		\lr{ \frac{\partial V}{\partial T} }_p &= -&&\lr{ \frac{\partial S}{\partial p} }_T \\
+		\lr{ \frac{\partial T}{\partial p} }_S &= &&\lr{ \frac{\partial V}{\partial S} }_p
+	\end{alignat}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	Laut dem Satz von Schwartz gilt
+		$$\frac{\partial^2f(x,y)}{\partial x\partial y} = \frac{\partial^2f(x,y)}{\partial y\partial x}$$
+	
+	Angewendet für $U(S,V)$ gilt:
+		\begin{align*}
+			\frac{\partial}{\partial S} \lr{ \lr{ \frac{\partial U}{\partial V} }_S }_V &= \frac{\partial}{\partial S} (-p) = -\lr{ \frac{\partial p}{\partial S} }_V \stackrel{!}{=} \frac{\partial}{\partial V} \lr{ \lr{ \frac{\partial U}{\partial S} }_V }_S = \frac{\partial}{\partial V} T = \lr{ \frac{\partial T}{\partial V} }_S \\
+			\Rightarrow -\lr{ \frac{\partial p}{\partial S} }_V &= \lr{ \frac{\partial T}{\partial V} }_S
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+In der phänomenologischen Thermodynamik bezeichnet man folgende Gleichungen als thermische und kalorische Zustandsgleichung:
+	\begin{align}
+		p &= p(T,V,N) \\
+		E &= E(T,V,N)
+	\end{align}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $U=\frac{3}{2} N k_B T$, $p\cdot V = N \cdot k_B \cdot T$\\
+	ges: $S(U,V)$\\
+	\\
+	Gehe von $S(U,V)$ aus.
+		\begin{align*}
+			\diff S &= \lr{ \frac{\partial S}{\partial U} }_V \diff U + \lr{ \frac{\partial S}{\partial V} }_U \diff V
+		\intertext{Setze $\lr{ \frac{\partial S}{\partial U} }_V = \frac{1}{ \lr{ \frac{\partial U}{\partial S} }_V } \stackrel{\commenttext{GGH}}{=} \frac{1}{T} \stackrel{\comment{U(T)\Leftrightarrow T(U)}}{=} \frac{3}{2} N k_B \frac{1}{U}$ ein und integriere im Anschluss.}
+			\diff S &= \frac{3}{2}k_B N \frac{1}{U}\,\diff U + \lr{ \frac{\partial S}{\partial V} }_U \diff V \\
+			\stackrel{\comment{\int}}{\Rightarrow} S &= \frac{3}{2}k_B N \ln U + f(V) \\
+		\intertext{Aus dem 1. HS der Thermodynamik folgt $\lr{ \frac{\partial S}{\partial V} }_U = \frac{p}{T}$. Leite die letzte Relation nach $V$ partiell ab und setze damit gleich.}
+			\Rightarrow \lr{ \frac{\partial S}{\partial V} }_U &= f'(V) \stackrel{!}{=} \frac{p}{T} = \frac{N k_B}{V}
+		\intertext{Integriere schließlich diese Relation mit $f'(V)$.}
+			\Rightarrow f(V) &= N k_B \ln V + C
+		\intertext{Einsetzen in S(U,V) liefert schließlich}
+			S(U,V) &= \frac{3}{2} k_B N \ln U + N k_B \ln V + C = \\
+&= k_B N \ln U^{3/2} + N k_B \ln V + C = \\
+			&= k_B N \ln\lr{ U^{3/2}\cdot V } + C
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Appendix B: Mathematische Formeln}
+	\begin{equation}
+		\int_0^\infty \diff E\, \beta \cdot E^n \cdot e^{-\beta E} = \frac{1}{\beta^n} \int_0^\infty \diff t\, t^n e^{-t} = \frac{1}{\beta^n} \Gamma(1+n) = \frac{1}{\beta^n} n!
+	\end{equation}
+
+Binomialkoeffizient
+	\begin{equation}
+		\binom{n}{k} = \frac{n!}{(n-k)! \cdot k!}
+	\end{equation}
+
+Stirling-Formel
+	\begin{equation}
+		\ln n! \approx n \ln n - n + \frac{1}{2}\ln ( 2\pi n) 
+	\end{equation}
+
+Zusammenhang Kreisfrequenz, Wellenzahl
+	\begin{equation}
+		\omega = c k
+	\end{equation}
+
+Gamma-Funktion
+	\begin{align*}
+		\Gamma\lr{\frac{1}{2}} &= \sqrt{\pi} \\
+		\Gamma(x) &= (x-1)! \\
+		\Rightarrow \Gamma(x+1) &= x\Gamma(x)
+	\end{align*}
+
+$d$-dimensionales Raumwinkelelement
+	\begin{equation}
+		\Omega_N = \frac{2\pi^{N/2}}{\Gamma\lr{\frac{n}{2}}}
+	\end{equation}
+
+Geometrische Reihe
+	\begin{align}
+		\sum_{n=0}^\infty x^n = \frac{1}{1 - x} \\
+		\sum_{n=0}^N x^n = \frac{1 - x^{N+1}}{1 - x}
+	\end{align}
+	
+
+\newpage
+
+
+\section{Glossar}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		Austauschwechselwirkung, quantenmechanische & Phänomen, dass ein nicht-wechselwirkendes Quantengas bereits zu Korrekturen in der thermischen Zustandsgleichung des klassischen idealen Gases führt \\
+	\hline
+		Bayes, Theorem von & $$P(X\cap Y) \equiv P(X|Y)\cdot P(Y) = P(Y|X)\cdot P(X)$$ \\
+	\hline
+		bedingte Wahrscheinlichkeit & Wahrscheinlichkeit
+			$$P(X|Y)$$
+		des Ereignisses $X$, unter der Bedingung, dass das Ereignis $Y$ bereits eingetreten ist. \\
+	\hline
+		Bernoulli-Experiment & Zufallsexperiment mit zwei möglichen Ausgängen \\
+	\hline
+		Bernoulli-Zahlen & Zahlen $B_i$, die durch die Formel
+			$$\frac{x}{e^x - 1} = \sum_{k=0}^\infty \frac{B_k}{k!} x^k$$
+		definiert sind.\\
+		& Sie tauchen in der Euler-MacLaurin-Formel auf, die bei der Berechnung des zweiatomigen idealen Gases verwendet wird. \\
+	\hline
+		Besetzungsdarstellung & Beschreibung eines Mikrozustands durch die Angabe der Zahlen
+			$$\{n_{\vec{k}}^{S_z}\} = \{ n_{\vec{k}_1}^{-S}, n_{\vec{k}_1}^{-S+1}, ..., n_{\vec{k}_1}^{+S}, n_{\vec{k}_2}^{-S}, ... \}$$ \\
+	\hline
+		Binomialverteilung & Verteilung, die bei der $n$-fachen Wiederholung eines Bernoulli-Experimentes auftritt
+			$$B(n,p,k) = \binom{n}{k} p^k (1-p)^{n-k}$$
+		mit der Wahrscheinlichkeit eines Ereignisses $0\leq p \leq 1$ und die Anzahl der zum Ereignis gehörigen Erfolge $k = 0, 1, ..., n$. \\
+	\hline
+		Bohr-van-Leeuwen-Theorem & Bezeichnet den Umstand, dass der Diamagnetismus ohne die quantenmechanischen Eigenschaften von elementaren Ringströmen nicht erklärt werden kann \\
+	\hline
+		Boltzmann-Konstante & Konstante, die die Entropie mit der mikrokanonischen Zustandssumme $\Omega$ verknüpft
+			$$S = k_B \ln\Omega$$
+		Sie beträgt
+			$$k_B = 1,38\cdot 10^{-23}\frac{\text{J}}{\text{K}}$$ \\
+	\hline
+		Bose-Einstein-Kondensation & Effekt, dass der Grundzustand eines Bosonengases unterhalb der kritischen Temperatur $T_c$ eine makroskopische Besetzungszahl aufweist \\
+	\hline
+		Bose-Einstein-Statistik & Beschreibt die quantenmechanische Statistik eines Systems ununterscheidbarer, nicht wechselwirkender Bosonen mittels der mittleren Besetzungszahl
+			$$f_{\text{BE}}(\varepsilon_{k}) = \frac{1}{\frac{1}{z}e^{\beta\varepsilon_k} - 1}$$ \\
+	\hline
+		charaketeristische Funktion & Fourier-Transformierte der Wahrscheinlichkeitsdichte
+			$$G(k) = \braket{e^{ikx}} = \int \diff x\, e^{ikx} \rho(x)$$ \\
+	\hline
+		chemisches Potential & Änderung der Energie pro zugeführtem Teilchen
+			$$\mu = \lr{ \frac{\partial E}{\partial N} }_{S,V}$$ \\
+	\hline
+		Clusterentwicklung & Visualisierung der Terme der kanonischen Zustandssumme realer Gase durch Diagramme \\
+	\hline
+		Debye-Funktion & Funktion, die bei der Berechnung der Energie der Gitterschwingungen im Debye-Modell auftaucht
+			$$D(\tau) = \frac{3}{\tau^3} \int_0^{\tau} \diff x\, \frac{x^3}{e^x - 1}$$
+		mit $x = \beta\hbar\omega$. \\
+	\hline
+		Debye-Modell & Modell zur Beschreibung der Gitterschwingungen eines Festkörpers, das quantisierte Moden und eine lineare Dispersionsrelation $\omega = c_s k$ annimmt.\\
+		& Liefert korrekte Beschreibung der Wärmekapazität im Niedrig- und Hochtemperaturlimes. \\
+	\hline
+		Debye-Temperatur & Charakteristische Größe, die den Übergangsbereich vom klassischen zum quantenmechanischen Verhalten der Wärmekapazität beschreibt
+			$$T_D = \frac{\hbar\omega_D}{k_B}$$ \\
+	\hline
+		Diamagnetismus & Fall negativer Suszeptibilität
+			$$\chi < 0$$
+		Die Magnetisierung führt zu einem Feld, die der Änderung entgegenwirkt. \\
+	\hline
+		diskrete Zufallsvariable & Zufallsvariable $X$ mit diskreten Realisierungen, z.B. $1,2,3,4,5,6$. \\
+	\hline
+		Einstein-Modell & Modell zur Beschreibung der Gitterschwingungen in einem Festkörper, das für die Schwingungsfrequenzen der Atome in einem Festkörper eine mittlere Frequenz $\omega_E$ annimmt.
+			$$Z(\omega) = 3N \delta(\omega-\omega_E)$$
+		Hat keine guten Übereinstimmungen mit dem Experiment für kleine Temperaturen. \\
+	\hline
+		elementares Ereignis & einzelnes, nicht weiter zerlegbares Ergebnis eines Zufallsexperiments \\
+	\hline
+		elementares Ergebnis & \textcolor{blue}{siehe elementares Ereignis} \\
+	\hline
+		Entropie & mittlere fehlende Information
+			{\begin{align*}
+			S &:= -k\braket{\ln\rho}_\rho = -k\int \diff x\, \rho(x) \ln\rho(x) = \\
+			 &= -k \sum_i P_i \ln(P_i) = k_\text{B} \ln(\Omega)
+			 \end{align*}} \\
+	\hline
+		Ergebnismenge & Menge $\Omega$ aller möglichen Ausgänge eines Zufallsexperiments \\
+	\hline
+		erzeugende Funktion der Momente & Falls alle Momente existieren, gilt
+			$$G(k) = \sum_{n=0}^\infty \frac{(ik)^n}{n!} \braket{x^n}$$ \\
+	\hline
+		Euler-MacLaurin-Formel & Formel zur Berechnung einer Summe von Funktionswerten durch dessen Ableitungen und Bernoulli-Zahlen
+			{\begin{align*}
+				\sum_{n=a}^b f(n) &= \int_a^b\diff n\, f(n) + \frac{1}{2} \lreck{ f(a) + f(b) } + \\
+				&+ \sum_{j=1}^\infty (-1)^j \frac{B_{2j}}{(2j)!} \lreck{ f^{(2j-1)}(a) - f^{(2j-1)}(b) }
+			\end{align*}}
+		Taucht bei der Berechnung der kanonischen Zustandssumem des zweiatomigen idealen Gases im Rotationsterm $Z_\text{rot}$ auf. \\
+	\hline
+		Fermi-Dirac-Statistik & Beschreibt die quantenmechanische Statistik eines Systems ununterscheidbarer, nicht wechselwirkender Fermionen mittels der mittleren Besetzungszahl
+			$$f_{\text{FD}}(\varepsilon) = \frac{1}{e^{\beta(\varepsilon - \mu)} + 1}$$ \\
+	\hline
+		Fermi-Energie & Höchste durch ein System von Fermionen besetzte Energie bei $T=0$
+			$$\varepsilon_F = \mu(T=0)$$ \\
+	\hline
+		Fermi-Impuls & Der zur Fermi-Energie $\varepsilon_F$ gehörige Impuls
+			$$p_F = \sqrt{2m\varepsilon_F}$$ \\
+	\hline
+		Fermi-Kante & Sprung der mittleren Besetzungszahl von Fermionen $f_{FD}(\varepsilon_p)$ bei der Fermi-Energie $\varepsilon_F = \mu(T=0)$ \\
+	\hline
+		Fermi-Oberfläche & Fläche im Impulsraum, die durch
+			$$\frac{\hbar^2\vec{k}^2}{2m} = \mu(T=0)$$
+			definiert ist \\
+	\hline
+		Fermi-See & Fermionische Zustände mit $\varepsilon_p < \mu(T=0)$ \\
+	\hline
+		Fermi-Temperatur & $$T_F := \frac{\varepsilon_F}{k_B}$$ \\
+	\hline
+		Fugazität & $$z := e^{\beta\mu}$$
+		Taucht in der großkanonischen Zustandssumme $Y$ als $z^N$ auf. \\
+	\hline
+		Gauß-Verteilung & Verteilung mit der kontinuierlichen Wahrscheinlichkeitsdichte
+			$$\rho(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp\lr{-\frac{(x-\mu)^2}{2\sigma^2}}$$ 
+		mit Mittelwert $\mu$ und Standardabweichung $\sigma$. \\
+	\hline
+		Gesetz der großen Zahlen & $$\frac{\sqrt{\text{Var}(Z)}}{\braket{Z}} \sim \frac{1}{\sqrt{N}}$$ 
+		mit $Z = \frac{1}{N}\sum_{i=1}^N X_i$, wobei $X_i$ unabhängige Zufallsvariablen sind. \\
+	\hline
+		Gleichverteilung & Wahrscheinlichkeitsverteilung, bei der alle Realisierungen gleich wahrscheinlich sind. \\
+		& Die Wahrscheinlichkeitsdichte dieser Verteilung ist konstant und für eine Zufallsvariable X mit $x\in(a,b)$
+			$$\rho = \frac{1}{b-a}$$ \\
+	\hline
+		Gleichverteilungssatz & Auf jeden Freiheitsgrad, der quadratisch in die Hamilton-Funktion eingeht, entfällt im Mittel die Energie $\frac{1}{2}k_B T$ \\
+	\hline
+		großkanonisches Ensemble & System, das im thermischen Kontakt mit einem Wärmebad der Temperatur $T$ \textbf{und} einem Teilchenreservoir steht
+		{\begin{align*}
+			E &\neq \text{konst.} \\
+			V &= \text{konst.} \\
+			N &\neq \text{konst.}
+		\end{align*}} \\
+	\hline
+		Heisenberg-Modell & - Modell zur Beschreibung der magnetischen Eigenschaften eines Festkörpers. \\
+		& - Es macht die Annahme, dass die Wechselwirkungsenergie zwischen den magnetischen Momenten der Teilchen im Gittermodell durch
+			$$\hat{H}_{\text{Heisenberg}} = -\frac{1}{2} \sum_{i,j} J_{ij} \hat{\vec{S}}_i \hat{\vec{S}}_j$$ 
+		beschrieben werden kann. \\
+	\hline
+		kanonische Zustandssumme & Normierung der Wahrscheinlichkeitsdichte im Phasenraum eines kanonischen Ensembles
+			$$Z = \frac{1}{(2\pi\hbar)^{3N}} \frac{1}{N!} \int \diff\Gamma_{q,p}\, e^{-\beta H(\{q_\alpha\},\{p_\alpha\})}$$ \\
+	\hline
+		kanonisches Ensemble & System, das im thermischen Kontakt mit einem Wärmebad der Temperatur $T$ steht, d.h.
+		{\begin{align*}
+			E &\neq \text{konst.} \\
+			V &= \text{konst.} \\
+			N &= \text{konst.}
+		\end{align*}} \\
+	\hline
+		Kolmogorov-Axiome & Axiome der Wahrscheinlichkeitstheorie \\
+		& {\begin{enumerate}
+			\item Für alle Ereignisse $A$ in der Borel-Menge $B$ ist die Wahrscheinlichkeit positiv
+				$$P(A) \geq 0$$
+
+			\item Das sichere Ereignis hat die Wahrscheinlichkeit eins
+				$$P(\Omega) = 1$$
+
+			\item Für alle paarweise verschiedenen Ereignisse $A_i$ ($i=1,2,...,n$) ohne Schnitt $A_i \cap A_j = \emptyset$ gilt
+				$$P\lr{ \cup_{i} A_i } = \sum_i P(A_i)$$
+		\end{enumerate}} \\
+	\hline
+		kontinuierliche Zufallsvariable & Variable, dessen Realisierungen durch ein Intervall auf den reellen Zahlen beschrieben werden können \\
+	\hline
+		Korrelation & Normierte Kovarianz
+			$$\text{Cor}(X,Y) = \frac{\text{Cov(X,Y)}}{\sigma_X \cdot \sigma_Y}$$ \\
+	\hline
+		Kovarianz & 
+		{\begin{align*}
+			\text{Cov}(X,Y) &= \braket{ (x-\braket{x})(y - \braket{y}) } = \\
+			&= \int \diff x\, \diff y\, (x - \braket{x})(y - \braket{y}) \cdot \rho(x,y)
+		\end{align*}} \\
+	\hline
+		kummulative Wahrscheinlichkeit & Wahrscheinlichkeit, dass eine Zufallsvariable einen Wert kleiner oder gleich einem Schwellenwert $\lambda$ annimmt ($-\infty < x \leq \lambda$) 
+			$$P(x\leq \lambda)$$ \\
+	\hline
+		Kumulanten & Koeffizienten $\kappa_n$ der Taylor-Reihe vom Logarithmus der charakteristischen Funktion
+			$$\ln G(k) = \sum_{k=1}^\infty \frac{(ik)^n}{n!} \kappa_n $$ 
+		 \\
+	\hline
+		Landau Diamagnetismus & Resultat, dass die magnetische Suszeptibilität eines Gases aus geladenen quantenmechanischen Teilchen im Magnetfeld negativ wird. \\
+		& Für die Teilchenenergien werden dabei die Landau-Niveaus verwendet.\\
+	\hline
+		Landau-Niveaus & Energieneigenwerte eines geladenen Teilchens im äußeren Magnetfeld als Funktion von $k_z$ und $n$
+			$$E = \frac{\hbar^2 k_z^2}{2m} + \hbar\omega \lr{ n + \frac{1}{2} }$$ \\
+	\hline
+		Magnetisierung & Magnetisches Moment bezogen auf das Volumen
+			$$\vec{M} = \frac{\vec{m}}{V}$$ \\
+	\hline
+		Marginalisierung & Prozess, bei der eine multivariate Wahrscheinlichkeitsverteilung über eine Teilmenge der Variablen integriert bzw. summiert wird, um die Wahrscheinlichkeitsverteilung der verbleibenden Variablen zu erhalten
+			$$\tilde{\rho}(x_1) = \int \diff x_2 \cdot ...\cdot \diff x_n\, \rho(x_1,...,x_n)$$ \\
+	\hline
+		mikrokanonische Zustandssumme & Anzahl $\Omega$ aller möglichen Mikrozustände \\
+		& Nimmt für ein klassisches ideales Gas die Form
+			$$\Omega = \frac{1}{(2\pi\hbar)^{3N}}\frac{1}{N!}\Gamma(E,V)$$ \\
+	\hline
+		mikrokanonisches Ensemble & Isoliertes System ohne WW mit der Umgebung, d.h.
+			{\begin{align*}
+				\text{E} &= \text{konst.}\\
+				\text{V} &= \text{konst.}\\
+				\text{N} &= \text{konst.}
+			\end{align*}} \\
+	\hline
+		minimale Subtsitution & Substitution, um die Wechselwir-
+kung eines geladenen Teilchens mit einem B-Feld zu
+beschreiben
+			$$\hat{p} \to \hat{p} - q\vec{A}$$ 
+		Der Hamilton-Operator wird dann
+			$$\hat{H} = \frac{1}{2m} (\hat{p} - q\vec{A})^2$$ \\
+	\hline
+		mittleres Schwankungsquadrat & \textcolor{blue}{siehe Varianz} \\
+	\hline
+		Normalverteilung & \textcolor{blue}{siehe Gauß-Verteilung} \\
+	\hline
+		Pauli-Paramagnetismus & Fall positiver magnetischer Suszeptibilität
+			$$\chi > 0$$
+		Kann als Folge der Ausrichtung der elementaren magnetischen Momente im Material (Elektronen) verstanden werden. \\
+	\hline
+		Pauli-Prinzip & Zwei identische Fermionen können nicht im selben Zustand sein \\
+	\hline
+		Phononen & quantisierte Normalmode der Gitterschwingungen eines Festkörpers, die als Quasiteilchen interpretiert wird. \\
+		& Da die Besetzungszahl quasi beliebig ist, handelt es sich um ein Boson.\\
+		& Es hat die Energie und den Impuls
+			{\begin{align*}
+				E &= \hbar\omega \\
+				p &= \hbar k
+			\end{align*}} \\
+	\hline
+		Plancksche Strahlungsgesetz & Beschreibt die spektrale Energiedichte eines Hohlraumstrahlers, d.h. eines Photonengases
+			$$u(\omega, T) = \frac{\hbar}{\pi^2 c^3} \frac{\omega^3}{e^{\beta\hbar\omega} - 1}$$ \\
+	\hline
+		Poisson-Verteilung & Beschreibt die Wahrscheinlichkeit in einem zeitlichen/räumlichen Intervall $k$ Ereignisse zu beobachten, wenn $\lambda$ Ereignisse in diesem Intervall erwartet werden.
+			$$P(k,\lambda) = \frac{\lambda^k}{k!}e^{-\lambda}$$ \\
+	\hline
+		Quantile & Schwellenwert $x_a$ für eine bestimmte kummulative Wahrscheinlichkeit $\alpha$, der wie folgt definiert ist
+			$$P(x<x_a) = \int_{-\infty}^{x_a} \diff x\, \rho(x) \stackrel{!}{=} \alpha$$ \\
+	\hline
+		Quasiteilchen & Anregung, die Teilcheneigenschaften aufweist.\\
+		& Beispielsweise können die $3N$ Normalmoden eines Festkörpers als Teilchen mit Frequenz $\omega$ und Masse $m$ interpretiert werden. \\
+	\hline
+		Rayleigh-Jeans, Gesetz von & Approximation des Planck'schen Strahlungsgesetzes für $\hbar\omega\ll k_B T$
+			$$u(\omega, T) \approx \frac{1}{\pi^2 c^3} k_B T \omega^2$$
+		Stimmt nur für kleine Frequenzen mit dem Experiment überein. \\
+	\hline
+		relative Entropie & $$S(\rho_1, \rho_2) = -k \int \diff x\, \rho_1(x)\cdot \ln\lr{\frac{\rho_1(x)}{\rho_2(x)}}$$
+		Sie erfüllt die Eigenschaft $S(\rho_1,\rho_2)\leq 0$. \\
+	\hline
+		Satz von der totalen Wahrscheinlichkeit & $$P(Y) = \sum_i P(Y|X_i)\cdot P(X_i)$$ 
+		wobei die Mengen der einzelnen Ergebnisse disjunkt, d.h. $X_i \neq X_j$ sein müssen und die Ergebnismenge durch $\Omega = \cup_i X_i$ gegeben sein muss. \\
+	\hline
+		Sommerfeld-Methode & Näherungsmethdoe zur Beschreibung der Gesamtteilchenzahl eines Fermionengases für $T>0$ \\
+	\hline
+		Sommerfeld-Modell & Modell, zur Beschreibung von Valenzelektronen in Metallen. \\
+		& Es modelliert die Valenzelektronen als freies Elektronengas. \\
+		& Liefert gute Übereinstimmungen mit dem Experiment für die Wärmekapazität. \\
+	\hline
+		Standardabweichung & Wurzel der Varianz
+			$$\sigma_X = \sqrt{\text{Var}(X)}$$ \\
+	\hline
+		Stefan-Boltzmann Gesetz & Beschreibt die Energie eines Photonengases in einem Volumen $V$ und der Temperatur $T$
+			$$E = 4\frac{\sigma}{c} V T^4$$ \\
+	\hline
+		Stefan-Boltzmann-Konstante & $$\sigma = \frac{\pi^2}{60} \frac{k_B^4}{c^2\hbar^3}$$
+		Taucht bei der Behandlung des Phononengases in der freien Energie auf \\
+	\hline
+		Ultraviolettkatastrophe & Tatsache, dass die Energiedichte, die durch das Rayleigh-Jeans-Gesetz beschrieben wird, für $\omega\to\infty$ divergiert \\
+	\hline
+		Varianz & Erwartungswert der quadratischen Abweichung
+			$$\text{Var}(X) = \braket{(x - \braket{x})^2}$$
+			Sie ist ein Maß für die Streuung einer Verteilung um den Mittelwert. \\
+	\hline
+		verallgemeinerte Kräfte & $$\left\langle \frac{\partial H}{\partial a_i} \right\rangle$$ 
+		Geben den Zusammenhang zwischen der Energieänderung und der Änderung äußerer Parameter an
+			$$\diff E = T\diff S + \sum_i \braket{\frac{\partial H}{\partial a_i}} \diff a_i$$ \\
+	\hline
+		Virialtheorem &
+			$$2\braket{T} = \braket{\sum_{i=1}^{3N} \frac{\partial V}{\partial x_\alpha} x_\alpha}$$ \\
+	\hline
+		Wahrscheinlichkeitsdichte & Ableitung der kummulativen Wahrscheinlichkeit
+			$$\rho(x) = \left.\frac{\diff P(x<\lambda)}{\diff \lambda}\right|_{\lambda=x}$$ \\
+	\hline
+		Wellenlänge, thermische & 
+			$$\lambda(T) = \frac{h}{\sqrt{2\pi m k_B T}}$$
+		\textcolor{gruen}{Taucht als Faktor in der kanonischen Zustandssumme eines idealen Gases aus $N$ Teilchen in 3 Dimensionen auf.
+			$$Z = \frac{V^N}{N!}\frac{1}{\lambda^{3N}}$$} \\
+	\hline
+		Wiensches Gesetz & Approximation des Planck'schen Strahlungsgesetzes für $\hbar\omega \gg k_B T$
+			$$u(\omega,T) \approx \frac{\hbar}{\pi^2 c^3} \omega^3 e^{-\beta \hbar \omega}$$
+		Stimmt nur für große Frequenzen mit dem Experiment überein. \\
+	\hline
+		Wiensches Verschiebungsgesetz & Beschreibt die Abhängigkeit der Kreisfrequenz, bei der das Planck'sche Strahlungsgesetz sein Maximum hat, von der Temperatur
+			$$\hbar\omega_{\text{max}} = 2,82... k_B T$$ \\
+	\hline
+		zentraler Grenzwertsatz & Die Summe $N$ unabhängiger Zufallszahlen liefert im Limes großen $N$’s eine bis auf Korrekturen 1/$N$ normalverteilte Zufallszahl, falls die Kumulanten der ein-
+zelnen Verteilungen existieren. \\
+	\hline
+		Zufallsexperiment & Experiment mit zufälligem Ausgang $\omega\in\Omega$. \\
+		& Dabei bezeichnet $\omega$ ein elementares Ergebnis und $\Omega$ die Menge aller möglichen Ausgänge bzw. Ergebnismenge \\
+	\hline
+		Zufallsvorgang & \textcolor{blue}{siehe Zufallsexperiment}\\
+	\hline\hline
+ \end{xltabular}
+\end{document}

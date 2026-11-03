@@ -1,0 +1,794 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\lrschweif}[1]{\left\{#1\right\}}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Physik III: Optik}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section*{Anschauliche Übersicht}
+
+
+
+
+
+
+\newpage
+
+
+\section{Mathematische Grundlagen}
+\subsection{Fourier-Transformation}
+Die Fourier-Transformation stellt eine nicht-periodische Funktion $f(x)$ durch die Summe von Sinus- und Kosinusfunktionen verschiedener Amplituden dar.
+	\begin{equation}
+		f(x) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \diff k\, \tilde{f}(k) \cdot e^{ikx} \equiv \mathcal{F}\{\tilde{f}(k)\}(x)
+	\end{equation}
+
+wobei $\tilde{f}(k)$ die Amplitude der Sinus- und Kosinusfunktionen mit der Frequenz $k$ gewichtet.\\
+Die Gewichtungsfunktion $\tilde{f}(k)$ kann umgekehrt auch aus der Funktion $f(x)$ mittels
+	\begin{equation}
+		\tilde{f}(k) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \diff x\, f(x)\cdot e^{-ikx} \equiv \mathcal{F}^{-1}\{f(x)\}(k)
+	\end{equation}
+	
+gewonnen werden.
+
+
+
+
+
+
+
+
+\newpage
+
+
+\section{Licht als elektromagnetische Welle}
+Licht wird in der klassischen Optik als elektromagnetische Welle, also als Oszillation von E- und B-Feld, die zur Propagation nicht auf Ladungen oder Ströme angewiesen ist, modelliert.
+
+\subsection{Ebene Welle}
+Lösen der Maxwell-Gleichungen liefert die Ausdrücke
+	\begin{align}
+		\label{ebene welle efeld}
+		\vec{E}(\vec{x}) &= \vec{E}_0 e^{i(\vec{k}\vec{x} - \omega t)} \\
+		\vec{B}(\vec{x}) &= \vec{B}_0 e^{i(\vec{k}\vec{x} - \omega t)},
+	\end{align}
+
+\textbf{wobei für real messbare E- und B-Felder stets der Realteil der jeweiligen Größe genommen werden muss!}\\
+\\
+Die ebene elektromagnetische Welle hat folgende Eigenschaften (die teilweise auch für die nachfolgenden Wellenpakete gelten):
+	\begin{itemize}
+			\item \textbf{Ausbreitungsrichtung}
+				\begin{equation}
+					\frac{\vec{k}}{|\vec{k}|}
+				\end{equation}
+
+		
+			\item \textbf{Phasengeschwindigkeit}\\
+			 Die Geschwindigkeit der Wellenfront ist
+				\begin{equation}
+					v_\text{ph} = \frac{\omega}{|\vec{k}|} = c_m \equiv c\cdot \frac{1}{n} := \frac{1}{\sqrt{\epsilon_0\mu_0}} \cdot \frac{1}{\sqrt{\epsilon_r\mu_r}}
+				\end{equation}
+
+			mit der Vakuumlichtgeschwindigkeit $c$ und dem Brechungsindex $n$.\\
+			\textcolor{violet}{Für gleiche Werte muss die Phase gleich sein $\Rightarrow z(t) = \omega/k \cdot t \Rightarrow \dot{z}(t) \equiv v_\text{ph} = \omega/k$. Einsetzen der Gleichung (\ref{ebene welle efeld}) in die Wellengleichung für $\vec{E}$ ergibt $\omega/k = c_m. \quad \blacksquare$}
+
+
+			\item \textbf{Wellenlänge}\\
+			Der räumliche Abstand zweier identischer Werte zu einer festen Zeit beträgt
+				\begin{equation}
+					\lambda = \frac{2\pi}{|\vec{k}|}.
+				\end{equation}
+
+			
+			\item \textbf{Frequenz}\\
+			Die Anzahl der Schwingungen pro Zeit an einem festen Ort ist
+				\begin{equation}
+					\nu = \frac{\omega}{2\pi}.
+				\end{equation}
+
+
+			\item \textbf{Energiedichte}\\
+			Die Energie am Ort bezogen auf ein kleines Volumen ist
+				\begin{equation}
+					w(\vec{x}) = \frac{1}{2}\vec{D}(\vec{x})\vec{E}(\vec{x}) + \frac{1}{2}\vec{B}(\vec{x})\vec{H}(\vec{x}) = \frac{1}{2}\varepsilon_r\varepsilon_0 \vec{E}^2(\vec{x}).
+				\end{equation}
+
+
+			\item \textbf{Mittlere Intensität}\\
+			Die mittlere Intensität ist die Energie, die pro Fläche pro Zeit eine Fläche durchdringt
+				\begin{equation}
+					I = \frac{1}{2}\varepsilon_0 n c E_0^2.
+				\end{equation}
+
+
+			\item \textbf{Strahlungsdruck}\\
+			Die Kraft pro Fläche, die von einfallender Strahlung auf ein Material wirkt ist
+				\begin{equation}
+					p_S = \frac{I}{c}.
+				\end{equation}
+			
+			Das auftretende Kraft ist dabei die Lorentz-Kraft und wirkt in Ausbreitungsrichtung.
+
+
+			\item \textcolor{red}{Poynting-Vektor (Leistungsdichte)}
+				\begin{equation}
+					\vec{S} = \frac{1}{\mu_0}(\vec{E} \times \vec{B})
+				\end{equation}
+	\end{itemize}
+
+
+
+
+Des Weiteren gilt der Zusammenhang zwischen den Amplituden von E- und B-Feld
+	\begin{equation}
+		|\vec{B}_0| = \frac{1}{c_m} |\vec{E}_0|
+	\end{equation}
+
+und E- und B-Feld stehen gemäß Erweitertem Durchflutungsgesetz
+	\begin{equation}
+		\vec{k} \times \vec{B}_0 \propto - \vec{E}_0
+	\end{equation}
+
+senkrecht zueinander \textcolor{gruen}{(Visualisierung durch Rechte-Hand-Regel)}.
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Grafiken/elektromagnetische welle.pdf}
+	\caption{E- und B-Feld der ebenen elektromagnetischen Welle für lineare Polarisation in $x$-Richtung}
+\end{figure}
+
+
+\newpage
+
+
+\subsection{Wellenpaket}
+Aufgrund der Linearität der Maxwell- und Wellengleichungen, sind auch Superpositionen von ebenen Wellen eine Lösung. Daraus lassen sich sogenannte Wellenpakete konstruieren
+	\begin{align}
+		E(z,t) &= \Re \left\{ \int_{-\infty}^\infty \diff\omega\, \tilde{E}(\omega) \cdot e^{i(k(\omega) z - \omega t)} \right\} \approx \\
+		&\approx \Re \left\{ e^{i(k_0 z - \omega_0 t)} \int_{-\infty}^{\infty} \diff\Omega \, \tilde{E}(\Omega + \omega_0) \cdot e^{i\Omega \lreck{ \lr{ k'(\omega_0) + \frac{1}{2}k''(\omega_0) \Omega } z - t } } \right\} \equiv \\
+		 &\equiv \phi(z,t)\cdot A(z,t)
+	\end{align}
+
+wobei $\tilde{E}(\omega)$ die Gewichtungsfunktion der Frequenzen $\omega$ ist und für die Näherung die Disperionsrelation
+	\begin{equation}
+		k(\omega) \approx k(\omega_0) + k'(\omega_0) (\omega - \omega_0) + \frac{1}{2} k''(\omega_0) (\omega - \omega_0)^2 + \mathcal{O}((\omega-\omega_0)^3)
+	\end{equation}
+
+getaylort wurde.\\
+\\
+Die Geschwindigkeit, mit der sich die Einhüllende eines Wellenpakets bewegt wird als \textbf{Gruppengeschwindigkeit} bezeichnet und berechnet sich über
+	\begin{equation}
+		v_\text{gr} = \left.\frac{\partial\omega}{\partial k}\right|_{\omega_0}.
+	\end{equation}
+
+Ist die Gruppengeschwindigkeit abhängig von der Grundfrequenz $\omega_0$, so laufen die Einhüllenden von Wellenpaketen unterschiedlicher Grundfrequenz unterschiedlich schnell, was \textbf{Dispersion der Gruppengeschwindigkeit} genannt wird.
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Grafiken/gruppengeschwindigkeit.pdf}
+	\caption{Gaußförmige Wellenpakete mit Propagationsrichtung $z$, Dispersionrelation $k = \omega^2$ und $\omega_{01} > \omega_{02}$ zu einem identischen Zeitpunkt $t$}
+\end{figure}
+
+
+\newpage
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	Für ein gaußförmiges Wellenpaket wähle die Verteilungsfunktion
+		$$\tilde{E}(\Omega) = E_0 e^{-\frac{\Omega^2}{2\sigma^2}}$$
+	
+	Für die Amplitudenfunktion $A(z,t)$ ergibt sich somit
+		\begin{align*}
+			A(z,t) &= \int_{-\infty}^{\infty} \diff\Omega\, E_0 \cdot e^{-\frac{\Omega^2}{2\sigma^2}} \cdot e^{i\Omega \lreck{ \lr{ k'(\omega_0) + \frac{1}{2}k''(\omega_0) \Omega } z - t } } = \\
+			&= E_0 \int_{-\infty}^{\infty} \diff\Omega\, e^{-\frac{\Omega^2}{2\sigma^2} + \frac{i}{2}k''(\omega_0) z \Omega^2 + i(k'(\omega_0)z - t)\Omega}
+		\end{align*}
+
+	Führe nun eine quadratische Ergänzung für den Exponenten durch:
+		\begin{align*}
+			&-\frac{\Omega^2}{2\sigma^2} + \frac{i}{2}k''(\omega_0) z \Omega^2 + i(k'(\omega_0)z - t)\Omega = \underbrace{\lr{ \frac{i}{2}k''(\omega_0)z - \frac{1}{2\sigma^2} } }_{=:p} \Omega^2 + i \underbrace{k'(\omega_0)z - t}_{=:\tau} \Omega = \\
+			&= p\Omega^2 + i\tau\Omega = p \lr{ \Omega^2 + \frac{\Omega i p}{\tau} } = p \lreck{ \lr{ \Omega + \frac{1}{2}\frac{i\tau}{p} }^2 + \frac{\tau^2}{4p^2} } = p \lr{ \Omega + \frac{1}{2}\frac{i\tau}{p} }^2 + \frac{\tau^2}{4^p}
+		\end{align*}
+
+	Einsetzen in $A(z,t)$ liefert:
+		\begin{align*}
+			A(z,t) &= E_0 e^{\frac{\tau^2}{4p}} \int_{-\infty}^\infty \diff\Omega \, e^{p \lr{ \Omega + \frac{1}{2}\frac{i\tau}{p} }^2} \stackrel{\comment{u = \Omega + \frac{1}{2}\frac{i\tau}{p}}}{=} E_0 \cdot e^{\frac{\tau^2}{4p}} \int_{-\infty}^\infty \diff u \, e^{-(-p)u^2} = \\
+			&= E_0 \cdot e^{\frac{\tau^2}{4p}} \cdot \sqrt{\frac{\pi}{-p}} = \sqrt{\frac{\pi}{-\lr{ \frac{i}{2}k''(\omega_0) z - \frac{1}{2\sigma^2} }}} \cdot \exp\lrschweif{ \frac{1}{4} \frac{ (k'(\omega_0) z - t)^2 }{ \frac{i}{2}k''(\omega_0)z - \frac{1}{2\sigma^2} } }
+		\end{align*}
+
+	Somit ist das E-Feld
+		\begin{align*}
+			E(z,t) = \phi(z,t) \cdot A(z,t) = \Re \lrschweif{ E_0\cdot e^{i(k_0 z - \omega_0 t)} \cdot \sqrt{\frac{\pi}{ \frac{1}{2\sigma^2} - \frac{i}{2}k''(\omega_0) z }} \cdot \exp\lrschweif{ \frac{1}{4} \frac{ (k'(\omega_0) z - t)^2 }{ \frac{i}{2}k''(\omega_0)z - \frac{1}{2\sigma^2} } } }
+		\end{align*}
+	
+	Für die Dispersionsrelationen $k(\omega) = \omega^2$ sind die Ableitungen offensichtlich
+		\begin{align*}
+			k'(\omega_0) &= \omega_0 \\
+			k''(\omega_0) &= 1.
+		\end{align*}
+	
+	Die Gruppengeschwindigkeit hängt also von der Grundfrequenz ab und es tritt Dispersion der Gruppengeschwindigkeit auf.
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Brechungsindex}
+Der Brechnungsindex $n = n_R + i n_I$ eines Materials kommt durch Polarisation des Mediums zustande und hängt von der Frequenz des einfallenden Lichts ab.\\
+Er ist eine komplexe Größe, dessen Real- und Imaginärteil auf das E-Feld der ebenen Welle folgende Einflüsse haben: $n_R$ beeinflusst die Frequenz und $n_I$ wie schnell die Amplitude des E-Felds in Propagationsrichung abfällt:
+	\begin{align*}
+		E(z,t) &= E_0 \cdot e^{\frac{n_I \omega}{c}z} \cdot e^{i(\omega t - \frac{n_R\omega}{c}z)} \\
+		\Rightarrow I(z,t) &= I(0) \cdot e^{\frac{2 n_I \omega}{c}z} \equiv I(0) \cdot e^{-az}
+	\end{align*}
+
+mit dem Absorptionskoeffizienten $a$.\\
+\\
+In der Näherung für dichte Medien und unter der Vernachlässigung der Absorption gilt die \textbf{Sellmeier-Beziehung} \textcolor{gruen}{(ohne Beweis)}
+	\begin{equation}
+		n^2(\lambda) = A + \sum_{j=1}^N \frac{B_j}{\lambda^2 + C_j}
+	\end{equation}
+	
+wobei $A,B_j,C_j$ Fitparameter sind.\\
+\\
+Die Änderung des Brechungsindexes kann mittels einer Schlierenoptik aufgedeckt werden.
+
+
+\newpage
+
+
+\subsection{Reflexion und Transmission}
+Betrachte eine elektromagnetische Welle, die unter dem Winkel $\theta_e$ zur Flächennormalen auf die ungeladene Grenzfläche zweier Medien mit den Brechungsindizes $n_e$ und $n_t$ trifft. Dabei wird ein Teil der Welle unter $\theta_r$ reflektiert und ein Teil unter $\theta_t$ transmitiert.
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Grafiken/reflexionsgesetz.pdf}
+	\caption{Skizze Reflexion und Transmission an einer Grenzfläche}
+\end{figure}
+
+
+
+Es gelten das \textbf{Reflexionsgesetz}
+	\begin{equation}
+		\theta_e = \theta_r
+	\end{equation}
+
+sowie das \textbf{Snellius'sche Brechungsgesetz}
+	\begin{equation}
+		n_e \sin\theta_e = n_t \sin\theta_t.
+	\end{equation}
+
+Für eine lineare Polarisation senkrecht (s) und parallel (p) zur Einfallsebene lassen sich die folgenden Verhältnisse der E-Feld Amplituden formulieren, die  als \textbf{Fresnel'schen Formeln} bezeichnet werden
+	\begin{align}
+		t_s &= \frac{2 n_e \cos\theta_e}{n_e \cos\theta_e + n_t \cos\theta_t} \\
+		r_s &= \frac{n_e \cos\theta_e - n_t \cos\theta_t}{n_e \cos\theta_e + n_t \cos\theta_t} \\
+		t_p &= \frac{2n_e \cos\theta_e}{n_t \cos\theta_e + n_e \cos\theta_t} \\
+		r_p &= \frac{n_t \cos\theta_e - n_e \cos\theta_t}{n_t \cos\theta_e + n_e \cos\theta_t},
+	\end{align}
+
+wobei sich die entsprechenden Intensitäten durch Quadrieren ergeben.\\
+\\
+Unter der Berücksichtigung von Absorption muss $n$ als komplexe Zahl geschrieben werden und für die Intesität das Betragsquadrat genommen werden.
+
+
+\newpage
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Grafiken/fresnel.pdf}
+	\caption{Reflexionsgrad von s- und p-polarisiertem Licht für $n_e/n_t = 0,25$. Die rot gestrichelten Linien zeigen den Brewster-Winkel und den Winkel, ab dem Totalreflexion auftritt}
+	\label{fresnel}
+\end{figure}
+
+Dabei treten zwei Besonderheiten auf, die in Abbildung \ref{fresnel} zu erkennen sind:\\
+Für s-polarisiertes Licht tritt bei dem Winkel
+	\begin{equation}
+		\theta_B = \arctan \frac{n_t}{n_e}
+	\end{equation}
+
+keine Reflexion auf, das Licht wird also vollständig transmittiert.\\
+\\
+Die sogenannte \textbf{Totalreflexion} tritt auf, wenn der Winkel mindestens $\theta_t \equiv \theta_T- = 90^\circ$ beträgt, also effektiv kein Licht mehr transmittiert wird. Dann folgt aus dem Brechungsgesetz
+	\begin{equation}
+		\theta_T = \arcsin \frac{n_t}{n_e}.
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Reflexions- und Snellius'sches Brechungsgesetz\\
+	\\
+	Betrachte Reflexion und Transmission o.B.d.A. in der $x$-$y$-Ebene, d. h. die $z$-Komponente aller Wellenvektoren $\vec{k}_{e,r,t}$ ist null.
+	\\
+	Die einfallende, reflektierte und transmittierte ebene elektromagnetische Welle wird beschrieben durch
+		\begin{align*}
+			\vec{E}_e &= \vec{E}_{0e} \cos(\vec{k}_e\vec{x} - \omega_e t) \\
+			\vec{E}_r &= \vec{E}_{0r} \cos(\vec{k}_r\vec{x} - \omega_r t + \varphi_r) \\
+			\vec{E}_t &= \vec{E}_{0t} \cos(\vec{k}_t\vec{x} - \omega_t t + \varphi_t)
+		\end{align*}
+
+	Aus der Grenzflächenbedingung $E_{A,||} = E_{B,||}$ folgt, unter der Berücksichtung, dass auf der Einfallsseite einfallende und reflektierte Welle überlagert sind
+		\begin{align*}
+			E_{0ex} \cos(\vec{k}_e\vec{x} - \omega_e t) + E_{0rx} \cos(\vec{k}_r\vec{x} - \omega_r t + \varphi_r) &= E_{0tx} \cos(\vec{k}_t\vec{x} - \omega_t t + \varphi_t) \\
+			E_{0ez} \cos(\vec{k}_e\vec{x} - \omega_e t) + E_{0rz} \cos(\vec{k}_r\vec{x} - \omega_r t + \varphi_r) &= E_{0tz} \cos(\vec{k}_t\vec{x} - \omega_t t + \varphi_t)
+		\end{align*}
+
+	\textcolor{red}{Annahme: Wird nur gelöst, falls Phasen identisch sind.}
+		\begin{align*}
+			\vec{k}_e\vec{x} - \omega_e t = \vec{k}_r\vec{x} - \omega_r t + \varphi_r = \vec{k}_t\vec{x} - \omega_t t + \varphi_t
+		\end{align*}
+	
+	Damit dies für alle Orte bzw. Zeiten gilt, folgt
+		\begin{align*}
+			\varphi_r + \varphi_t &= 0 \\
+			\omega_e + \omega_r + \omega_t &\equiv \omega \\
+			\vec{k}_e\vec{x} = \vec{k}_r\vec{x} &= \vec{k}_t\vec{x}.
+		\end{align*}
+	
+	Die Gleichheit der $\vec{k}_i\vec{x}$ kann durch Subtraktiun in die Gleichungen $(\vec{k}_e - \vec{k}_r)\vec{x} = 0$ und $(\vec{k}_e - \vec{k}_t)\vec{x} = 0$ überführt werden.\\
+	Da wir die Grenzfläche bei $y=0$ betrachten, ist $\vec{x}\cdot \vec{e}_y = 0$, d. h.
+		\begin{align*}
+			\begin{pmatrix}
+				k_{ex} - k_{rx} \\
+				k_{ey} - k_{ry} \\
+				0
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				x\\0\\z
+			\end{pmatrix}
+			\equiv
+			\begin{pmatrix}
+				k_{e,||} - k_{r,||} \\
+				k_{e,\perp} - k_{r,\perp} \\
+				0
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				x\\0\\z
+			\end{pmatrix}
+			&= 0 \\
+			\Leftrightarrow (k_{e,||} - k_{r,||}) x &= 0 \\
+			\Leftrightarrow k_{e,||} &= k_{r,||} \tag{1*}
+		\end{align*}
+
+	und analog
+		\begin{align*}
+			k_{e,||} = k_{t,||}.	\tag{2*}
+		\end{align*}
+	
+	\textcolor{gruen}{wobei $x\to ||$, um das Ergebnis allgemeiner zu notieren.}\\
+\\
+	Betrachte nun das Vektordiagramm des einfallenden, reflektierten und transmittierten Wellenvektors, sowie deren zur Grenzfläche parallelen Komponenten. Daraus folgt
+		\begin{align*}
+			k_{e,||} &= k_e\cdot \sin\theta_e \\
+			k_{r,||} &= k_r\cdot \sin\theta_r \\
+			k_{t,||} &= k_t\cdot \sin\theta_t
+		\end{align*}
+	
+	Einsetzen in (1*) und (2*) sowie verwenden der Dispersionsrelation
+		\begin{align*}
+			\omega = \frac{c}{n} k \qquad \Leftrightarrow \qquad k = \frac{n}{c} \omega
+		\end{align*}
+	
+	liefert das \textbf{Reflexionsgesetz}
+		\begin{align*}
+			k_{e,||} &= k_e \cdot \sin\theta_e = \cancel{ \frac{n_e}{c} \omega } \cdot \sin\theta_e = k_{r,||} = \cancel{ \frac{n_e}{c} \omega } \cdot \sin\theta_r \\
+			\Leftrightarrow \theta_e &= \theta_r
+		\end{align*}
+	
+	sowie das \textbf{Snellius'sche Brechungsgesetz}
+		\begin{align*}
+			k_{e,||} &= \frac{n_e}{ \cancel{c} } \cancel{\omega} \cdot \sin\theta_e = k_{t,||} = \frac{n_t}{ \cancel{c} } \cancel{\omega} \cdot \sin\theta_t \\
+			\Leftrightarrow n_e \sin\theta_e &= n_t \sin\theta_t.
+		\end{align*}
+	
+	\dotfill
+	
+	zz: Fresnel'sche Gleichungen\\
+	\\
+	\textcolor{red}{ERGÄNZEN, Herleitung siehe TU Graz}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Streuung}
+\textcolor{red}{ERGÄNZEN}
+
+
+
+\newpage
+
+
+\section{Geometrische Optik}
+Die \textit{geometrische Optik} findet für den Fall, dass die Dimension der optischen Elemente viel größer als die Wellenlänge des Lichts ist.\\
+\fbox{Annahmen}
+	\begin{enumerate}
+	\setlength{\itemsep}{0cm}
+		\item Licht breitet sich in Form von \textbf{Strahlen} aus
+		
+		\item In homogenen Medien ist die Ausbreitung geradlinig
+		
+		\item Es gilt das Reflexionsgesetz
+		
+		\item Es gilt das Snellius'sche Brechungsgesetz
+	\end{enumerate}
+
+
+\newpage
+
+
+\subsection{Grundlegende Begriffe und Definitionen}
+	\begin{itemize}
+		\item \textbf{Optische Achse}\\
+		Achse, die typischerweise entlang einer Symmetrieachse des optischen Systems liegt (z.B. rotationssymmetrisch)
+
+
+		\item \textbf{Gegenstandspunkt} $G$\\
+		Punkt des Objekts, das durch das optische System abgebildet wird und von dem Lichtstrahlen ausgehen
+
+
+		\item \textbf{Bildpunkt} $B$\\
+		Punkt, an dem sich die durch das optische System abgebildeten Lichtstrahlen eines Gegenstandpunktes treffen
+
+
+		\item \textbf{Brennpunkt} $F$\\
+		Punkt, in dem sich parallel zur optischen Achse einlaufende Strahlen treffen
+
+
+		\item \textbf{Gegenstands-/ Brenn- bzw. Bildweite} $g$/$f$/$b$\\
+		Abstand zwischen dem optischen System und dem Gegenstands-/ Brenn- bzw. Bildpunkt.\\
+		Die Brennweite ist $b$ für den Fall, dass $g\to\infty$.
+
+
+		\item \textbf{Reale Bilder}\\
+		Durch ein optisches System erzeugtes Bild, das durch einen Schirm am Bildpunkt eingefangen werden kann
+
+		\item \textbf{Virtuelles Bild}\\
+		Durch ein optisches System erzeugtes Bild, das \underline{nicht} durch einen Schirm eingefangen werden kann, dessen Bildpunkt als nicht zugänglich ist
+	\end{itemize}
+
+Für nicht real zugänglichen Brenn- und Bildpunkt werden die zugehörigen Weiten negativ gezählt.\\
+\\
+\textcolor{violet}{Für mathematische Herleitungen ist es sinnvoll einen Punkt auf der optischen Achse zu wählen. Für Konstruktionen von Abbildungen eignet sich jedoch ein Punkt, der von der optischen Achse entfernt liegt.}
+
+
+\newpage
+
+
+\subsection{Matrizenverfahren}
+Für komplexe optische Systeme eignet sich das Matrizenverfahren zur Berechnung der Abbildung. Dabei wird der Lichtstrahl durch einen Vektor beschrieben und Ausbreitung sowie Brechung als Matrizen, die auf diesen wirken.\\
+\\
+Der \textbf{Strahlenvektor} ist ein zweikomponentiger Vektor mit den Einträgen: 1) Produkt aus Brechungsindex des Mediums und dem Winkel zur optischen Achse 2) Senkrechter Abstand zur optischen Achse
+	\begin{equation}
+		\vec{S} =
+		\begin{pmatrix}
+			n\cdot\alpha \\ x
+		\end{pmatrix}.
+	\end{equation}
+
+Die Matrix für die Brechung von einem Medium $a$ zu einem Mediuem $b$ sowie für die Translation in einem Medium der Dicke $D_b$ und Brechungsindex $n_b$ ist
+	\begin{align}
+		\underline{B}_{ab} &= 
+		\begin{pmatrix}
+			1 & -\frac{n_b - n_a}{r_{ab}} \\
+			0 & 1
+		\end{pmatrix} \\
+		\underline{T}_b &=
+		\begin{pmatrix}
+			1 & 0\\
+			\frac{D_b}{n_b} & 1
+		\end{pmatrix}.
+	\end{align}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	\textcolor{red}{Zinth Skizze ergänzen}\\
+	An einer Mediengrenze ($n_a$ zu $n_b$) ändert sich der Winkel des Strahls, jedoch nicht dessen Abstand von der optischen Achse.\\
+	Ziel: Verbinde $\alpha_b$ mit $\alpha_a$.\\
+	Betrachte die Brechung an einer Kugeloberfläche mit Krümmungsradius $r_{ab}$ in der Höhe $x$ senkrecht von der optischen Achse.
+		\begin{align*}
+			S_{1b} &= n_b\cdot \alpha_b = n_b \cdot (\theta_t - \alpha) = n_b \theta_t - n_b \alpha \stackrel{\commenttext{Snellius}}{=} n_a (\alpha + \alpha_e) - n_b \alpha \\
+			&= n_a \alpha_a - (n_b - n_a)\alpha = n_a \alpha_a - (n_b - n_a) \frac{x}{r_{ab}} \\
+			S_{2b} &= S_{2a} \\
+			\Rightarrow
+			\begin{pmatrix}
+				S_{1b} \\ S_{2b}
+			\end{pmatrix}
+			&=
+			\begin{pmatrix}
+				1 & -\frac{(n_b - n_a)}{r_{ab}} \\
+				0 & 1
+			\end{pmatrix}
+			\begin{pmatrix}
+				n_a \alpha_a \\ x
+			\end{pmatrix}
+			\equiv \underline{B}_{ab} \vec{S}_a
+		\end{align*}
+	
+	\dotfill
+	
+	Die Translation verlängert den Lichtstrahl bis zu einem bestimmten Punkt ($D_b$ auf der optischen Achse). Der Winkel $\alpha_b$ des Strahls bleibt dabei konstant. Deshalb gilt für die Höhe des Punkts am Ende der Strahlverlängerung
+		\begin{align*}
+			x_b &= x_a + D_b \cdot \tan\alpha \approx x_a + \alpha D_b \\
+			\Rightarrow S_{2b} &= x_b = S_{2a} + \alpha D_b = S_{2a} + \frac{S_{1a}}{n_b} D_b \\
+			\Rightarrow
+			\begin{pmatrix}
+				S_{1b} \\ S_{2b}
+			\end{pmatrix}
+			&=
+			\begin{pmatrix}
+				1 & 0 \\
+				\frac{D_b}{n_b} & 1
+			\end{pmatrix}
+			\begin{pmatrix}
+				S_{1a} \\ S_{2a}
+			\end{pmatrix}
+			\equiv \underline{T}_b \vec{S}_a
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Modellsysteme}
+\subsubsection{Kugelspiegel}
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Grafiken/kugelspiegel.jpg}
+\end{figure}
+
+Sowohl für einen konvexen als auch einen konkaven Kugelspiegel gilt unter paraxialer Näherung (= alle auftretenden Winkel werden als klein angenommen und die einfallenden Strahlen liegen unweit der optischen Achse) die \textbf{Abbildunggleichung für Kugelspiegel}
+	\begin{equation}
+		\frac{1}{g} + \frac{1}{b} = \frac{2}{r} = \frac{1}{f}.
+	\end{equation}
+
+Verlässt man die paraxiale Näherung, werden Gegenstandspunkte nicht mehr in einen Bildpunkt abgebildet, was als \textbf{Astigmatismus} bezeichnet wird.
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Betrachte einen Gegenstandspunkt G, der aufgrund der paraxialen Näherung auf der optischen Achse aufgetragen wird, und unter dem Winkel $\gamma$ einen Lichtstrahl aussendet. Dieser treffe unter dem Einfallswinkel $\theta$ auf den Kugelspiegel. Der Schnittpunkt des reflektierten Strahls bilde in dieser Näherung den Bildpunkt B. Der Winkel zwischen reflektiertem Strahl und optischer Achse sei $\beta$. Der Winkel $\alpha$ sei der Winkel zwischen optischer Achse und der Verbindungslinie zwischen Mittelpunkt M und dem Punkt, an dem der Strahl auf die Kugel trifft H. Zeichne zudem eine Verbindungslinie zwischen H und der optischen Achse und vernachlässige das Wegstück $d$.
+	
+
+\newpage
+
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Grafiken/herleitung kugelspiegel.jpg}
+	\caption{Skizze zur Herleitung der Abbildungsgleichung für Kugelspiegel}
+\end{figure}
+	Nun lassen sich drei Dreiecke erkennen und die folgenden trigonometrischen Beziehungen formulieren:
+		\begin{alignat*}{2}
+			\tan\gamma &\approx \gamma &= \frac{h}{g} \\
+			\tan\alpha &\approx \alpha &= \frac{h}{r} \\
+			\tan\beta &\approx \beta &= \frac{h}{b}
+		\end{alignat*}
+
+	Aus der Skizze lassen sich zwei Zusammenhänge der Winkel erkennen:
+		\begin{align*}
+			\theta &= \beta - \alpha \\
+			\theta &= \alpha - \gamma
+		\end{align*}
+	
+	Gleichsetzen dieser Gleichungen und Einsetzen der zuvor gefundenen Zusammenhänge ergibt:
+		\begin{align*}
+			\beta - \alpha &= \alpha - \gamma \\
+			\Leftrightarrow \beta + \gamma &= 2\alpha \\
+			\Leftrightarrow \frac{h}{b} + \frac{h}{g} &= \frac{2h}{r} \\
+			\Leftrightarrow \frac{1}{b} + \frac{1}{g} &= \frac{2}{r}
+		\end{align*}
+
+	Zuletzt kann man noch den Fall $g\to\infty$ betrachten, um einen Zusammenhang zur Brennweite herzustellen \textcolor{gruen}{(siehe Begriff Brennweite)}.
+		\begin{align*}
+			\frac{2}{r} = \frac{1}{g} + \frac{1}{b} \stackrel{g\to\infty}{\longrightarrow} \frac{1}{b} \equiv \frac{1}{f} \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Brechende Kugelfläche}
+Für eine Kugel, hinter der ein anderer Brechungsindex herscht, gilt die Abbildungsgleichung
+	\begin{equation}
+		\frac{n_e}{g} + \frac{n_t}{b} = \frac{n_t - n_e}{r}
+	\end{equation}
+
+mit Krümmungsradius $r$ der Kugel, Gegenstandsweite $g$ und Bildweite $b$.\\
+\\
+Für die Brennweiten gilt
+	\begin{align}
+		f_B &= \frac{n_t r}{n_t - n_e} \\
+		f_G &= \frac{n_e r}{n_t - n_e}
+	\end{align}
+
+wobei $f_B$ die \textbf{bildseitige} und $f_G$ die \textbf{gegenstandsseitige} Brennweite bezeichnet. \textcolor{gruen}{Bildseitig für Licht vom Gegenstandspunkt und gegenstandsseitig für Licht vom Bildpunkt.}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\	
+		\begin{center}
+			\includegraphics[width=0.6\textwidth]{Grafiken/brechende kugel.jpg}
+		\end{center}
+
+	Zeichne zunächst parallel zur optischen Achse eine Gerade ein, die durch den Schnittpunkt des einfallenden Lichtstrahls mit der Kugeloberfläche verläuft.\\
+	Erkenne dann die in der Skizze grün eingefärbten Winkel $\alpha$ und $\beta$ wieder und stelle die folgenden Zusammenhänge zu Einfalls- und Ausfallswinkel $\theta_e$ und $\theta_t$ her
+		$$\theta_e = \alpha + \gamma,\quad \theta_t = \alpha - \beta$$
+	
+	Wie schon beim Kugelspiegel werden die $\alpha$, $\beta$ und $\gamma$ enthaltenden Dreiecke erkannt und der Tangens formuliert:
+		$$\tan\alpha \approx \alpha = \frac{h}{r},\quad \tan\beta \approx \beta = \frac{h}{b},\quad \tan\alpha \approx \gamma = \frac{h}{g}$$
+	
+	Nähere nun das Snellius'sche Brechungsgesetz in der paraxialen Näherung und setze anschließend die gefundenen Ausdrücke ein:
+		\begin{align*}
+			n_e \sin\theta \approx n_e \theta_e &= n_t\sin\theta \approx n_t\theta_t \\
+			\Rightarrow n_e \lr{ \alpha + \gamma } &= n_t \lr{ \alpha - \beta } \\
+			\Rightarrow n_e \lr{ \frac{h}{r} + \frac{h}{g} } &= n_t \lr{ \frac{h}{r} - \frac{h}{b} } \\
+			\Leftrightarrow \frac{n_e}{g} + \frac{n_t}{g} &= \frac{n_t - n_e}{r}
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Dünne Linse}
+Für eine dünne Linse gilt die Abbildungsgleichung
+	\begin{equation}
+		\frac{n_1}{g} + \frac{n_3}{b} = \frac{n_2 - n_1}{r_1} + \frac{n_3 - n_2}{r_2},
+	\end{equation}
+
+die für den Spezialfall, dass sich die Linse mit Brechungsindex $n_2 = n$ in Luft befindet ($n_1=n_3=1$) die Form
+	\begin{equation}
+		\frac{1}{g} + \frac{1}{b} = (n-1)\lr{ \frac{1}{r_1} - \frac{1}{r_2} }
+	\end{equation}
+
+annimmt.\\
+\\
+Die Vergrößerung des Gegenstandes beträgt
+	\begin{equation}
+		v = -\frac{b}{g}.
+	\end{equation}
+
+\textcolor{violet}{Ergibt sich aus dem Strahlensatz für den Strahl, der durch den Mittelpunkt der Linse geht. Das negative Vorzeichen zeigt das auf dem Kopfstehen des Bildes an.}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Eine Linse wird durch zwei brechende Kugelflächen beschrieben.\\
+	\\
+	Die erste brechende Kugelfläche bildet den Gegenstandspunkt gemäß
+		\begin{align*}
+			\frac{n_1}{g} + \frac{n_2}{b_1} &= \frac{n_2 - n_1}{r_1} \\
+			\Leftrightarrow \frac{n_2}{b_1} &= \frac{n_2 - n_1}{r_1} - \frac{n_1}{g}
+		\end{align*}
+	
+	ab.\\
+	\\
+	Für die zweite Abbildung liegt der Gegenstandspunkt rechts von der Kugelfläche, die Strahlen laufen also auf ihn zu, werden aber von der Kugelfläche so gebrochen, dass sie sich im Bildpunkt schneiden.\\
+	Durch die Näherung der dünnen Linse gilt $g_2 = -b_1$. Somit ist die Abbildungsgleichung für die zweite Abbildung
+		\begin{align*}
+			-\frac{n_2}{b_1} + \frac{n_3}{b} &= \frac{n_3 - n_2}{r_2} \\
+			\Leftrightarrow \frac{n_2}{b_1} &= \frac{n_3}{b} - \frac{n_3 - n_2}{r_2}
+		\end{align*}
+
+	Gleichsetzen der Abbildungsgleichungen ergibt
+		\begin{align*}
+			\frac{n_2 - n_1}{r_1} - \frac{n_1}{g} &= \frac{n_3}{b} - \frac{n_3 - n_2}{r_2} \\
+			 \frac{n_3}{b} + \frac{n_1}{g} &= \frac{n_2 - n_1}{r_1} + \frac{n_3 - n_2}{r_2} \qquad \blacksquare
+		\end{align*}
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Optische Geräte}
+\subsubsection{Lupe}
+\subsubsection{Mikroskop}
+\subsubsection{Fernrohr}
+
+
+\newpage
+
+
+\section{Wellenoptik}
+
+
+
+\newpage
+
+
+\section{Glossar}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		
+	\hline\hline
+\end{xltabular}
+\end{document}

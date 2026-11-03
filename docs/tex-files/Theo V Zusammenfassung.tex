@@ -1,0 +1,996 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+\usepackage{slashed}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Theoretische Physik V: Phänomenologische Thermodynamik}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section*{Übersicht}
+''Im Unterschied zur statistischen Physik kommt die Thermodynamik ohne ein mikroskopisches Verständnis der untersuchten Systeme aus. Anstelle des mikroskopischen Verständnisses treten empirisch motivierte Zustandsgleichungen. Man spricht daher oft auch von der phänomenologischen Thermodynamik. Insofern die postulierten Zustandsgleichungen das Verhalten der untersuchten Systeme “korrekt” beschreiben, liefert die Thermodynamik präzise Vorhersagen, die experimentell überprüft werden können!''\\
+- Peter Uwer, Theo V Skript, S.6
+
+
+\newpage
+
+
+\section{Mathematische Grundlagen}
+\subsection{Partielle Ableitung}
+Die partielle Ableitung der Funktion $f(x_1, ..., x_n)$ nach der Variablen $x_i$ ist definiert als
+	\begin{equation}
+		\frac{ \partial f(x_1, ..., x_n) }{ \partial x_i } \equiv \lr{ \frac{ \partial f(x_1, ..., x_n) }{ \partial x_i } }_{x_1, x_2, ...} := \lim_{x_i \to 0} \frac{ f(x_1, ..., x_i + \Delta x_i, ..., x_n ) - f(x_1, ..., x_i, ..., x_n ) }{ \Delta x_i }
+	\end{equation}
+	
+
+\subsection{Totales und inexaktes Differential}
+Ein Differential
+	\begin{equation}
+		\delta A = \sum_{i=1}^m a_i(x_1, ..., x_m) \, \diff x_i
+	\end{equation}
+
+ist der infinitesimale Zuwachs einer physikalischen Größe $A$.\\
+\\
+Dabei unterscheidet man:
+	\begin{itemize}
+		\item \textbf{totales Differential}\\
+		Differential
+			\begin{equation}
+				\diff f = \sum_{i=1}^n \lr{ \frac{ \partial f }{ \partial x_i } }_{ x_k, k \neq i }  \cdot \diff x_i,
+			\end{equation}
+	
+	das die Integrabilitätsbedingung
+			\begin{equation}
+				\lr{ \frac{ \partial a_j }{ \partial x_i } }_{x_k\neq x_i} = \lr{ \frac{ \partial a_i }{ \partial x_j } }_{x_k\neq x_j} \qquad \forall i,j
+			\end{equation}
+		erfüllt.\\
+		\textcolor{red}{Die Änderung der physikalischen Größe ist somit wegunabhängig.}
+		
+		
+		\item \textbf{inexaktes Differential}\\
+		Differential, das die o.g. Integrabilitätsbedingung nicht erfüllt.\\
+		Die Änderung der physikalischen Größe ist somit wegabhängig.
+	\end{itemize}
+
+\vspace{0.5cm}
+
+\hrule
+	\fbox{Theorem}\\
+	Zu jedem inexakten Differential $\delta A$ existiert ein integrierender Faktor $\mu$, der dieses Differential durch Multiplikation zu einem totalen Differential 
+		\begin{equation}
+			\diff A = \mu \cdot \delta A
+		\end{equation}
+
+	macht.
+\hrule
+
+
+\newpage
+
+
+\subsection{Legendre-Transformation}
+Die Legendre-Transformation transformiert eine Funktion $f(x)$ in die Funktion $g(p)$
+	\begin{equation}
+		g(p) = f(x) - \frac{\diff f}{\diff x}\cdot x,
+	\end{equation}
+
+wobei das neue Argument $p := \frac{\diff f}{\diff x}$ ist.\\
+\\
+Für mehrdimensionale Funktionen gibt es die Möglichkeit eine oder mehrere Variablen zu tauschen:
+	\begin{align*}
+		g(p_1, x_2, ..., x_n) &= f(x_1,...,x_n) - \lr{ \frac{\partial f}{\partial x_1} }_{x_2,...,x_n} \cdot x_1 \\
+		g(p_1, ..., p_n) &= f(x_1,...,x_n) - \sum_{i} \lr{ \frac{\partial f}{\partial x_i} }_{x_j,\ j\neq i} \cdot x_i.
+	\end{align*}
+
+Der Ablauf lässt sich wie folgt zusammenfassen:
+		\begin{enumerate}
+			\item Notiere die alte Funktion $f$ und die neue Funktion $g$
+			\item Notiere die zu tauschende Variable $x_i$
+			\item Berechne und notiere die neue Variable $p_i = \lr{ \frac{\partial f}{\partial x_i} }_{x_j}$
+			\item Setze in die entsprechende Formel ein
+		\end{enumerate}
+
+
+\newpage
+
+
+\section{Grundlegende Postulate und Definitionen}
+Die vier Postulate der Thermodynamik, die sogenannten Hauptsätze, sind:
+	\begin{itemize}
+		\item \textbf{0. Hauptsatz: Existenz der Temperatur}
+		
+		
+		\item \textbf{1. Hauptsatz: Energieerhaltung}\\
+		Die infinitesimale Änderung der inneren Energie $\diff U$ erfolgt, je nach System, durch Arbeit $\delta W$, Wärme $\delta Q$ oder einen Teilchenaustauschkontakt $\delta E_C$.\\
+		\textcolor{gruen}{Dabei notiert $\delta$ eine \underline{Prozessgröße} und $\diff$ die Differenz zweier \underline{Zustandsgrößen}.}\\
+	\\
+		- Abgeschlossenes System
+			\begin{equation}
+				\diff U = 0
+			\end{equation}
+		
+		- Geschlossenes System
+			\begin{equation}
+				\diff U = \delta Q + \delta W
+			\end{equation}
+		
+		- Offenes System
+			\begin{equation}
+				\diff U = \delta Q + \delta W + \delta E_C
+			\end{equation}
+		
+		
+		\item \textbf{2. Hauptsatz: Clausius'sche Aussage}\\
+		Es gibt keine periodisch arbeitende Maschine, die lediglich einem kälteren Wärmebad Wärme entzieht und diese einem heißeren Wärmebad zuführt.\\
+		Die mathematische Formulierung dieser Aussage lautet:
+			\begin{equation}
+				\diff S \geq \frac{\delta Q}{T}
+			\end{equation}
+
+
+		\item \textbf{3. Hauptsatz: Unerreichbarkeit des Nullpunkts}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: 2. Hauptsatz der Thermodynamik $\Leftrightarrow \diff S \geq \frac{\delta Q}{T}$\\
+	\\
+	\textcolor{red}{ERGÄNZEN}
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Arbeit}
+	\begin{itemize}
+		\item \textbf{Volumenarbeit}\\
+		Mechanische Arbeit, die durch die Volumenänderung gegen einen herrschenden Druck verrichtet wird
+			\begin{equation}
+				\delta W = -p \cdot \diff V
+			\end{equation}
+		
+		{\color{red}
+		\item \textbf{Magnetisierungsarbeit}\\
+		Arbeit, die aufgebracht werden muss, um die Magnetisierung des thermodynamischen Systems zu ändern
+			\begin{equation}
+				\delta W = \vec{B} \cdot \diff \vec{M}
+			\end{equation}
+		
+		
+		\item \textbf{Polarisationsarbeit}\\
+		Arbeit, die aufgebracht werden muss, um die Polarisation des thermodynamischen Systems zu ändern
+			\begin{equation}
+				\delta W = \vec{E} \cdot \diff\vec{P}
+			\end{equation}
+		}
+	\end{itemize}
+
+
+\subsection{Wärmekapazität}
+Die Wärmekapazität beschreibt, wie viel Wärme einem System zugeführt werden muss, um seine Temperatur um $\Delta T$ zu erhöhen.
+	\begin{itemize}
+		\item \textbf{mittlere Wärmekapazität}
+			\begin{equation}
+				C := \frac{Q}{\Delta T}
+			\end{equation}
+		
+		
+		\item \textbf{spezifische Wärmekapazität}\\
+		Mittlere Wärmekapazität normiert auf die Masse des Stoffes
+			\begin{equation}
+				C_m := \frac{1}{m} \frac{Q}{\Delta T}
+			\end{equation}
+		
+		
+		\item \textbf{Wärmekapazität bei konstant gehaltener Größe}
+			\begin{equation}
+				C_x := \left. \frac{Q}{\Delta T} \right|_\text{x = konst.},
+			\end{equation}
+		
+		wobei $x$ eine konstant gehaltene physikalische Größe ist
+	\end{itemize}
+
+
+%\subsection{Isotherme und adiabatische Kompressibilität}
+%\subsection{Thermischer Ausdehnungskoeffizient}
+% Entropie
+
+
+\newpage
+
+
+\section{Modellsysteme}
+\subsection{Ideales Gas}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{punktförmige Gasteilchen}
+		
+		
+		\item \textbf{keine Wechselwirkungs zwischen Gasteilchen}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{thermische Zustandsgleichung}
+			\begin{align}
+				p \cdot V &= N \cdot k_\text{B} \cdot T \\
+				&= n \cdot R \cdot T
+			\end{align}
+		
+		mit der Teilchenzahl $N$, Stoffmenge $n$ \textcolor{gruen}{(in Mol)} und der Gaskonstante $R = k_B \cdot N_A := 8,314 \frac{\text{J}}{\text{mol} \cdot \text{K}}$
+		
+		
+		\item \textbf{kalorische Zustandsgleichung}
+			\begin{equation}
+				U = \frac{3}{2} \cdot N \cdot k_B \cdot T
+			\end{equation}
+			
+		
+		\item \textbf{Zusammenhang $C_p, C_V$}\\
+		\textcolor{red}{ERGÄNZEN}
+	\end{itemize}
+
+
+\subsection{Van-der-Waals-Gas}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{endliche Ausdehnung der Gasteilchen}
+		
+		
+		\item \textbf{Wechselwirkung zwischen Gasteilchen}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{\underline{Van-der-Waals-Gleichung}}
+			\begin{equation}
+				\lr{ p^2 + \frac{n^2}{V^2} \cdot a } (V - n \cdot b) = n \cdot R \cdot T
+			\end{equation}
+		
+		mit der gasspezifischen Konstante $a$ und dem Eigenvolumen eines Gasteilchens $b$.
+		
+		
+		\item \textbf{\textcolor{red}{kritischer Punkt}}\\
+		...
+	\end{itemize}
+	
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $pV = nRT$\\
+	\\
+	Herleitungsskizze:\\
+	1) Gesetz von Boyle-Mariotte\\
+	2) Gesetz von Gay-Lusac\\
+	3) Gesetz von Avogadro\\
+	\\
+	Das Gesetz von Boyle-Mariotte besagt, dass das Produkt aus Druck $p$ und Volumen $V$ fpr ein ideales Gas bei konstanter Temperatur $T$ ebenfalls konstant ist:	 
+		\begin{align*}
+			p \cdot V = \text{konst.}
+		\end{align*}
+	
+	Das Gesetz von Gay-Lusac besagt, dass das Volumen $V$ eines idealen Gases bei konstantem Druck $p$ proportional zur Temperatur $T$ ist:
+		\begin{align*}
+			V \propto T
+		\end{align*}
+	
+	Das Avogadro'sche Gesetz besagt, dass gleiche Volumina idealer Gase bei gleichem Druck $p$ und gleicher Temperatur $T$ dieselbe Teilchenzahl $N$ besitzen. $\qquad \blacksquare$\\
+	\\
+	\\
+	\fbox{Herleitung}\\
+	zz: $U = \frac{3}{2} \cdot N \cdot k_B \cdot T$\\
+	\\
+	siehe statistische Physik
+\hrule
+}
+
+
+\newpage
+
+
+\section{Zustandsänderungen}
+\begin{itemize}
+	\item \textbf{adiabatisch}\\
+	Zustandsänderung, während der keine Wärme $\delta Q$ vom System auf- oder abgegeben wird
+		\begin{equation}
+			\delta Q = 0.
+		\end{equation}
+
+
+	\item \textbf{isotherm}\\
+	Zustandsänderung, während der sich die Temperatur $T$ des Systems nicht ändert
+		\begin{equation}
+			\diff T = 0.
+		\end{equation}
+
+
+	\item \textbf{isobar}\\
+	Zustandsänderung, während der sich der Druck $p$ des Systems nicht ändert
+		\begin{equation}
+			\diff p = 0.
+		\end{equation}
+
+
+	\item \textbf{isochor}\\
+	Zustandsänderung, während der sich das Volumen $V$ des Systems nicht ändert
+		\begin{equation}
+			\diff V = 0.
+		\end{equation}
+		
+	
+	\item \textbf{isochor}\\
+	Zustandsänderung, während der sich die Entropie $S$ des Systems nicht ändert
+		\begin{equation}
+			\diff S = 0.
+		\end{equation}
+\end{itemize}
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.8\textwidth]{Grafiken/zustandsänderungen.pdf}
+		}
+		\caption{Schema der Realisierungen der adiabatischen, isothermen, isobaren und isochoren Zustandsänderung}
+	\end{figure}
+
+
+\newpage
+
+
+\subsection{Ideales Gas}
+	\begin{itemize}
+		\item \textbf{adiabatisch}\\
+		Auf einer Adiabate gelten die sogenannten \underline{Adiabatengleichungen}
+			\begin{align}
+				p \cdot V^\kappa &= \text{konst.} \\
+				T V^{\kappa - 1} &= \text{konst.} \\
+				p^{1-\kappa} T^\kappa &= \text{konst.},
+			\end{align}
+		
+		mit dem \underline{Adiabatenkoeffizienten} $\kappa := \frac{C_V}{nR} + 1$, womit für Wärme und Arbeit folgt:
+			\begin{align}
+				Q &= 0 \\
+				W &= \frac{1}{\kappa-1} \lr{ p_2 V_2 - p_1 V_1 }
+			\end{align}
+		
+		
+		\item \textbf{isotherm}\\
+		Auf einer Isothermen gilt
+			\begin{equation}
+				\diff U = 0,
+			\end{equation}
+		
+		womit für Wärme und Arbeit folgt:
+			\begin{align}
+				Q &= -W \\
+				W &= n R T \ln \lr{ \frac{V_1}{V_2} }
+			\end{align}
+		
+		
+		\item \textbf{isobar}
+			\begin{align}
+				Q &= (C_V + n R)(T_2 - T_1) \\
+				W &= -p (V_2 - V_1) = - n R (T_2 - T_1)
+			\end{align}
+		
+		
+		\item \textbf{isochor}
+			\begin{align}
+				Q &= C_V(T_2 - T_1) \\
+				W &= 0
+			\end{align}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $p V^\kappa = \text{konst.}$ auf Adiabaten\\
+	\\
+	Herleitungsskizze:\\
+	1) 1. Hauptsatz der Thermodynamik aufstellen \\
+	2) aus thermische Zustandsgleichung $\diff T \to \diff p$ \\
+	3) Separation der Variablen \\
+	\\
+	Der 1. Hauptsatz der Thermodynamik vereinfacht sich auf der Adiabaten $\delta Q = 0$:
+		\begin{align*}
+			\diff U &= \diff W \\
+			\Leftrightarrow C_V \, \diff T &= - p \, \diff V
+		\end{align*}
+	
+	Die thermische Zustandsgleichung des idealen Gases lautet:
+		\begin{align*}
+			p V &= n R T
+		\end{align*}
+	
+	\textcolor{red}{Bilde das totale Differential:}
+		\begin{align*}
+			\diff(p V) = p \, \diff V + V \, \diff p &= n R \, \diff T \\
+			\Leftrightarrow \diff T &= \frac{1}{n R} \lr{ p \, \diff V + V \, \diff p }
+		\end{align*}
+	
+	Einsetzen in die obige Relation ergibt:
+		\begin{align*}
+			C_V \, \frac{1}{n R} \lr{ p \, \diff V + V \, \diff p } &= -p \, \diff V \\
+			\Leftrightarrow p \underbrace{ \lr{ \frac{C_V}{n R} + 1 } }_{:= \kappa} \, \diff V &= -V \, \diff p \\
+			\Leftrightarrow \kappa \cdot \frac{\diff V}{V} &= -\frac{\diff p}{p}
+		\end{align*}
+	
+	mit dem Adiabatenkoeffizienten $\kappa := \frac{C_V}{nR} + 1$.\\
+	Integration liefert:
+		\begin{align*}
+			\kappa (\ln V - \ln V_0) &= - (\ln p - \ln p_0) \\
+			\Leftrightarrow \ln V^\kappa + \ln p &= \ln V_0^\kappa - \ln p_0 = \text{konst.} \\
+			\Leftrightarrow \ln p V^\kappa &= \text{konst.} \\
+			\Leftrightarrow p V^\kappa &= \text{konst.} \qquad \blacksquare
+		\end{align*}
+
+
+\newpage
+
+
+	\fbox{Herleitung}\\
+	zz: $T V^{\kappa - 1} = \text{konst.}$ auf Adiabaten\\
+	\\
+	Die zu zeigende Relation kann auf demselben Wege wie im vorherigen Beweis bewiesen werden.\\
+	\\
+	Alternativ kann die thermische Zustandsgleichung in die Relation $p V^\kappa = \text{konst.}$ eingesetzt werden:
+		\begin{align*}
+			p V^\kappa &= \text{konst.} \\
+			\Leftrightarrow \lr{ \frac{n R T}{V} } V^\kappa &= \text{konst.} \\
+			\Leftrightarrow T V^{\kappa - 1} &= \text{konst.} \qquad \blacksquare
+		\end{align*}
+	
+	
+	\fbox{Herleitung}\\
+	zz: $p^{1-\kappa} T^\kappa = \text{konst.}$ auf Adiabaten\\
+	\\
+	Die zu zeigende Relation kann auf demselben Wege wie im vorherigen Beweis bewiesen werden.\\
+	\\
+	Alternativ kann die thermische Zustandsgleichung in die Relation $p V^\kappa = \text{konst.}$ eingesetzt werden:
+		\begin{align*}
+			p V^\kappa &= \text{konst.} \\
+			\Leftrightarrow p \lr{ \frac{n R T}{p} }^\kappa &= \text{konst.} \\
+			\Leftrightarrow p^{1-\kappa} T^\kappa &= \text{konst.} \qquad \blacksquare
+		\end{align*}
+
+
+	\fbox{Herleitung}\\
+	zz: Arbeit isotherme Zustandsänderung $W = n R T \ln \lr{ \frac{V_1}{V_2} }$\\
+\\
+	Stelle die thermische Zustandsgleichung des idealen Gases nach $p$ um und setze den Ausdruck in die mechanische Arbeit ein:
+		\begin{align*}
+			W &= - \int_{V_1}^{V_2} p \, \diff V = -\int_{V_1}^{V_2} \lr{ \frac{n R T}{V} } \, \diff V = -n R T \int_{V_1}^{V_2} \frac{\diff V}{V} = -n R T \ln \lr{ \frac{V_2}{V_1} } = \\
+			&= n R T \ln \lr{ \frac{V_1}{V_2} } \qquad \blacksquare
+		\end{align*}	
+	
+	
+	\fbox{Herleitung}\\
+	zz: Arbeit adiabatische Zustandsänderung $W = \frac{1}{\kappa - 1} \lr{ p_2 V_2 - p_1 V_1 }$\\
+	\\
+	Stelle die Adiabatengleichung $pV^\kappa = C$ nach $p$ um und setze den Ausdruck in die mechanische Arbeit ein:
+		\begin{align*}
+			W &= - \int_{V_1}^{V_2} p \, \diff V = - \int_{V_1}^{V_2} \frac{C}{V^\kappa} \, \diff V = -C \int_{V_1}^{V_2} V^{-\kappa} \, \diff V = -C \frac{1}{1-\kappa} \lr{ V_2^{1-\kappa} - V_1^{1-\kappa} } = \\
+			&= \frac{1}{\kappa-1} \lr{ C V_2^{1-\kappa} - C V_1^{1-\kappa} } = \frac{1}{\kappa-1} \lr{ p_2 V_2^\kappa V_2^{1-\kappa} - p_1 V_1^\kappa V_1^{1-\kappa} } = \frac{1}{\kappa-1} \lr{ p_2 V_2 - p_1 V_1 } \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Kreisprozesse}
+Ein Kreisprozess, bei dem Anfangs- und Endzustand des thermodynamischen Systems identisch ist.\\
+\\
+Eine zentrale Größe bei Kreisprozessen ist der \underline{Wirkungsgrad}, der als das Verhältnis der vom System aufgenommenen Wärme zur abgegebenen Leistung definiert ist
+	\begin{equation}
+		\eta := \frac{-W_\text{netto}}{Q_\text{auf}}
+	\end{equation}
+
+und somit angibt, wie effizient Wärme in nutzbare Arbeit übersetzt wird.
+
+
+\subsubsection{Otto-Motor}
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.8\textwidth]{Grafiken/otto-motor-diagramm.pdf}
+		}
+		\caption{$p$-$V$-Diagramm des Otto-Motors}
+	\end{figure}
+
+
+Der Wirkungsgrad des Otto-Motors ist
+	\begin{equation}
+		\eta = 1 - \lr{ \frac{V_2}{V_1} }^{\kappa - 1} \equiv 1 - \frac{1}{\varepsilon^{\kappa - 1}}
+	\end{equation}
+
+mit dem Verdichtungsverhältnis $\varepsilon := \frac{V_1}{V_2}$.
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Wirkungsgrad $\eta = 1 - \frac{1}{\varepsilon^{\kappa-1}}$\\
+	\\
+	Betrachte die Prozessschritte separat:\\
+	\textcircled{1} Adiabatische Kompression
+		\begin{align*}
+			Q_1 &= 0 \\
+			W_1 &= \Delta U_1 = C_V(T_2 - T_1) < 0
+		\end{align*}
+	
+	\textcircled{2} Isochore Wärmezufuhr
+		\begin{align*}
+			Q_2 &= \Delta U_2 = C_V(T_3 - T_2) > 0 \\
+			W_2 &= 0
+		\end{align*}
+	
+	\textcircled{3} Adiabatische Expansion
+		\begin{align*}
+			Q_3 &= 0 \\
+			W_3 &= \Delta U_3 = C_V(T_4 - T_3) > 0
+		\end{align*}
+	
+	\textcircled{4} Isochore Wärmeabfuhr
+		\begin{align*}
+			Q_4 &= \Delta U_4 = C_V(T_1 - T_4) < 0 \\
+			W_4 &= 0
+		\end{align*}
+
+	Der Wirkungsgrad ergibt sich somit zu
+		\begin{align*}
+			\eta &= \frac{-(C_V(T_2 - T_1) + C_V(T_4 - T_3))}{C_V(T_3 - T_2)} = \frac{T_1 - T_2 + T_3 - T_4}{T_3 - T_2} = \\
+			&= 1 - \frac{T_4 - T_1}{T_3 - T_2} = 1 - \frac{T_1}{T_2} \cdot \frac{\frac{T_4}{T_1} - 1}{ \frac{T_3}{T_2} - 1 }
+		\end{align*}
+
+	Verwende die Adiabatengleichung $TV^{\kappa-1}=\text{konst.}$, um $\frac{T_1}{T_2}, \frac{T_4}{T_3}$ auszudrücken:
+		\begin{align*}
+			T_1 V_1^{\kappa-1} &= T_2 V_2^{\kappa-1} = \text{konst.} \\
+			\Leftrightarrow \frac{T_1}{T_2} &= \lr{ \frac{V_2}{V_1} }^{\kappa-1} \\
+			T_3 V_3^{\kappa-1} &= T_4 V_4^{\kappa-1} = \text{konst.} \\
+			\Leftrightarrow \frac{T_4}{T_3} &= \lr{ \frac{V_2}{V_1} }^{\kappa-1}
+		\end{align*}
+	
+	Somit folgt ebenso
+		\begin{align*}
+			\frac{T_1}{T_2} = \frac{T_4}{T_3} 
+			\Leftrightarrow \frac{T_4}{T_1} = \frac{T_3}{T_2}
+		\end{align*}
+	
+	Der Wirkungsgrad ist schließlich
+		\begin{align*}
+			\eta = 1 - \lr{ \frac{V_2}{V_1} }^{\kappa-1} \cdot \frac{ \frac{T_4}{T_1} - 1 }{ \frac{T_4}{T_1} - 1 } = 1 - \lr{ \frac{V_2}{V_1} }^{\kappa-1} \qquad \blacksquare
+		\end{align*}
+
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Carnot-Prozess}
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.8\textwidth]{Grafiken/carnot-prozess-diagramm.pdf}
+		}
+		\caption{$p$-$V$-Diagramm des Carnot-Prozesses}
+	\end{figure}
+
+Der Wirkungsgrad des Carnot-Prozesses ist
+	\begin{equation}
+		\eta = 1 - \frac{T_k}{T_w}
+	\end{equation}
+
+mit der wärmeren bzw. kälteren Temperatur $T_w$ bzw. $T_k$.
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $\eta = 1 - \frac{T_k}{T_w}$\\
+	\\
+	Betrachte die Prozessschritte separat:\\
+	\textcircled{1} Isotherme Kompression
+		\begin{align*}
+			Q_1 &= - W_1 < 0 \\
+			W_1 &= n R T_k \ln \lr{ \frac{V_1}{V_2} } > 0
+		\end{align*}
+
+	\textcircled{2} Adiabatische Kompression
+		\begin{align*}
+			Q_2 &= 0 \\
+			W_2 &= \Delta U_2 = C_V (T_w - T_k) > 0
+		\end{align*}
+	
+	\textcircled{3} Isotherme Expansion
+		\begin{align*}
+			Q_3 &= - W_3 > 0 \\
+			W_3 &= n R T_w \ln \lr{ \frac{V_3}{V_4} } < 0
+		\end{align*}
+	
+	\textcircled{4} Adiabatische Expansion
+		\begin{align*}
+			Q_4 &= 0 \\
+			W_4 &= \Delta U_4 = C_V (T_k - T_w) < 0
+		\end{align*}
+	
+	Der Wirkungsgrad ergibt sich somit zu
+		\begin{align*}
+			\eta &= \frac{- \lreck{ n R T_k \ln \lr{ \frac{V_1}{V_2} } + \cancel{ C_V (T_w - T_k) } + n R T_w \ln \lr{ \frac{V_3}{V_4} } + \cancel{ C_V (T_k - T_w) } } }{ -n R T_w \ln \lr{ \frac{V_3}{V_4} } } = 1 + \frac{T_k}{T_w} \cdot \frac{ \ln \lr{ \frac{V_1}{V_2} } }{ \ln \lr{ \frac{V_3}{V_4} } }
+		\end{align*}
+	
+	Verwende die Adiabatengleichung $T^\kappa V^{\kappa-1} = \text{konst.}$, um einen Zusammenhang zwischen $\frac{V_1}{V_2}, \frac{V_3}{V_4}$ herzustellen:
+		\begin{align*}
+			T_k^\kappa V_2^{\kappa-1} &= T_w^\kappa V_3^{\kappa-1} \\
+			\Leftrightarrow \lr{ \frac{V_3}{V_2} }^{\kappa-1} &= \lr{ \frac{T_k}{T_w} }^\kappa \\
+			T_w^\kappa V_4^{\kappa-1} &= T_k^\kappa V_1^{\kappa-1} \\
+			\Leftrightarrow \lr{ \frac{V_4}{V_1} }^{\kappa-1} &= \lr{ \frac{T_k}{T_w} }^\kappa \\
+			\Rightarrow \frac{V_3}{V_2} &= \frac{V_4}{V_1} \Leftrightarrow \frac{V_3}{V_4} = \frac{V_2}{V_1}
+		\end{align*}
+	
+	Der Wirkungsgrad ist schließlich
+		\begin{align*}
+			\eta = 1 + \frac{T_k}{T_w} \cdot \frac{ \ln\lr{ \frac{V_1}{V_2} } }{ \ln \lr{ \frac{V_2}{V_1} } } = 1 - \frac{T_k}{T_w} \cdot \cancel{ \frac{ \ln\lr{ \frac{V_1}{V_2} } }{ \ln \lr{ \frac{V_1}{V_2} } } } = 1 - \frac{T_k}{T_w} \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Diesel-Motor}
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.8\textwidth]{Grafiken/diesel-motor-diagramm.pdf}
+		}
+		\caption{$p$-$V$-Diagramm des Diesel-Motors}
+	\end{figure}
+
+Der Wirkungsgrad des Diesel-Motors ist
+	\begin{equation}
+		\eta = 1 - \frac{1}{ \varepsilon^{\kappa-1} } \frac{ \rho^\kappa - 1 }{ \kappa( \rho - 1) }
+	\end{equation}
+
+mit dem Verdichtsungsverhältnis $\varepsilon := \frac{V_1}{V_2}$, dem Volldruckverhältnis $\rho := \frac{V_3}{V_2}$ und dem Adiabatenkoeffizienten $\kappa$.
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $\eta = 1 - \frac{1}{ \varepsilon^{\kappa-1} } \frac{ \rho^\kappa - 1 }{ \kappa( \rho - 1) }$\\
+	\\
+	Betrachte die Prozessschritte separat:\\
+	\textcircled{1} Adiabatische Kompression
+		\begin{align*}
+			Q_1 &= 0 \\
+			W_1 &= C_V (T_2 - T_1) > 0
+		\end{align*}
+	
+	\textcircled{2} Isobare Expansion
+		\begin{align*}
+			Q_2 &= C_V(T_3 - T_2) - \lreck{ -p_2(V_3 - V_2) } = \\
+			&= C_V (T_3 - T_2) + nR (T_3 - T_2) = \\
+			&= (C_V + nR)(T_3 - T_2) \equiv \\
+			&\equiv C_p (T_3 - T_2) \\
+			W_2 &= -p_2 (V_3 - V_2) = \\
+			&= n R (T_2 - T_3)
+		\end{align*}
+	
+	\textcircled{3} Adiabatische Expansion
+		\begin{align*}
+			Q_3 &= 0 \\
+			W_3 &= C_V (T_4 - T_3) < 0
+		\end{align*}
+	
+	\textcircled{4} Isochore Kompression
+		\begin{align*}
+			Q_4 &= C_V(T_1 - T_4) < 0 \\
+			W_4 &= 0
+		\end{align*}
+
+	Der Wirkungsgrad ergibt sich somit zu
+		\begin{align*}
+			\eta &= \frac{ -\lreck{ C_V(T_2 - T_1) + n R(T_2 - T_3) + C_V(T_4 - T_3) } }{ C_p (T_3 - T_2) } = \\
+			&= \frac{ C_V(T_1 - T_2) + n R(T_3 - T_2) + C_V(T_3 - T_4) }{ C_p (T_3 - T_2) } = \\
+			&= \frac{ \overbrace{ (C_V + nR) }^{C_p} (T_3 - T_2) + C_V(T_1 - T_4) }{ C_p(T_3 - T_2) } = \\
+			&= \frac{ C_p (T_3 - T_2) + C_V(T_1 - T_4) }{ C_p(T_3 - T_2) } = \\
+			&= 1 - \underbrace{ \frac{C_v}{C_p} }_{=1/\kappa} \frac{T_4 - T_1}{T_3 - T_2} = \\
+			&= 1 - \frac{1}{\kappa} \frac{T_1}{T_2} \frac{\frac{T_4}{T_1} - 1}{\frac{T_3}{T_2} - 1}
+		\end{align*}
+
+	Nutze im Folgenden die Adiabatengleichung $TV^{\kappa-1} = \text{konst.}$ sowie für die Isobare und Isochore $p_2 = p_3 \Leftrightarrow \frac{T_2}{T_3} = \frac{V_2}{V_3}$ und $V_4 = V_1$, um die verbleibenden Temperaturverhältnisse auszudrücken:
+		\begin{align*}
+			& \begin{cases}
+				T_1 V_1^{\kappa-1} = T_2 V_2^{\kappa-1} \\
+				T_3 V_3^{\kappa-1} = T_4 V_4^{\kappa-1}
+			\end{cases} \\
+			\Leftrightarrow \frac{T_1}{T_2} &= \lr{ \frac{V_2}{V_1} }^{\kappa-1} = \lr{ \frac{V_1}{V_2} }^{1-\kappa} \equiv \varepsilon^{1-\kappa} = \frac{1}{\varepsilon^{\kappa-1}}
+		\end{align*}
+	
+	Weiter:
+		\begin{align*}
+			\frac{T_4}{T_1} &= \frac{ \lr{ \frac{ T_3 V_3^{1-\kappa} }{ \cancel{ V_4^{\kappa-1} } } } }{ \lr{ \frac{ T_2 V_2^{1-\kappa} }{ \cancel{ V_1^{\kappa-1} } } } } = \frac{T_3}{T_2} \lr{ \frac{V_3}{V_2} }^{\kappa-1} = \frac{V_3}{V_2} \lr{ \frac{V_3}{V_2} }^{\kappa-1} = \lr{ \frac{V_3}{V_2} }^\kappa \equiv \rho^\kappa
+		\end{align*}
+	
+	Der Wirkungsgrad ist schließlich
+		\begin{align*}
+			\eta &= 1 - \frac{1}{\kappa} \frac{1}{\varepsilon^{\kappa-1}} \frac{ \rho^\kappa - 1 }{ \rho - 1 } = 1 - \frac{1}{\varepsilon^{\kappa-1}} \frac{ \rho^\kappa - 1 }{ \kappa (\rho - 1) } \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Thermodynamische Potentiale}
+Ein thermodynamisches Potential ist eine skalare Funktionen, die den Zustand eines thermodynamischen Systems beschreibt. Wird es durch einen bestimmten Satz an Zustandsvariablen, den sogenannten \underline{natürlichen Variablen} ausgedrückt, enthält es die gesamte thermodynamische Information.\\
+\\
+Wichtige thermodynamische Potentiale, deren natürliche Variablen, Legendre-Transformationen sowie Differentiale sind:
+	\begin{itemize}
+		\item \textbf{innere Energie}\\
+		Energie, die ein theromdynamisches System in Form von Wärme oder Arbeit abgeben kann
+			\begin{align}
+				U &= U(S, V, \{N_i\}) \\
+				\diff U &= T \, \diff S - p \, \diff V + \sum_i \mu_i \, \diff N_i
+			\end{align}
+		
+		
+		\item \textbf{Enthalpie}\\
+		...
+			\begin{align}
+				H &= H(p, S, \{N_i\}) \\
+				H &= U + p V \\
+				\diff H &= T \, \diff S + V \, \diff p + \sum_i \mu_i \, \diff N_i
+			\end{align}
+		
+		
+		\item \textbf{freie Energie}\\
+		...
+			\begin{align}
+				F &= F(T, V, \{N_i\}) \\
+				F &= U - TS \\
+				\diff F &= -S \, \diff T - p \, \diff V + \sum_i \mu_i \, \diff N_i
+			\end{align}
+		
+		
+		\item \textbf{Gibbs freie Energie}\\
+		...
+			\begin{align}
+				G &= G(T, p, \{N_i\}) \\
+				G &= U - TS + pV \\
+				\diff G &= -S \, \diff T + U \, \diff p + \sum_i \mu_i \, \diff N_i
+			\end{align}
+	\end{itemize}
+
+
+\newpage
+
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+		\includegraphics[width=0.25\textwidth]{Grafiken/guggenheim-schema.pdf}
+	}
+	\caption{Guggenheim-Schema; Die Ableitung eines thermodynamischen Potentials nach einer benachbarten Variable, unter Konstanthaltung der anderen benachbarten, ergibt die Größe entlang des Pfeils. Falls entgegen der Pfeilrichtung gegangen wird, hat das Ergebnis ein negatives Vorzeichen}
+\end{figure}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Guggenheim-Schema\\
+	\\
+	Betrachte die Legendre-Transformation $U(S,V,\{N_i\}) \to F(T,V,\{N_i\})$, d.h. $F = U - TS$.\\
+	Das Differential ist folglich:
+		\begin{align*}
+			\diff F &= \diff U - \diff(TS) = \\
+			&= \cancel{ T \, \diff S } - p \, \diff V + \sum_i \mu_i \, \diff N_i - S \, \diff T - \cancel{ T \, \diff S } \\
+			&= - S \, \diff T - p \, \diff V + \sum_i \mu_i \, \diff N_i
+		\end{align*}
+	
+	Der Vergleich mit der allgemeinen Form des Differentials liefert:
+		\begin{align*}
+			\lr{ \frac{\partial F}{\partial T} }_{V, \{N_i\}} = -S, \qquad \lr{ \frac{\partial F}{\partial V} }_{T, \{N_i\}} = -p, \qquad \lr{ \frac{\partial F}{\partial N_i} }_{T, V, \{N_j\}} = \mu_i
+		\end{align*}
+
+	Analog für die verbleibenden thermodynamischen Potentiale. $\qquad \blacksquare$
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Maxwell-Relationen}
+Relationen, die den Zusammenhang zwischen den Änderungen verschiedener Zustandsvariablen herstellen:
+	\begin{align}
+		- \lr{ \frac{\partial S}{\partial p} }_T &= \phantom{-} \lr{ \frac{\partial V}{\partial T} }_p \\
+		\phantom{-} \lr{ \frac{\partial T}{\partial p} }_S &= \phantom{-} \lr{ \frac{\partial V}{\partial S} }_p \\
+		- \lr{ \frac{\partial p}{\partial S} }_V &= \phantom{-} \lr{ \frac{\partial T}{\partial V} }_S \\
+		- \lr{ \frac{\partial p}{\partial T} }_V &= - \lr{ \frac{\partial S}{\partial V} }_T		
+	\end{align}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $- \lr{ \frac{\partial S}{\partial p} }_T = \phantom{-} \lr{ \frac{\partial V}{\partial T} }_p$\\
+	\\
+	Formuliere die Integrabilitätsbedingung für die Gibbs freie Energie bezüglich dessen natürlichen Variablen:
+		\begin{align*}
+			\frac{ \partial^2 G }{ \partial p \partial T } &\stackrel{!}{=} \frac{ \partial^2 G }{ \partial T \partial p } \\
+			\Leftrightarrow \frac{\partial}{\partial T} \lr{ \frac{\partial G}{\partial p} }_T &= \frac{\partial}{\partial p} \lr{ \frac{\partial G}{\partial T} }_p \\
+			\Leftrightarrow \frac{\partial}{\partial T} V &= \frac{\partial}{\partial p} (-S) \\
+			\Leftrightarrow \lr{ \frac{\partial V}{\partial V} }_p &= -\lr{ \frac{\partial S}{\partial p} }_T \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Glossar}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		abgeschlossenes System & System ohne Energie-, Stoff- und Volumenaustausch \\
+	\hline
+		Celsius-Skala &  \\
+	\hline
+		extensive Zustandsgrößen & Zustandsgrößen, die sich unter der Skalierung des Systems verändern, z.B. Volumen $V$, Energie $U$ \\
+	\hline
+		Fahrenheit-Skala &  \\
+	\hline
+		Fundamentalrelation & Formulierung eines thermodynamischen Potentials in bestimmten \underline{Zustandsvariablen}, die die gesamte thermodynamische Information enthält, z.B. $S(U,V), U(S,V)$ \\
+	\hline
+		Gleichgewichtszustand & Zustand, in dem sich die \underline{Zustandsgrößen} nicht mehr merklich ändern \\
+	\hline
+		ideales Gas &  \\
+	\hline
+		intensive Zustandsgrößen & Zustandsgrößen, die sich unter der Skalierung des Systems nicht verändern, z.B. $T$, Druck $p$ \\
+	\hline
+		isentrope Zustandsänderung & Zustandsänderung, die bei konstanter Entropie stattfindet
+			$$S = \text{konst.}$$ \\	
+	\hline
+		isobare Zustandsänderung & Zustandsänderung, die bei konstantem Druck stattfindet
+			$$p = \text{konst.}$$ \\	
+	\hline
+		isochore Zustandsänderung & Zustandsänderung, die bei konstantem Volumen stattfindet
+			$$V = \text{konst.}$$ \\	
+	\hline
+		isotherme Zustandsänderung & Zustandsänderung, die bei konstanter Temperatur stattfindet
+			$$T = \text{konst.}$$ \\			
+	\hline
+		kalorische Zustandsgleichung & Zustandsgleichung der Form
+			$$U(T,V,N), U(T,p,N), U(V,p,N)$$ \\
+	\hline
+		Kreisprozess & Prozesstyp, bei dem Anfangs- und Endzustand identisch sind \\
+	\hline
+		Phase & bezüglich seiner chemischen/physikalischen Eigenschaften homogener Bereich eines Stoffes \\
+	\hline
+		Perpetuum mobile 1. Art & Maschine, die fortdauernd Arbeit aus dem Nichts erzeugt \\
+	\hline
+		Perpetuum mobile 2. Art & Maschine, die fortdauernd Arbeit verrichtet und ein Wärmebad abkühlt \\
+	\hline
+		reales Gas &  \\
+	\hline
+		thermische Zustandsgleichung & Zustandsgleichung der Form
+			$$p(T,V,N)$$ \\
+	\hline
+		vollständiger Satz unabhängiger Zustandsgrößen & Satz, aus dem sich alle anderen thermodynamischen Zustandsgrößen ableiten lassen \\
+	\hline
+		Prozessgröße &  \\
+	\hline
+		quasistatische Zustandsänderung & - Zustandsänderung, die näherungsweise von Gleichgewichtszustand zu Gleichgewichtszustand verläuft, d.h. die zeitliche Änderung ist groß im Vergleich zur Relaxationszeit \\
+	\hline
+		Relaxationszeit & Zeit, die das System
+benötigt, um den Gleichgewichtszustand zu erreichen \\
+	\hline
+		reversible Zustandsänderung & Zustandsänderung, die vollständig umkehrbar ist \\
+	\hline
+		Wärmebad & Idealisiertes System, das Wärme aufnehmen bzw. abgeben kann, ohne dabei seine Temperatur zu ändern \\
+	\hline
+		Zustandsfunktion & \textcolor{blue}{siehe Zustandsgleichung} \\
+	\hline
+		Zustandsgleichung & - Relation zwischen \underline{Zustandsgrößen} \\
+		& - Beispiel: ideale Gasgleichung
+			$$pV = nRT$$ \\
+	\hline
+		Zustandsgrößen & - makroskopische Observable, die vom Zustand des thermodynamischen Systems abhängt \\
+		& - Beispiele: Temperatur $T$, Druck $p$, Volumen $V$, Teilchenzahl $N$, Magnetisierung $\vec{M}$, Polarisation $\vec{P}$ \\
+	\hline
+		Zustandsvariablen & \textcolor{blue}{siehe Zustandsgrößen} \\
+	\hline\hline
+\end{xltabular}
+\end{document}

@@ -1,0 +1,1697 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Quantenmaterialien im Magnetfeld}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section*{Abstrakt}
+Der Kurs "Quantenmaterialien" gibt Einblicke in die Architektur von Heterostrukturen sowie in Transportprozesse und Interferenzeffekte von Quantenmaterialien.\\
+Besondere Aufmerksamkeit gilt den charakteristischen Längen und deren Verhältnis zur Probengeometrie, da diese die Materialeigenschaften erheblich beeinflussen. So wird der elektrische Magnetotransport in ein diffusives und ein ballistisches Regime unterteilt, die jeweils mit charakteristischen Effekten wie Hall-Effekt, Aharonov-Bohm-Effekt, Shubnikov-de-Haas-Effekt sowie dem integralen und fraktionalen Quanten-Hall-Effekt einhergehen.
+
+
+\newpage
+
+
+\section{Magnetotransport (2d)}
+\subsection{Grundlegende Definitionen}
+	\begin{itemize}
+		\item \textbf{Magnetotransport}\\
+		Elektrischer und thermischer Transport unter der Wirkung eines äußeren B-Feldes
+		
+		
+		\item \textbf{diffusives Regime}\\
+		Regime, in dem Ladungsträger viele Streuprozesse erfahren, bevor sie die Probe durchqueren
+		
+		
+		\item \textbf{ballistisches Regime}\\
+		Regime, in dem Ladungsträger die Probe nahezu ohne Streuung durchqueren
+		
+		
+		\item \textbf{kohärentes Regime}\\
+		Regime, in dem die Phasen-Kohärenz erhalten bleibt und Quanteninterferenzeffekte beobachtbar sind
+		
+		
+		\item \textbf{inkohärentes Regime}\\
+		Regime, in dem die Phasen-Kohärenz verloren geht und keine Quanteninterferenzen mehr beobachtet werden können
+
+		
+		\item \textbf{charakteristische Größe}\\
+		Physikalische Größe (z.B. Länge, Zeit, Energie oder ein dimensionsloses Verhältnis), anhand denen abgeschätzt werden kann, welches Regime oder welche physikalischen Effekte dominieren
+	\end{itemize}
+
+
+\begin{table}[h]
+	\centering
+	\caption{Übersicht charakteristische Längen im Vergleich mit der Probengeometrie $L$}
+	\begin{tabular}{l|c|l}
+		\hline\hline
+			Charakteristische Länge & Symbol & Auswirkung auf Transport/Interferenz \\
+		\hline
+			Fermi-Wellenlänge & $\lambda_\text{F}$ & $\lambda_\text{F} \gtrsim L$: Quantenmaterial \\
+			& & $\lambda_\text{F} \ll L$: normales Material \\
+		\hline
+			mittlere freie Weglänge & $L_\text{f}$ & $L \gg L_\text{f}$: diffusiver Transport \\
+			& & $L \ll L_\text{f}$: ballistischer Transport \\
+		\hline
+			Phasen-Kohärenz-Länge & $L_\phi$ & $L \gg L_\phi$: inkohärentes Regime \\
+			& & $L \leq L_\phi$: kohärentes Regime \\
+%		\hline
+%			Spin-Flip-Länge & $L_s$ & $L_s \gg L_s$: Spin-kohärentes Regime \\
+%			& & $L_s \ll L_s$: Spin-inkohärentes Regime \\
+		\hline
+			Zyklotronfrequenz, Stoßzeit & $\omega_c \tau$ & $\omega_c \tau \gg 1$: starkes B-Feld \\
+			&  & $\omega_c \tau \ll 1$: schwaches B-Feld \\
+		\hline
+			thermische Energie & $k_B T$ & $k_B T \gg \hbar \omega_c$: thermisch verschmierte Landau-Niveaus \\
+			&  & $k_B T \ll \hbar \omega_c$: nahezu diskrete Landau-Niveaus \\
+		\hline\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+
+
+\subsection{Modelle}
+\subsubsection{Drude-Modell mit B-Feld}
+Das physikalische Modell, das den diffusiven Magnetotransport beschreibt, ist das Drude-Modell mit B-Feld. Im Rahmen der Effektive-Masse-Näherung können die Ausdrücke des Drude-Modells unter der Anpassung $m \to m^\star$, $\tau \to \tau_F$ auch für das quantenmechanische diffusive Regime verwendet werden. \\
+\\
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{klassisches Elektronengas}\\
+		Die Dynamik wird durch die Newton'sche Bewegungsgleichung
+			\begin{equation}
+				m \frac{\diff \vec{v}}{\diff t} = -e(\vec{E} + \vec{v} \times \vec{B} ) - \frac{m}{\tau}\vec{v},
+			\end{equation}
+		
+		mit der Driftgeschwindigkeit $\vec{v}_D$ und der Streurate $\tau$ beschrieben.\\
+		Letztere berechnet sich über die empirische \underline{Matthissen'sche Regel}
+			\begin{equation}
+				\frac{1}{\tau} = \sum_i \frac{1}{\tau_i}
+			\end{equation}
+		
+		mit der Streuzeit eines Streuprozesses $\tau_i$ (siehe Appendix B).
+		
+		
+		\item \textbf{stationärer Zustand}
+	\end{itemize}
+	
+	
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Driftgeschwindigkeit}\\
+		Mittlere Geschwindigkeit der Ladungsträger im stationären Fall
+			\begin{equation}
+				\vec{v}_D = -\mu \vec{E} - \mu \cdot \vec{v}_D \times \vec{B},
+			\end{equation}
+		
+		mit der \underline{Beweglichkeit} $\mu := \frac{e\tau}{m}$
+		
+		
+		\item \textbf{Ohm'sches Gesetz}\\
+		Für stationäre Ströme gilt das Ohm'sche Gesetz
+			\begin{equation}
+				\vec{j}
+				=
+				\begin{pmatrix}
+					j_x \\ j_y \\ j_z
+				\end{pmatrix}
+				=
+				\frac{\sigma_0}{1 + (\omega_c \tau)^2}
+				\begin{pmatrix}
+					1 & -\omega_c \tau & 0 \\
+					\omega_c \tau & 1 & 0 \\
+					0 & 0 & 1 + (\omega_c \tau)^2
+				\end{pmatrix}
+				\cdot
+				\begin{pmatrix}
+					E_x \\ E_y \\ E_z
+				\end{pmatrix}
+				=
+				\underline{\sigma}
+				\cdot
+				\vec{E}
+			\end{equation}
+		
+		mit der Stromdichte $\vec{j}$, der \underline{elektrischen Leitfähigkeit} ohne B-Feld $\sigma_0 := \frac{e^2 n \tau}{m}$, der Zyklotronfrequenz $\omega_c := \frac{eB}{m}$ und dem angelegten elektrischen Feld $\vec{E}$.
+	\end{itemize}
+
+
+\newpage
+
+
+\subsubsection{Landauer-Büttiker-Formalismus}
+Der Landauer-Büttiker-Formalismus ist ein quantenmechanischer Formalismus zur Beschreibung des ballistischen Transports in einem System mit $n$ Kontakten.
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+		\includegraphics[width=0.6\textwidth]{Grafiken/landauer-büttiker.png}
+	}
+	\caption{Schema des Landauer-Büttiker-Formalismus}
+\end{figure}
+
+
+
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{ballistischer Transport}
+		
+		
+		\item \textbf{Teilchen tunneln von Kontakt zu Kontakt}
+
+
+		\item \textbf{Zuleitungen im lokalen thermodynamischen Gleichgewicht}\\
+		D.h. dass die Zuleitungen jeweils durch eine Fermi-Dirac-Verteilung $f(E;\mu)$ beschrieben werden können
+		
+		
+		\item \textbf{\textit{linear-response-}Näherung}\\
+		Lineare Näherung der Fermi-Dirac-Verteilungen möglich, da lediglich kleine Differenzen zwischen den chemischen Potentialen der $n$ Kontakte vorliegt
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Strom im $i$-ten Kontakt}
+			\begin{equation}
+				I_i = \sum_{j \neq i, j \in \text{Kontakte}} G_{ij} \cdot \lr{ \frac{\mu_i}{e} - \frac{\mu_j}{e} }
+			\end{equation}
+		
+		mit dem Leitwert zwischen dem $i$-ten und $j$-ten Kontakt
+			\begin{align}
+				G_{ij} &= g_s\frac{e^2}{h} \int_{-\infty}^{+\infty} T_{ij}(E) \cdot \frac{\partial f(E)}{\partial \mu}
+			\end{align}
+			
+		mit der Transmission vom $i$-ten zum $j$-ten Kontakt über alle Moden
+			\begin{equation}
+				T_{ij}(E) = \sum_{n \in \text{Moden in } i} \sum_{m \in \text{Moden in } j} T_{ij}^{nm}(E)
+			\end{equation}
+		
+		wobei $T_{ij}^{nm}$ die Transmission von Mode $m$ in Mode $n$ ist.
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Strom im $i$-ten Kontakt \underline{ohne} linear response $I_i = g_s \frac{e}{h} \sum_j \int_{-\infty}^{+\infty} T_{ij}(E) \lreck{ f_i(E) - f_j(E) } \, \diff E$\\
+	\\
+	Herleitungsskizze:\\
+	1) quantenmechanische Formulierung des infinitesimalen Stroms \\
+	2) Summieren über alle Moden \\
+	3) Summieren über alle Kontakte \\
+	4) Formulierung Nettostrom \\
+	5) Integration über alle Energien \\
+	\\
+	Betrachte den Strom von Kontakt $j$ und einer in diesem Kontakt befindlichen Mode $m$ zum Kontakt $i$ und einer in diesem Kontakt befindlichne Mode $n$.\\
+	Der Strom eines Elektrons im Energiebereich $[E, E+\diff E]$ wird beschrieben durch \textcolor{gruen}{(hier ohne Beweis, da sehr komplexe Betrachtung)}
+		\begin{align*}
+			\diff I_{i \leftarrow j}^{n \leftarrow m} = g_s \frac{e}{h} \cdot  T_{i \leftarrow j}^{m \leftarrow n} \cdot f_j(E) \, \diff E.
+		\end{align*}
+	
+	Summieren über alle Moden des Kontakts $j$ $m$ sowie der in Kontakt $i$ ergibt den Strom von Kontakt $j$ nach Kontakt $i$
+		\begin{align*}
+			\diff I_{i \leftarrow j} &= \sum_{n \in \text{Kontakt $i$}} \sum_{m \in \text{Kontakt $j$}} \diff I_{i \leftarrow j}^{n \leftarrow m} = \\
+			&= \sum_{n \in \text{Kontakt $i$}} \sum_{m \in \text{Kontakt $j$}} \lr{ g_s \frac{e}{h} \cdot T_{i \leftarrow j}^{m \leftarrow n} \cdot f_j(E) \, \diff E } = \\
+			&= g_s \frac{e}{h} \cdot \lr{ \sum_{n \in \text{Kontakt $i$}} \sum_{m \in \text{Kontakt $j$}} T_{i \leftarrow j}^{m \leftarrow n} } \cdot f_j(E) \, \diff E \equiv \\
+			&\equiv g_s \frac{e}{h} \cdot T_{ij}(E) \cdot f_j(E) \, \diff E
+		\end{align*}
+
+	Summiere schließlich über alle Kontakte $j$, die in Kontakt $i$ einspeisen können
+		\begin{align*}
+			\diff I_{i \leftarrow j} &= \sum_{j \in \text{Kontakte}} \diff I_{i \leftarrow j} = \\
+			&= \sum_{j \in \text{Kontakte}} \lr{ g_s \frac{e}{h} \cdot T_{ij}(E) \cdot f_j(E) \, \diff E } = \\
+			&= g_s \frac{e}{h} \cdot \lr{ \sum_{j \in \text{Kontakte}}  \cdot T_{ij}(E) \cdot f_j(E) } \, \diff E
+		\end{align*}
+	
+	Der Nettostrom im Kontakt $i$ ist nun der Strom, der aus $j$ kommt abzüglich dem Strom, der in von $i$ in $j$ fließt.
+		\begin{align*}
+			\diff I_i &= \lr{ g_s \frac{e}{h} \sum_j T_{ij}(E) f_i(E) \, \diff E } - \lr{ g_s \frac{e}{h} \sum_j T_{ij}(E) f_j(E) \, \diff E } = \\
+			&= g_s \frac{e}{h} \sum_j T_{ij}(E) \lreck{ f_i(E) - f_j(E) } \diff E
+		\end{align*}
+	
+	Integration über den gesamten Energiebereich der streuenden Teilchen ergibt schließlich den Nettostrom in $i$
+		\begin{align*}
+			I_i = g_s \frac{e}{h} \sum_j \int_{-\infty}^{+\infty} T_{ij}(E) \lreck{ f_i(E) - f_j(E) } \, \diff E
+		\end{align*}
+
+
+	\fbox{Herleitung}\\
+	zz: $I_i = \sum_j G_{ij} \lr{ \frac{\mu_i}{e} - \frac{\mu_j}{e} }$\\
+	\\
+	Herleitungsskizze:\\
+	1) Linear-Response-Näherung \\
+	2) Identifikation Matrixmultiplikation \\
+	\\
+	Führe eine Taylor-Entwicklung der Fermi-Dirac-Verteilungen im Strom des $i$-ten Kontakts $I_i$ \textcolor{gruen}{(siehe vorherige Herleitung)} mit dem Argument $\mu$ um den \textcolor{red}{Entwicklungspunkt} $E_F$ durch:
+		\begin{align*}
+			f_i(E,\mu_i) &\approx f(E;E_F) + \frac{\partial f_i(E)}{\partial \mu_i} (\mu_i - E_F) \equiv \\
+			&\equiv f_0 + \frac{\partial f(E)}{\partial \mu} \cdot eV_i
+		\end{align*}
+	
+	Somit ergibt sich für die Differenz $f_i(E) - f_j(E)$, die im Strom im $i$-ten Kontakt auftaucht:
+		\begin{align*}
+			f_i(E) - f_j(E) &\approx \frac{\partial f(E)}{\partial \mu} \cdot e(V_i - V_j)
+		\end{align*}
+
+	Einsetzen in $I_i$ ergibt schließlich:
+		\begin{align*}
+			I_i &= g_s \frac{e}{h} \sum_j \int T_{ij}(E) \cdot \frac{\partial f(E)}{\partial \mu} \cdot e(V_i - V_j) \, \diff E = \\
+			&= g_s \frac{e^2}{h} \sum_j \int T_{ij}(E) \cdot \frac{\partial f(E)}{\partial \mu} \cdot (V_i - V_j) \, \diff E \equiv \\
+			&\equiv \sum_j G_{ij} \cdot (V_i - V_j)
+		\end{align*}
+
+	mit dem Leitwert-Matrixelement
+		\begin{align*}
+			G_{ij} &= g_s \frac{e}{h} \int T_{ij}(E) \cdot \frac{\partial f(E)}{\partial \mu}
+		\end{align*}
+
+
+\hrule
+}
+
+
+
+\newpage
+
+\subsubsection{Quantenmechanisches Teilchen im B-Feld}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{2DEG in $xy$-Ebene}
+		
+		
+		\item \textbf{B-Feld in $z$-Richtung}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Energie}
+			\begin{equation}
+				E_n = \hbar \omega_c \lr{ n + \frac{1}{2} }
+			\end{equation}
+		
+		mit der \underline{Zyklotronfrequenz} $\omega_c = \frac{eB}{m}$
+		
+		
+		\item \textbf{Zustand}\\
+		Die Lösung der stationären Schrödinger-Gleichung $\hat{H}u = Eu$ hat die Form
+			\begin{equation}
+				u_{n,k_x}(x,y) \propto e^{i k_x x} \cdot u^\text{HO}_{n}(y)
+			\end{equation}
+		
+		
+		\item \textbf{\underline{Landau-Niveau}}\\
+		Alle Zustände $k_x$ mit derselben Energie $E_n$ bilden ein Landau-Niveau
+		
+		
+		\item \textbf{Füllfaktor}\\
+		Beschreibt, wie viele Landau-Niveaus in einer Probe gefüllt sind
+			\begin{equation}
+				\nu := \frac{n_s}{n_L} = \frac{hn_s}{e B}
+			\end{equation}
+		
+		mit der Elektrondichte $n_s$ und der Zustandsdichte (bzgl. Ortsraum) in einem Landau-Niveau $n_L$
+	\end{itemize}
+
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+		\includegraphics[width=0.6\textwidth]{Grafiken/landau-fächer.png}
+	}
+	\caption{\underline{Landau-Fächer}: Darstellung der Landau-Niveaus in Abhängigkeit des B-Felds}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $n_L = \frac{eB}{h}$\\
+	\\
+	Herleitungsskizze:\\
+	1) Lösen der stationären Schrödinger-Gleichung \\
+	2) Bedingung für Verschiebung des Potentials \\
+	3) Abstand $k_x$-Zustände ermitteln \\
+	4) Anzahl Zustand durch $k_x$-Raum ermitteln \\
+	5) Nach $N/A =: n_L$ umstellen \\
+	\\
+	Löse die stationäre Schrödinger-Gleichung für ein Teilchen im B-Feld $\vec{B} = (0,0,B)^T$:
+		\begin{align*}
+			\hat{H} u &= E u
+		\end{align*}
+	
+	mit dem Ansatz
+		\begin{align*}
+			u(x,y) &\propto e^{i k_x x} \cdot \eta(y)
+		\end{align*}
+	
+	Die DGL reduziert sich in $y$-Richtung auf \textcolor{gruen}{(hier ohne Beweis)}:
+		\begin{align*}
+			\Leftrightarrow \lreck{ \frac{p_y^2}{2m^\star} + \frac{1}{2} m^\star \omega_c^2 \lr{ y - \frac{ \hbar k_x }{e B} }^2 } u_y &= E_y u_y \\
+		\end{align*}
+	
+	Definiere die Verschiebung des Oszillatorzentrums $y_0 := \frac{\hbar k_x}{e B}$.\\
+	\\
+	Dies entspricht der DGL des qm. HO und hat die Lösung
+		\begin{align*}
+			E_n = \hbar \omega_c \lr{ n + \frac{1}{2} }
+		\end{align*}
+	
+	Um Randeffekte zu vermeiden, wird für die Verschiebung des Oszillatorpotentials
+		\begin{align*}
+			0 \leq y_0 = \frac{\hbar k_x}{e B} \leq L_y
+		\end{align*}
+	
+	gefordert.\\
+	Dies kann semiklassisch als die Forderung, dass der Mittelpunkt der Zyklotronbahn in der Probe liegen muss, verstanden werden.\\
+	\\
+	Die Ausdehnung des $k$-Raums $L_{k_x}$ ergibt sich durch umstellen der obigen Bedingung:
+		\begin{align*}
+			\Leftrightarrow 0 &\leq k_x \leq \frac{e B L_y}{\hbar} \\
+			\Rightarrow L_{k_x} &= \frac{e B L_y}{\hbar}
+		\end{align*}
+	
+	Weiter gilt, dass für die Zustände in $x$-Richtung wurde als Lösung das freie Teilchen $e^{i k_x x}$ verwendet.\\
+	Unter periodischen Rändern folgt für die Abstände zweier Zustände im $k$-Raum:
+		\begin{align*}
+			\Delta k_x = \frac{2\pi}{L_x}
+		\end{align*}
+	
+	Die Anzahl aller Zustände in einem Landau-Niveau ergibt sich nun aus dem Verhältnis der Ausdehnung des $k$-Raums und dem Raum, den ein Zustand einnimmt:
+		\begin{align*}
+			N = \frac{L_{k_x}}{\Delta k_x} = \frac{e B L_y \cdot L_x}{\hbar \cdot 2\pi} \equiv \frac{eB}{h} \cdot A
+		\end{align*}
+	
+	Dividieren durch die Fläche $A$ ergibt die gesuchte Zustandsdichte, die mit $n_L$ notiert wird:
+		\begin{align*}
+			n_L &= \frac{N}{A} = \frac{eB}{h} \qquad \blacksquare
+		\end{align*}
+	
+	
+	
+	
+	
+	
+	\fbox{Motivation}\\
+	zz: Füll-Faktor $\nu = \frac{n_s}{n_L}$ \\
+	\\
+	Es existieren $n_L$ entartete Zustände pro Fläche.\\
+	Ein Landau-Niveau kann daher maximal $n_L \cdot A$ Elektronen aufnehmen.\\
+	\\
+	Die Elektronendichte $n_s$ beschreibt, wie viele Elektronen pro Fläche vorhanden sind.\\
+	Jedes Elektron besetzt dabei einen Zustand $(n,k_x)$.\\
+\\
+	Teilt man die Anzahl der Elektronen in der Probe $n_s \cdot A$ durch die Zustände eines Landau-Niveaus in der Probe $n_L \cdot A$, so erhält man, wie viele Landau-Niveaus besetzt sind. Diese Größe
+		\begin{align*}
+			\nu := \frac{n_s}{n_L}
+		\end{align*}
+	
+	heißt Füllfaktor. $\qquad \blacksquare$
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Quantenmechanisches Teilchen im E- und B-Feld}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{2DEG in $xy$-Ebene}
+	
+	
+		\item \textbf{B-Feld in $z$-Richtung}
+		
+		
+		\item \textbf{E-Feld in $y$-Richtung}
+	\end{itemize}
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Energien}\\
+		Das E-Feld hebt die $k_x$-Entartung der Landau-Niveaus vollständig auf
+			\begin{equation}
+				E_n(k_x) = \underbrace{ \hbar\omega_c \lr{ n + \frac{1}{2} } }_{\text{Energie für $\vec{E}=\vec{0}$}} + \underbrace{ |e| E_y \frac{ \hbar k_x + m^\star v_\text{D} }{ |e| B } }_{\text{potentielle Energie durch $\vec{E}$}} + \underbrace{ \frac{1}{2} m^\star v_\text{D}^2 }_{\text{kinetische Energie durch $\vec{E}$}}
+			\end{equation}
+		
+		
+		\item \textbf{Verschwindender Längswiderstand und -leitfähigkeit}\\
+			\begin{equation}
+				\sigma_{xx} = \rho_{xx} = 0
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+\subsubsection{Lokalisierte Elektronen}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Grafiken/potentiallandschaft.png}
+	\caption{a) Äquivpotentiallinien auf einer Potentiallandschaft; b), c) Betragsquadrat lokalisierte Wellenfunktionen im Potential; d) Betragsquadrat delokalisierte Wellenfunktion im Potential}
+\end{figure}
+
+
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{Potentialfluktuationen}
+		
+		\item \textbf{scharfe Landau-Niveaus $\omega_c \tau \gg 1$ und $k_B T \ll \hbar \omega_c$}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{lokalisierte Elektronen außerhalb exakter Landau-Niveau-Energien}
+		
+		
+		\item \textbf{delokalisierte Elektronen nahe exakter Landau-Niveau-Energien}
+	\end{itemize}
+
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+		\includegraphics[width=0.3\textwidth]{Grafiken/lokalisierte elektronen.png}
+	}
+	\caption{Zustandsdichte verbreiterter Landau-Niveaus; ext: energetischer Bereich, in dem delokalisierte Zustände vorliegen; loc: energetischer Bereich, in dem lokalisierte Zustände vorliegen}
+	\label{zustandsdichte ext loc}
+\end{figure}
+
+
+\newpage
+
+
+\subsection{Effekte}
+\subsubsection{Klassischer Hall-Effekt}
+Der Hall-Effekt beschreibt das Phänomen, dass sich in einer stromdurchflossenen Probe, an die ein konstantes B-Feld senkrecht zur Stromrichtung angelegt wird, ein E-Feld senkrecht zur Stromrichtung ausbildet.
+
+\begin{figure}[h]
+	\label{hall-bar}
+	\centering
+	\fbox{
+		\includegraphics[width=0.5\textwidth]{Grafiken/hall-bar 2d.pdf}
+	}
+	\caption{Schema der Hall-Bar}
+\end{figure}
+
+
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{diffusives Regime}
+		
+		
+		\item \textbf{angelegter Strom in x-Richtung}
+		
+		
+		\item \textbf{B-Feld in z-Richtung}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Hall-Feld}
+			\begin{equation}
+				E_y = -\omega_c\tau \cdot E_x
+			\end{equation}
+		
+		
+		\item \textbf{Hall-Koeffizient}
+			\begin{align}
+				R_H &:= -\frac{1}{en} = \frac{U_x \cdot W}{I \cdot B}
+			\end{align}
+	\end{itemize}
+	
+
+\fbox{Anwendung}
+	\begin{itemize}
+		\item \textbf{Bestimmung Elektronendichte}
+			\begin{equation}
+				n = -\frac{1}{R_\text{H} \cdot e}
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Hall-Feld $E_y = -\omega_c \tau \cdot E_x$\\
+	\\
+	Strategie: Einsetzen der Annahmen in das Ohm'sche Gesetz des Sommerfeld-Modells mit B-Feld
+		\begin{align*}
+			&\begin{pmatrix}
+				j_x \\ 0 \\ 0
+			\end{pmatrix}
+			=
+			\frac{\sigma_0}{1 + (\omega_c\tau)^2}
+			\begin{pmatrix}
+				1 & -\omega_c\tau & 0 \\
+				\omega_c\tau & 1 & 0 \\
+				0 & 0 & 1 + (\omega_c\tau)^2
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				E_x \\ E_y \\ E_z
+			\end{pmatrix} \\
+			\Leftrightarrow &
+			\begin{cases}
+				j_x &= \frac{\sigma_0}{1 + (\omega_c\tau)^2} \lr{ E_x - \omega_c\tau \cdot E_y } \\
+				0 &= \frac{\sigma_0}{1 + (\omega_c\tau)^2} \lr{ \omega_c\tau \cdot E_x + E_y } \\
+				0 &= \sigma_0 E_z
+			\end{cases}
+		\end{align*}
+	
+	Umstellen der zweiten Gleichung liefert:
+		\begin{align*}
+			E_y &= -\omega_c\tau \cdot E_x \qquad \blacksquare
+		\end{align*}
+
+
+	\fbox{Herleitung}\\
+	zz: Hall-Koeffizient $R_\text{H} = \frac{U_x}{I_x \cdot B}$\\
+	\\
+	Strategie:\\
+	1) Ohm'sches Gesetz in Hall-Feld-Gleichung einsetzen \\
+	2) Elektrische Leitfähigkeit einsetzen \\
+	3) Definition Hall-Koeffizient \\
+	4) Integration über die Länge der Hall-Bar \\
+	\\
+	Beginne mit der zuvor hergeleiteten Hall-Feld-Gleichung und setze das Ohm'sche Gesetz, die Zyklotronfrequenz sowie im Anschluss die elektrische Leitfähigkeit in Abwesenheit eines B-Felds ein:
+		\begin{align*}
+			E_y &= -\omega_c\tau \cdot E_x \stackrel{\comment{\omega_c}}{=} \frac{eB}{m} \tau \cdot \frac{j_x}{\sigma_0} \stackrel{\comment{\sigma_0}}{=} -\frac{eB\tau}{m} \cdot \frac{j_x}{\lr{ \frac{e^2n\tau}{m} }} = -\frac{1}{en} \cdot B \cdot j_x \equiv\\
+			&\equiv R_\text{H} \cdot B \cdot j_x
+		\end{align*}
+
+	Integration über die Länge der Hallbar ergibt:
+		\begin{align*}
+			U_\text{H} = \int_W E_y \, \diff x &= \int \lr{ R_H \cdot B \cdot j_x } \, \diff x = \\
+			&= R_\text{H} \cdot B \cdot j_x \cdot W
+			\intertext{Drücke die Stromdichte durch die Stromstärke aus:}
+			&= R_\text{H} \cdot B \cdot \frac{I}{D \cdot \cancel{W}} \cdot \cancel{W} = R_\text{H} \cdot B \cdot \frac{I}{D} \\
+			\Leftrightarrow R_\text{H} &= \frac{U_\text{H} \cdot D}{I \cdot B} \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Aharonov-Bohm-Effekt}
+Der Aharonov-Bohm-Effekt beschreibt das Phänomen, dass die Wellenfunktion eines geladenen Teilchens eine Phasenverschiebung erfährt, wenn sie Vektorpotential $\vec{A}$ mit verschwindendem B-Feld $\vec{B}$ umläuft.
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.5\textwidth]{Grafiken/aufbau aharonov-bohm-effekt.pdf}
+			\includegraphics[width=0.5\textwidth]{Grafiken/aharonov-bohm-effekt.png}
+		}
+		\caption{links: Schema Versuchsaufbau Aharonov-Bohm-Effekt mit magnetischem Fluss $\phi$ und möglichen Pfaden (rot bzw. blau); rechts: Widerstand in Abhängigkeit des B-Felds}
+	\end{figure}
+
+
+\fbox{Voraussetzungen}
+	\begin{itemize}
+		\item \textbf{kohärentes Regime}
+				
+		
+		\item \textbf{Probe mit 2 Pfaden}
+
+
+		\item \textbf{magnetischer Fluss $\phi$ ohne B-Feld}		
+	\end{itemize}
+
+\fbox{Phänomene}
+	\begin{itemize}
+		\item \textbf{Interferenzmuster trotz $\vec{B}=\vec{0}$}
+		
+		
+		\item \textbf{Ausschmieren der Interferenz für $T$ groß} \\
+		Für zunehmende Temperaturen nimmt die Phasen-Kohärenz-Länge ab, wird somit kleiner als die Probengeometrie und die Interferenz verschwindet
+	\end{itemize}
+
+
+\fbox{Anwendung}
+	\begin{itemize}
+		\item \textbf{Nachweis Vektorfeld $\vec{A}$ als physikalische Größe}\\
+		\textcolor{red}{ERGÄNZEN ÜB4}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitungsskizze} \\
+	1) Berechnung Phasenverschiebung \\
+	2) Formulierung Wellenfunktion \\
+	3) Berechnung Transmission \\
+	4) Landauer-Büttiker-Formalismus für 2-Kontakt-System
+		\begin{align*}
+			G = \frac{2e^2}{h} T(E_F)
+		\end{align*}
+	
+	
+	\textcolor{red}{ERGÄNZEN}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Shubnikov-de-Haas-Effekt}
+Der Shubnikov-de-Haas-Effekt bezeichnet den Effekt des oszillierenden spezifischen Widerstandes in paralleler E-Feld-Richtung $\rho_{xx}(B)$ bei hohen B-Feldern und niedrigen Temperaturen.
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+		\includegraphics[width=0.6\textwidth]{Grafiken/shubnikov-de-haas-effekt.png}
+	}
+	\caption{Längswiderstand in Abhängigkeit des B-Felds für $T=1,7 \, \text{K}$}
+\end{figure}
+
+
+\fbox{Voraussetzungen}
+	\begin{itemize}
+		\item \textbf{2DEG}
+				
+		
+		\item \textbf{scharfe Landau-Niveaus, d.h. $\omega_c \tau \gg 1$ und $k_B T \ll \hbar \omega_c$}
+	\end{itemize}
+
+
+\fbox{Phänomen}
+	\begin{itemize}
+		\item \textbf{Periodische Längswiderstandsoszillationen $\rho_{xx}(B)$ mit $1/B$}
+	\end{itemize}
+
+
+\fbox{Anwendung}
+	\begin{itemize}
+		\item \textbf{Bestimmung effektive Masse}\\
+		Der Ausdruck für die Längswiderstandsozillationen liefert eine Messvorschrift für die effektive Masse $m^\star$:
+			\begin{align}
+				\rho_{xx}(B,T) = \frac{m^\star}{ne^2\tau_0} \lreck{ 1 - 2e^{-\frac{\pi}{\omega_c\tau_q}} \cdot \frac{2 \pi^2 k_B T / \hbar\omega_c}{ \sinh\lr{ 2 \pi^2 k_B T / \hbar \omega_c } } \cdot \cos\lr{ 2\pi \frac{hn}{2eB} } }
+			\end{align}
+		
+		mit effektiver Masse $m^\star$, Elektronendichte $n$, Quantenlebensdauer $\tau_q$, der Zyklotronfrequenz $\omega_c$ und dem \underline{Dingle-Faktor} $e^{-\frac{\pi}{\omega_c \tau_q}}$.
+		
+		
+		\item \textbf{Bestimmung Elektronendichte}\\
+		Aus der Bedingung für die Minima der SdH-Oszillationen folgt eine Messvorschrift für die Elektronendichte $n$:
+			\begin{equation}
+				\frac{1}{B_i} \stackrel{!}{=} \frac{2e}{hn} \cdot i, \qquad i \in \mathbb{N}
+			\end{equation}
+	\end{itemize}
+
+
+% Eventuell ERGÄNZEN
+%> Streuprozesse benötigen freie Zustände, in die sie streuen können
+%> Magnetfeld ändert die Lage der Zustände relativ zur Fermi-Energie
+%> äquivalent zu: freie Zustände, in die gestreut werden kann ändert sich
+%> Streurate ändert sich
+%> Leitfähigkeit / Widerstand ändern sich
+
+
+\newpage
+
+
+\subsubsection{Integraler Quanten-Hall-Effekt}
+Als integralen Quanten-Hall-Effekt bezeichnet man das Auftreten eines stufenförmigen Hall-Widerstands $\rho_{xy}(B)$ in einer 2D Hall-Bar bei hohen B-Feldern.
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+		\includegraphics[width=0.5\textwidth]{Grafiken/integraler quanten-hall-effekt.png}
+	}
+	\caption{Hall- und Längswiderstand in Abhängigkeit des B-Felds}
+\end{figure}
+
+
+\fbox{Voraussetzungen}
+	\begin{itemize}
+		\item \textbf{2DEG}
+		
+		
+		\item \textbf{Wandpotential}
+		
+		
+		\item \textbf{scharfe Landau-Niveaus, d.h. $\omega_c \tau \gg 1$ und $k_B T \ll \hbar \omega_c$}
+	\end{itemize}
+
+
+\fbox{Phänomene}
+	\begin{itemize}
+		\item \textbf{stufenförmiger Hall-Widerstand}
+			\begin{equation}
+				\rho_{xy} = \frac{R_\text{K}}{i}, \qquad i \in \mathbb{N}
+			\end{equation}
+		
+		mit der von-Klitzing-Konstante $R_\text{K} := \frac{h}{e^2}$
+		
+		
+		\item \textbf{verschwindender Längswiderstand in Plateaus}
+			\begin{equation}
+				\left.\rho_{xx}\right|_\text{Plateau} \approx 0
+			\end{equation}
+	\end{itemize}
+
+
+\fbox{Anwendungen}
+	\begin{itemize}
+		\item \textbf{Normierung von Widerständen}\\
+		Da die Präzision des Effekts unabhängig von der Herstellung der Hall-Bar, dessen Breite sowie der Beweglichkeit ist, eignet er sich zur Normierung von Widerständen.
+		
+		
+		\item \textbf{Messung Feinstrukturkonstante}
+			\begin{equation}
+				R_K = \frac{h}{e^2} = \frac{\mu_0 c}{2\alpha}
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitungsskizze}
+	
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.4\textwidth]{Grafiken/herleitung quanten-hall-effekt.png}
+			\includegraphics[width=0.4\textwidth]{Grafiken/herleitung quanten-hall-effekt 2.png}
+		}
+		\caption{Modellverstellung des Quanten-Hall-Effekts; links: Fermi-Energie liegt im Bereich lokalisierter Elektronen; rechts: Fermi-Energie liegt im Bereich delokalisierter Elektronen}
+	\end{figure}
+	
+	
+	1) Randkanäle \\
+	Zur Erklärung des Quanten-Hall-Effekts ist die Interaktion der Ladungsträger mit dem Probenrant essentiell.\\
+	Berechne daher quantenmechanisch die Energien und Zustände eines Teilchens im E- und B-Feld unter Berücksichtigung eines Wandpotentials. Die Eigenzustände sind die sogenannten \underline{Randkanäle}:
+		\begin{align*}
+			\hat{H} u_y &= E u_y \\
+			\Leftrightarrow \lreck{ \frac{p_y^2}{2m^\star} + \frac{1}{2} m^\star \omega_c^2 \lr{ y - \frac{ \hbar k_x }{e B} }^2 + V(y) } u_y &= E_y u_y \\
+			\Rightarrow E_n(k_x) &= \hbar \omega_c \lr{ n + \frac{1}{2} } + V \frac{\hbar k_x}{e B}
+		\end{align*}
+	
+	
+	2) Lokalisierte Elektronen in Probenmitte \\
+	In der Probenmitte bilden sich gemäß Abbildung \ref{zustandsdichte ext loc} lokalisierte bzw. delokalisierte Zustände aus.\\
+	\\
+	3) Landauer-Büttiker-Formalismus \\
+	Mittels Landauer-Büttiker-Formalismus kann nun der Strom in dem jeweiligen Kontakt berechnet werden. Dabei tragen ausschließlich die Randkanäle zum Transport bei.\\
+	\\
+	4) Stufenförmiger Hall-Widerstand \\
+	Verwende die Näherung verwendet, dass Kontakte 1, 2 und 3 bzw. 4, 5 und 6 auf demselben Potential liegen. Somit betrachtet man effektiv ein 2-Kontakt-System.\\
+	Der Landauer-Büttiker-Formalismus beschreibt den Strom im $i$-ten Kontakt
+		\begin{align*}
+			I_i = \sum_{j \in \text{Kontakt}} \lr{ g_s \frac{e^2}{h} \int_{-\infty}^{+\infty} T_{ij}(E) \frac{\partial f_i(E)}{\partial \mu} \, \diff E } (V_i - V_j).
+		\end{align*}
+	
+	Angewendet auf dieses Problem ergibt sich der Strom im Kontakt 4 zu:
+		\begin{align*}
+			I_4 = g_s \frac{e^2}{h} \int_{-\infty}^{+\infty} T_{41}(E) \frac{\partial f_4(E)}{\partial \mu} \, \diff E \cdot (V_4 - V_1)
+		\end{align*}
+	
+	Da Randkanäle ballistisch transportieren, ist die Transmission für jeden besetzten Randkanal 1. Da der Füllfaktor $\nu$ gibt an, wie viele Randkanäle besetzt sind \textcolor{gruen}{(siehe dafür Abb. 16.23)}, ist die Transmission $T_{41} = \nu \cdot 1 = \nu$, also konstant.
+		\begin{align*}
+			I_4 = g_s \frac{e^2}{h} \nu \int_{-\infty}^{+\infty} \frac{\partial f_4(E)}{\partial \mu} \, \diff E \cdot (V_4 - V_1)
+		\end{align*}
+	\\
+	\\
+	5) Verschwindender Längswiderstand auf Plateau \\
+	Liegt das Fermi-Niveau in der Nähe eines Landau-Niveaus, so liegen delokalisierte Zustände vor, siehe Abbildung \ref{zustandsdichte ext loc}. Diese ermöglichen, dass Elektronen vom oberen in den unteren Randkanal streuen und somit wieder in dem Kanal enden, in dem sie gestartet sind. Dies entspricht einem endlichen Widerstand in $x$-Richtung $\rho_{xx} > 0$.\\
+	Liegt das Fermi-Niveau andererseits zwischen zwei Landau-Niveaus, so sind lediglich lokalisierte Zustände ausgeprägt. Somit findet keine Rückstreuung statt und der Längswiderstand verschwindet $\rho_{xx} = 0$.
+\hrule
+}
+
+
+
+\newpage
+
+
+\subsubsection{Fraktionaler Quanten-Hall-Effekt}
+Als fraktionalen Quanten-Hall-Effekt bezeichnet man das Auftreten eines stufenförmigen Hall-Widerstands bei fraktionalen Füllfaktoren. Der Effekt tritt, bzgl. des B-Felds, oberhalb des integralen Quanten-Hall-Effekts auf.
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/fraktionaler quanten-hall-effekt.png}
+		}
+		\caption{Hall- und Längswiderstand in Abhängigkeit des B-Felds}
+	\end{figure}
+
+
+\fbox{Voraussetzungen}
+	\begin{itemize}
+		\item \textbf{Elektron-Flussquant-Zustände} (\underline{\textit{composite fermions}})
+		
+		
+		\item \textbf{2DEG}
+		
+		
+		\item \textbf{Wandpotential}
+		
+		
+		\item \textbf{scharfe Landau-Niveaus, d.h. $\omega_c \tau \gg 1$ und $k_B T \ll \hbar \omega_c$}
+	\end{itemize}
+
+
+\fbox{Phänomen}
+	\begin{itemize}
+		\item \textbf{Plateaus}
+			\begin{equation}
+				\left.\rho_{xy}\right|_\text{Plateaus} = \frac{h}{e^2} \frac{1}{p/q}
+			\end{equation}
+		
+		mit $p,q \in \mathbb{Z}$
+	\end{itemize}
+
+
+\newpage
+
+
+\section{Heterostrukturen}
+\subsection{Herstellung}
+	\begin{itemize}
+		\item \textbf{\textit{Band-Engineering}}\\
+		Das Zuschneiden von Bandlücken kann bei Gemischen von Halbleitern wie z.B. $\text{Al}_x \text{Ga}_{1-x} \text{As}$ durch den Mischungsfaktor von Aluminium $x$ verändert werden. Dabei kann aus einem direkten auch ein indirekter Halbleiter werden.
+
+\vspace{0.5cm}
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+		{
+		\includegraphics[width=0.48\textwidth]{Grafiken/bandgap engineering.png}
+		\includegraphics[width=0.48\textwidth]{Grafiken/bandlücke algaas mischung.png}
+		}
+	}
+	\caption{links: Halbleiter und deren Gemische in Abhängigkeit ihrer Gitterkonstante und Bandlücke; durchgezogene Linie: Gemisch ist ein direkter Halbleiter; gestrichelte Linie: Gemisch ist ein indirekter Halbleiter; rechts: Valenz- und Leitungsbandkante von Al$_x$Ga$_{1-x}$As in Abhängigkeit des Mischungsverhältnisses}
+\end{figure}
+
+
+		\item \textbf{Dotieren}
+			\begin{itemize}
+				\item \textbf{Volumen-/ Flächen- / $\delta$-Dotierung}\\
+				Dotierung, bei der die Dotieratome in einem Volumen/ einer dünnen Schicht/ an einem einzigen Punkt vorliegen
+				
+				
+				\item \textbf{\textit{Remote-Doping}}\\
+				Technik, bei der die Dotieratome durch eine undotierte Schicht, dem sogenannten \textit{space-layer}, räumlich von Potentialtopf, in dem sich das Elektronengas bewegt, getrennt wird. Dies vermeidet Streuung an Dotieratomen und erhöht somit die Beweglichkeit der Elektronen.
+			\end{itemize}
+	\end{itemize}
+\newpage
+
+
+\subsection{Bandkante Heterostrukturübergänge}
+Der Leitungsbandkanten-Verlauf eines Heterostruktur-Übergangs ist das Potential der effektiven Schrödinger-Gleichung für die Einhüllende-Funktion eines Ladungsträgers.\\
+An Heterostruktur-Übergängen können 3 Arten von Bandkanten-Verläufen entstehen:
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.19\textwidth]{Grafiken/bandkante typen.png}
+		}
+		\caption{Die 3 Typen von Bandkantenübergängen bei Heterostrukturen}
+	\end{figure}
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Heterostruktur Al$_{0,3}$Ga$_{0,7}$As | GaAs | Al$_{0,3}$Ga$_{0,7}$As\\
+	ges: Energie-Dispersionsrelation $E(\vec{k})$\\
+	\\
+	Der Potentialverlauf für ein Elektron im Leitungsband in Wachstumsrichtung $z$ ist in Abbildung \ref{einhüllende heterostruktur-übergang} dargestellt. In die anderen Raumrichtungen $x,y$ ist das Elektron, bis auf die Kristallgrenzen, frei.
+		\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.3\textwidth]{Grafiken/einhüllende heterostruktur-übergang.png}
+		}
+		\caption{Leitungsbandkante einer Heterostruktur aus Al$_{0,3}$Ga$_{0,7}$As (A) und GaAs (B)}
+		\label{einhüllende heterostruktur-übergang}
+	\end{figure}
+
+	Mit dem Ansatz $F(x,y,z) = Z(z) \cdot e^{i k_x x} \cdot e^{i k_y y}$ separiert sich das Problem in bekannte Probleme der Quantenmechanik (endlicher Potentialtopf und freies Teilchen), s.d. die Energie-Disperion wie folgt lautet:
+		\begin{align*}
+			E &= E_n(k_x^2 + k_y^2) + \frac{\hbar^2 (k_x^2 + k_y^2)}{2m_B^\star} \equiv E_n(k_{||}) + \frac{\hbar^2 k_{||}^2}{2m^\star}
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Anwendungsbeispiele}
+\subsubsection{AlGaAs/GaAs-Heterostruktur}
+Die AlGaAs/GaAs-Heterostruktur ist eine Struktur, die ein 2DEG mit hoher Beweglichkeit erzeugt.\\
+\\
+\fbox{Aufbau}
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.25\textwidth]{Grafiken/algaas gaas heterostruktur.png}
+			\includegraphics[width=0.65\textwidth]{Grafiken/bandkante algaas gaas.png}
+ 		}
+		\caption{links: Schema der Schichten einer AlGaAs/GaAs-Heterostruktur; grün: 2DEG; rechts: Bandkantenverlauf der AlGaAs/GaAs-Heterostruktur}
+	\end{figure}
+
+
+\begin{table}[h]
+	\centering
+	\caption{Schichten der AlGaAs/GaAs-Heterostruktur und deren Funktionen}
+		\begin{tabularx}{\textwidth}{l|l|X}
+			\hline\hline
+				Schicht & Material & Funktion \\
+			\hline
+				Gate & Metall & Steuert das Fermi-Niveau und somit die Leitfähigkeit \\
+			\hline
+				Cap-Layer & GaAs & Schutz vor Oxidation und Kontamination \\
+			\hline
+				Supply-Layer & n-Al$_x$Ga$_{1-x}$As & liefert Elektronen \\
+			\hline
+				Spacer-Layer & Al$_x$Ga$_{1-x}$As & räumliche Trennung der Donatoratome vom 2DEG zur Reduktion der Dontar-Streuung \\
+			\hline
+%				Buffer-Layer & GaAs & hochreine Schicht, um Substrat-Defekte räumlich vom 2DEG zu trennen \\
+%			\hline
+				Substrat & GaAs & Material, in dem sich das 2DEG bewegt und auf dem die Struktur gewachsen wird \\			\hline\hline
+		\end{tabularx}
+\end{table}
+
+
+\fbox{Phänomene}
+	\begin{itemize}
+		\item \textbf{Dreieckspotential erzeugt 2DEG}\\
+		Der Leitungsbandkantenverlaut am AlGaAs/GaAs-Übergang erzeugt ein Dreieckspotential, das die Ausdehnung des Elektronengases in Wachstumsrichtung einschränkt
+	\end{itemize}
+
+
+\fbox{Anwendung}
+	\begin{itemize}
+		\item \textbf{Feldeffekttransistor}\\
+		Elektronisches Bauteil, das den Stromfluss durch Anlegen einer externen Spannung steuern kann und somit Grundlage moderner Elektronik ist
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Heterostruktur n-AlGaAs | p-GaAs
+		\begin{table}[h]
+			\centering
+			\begin{tabular}{l|c|c}
+				\hline\hline
+					& n-Al$_x$Ga$_{1-x}$As & p-GaAs \\
+				\hline
+					relative Permeabilität & $\varepsilon_r^n = 12,09$ & $\varepsilon_r^p = 13,18$ \\
+				\hline
+					intrinsische Ladungsträgerdichte & $n_i^n = 2,1 \cdot 10^3 \text{cm}^{-3}$ & $n_i^p = 2,1 \cdot 10^6 \text{cm}^{-3}$ \\
+				\hline
+					Dotierungskonzentration & $N_D = 1 \cdot 10^{16} \text{cm}^{-3}$ & $N_D = 3 \cdot 10^{19} \text{cm}^{-3}$ \\
+				\hline
+					Leitungsbandabstand & \multicolumn{2}{c}{$\Delta E_V = 0,2091 \, \text{eV}$} \\
+				\hline
+					Valenzbandabstand & \multicolumn{2}{c}{$\Delta E_L = 0,165 \, \text{eV}$} \\
+				\hline
+					Bandlücke & $E_g^n = 1,80 \, \text{eV}$ & $E_g^p = 1,42 \, \text{eV}$ \\
+				\hline\hline
+			\end{tabular}
+		\end{table}
+	
+	ges: Diffusionsstrom $V_D$, Ausdehnung Raumladungszone $d$ \\
+	Lös: Bei Kontakt eines n- mit einem p-dotierten Halbleiter fließen Elektronen bzw. Löcher vom n- bzw. p-dotierten Halbleiter und zum p- bzw. n-dotierten und rekombinieren dort. Im thermodynamischen Gleichgewicht bildet sich nahe des Heteroübergangs eine Raumladungszone: Die auf der n-dotierten Seite zurückbleibenden Dotieratome ergeben eine positive, die auf der p-dotierten Seite eine negative Raumladung. Außerhalb der Raumladungszone sind die Halbleiter neutral geladen. Mit der Raumladung geht, siehe Poisson-Gleichung der Elektrostatik, ein elektrisches Potential einher.\\
+	\\
+	Die Diffusionsspannung ist die Spannung, die sich aufgrund des elektrischen Potentials zwischen den Halbleitern einstellt
+		\begin{align*}
+			V_D := \phi(+\infty) - \phi(-\infty) 
+		\end{align*}
+	
+	und kann mittels Elektronenaffinitäten $q \chi_n$, $q \chi_p$, der Bandlücke der p-dotierten Schicht und den Abständen $\delta_n = E_L^n - E_F$, $\delta_p = E_F - E_V^p$ wie folgt ausgedrückt werden:
+		\begin{align*}
+			V_D &= (E_g^p + q \chi_p - \delta_p) - (q \chi_n + \delta_n) = \\
+			&= q(\chi_p - \chi_n) + E_g^p - \delta_n - \delta_p \approx \\
+			&\approx k_B T \ln \lr{ \frac{ N_A N_D }{ n_i^n n_i^p } } + q ( \chi_p - \chi_n ) + \frac{ E_g^p - E_g^n }{2}
+		\end{align*}
+
+\textcolor{red}{Rechnung ergänzen}
+\hrule
+}
+
+
+
+\newpage
+
+
+\subsubsection{Quantenpunktkontakt}
+Ein Quantenpunktkontakt ist eine quasi-eindimensionale Verengung in einer sonst quasi-zweidimensionalen Struktur.
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+		\includegraphics[width=0.5\textwidth]{Grafiken/quantenpunktkontakt 3d.png}
+		\includegraphics[width=0.4\textwidth]{Grafiken/quantenpunktkontakt messung.png}
+	}
+	\caption{links: Schema eines Quantenpunktkontakts; rechts: Leitwert in Abhängigkeit der Gate-Spannung}
+\end{figure}
+
+\fbox{Phänomene}
+	\begin{itemize}
+		\item \textbf{quantisierter Leitwert}\\
+		Bei Erhöhen der Gate-Spannung (zwischen Gate und Source-Kontakt) erhöht sich der Leitwert stufenförmig
+			\begin{equation}
+				G = \frac{2e^2}{h} \sum_{i=1}^n i
+			\end{equation}
+		
+		mit dem \underline{Leitwertquant} $\frac{e^2}{h}$ und dem höchsten besetzten Subband $n$
+	\end{itemize}
+
+
+\fbox{Anwendung}
+	\begin{itemize}
+		\item \textbf{Bauteil in Quanteninterferometern}\\
+		Im \underline{Mach-Zehnder-Interferometer} werden Quantenpunktkontakte als Strahlteiler verwendet
+		
+		
+		\item \textbf{Spin-Filter}\\
+		\textcolor{red}{Wie genau?}
+		
+		
+		\item \textbf{Ladungsdetektor}\\
+		\textcolor{red}{Wie genau?}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $G = \frac{2e^2}{h} \sum_{i=1}^n i$\\
+	\\
+	Herleitungsskizze:\\
+	1) Landauer-Büttiker-Formalismus für 2-Kontakt-System \\
+	2) Betrachte tiefe Temperaturen, d.h. nähere Ableitung Fermi-Verteilung \\
+	3) Annahme: Perfekte Übertragung, falls $E_F >$ Subbandenergie \\
+	\\
+	In einem System bestehend aus zwei Kontakten reduziert sich der Strom im Drain-Kontakt (2) auf
+		\begin{align*}
+			I_2 = G_{21} \cdot \lr{ \frac{\mu_2}{e} - \frac{\mu_1}{e} }
+		\end{align*}
+	
+	mit dem Leitwert
+		\begin{align*}
+			G_{21} \equiv G &= g_s\frac{e^2}{h} \int_{-\infty}^{+\infty} T_{21}(E) \cdot \frac{\partial f(E)}{\partial \mu}
+		\end{align*}
+
+	Für niedrige Temperaturen ist Ableitung der Fermi-Dirac-Verteilung nach dem chemischen Potential näherungsweise eine Deltafunktion an der Fermi-Energie
+		\begin{align*}
+			\frac{\partial f(E)}{\partial \mu} \approx \delta(E-E_F)
+		\end{align*}
+	
+	Somit vereinfacht sich der Leitwert zu
+		\begin{align*}
+			G &= g_s \frac{e^2}{h} T_{21}(E_F) \equiv \\
+			&\equiv g_s \frac{e^2}{h} T(E_F)
+		\end{align*}
+
+	Annahme: Perfekte Übertragung, falls die Fermi-Energie höher als die Subbandenergie ist, d.h.
+		\begin{align*}
+			T(E_F) = \sum_{i=1}^n 1
+		\end{align*}
+	
+	mit $n$ besetzte Subbänder. $\qquad \blacksquare$
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Quantenpunkt}
+Ein Quantenpunkt ist eine Struktur, in der ein Ladungsträger (z.B. Elektron oder Loch) in alle drei Raumdimensionen eingeschränkt ist.
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+		\includegraphics[width=0.6\textwidth]{Grafiken/quantenpunkt.png}
+		\textcolor{red}{ERGÄNZEN Skizze Coulomb-Blockade}
+	}
+	\caption{Elektronenmikroskopaufnahme eines Quantenpunkts; S = Source; D = Drain}
+\end{figure}
+
+\fbox{Aufbau}
+	\begin{itemize}
+		\item \textbf{\underline{\textit{plunger gate}}}\\
+		Gate, das die Elektronendichte im Quantenpunkt steuert
+		
+		
+		\item \textbf{2 Quantenpunktkontakte}\\
+	\end{itemize}
+
+
+\fbox{Voraussetzungen}
+	\begin{itemize}
+		\item \textbf{Tunnelbarriere nicht zu transparent}
+		
+		\item \textbf{niedrige Temperaturen im Vgl. zur Ladungsenergie}
+	\end{itemize}
+
+\fbox{Phänomene}
+	\begin{itemize}
+		\item \textbf{vollständiges diskretes Energiespektrum}
+		
+		
+		\item \textbf{Coulomb-Blockade-Effekt}
+	\end{itemize}
+	
+
+\fbox{Anwendung}
+	\begin{itemize}
+		\item \textbf{Transistor}
+		
+		
+		\item \textbf{Einzelphotonen-Emitter}
+		
+		
+		\item \textbf{\textcolor{red}{Spin-Qubits}}
+		
+		
+		\item \textbf{Laser}
+		
+		
+		\item \textbf{Qubits}
+	\end{itemize}
+
+
+
+
+
+
+
+
+\newpage
+
+
+\section{Appendix A: Streuprozesse}
+	\begin{itemize}
+		\item \textbf{Elektron-Streuung}
+		
+		
+		\item \textbf{Phonon-Streuung}
+
+
+		\item \textbf{Streuung an Dotieratomen}
+		
+		
+		\item \textbf{Streuung an Gitterdefekten}
+
+
+		\item \textbf{Oberflächenstreuung}
+		
+		
+		\item \textbf{Spin-Streuung}
+	\end{itemize}
+
+
+\newpage
+
+
+\section{Appendix B: Zustandsdichte in quasi-0d, -1d, -2d und -3d}
+	\begin{align}
+		Z_{0d}(E) &\propto \delta(E) \\
+		Z_{1d}(E) &\propto \frac{1}{\sqrt{E}} \\
+		Z_{2d}(E) &= \text{konst.} \\
+		Z_{3d}(E) &\propto \sqrt{E},
+	\end{align}
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.75\textwidth]{Grafiken/zustandsdichten.pdf}
+		}
+		\caption{Zustandsdichten in Abhängigkeit der Energie für 1d, 2d und 3d}
+	\end{figure}
+
+
+Unter der Berücksichtigung weiterer Subbänder, folgt
+	\begin{align}
+		Z_{0d}(E) &\propto \sum_{n_1,n_2,n_3} \delta(E-E_{n_1, n_2, n_3}) \\
+		Z_{1d}(E) &\propto \sum_{n_1,n_2} \frac{1}{\sqrt{E-E_{n_1,n_2}}} \cdot \Theta(E-E_{n_1,n_2}) \\
+		Z_{2d}(E) &\propto \sum_{n_1} \Theta(E-E_{n_1}) \\
+		Z_{3d}(E) &\propto \sqrt{E},
+	\end{align}
+
+wobei $E_{n_i}$ die Energie des $i$-ten Subbands ist.
+
+
+\newpage
+
+
+%\newpage
+%
+%
+%\section{Appendix C: Materialparameter und Messgrößen}
+%
+%\begin{table}[h]
+%	\centering
+%	\caption{Übersicht Materialparameter und dazugehörige Messgrößen}
+%	\begin{tabular}{l|c|l|c}
+%		\hline\hline
+%			Materialparameter & Symbol & Messgröße & Symbol \\
+%		\hline
+%			spezifischer Widerstand & $\rho$ & Widerstand & $R$ \\
+%		\hline
+%			elektr. Leitfähigkeit & $\sigma$ & Leitwert & $G$ \\
+%		\hline\hline
+%	\end{tabular}
+%\end{table}
+%
+%
+%\newpage
+%
+%
+%\section{Appendix A: Elektronische Modelle}
+%\subsection*{Pseudopotential}
+%Die Annahmen des Models sind:
+%	\begin{itemize}
+%		\item \textbf{effektives Potential}\\
+%		Valenzelektronen bewegen sich in einem effektiven Potential
+%	\end{itemize}
+%
+%
+%\begin{figure}[h]
+%	\centering
+%	\fbox{
+%		\includegraphics[width=0.6\textwidth]{Grafiken/pseudopotential.png}
+%	}
+%	\caption{Approximation des Coulomb-Potentials durch ein Pseudopotential}
+%\end{figure}
+%
+%
+%\newpage
+
+
+%\subsection*{Freies Elektronengas}
+%Die Annahmen des Modells sind:
+%	\begin{itemize}
+%		\item \textbf{keine Elektron-Elektron-Wechselwirkung}
+%
+%
+%		\item \textbf{keine Elektron-Atomkern-Wechselwirkung}
+%	\end{itemize}
+%
+%Die wesentlichen Resultate des Modells sind:
+%	\begin{itemize}
+%		\item \textbf{Energie-Dispersion}
+%			\begin{equation}
+%				E(\vec{k}) = \frac{ \hbar^2 \vec{k}^2 }{ 2m_e }
+%			\end{equation}
+%		
+%		
+%		\item \textbf{Fermi energy}
+%			\begin{equation}
+%				E_\text{F} = \frac{\hbar^2}{2m_e} (3n\pi^2)^{2/3}
+%			\end{equation}
+%		
+%		
+%		\item \textbf{Zustandsdichte}\\
+%		Die Zustandsdichte im Energieraum ist abhängig von der Geometrie des Elektronengases:
+%			\begin{align}
+%				Z_{0d}(E) &= 2\cdot \delta(E) \\
+%				Z_{1d}(E) &= \frac{L}{\pi} \lr{\frac{2m}{\hbar^2}}^{1/2} \frac{1}{\sqrt{E}} \\
+%				Z_{2d}(E) &= \frac{A}{2\pi} \lr{\frac{2m}{\hbar^2}}^{2/2} \\
+%				Z_{3d}(E) &= \frac{V}{2\pi^2} \lr{ \frac{2m}{\hbar^2} }^{3/2} \sqrt{E}
+%			\end{align}
+%	\end{itemize}
+%
+%
+%\begin{figure}[h]
+%	\centering
+%	\fbox{
+%		\includegraphics[width=0.32\textwidth]{Grafiken/feg.pdf}
+%	}
+%	\caption{Energie-Dispersion des freien Elektronengases}
+%\end{figure}
+%
+%
+%\newpage
+%
+%
+%\subsection*{Tight-Binding Methode}
+%Die Annahmen des Models sind:
+%	\begin{itemize}
+%		\item \textbf{schwache Wechselwirkung zwischen Atomen}
+%		
+%		
+%		\item \textbf{LCAO-Ansatz}
+%	\end{itemize}
+%
+%
+%\subsubsection*{Beispiel: Graphen}
+%Die Kristallstruktur von Graphen lässt sich durch ein hexagonales Gitter mit zweiatomiger Basis beschreiben.\\
+%\\
+%Das Lösen der stationären Schrödinger-Gleichung ergibt die folgende Energie-Dispersion
+%	\begin{equation}
+%		E_\pm(\vec{k}) = \pm \gamma \sqrt{ 1 + 4 \cos^2\lr{ \frac{k_x a}{2} } + 4 \cos \lr{ \frac{k_x a}{2} } \cdot \cos \lr{ \frac{ \sqrt{3} k_y a }{2} } }.
+%	\end{equation}
+%
+%
+%\begin{figure}[h]
+%	\centering
+%	\fbox{
+%		\includegraphics[width=0.6\textwidth]{Grafiken/graphen bandstruktur.pdf}
+%	}
+%	\caption{Bandstruktur von Graphen unter Tight-Binding-Approximation}
+%\end{figure}
+%
+%
+%Wichtigen Resultate sind:
+%	\begin{itemize}
+%		\item \textbf{Dirac-Kegel}\\
+%		An den $\vec{K}$- und $\vec{K}'$-Punkten in der 1. BZ ist die Energie-Dispersion linear und entartet.
+%		
+%		
+%		\item \textbf{Halbleitende Eigenschaften}\\
+%		Abgesehen von den Dirac-Kegeln existiert eine Bandlücke
+%	\end{itemize}
+
+
+% Als Ansatz für die Valenzelektronen wird gemäß LCAO, die das Bloch-Theorem respektiert
+%	\begin{equation}
+%		\psi_{\vec{k}}(\vec{r}) = \frac{1}{\sqrt{V}} \cdot \sum_{\vec{R}}e^{i\vec{k}\vec{R}} \cdot \lreck{ A \cdot \phi(\vec{r} + \vec{R} + \vec{t}) + B \cdot \phi(\vec{r} + \vec{R}) }
+%	\end{equation}
+%
+%mit den Proportionalitätskonstanten $A,B$ und dem Abstandsvektor zweier $C$-Atome $\vec{t}$ verwendet.\\
+%
+%
+%\newpage
+%
+%
+%\section{Appendix B: Einhüllende Funktionen}
+%Für einen periodischen Kristall $\hat{H}_0$ mit der Störung $U(\vec{r})$ gilt mit den Annahmen
+%	\begin{itemize}
+%		\item \textbf{schwache Störung $U(\vec{r})$}
+%		
+%		
+%		\item \textbf{langsam veränderliche Amplitude $U(\vec{r})$}
+%	\end{itemize}
+%
+%die effektive Schrödinger-Gleichung
+%	\begin{equation}
+%		\label{effektive schrödinger-gleichung}
+%		\lreck{ -\frac{\hbar^2}{2m^\star} \Delta + (E_n + U(\vec{r})) } F_n(\vec{r}) = E \cdot F_n(\vec{r})
+%	\end{equation}
+%
+%mit der effektiven Masse $m^\star$, der Energie des ungestörten Systems $E_n$, der Energie des gesamten Systems $E$ und der \textbf{Einhüllenden} $F_n(\vec{r})$.\\
+%\\
+%Die vollständige Wellenfunktion wird durch
+%	\begin{equation}
+%		\Psi(\vec{r}) \approx u_{n\vec{0}}(\vec{r}) \cdot F_n(\vec{r})
+%	\end{equation}
+%
+%approximiert.
+
+
+\newpage
+
+
+\section{Appendix C: Graphen}
+Die Kristallstruktur von Graphen wird beschrieben durch das hexagonale Gitter und der einatomigen Basis besteht aus einem Kohlenstoffatom.
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/graphen.png}
+		}
+		\caption{Darstellung Graphen a) Basisatome A, B und primitive Gittervektoren $\vec{a}_1, \vec{a}_2$ b) Elektronenmikroskopaufnahme Graphen}
+	\end{figure}
+
+
+\fbox{Phänomene}
+	\begin{itemize}
+		\item \textbf{Dirac-Kegel am $K$- und $K'$-Punkt}
+		
+		
+		\item \textbf{Plateaus bei halbzahligen Füllfaktoren}
+	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/graphen quanten-hall-effekt.png}
+		}
+		\caption{Hall-Leitfähigkeit und Längswiderstand einer Graphen-Hall-Bar}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitungsskizze}\\
+	zz: Plateaus bei halbzahligen Füllfaktoren
+\hrule
+}
+
+\newpage
+
+
+\section{Appendix D: Qubits}
+
+
+
+\newpage
+
+
+\section{Glossar}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		Aharonov-Bohm-Phase &  \\
+	\hline
+		ballistischer Transport & - Transport, bei dem die Ladungsträgern nahezu keinen Streuprozessen ausgesetzt sind \\
+		& - mittlere freie Weglänge ist deutlich größer als Probengeometrie
+			$$L_f \ll L$$ \\
+	\hline
+		Bandkante & minimale bzw. maximale Energie eines Energiebandes im Halbleiter \\
+	\hline
+		Beweglichkeit & Tensorielle Größe, die die Driftgeschwindigkeit $\vec{v}_\text{D}$ mit dem angelegten E-Feld $\vec{E}$ verknüpft \\
+		& Im Drude-Modell gilt:
+			$$\mu = \frac{e\tau}{m^\star}$$ \\
+	\hline
+		Bloch-Kugel & Grafische Darstellung eines Zwei-Zustand-Systems $\{ \ket{0}, \ket{1} \}$ mit den Größen: \\
+		& - Polarisationsvektor $\vec{P}$, der den Zustand darstellt \\
+		& - Azimuthwinkel $\theta$, der die Wahrscheinlichkeit für $\ket{0}, \ket{1}$ bestimmt \\
+		& - Polarwinkel $\delta$, der die Phase zwischen den Zuständen beschreibt \\
+		& \begin{center}
+		\includegraphics[width=0.4\textwidth]{Grafiken/bloch-kugel.png}
+		\end{center} \\
+	\hline
+		\textit{bottom-up} & Verfahren zur Herstellung von Materialien durch additives Wachstum, z.B. Molekularstrahlepitaxie \\
+	\hline
+		\textit{composite fermions} & - Fermion, das aus einem Elektron und der Anregung des magnetischen Flusses besteht \\
+		& - erklärt den fraktionalen Quanten-Hall-Effekt \\
+	\hline
+		Corbino-Geometrie & - Geometrie, in der ein 2DEG zwischen zwei kreisförmigen Leitern platziert ist \\
+		& - Misst Magnetotransport ohne Randeffekte \\
+	\hline
+		diffusiver Transport & - Transport, bei dem die Ladungsträgern Streuprozessen ausgesetzt sind \\
+		& - mittlere freie Weglänge ist deutlich kleiner als Probengeometrie
+			$$L_f \ll L$$ \\
+	\hline
+		Dingle-Faktor & Faktor, der die Dämpfung der quantenmechanischen Oszillationen im Shubnikov-de-Haas-Effekt beschreibt \\
+	\hline
+		dissipationsloser Transport & Transport, bei dem Ladungsträger keine Energie an die Struktur verlieren, in der sie sich bewegen \\
+	\hline
+		Einstein-Relation (Diffusion) & stellt einen Zusammenhang zwischen Diffusion und Beweglichkeit her \\
+	\hline
+		elektrische Leitfähigkeit & Tensorielle Größe, die die elektrische Stromdichte $\vec{j}$ mit dem angelegten E-Feld $\vec{E}$ verbindet \\
+		& Im Drude-Modell gilt:
+			$$\sigma = n e \mu$$ \\
+	\hline
+		elektrochemisches Potential &  \\
+	\hline
+		Elektronenaffinität & Energie, die gewonnen wird, wenn einem intrinsischen Halbleiter ein Elektron aus dem ''Unendlichen'' hinzugefügt wird \\
+	\hline
+		Flusskryostat & Kryostat, in dem das Kühlmittel kontinuierlich durch die Probe gepumpt wird und Temperaturen von ca. 1,5K erreicht werden können \\
+	\hline
+		Füllfaktor & Beschreibt, wie viele \underline{Landau-Niveaus} gefüllt sind \\
+	\hline
+		Heterostrukturen & Struktur aus Festkörpern, die aus mehreren Materialien besteht \\
+	\hline
+		Kontaktwiderstand & Widerstand, der aufgrund des imperfekten Übergangs zwischen ohm'schem Kontakt und der Struktur auftritt, z.B. Verengung am Quantenring \\
+	\hline
+		Landauer-Büttiker-Formalismus & quantenmechanischer Formalismus zur Beschreibung des ballistischen Transports in einem System mit $n$ Kontakten \\
+	\hline
+		Landau-Fächer-Plot & Darstellung der quantenmechanischen Energie eines geladenen Teilchens im E- und B-Feld in Abhängigkeit des B-Felds \\
+	\hline
+		Landau-Niveau & entarteter quantisierter Energiezustand eines geladenen Teilchens im senkrechten homogenen Magnetfeld 
+			$$E = \hbar\omega_c \lr{ n + \frac{1}{2} } + E_{||}$$\\
+	\hline
+		Landé-Faktor & - Faktor $g^\star$, der den Zusammenhang zwischen Spin und magnetischem Moment eines Teilchens beschreibt \\
+		& - Taucht in der Energie der Zeeman-Aufspaltung auf \\
+	\hline
+		Leitwertquant & Quant des Leitwerts in einem quasi-eindimensionalen Struktur im ballstischen Regime
+			$$G_0 = \frac{2e^2}{h}$$ \\
+	\hline
+		lokalisierte Zustände &  \\
+	\hline
+		Mach-Zehnder-Interferometer &  \\
+	\hline
+		\textit{magnetic steering experiment} &  \\
+	\hline
+		magntisches Flussquant & Ein von Elektronen umflossener magnetischer Strom (Aharonov-Bohm-Effekt) erfährt die Quantisierung
+			$$\Phi_0 = \frac{h}{e}$$ \\
+	\hline
+		Materialparamter & - Größe, die eine physikalische Eigenschaft eines Materials in Abhängigkeit von Paramtern wie z.B. Temperatur $T$, B-Feld $B$, beschreibt \\
+		& - Beispiele: elektrischer Widerstand $R(T,B)$, dielektrische Funktion $\varepsilon(\omega, T)$ \\
+	\hline
+		mesoskopisches Regime & Regime, in dem sowohl klassische als auch quantenmechanische Effekte zum Tragen kommen, z.B. Quantenfilm und Quantendraht \\
+	\hline
+		Messgröße & Größe, die durch Messungen zugänglich sind, z.B. Spannung $U$, Strom $I$, Probengeomtrie $L$, Temperatur $T$, B-Feld $B$ \\
+	\hline
+		Modulationsdotierung & \textcolor{blue}{siehe \textit{remote-doping}} \\
+	\hline
+		Molekularstrahlepitaxie & Verfahren, bei dem in einer Hochvakuumkammer durch Teilchen-Bestrahlung eines Substrats epitaktisch gewachsen wird \\
+	\hline
+		Ohm'scher Kontakt &  \\
+	\hline
+		Onsager-Realtion &  \\
+	\hline
+		Perkolationspfad &  \\
+	\hline
+		Pseudomorph & Atomschicht, die mit Verspannung gewachsen wird, z.B. zur Herstellung von Quantenpunkten \\
+	\hline
+		Quantenlebensdauer &  \\
+	\hline
+		Quantenlimes & Grenzfall, in dem lediglich das tiefste Subband besetzt ist, z.B. 2d-Elektronengas $E=E_1+\frac{\hbar^2k_{||}^2}{2m^\star}$ \\
+	\hline
+		Randkanal & - Lösung des qm. Teilchens im E- und B-Feld mit Wandpotential \\
+		& - Taucht in der Modellierung des Quanten-Hall-Effekts auf \\
+	\hline
+		Sattelpunktpotential & Potential, das zur Modellierung des Quantenpunktkontakts verwendet wird \\
+	\hline
+		\textit{self-assembled quantum dots} & 0-dimensionale Halbleiterstruktur, die sich spontant beim epitaktischen Wachstum bilden \\
+	\hline
+		Schottky-Barriere & Metall-Halbleiter-Grenzfläche \\
+	\hline
+		Skipping-Orbits & klassische Elektronentrajektorie eines Elektrons im senkrechten B-Feld an einer ''harten'' Wand \\
+	\hline
+		Stromdichte & Strom pro Zeit pro Fläche bzw. Länge (je nach Proben-Geometrie) \\
+		& Im Drude-Modell gilt:
+			$$\vec{j} = -en\vec{v}_\text{D}$$ \\
+	\hline
+		Subband & Band in einem räumlich eingeschränkten Elektronengas, das durch die Quantenzahl
+			$$E = E_n(k_{||}) + \frac{\hbar^2k_{||}^2}{2m}$$ \\
+	\hline
+		\textit{top-down} & Verfahren zur Herstellung von Materialien, indem vom Ausgangsstoff Material abgetragen wird \\
+	\hline
+		\textit{top-gate} & \textcolor{red}{steuert Elektronendichte via Feldeffekt bei Quantenpunktkontakten und ...} \\
+	\hline
+		topologischer Effekt & - Effekt, der von der Topologie des Materials abhängt \\
+		& - Beispiel: Quanten-Hall-Effekt \\
+	\hline
+		Transferwiderstand & Verallgemeinerter Widerstand für Systeme mit mehreren Kontakten
+			$$R_{ij,kl} = \frac{U_{kl}}{I_{ij}}$$ \\
+	\hline
+		Transportfenster & Energetische Differenz der chemischen Potentiale von Source und Drain \\
+	\hline
+		Vakanz & Leerstelle in einem Kristallgitter \\
+	\hline
+		van-der-Pauw-Geometrie & Messgeometrie, bei der 4 Kontakte an einer Probe mit undefinierter Form angelegt werden und Strom und Spannung über kreuz gemessen werden \\
+	\hline
+		Valley-Entartung &  \\
+	\hline
+		Vier-Punkt-Messung &  \\
+	\hline
+		Zeebeck-Koeffizient &  \\
+	\hline
+		Zeeman-Aufspaltung & - Beschreibt die Aufspaltung eines spinentarteten Energieniveaus durch anlegen eines externen B-Felds \\
+		& - Die Energieverschiebung lautet
+			$$\Delta E = \pm \frac{1}{2} g^\star \mu_B B$$ \\
+	\hline
+		Zyklotronfrequenz & Frequenz, der Umläufe eines geladenen Teilchens um die B-Feld-Achse
+			$$\omega_\text{c} = \frac{eB}{m^\star}$$ \\
+	\hline
+		Zyklotronradius & Radius der Kreisbewegung eines geladenen Teilchens im B-Feld
+			$$R_c = \frac{m^\star v}{eB}$$ \\
+	\hline\hline
+\end{xltabular}
+
+\end{document}

@@ -1,0 +1,680 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Physik der Nanostrukturen}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section{Nanomaterialien}
+\subsection{Nanopartikel und Nanodrähte}
+\subsubsection{Nanopartikel}
+Nanopartikel sind Objekte mit einer Größe von $1\,\text{nm}$ bis $<100\,\text{nm}$.
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{0.75\textwidth}{|l|X|}
+		\hline\hline
+			Eigenschaften & - erhöhtes Oberflächen-zu-Volumen-Verhältnis\\
+			& - tiefer Schmelzpunkt\\
+		\hline
+			Beispiele & - Metalle (Gold)\\
+			& - Oxide\\
+		\hline
+			Anwendung(spotential) & - Katalysator\\
+			& - Sonnencreme \\
+			& - Antibakterielle Kleidung \\
+			& - Zement \\
+		\hline\hline
+	\end{tabularx}
+\end{table}
+
+
+\subsubsection{Nanodrähte}
+Nanodrähte sind Materialien mit zwei Raumrichtungen, die im nanoskaligen Bereich von $1\,\text{nm}$ bis $<100\,\text{nm}$ liegen. 
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{0.75\textwidth}{|l|X|}
+		\hline\hline
+			Eigenschaften & - vielseitige Wachstumsformen \\
+		\hline
+			Anwendung(spotential) & - Substrat in Batterie \textcolor{gruen}{(Struktur ist nach mehreren Zyklen erhalten)}\\
+		\hline\hline
+	\end{tabularx}
+\end{table}
+
+
+\subsection{Quantenmaterialien aus Halbleiter-Heterostrukturen}
+Materialien, deren physikalische Eigenschaften maßgeblich durch quantenmechanische Effekte bestimmt sind. Je nachdem, wie viele Raumrichtungen eingeschränkt sind, d.h. im Bereich der De-Broglie-Wellenlänge liegen, spricht man von Quantenfilmen, -drähten oder -punkten.
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{0.75\textwidth}{|l|X|}
+		\hline\hline
+			Eigenschaften & - Zustandsdichte $Z(E)$ je nach Dimension \\
+			& - quantisierter Leitwert\\
+			& - Aharonov-Bohm-Effekt\\
+		\hline
+			Beispiele & - Graphen (Film)\\
+			& - Heterofeldeffekt-Transistor (Film)\\
+			& - Quantenpunktkontakt (Draht)\\
+			& - Quantenring\\
+		\hline
+			Anwendung(spotential) & - Quantenkommunikation\\
+			& - Quantensensoren\\
+			& - Quantencomputing\\
+			& - Einzelphotonenquelle / Photodetektor (Quantenpunkt)\\
+		\hline\hline
+	\end{tabularx}
+\end{table}
+
+
+\subsubsection{Heterofeldeffekt-Transistor}
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+	\includegraphics[width=0.75\textwidth]{Grafiken/MODFET}
+	}
+	\fbox{
+	\includegraphics[width=0.75\textwidth]{Grafiken/MODFET Potential Leitungsband}
+	}
+	\caption{Schema und Potential des Leitungsbands eines Heterofeldeffekt-Transistors}
+\end{figure}
+
+- Cap: Schutz vor Oxidation\\
+- Versorgungslayer: Stellt Ladungsträger zur Verfügung\\
+- Spacer-Layer erhöht die Beweglichkeit, da Stöße an Dotier-Atomen verringert\\
+- GaAs, AlGaAs haben gute Übereinstimmung in Gitterkostante\\
+- Anlegen der Gate-Spannung erhöht Fermi-Energie
+
+\subsubsection{Aharonov-Bohm-Effekt}
+- Effekt, der die reale Existenz des Vektorpotentials beweist\\
+- Kann in einem \textcolor{blue}{Quantenring} beobachtet werden = Struktur, bestehend aus 2 2DEG-Reservoirs, die jeweils in zwei Quantendrähte übergehen und einen Ring bilden\\
+- Für die Wellenfunktionen der Wellenfunktion entlang Weg 1 bzw. Weg 2 gilt
+	\begin{equation}
+		\psi_1' = \psi_1 \cdot e^{-i\frac{e}{\hbar}\int_{W_1} \vec{A}(\vec{x})\,\diff x}, \qquad
+		\psi_2' = \psi_2 \cdot e^{-i\frac{e}{\hbar}\int_{W_2} \vec{A}(\vec{x})\,\diff x}
+	\end{equation}
+
+Die Wahrscheinlichkeitsdichte der resultierenden Funktion ist dann
+	\begin{equation}
+		|\psi_1' + \psi_2'|^2 = 2|\psi|^2 ( 1 + \cos(\alpha_1 - \alpha_2 - \underbrace{\Delta\phi}_{=\frac{2\pi}{\Phi_0}\Phi}) )
+	\end{equation}
+
+- Daraus lässt sich die Transmissionwahrscheinlichkeit berechnen, die proportional zum Leitwert ist
+	\begin{equation}
+		\frac{1}{R} \propto T = 2T_0 \lr{ 1 + \cos(\alpha + \frac{\Phi}{\Phi_0}) }
+	\end{equation}
+
+In Quantenringen lassen sich also \textcolor{blue}{oszillierende Leitwerte} beobachten.
+
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.4\textwidth]{Grafiken/Nano Quantenring.png}
+%\end{figure}
+
+
+
+
+
+
+\subsection{Kohlenstoffbasierte Nanostrukturen}
+\textbf{Beispiel/Anwendungspotential}\\
+Diamant\\
+- sp$^3$-hybridisiert\\
+Graphit\\
+- sp$^2$-hybridisiert
+
+
+\subsubsection{Fullerene}
+Symmetrische, sphärische Anordnung aus 5-6 eckigen Kohlenstoffverbindungen.
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{0.75\textwidth}{|l|X|}
+		\hline\hline
+			Beispiele & - Bucky-Ball \\
+		\hline
+			Anwendung(spotential) & - Transport von Nanopartikeln\\
+		\hline\hline
+	\end{tabularx}
+\end{table}
+
+
+\subsubsection{Kohlenstoffnanoröhren}
+Zylindrische Nanostrukturen aus ein- oder mehrwandigen Graphenschichten.
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{0.75\textwidth}{|l|X|}
+		\hline\hline
+			Eigenschaften & - je nach \textcolor{blue}{Wickelart} metallisch, halbleitend\\
+			& - hohes \textcolor{blue}{Aspektverhältnis}\\
+			& - erhöhte Zugfestigkeit $\sigma_{\text{max}}$ \\
+			& - erhöhte Beweglichkeit $\mu$\\
+			& - erhöhte thermische Leitfähigkeit $\lambda$\\
+			& - chemisch inert\\
+		\hline
+			Anwendung(spotential) & - Spitze des Rastertunnelmikroskops (RTM)\\
+			& - Spitze des Rasterkraftmikroskops (RKM)\\
+			& - ''Damaszener Schwert''\\
+		\hline\hline
+	\end{tabularx}
+\end{table}
+
+
+\subsubsection{Graphen}
+Monolage des Graphits, d.h. quasi-zweidimensionale hexagonale Kohlenstoffstruktur.
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{0.75\textwidth}{|l|X|}
+		\hline\hline
+			Eigenschaften & - monoatomare Ausdehnung\\
+			& - hohe Zugfestigkeit\\
+			& - hohe elektrische Leitfähigkeit\\
+			& - Bandstruktur: Halbleitende Eigenschaften am M-Punkt; K-Punkt: Lineare Dispersion (\textcolor{blue}{Dirac-Kegel}), Elektronen wie \textcolor{blue}{masselose Dirac-Fermionen}; \textcolor{blue}{anisotrope Leitfähigkeit}\\
+		\hline\hline
+	\end{tabularx}
+\end{table}
+
+
+
+\begin{figure}[h]
+	\centering			
+	\includegraphics[width=0.45\textwidth]{Grafiken/Nano Bandstruktur Graphen}
+	\includegraphics[width=0.45\textwidth]{Grafiken/Nano Dirac-Kegel}
+\end{figure}
+
+
+\subsection{Van-der-Waals 2D-Materialien}
+Van-der-Waals 2D-Materialien sind Heterostrukturen, die durch abwechselndes Stapeln verschiedener 2D Schichten erzeugt werden (\textcolor{blue}{LEGO-Prinzip}).
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{0.75\textwidth}{|l|X|}
+		\hline\hline
+			Eigenschaften & - Starke, kovalente Bindungen innerhalb einer Schicht\\
+			& - Schwache van-der-Waals-Bindungen zwischen den Schichten\\
+		\hline
+			Anwendung(spotential) & - ultradünne Dielektrika\\
+			& - selektive permeable Membrane\\
+			& - Graphen-basierte Bauelemente\\
+		\hline\hline
+	\end{tabularx}
+\end{table}
+
+
+\newpage
+
+
+\section{Physikalische Eigenschaften}
+\subsection{Mechanische Eigenschaften}
+	\begin{itemize}
+		\item \textbf{Elastizitätsmodul $E$}\\
+		Gibt den Zusammenhang zwischen der auf das Material wirkenden ''Spannung'' (\textcolor{blue}{technische Zugspannung}) $\sigma$ und der ''Dehnung'' (\textcolor{blue}{technische Zugdehnung}) $\varepsilon$
+			\begin{equation}
+				\sigma = E \varepsilon
+			\end{equation}
+		
+		\item \textbf{Zugfestigkeit $\sigma_\text{max}$}\\
+ 		Maximale Spannung $\sigma_\text{max}$, die ein Material aushält, bevor es reißt
+		
+		\item \textbf{Abrieb}
+		
+		\item \textbf{Bruchfestigkeit}
+	\end{itemize}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	Die maximale Länge eines Weltraumaufzuges aus Stahl gegenüber eines Aufzuges aus Kohlenstoffnanoröhrchens ist etwa 150mal kürzer.
+		\begin{align*}
+			L_\text{max, Stahl} &\approx 26\,\text{km} \\
+			L_\text{max, KNR} &\approx 4100\,\text{km}
+		\end{align*}
+
+
+\hrule
+}
+
+\subsection{Optoelektronische Eigenschaften}
+	\begin{itemize}
+		\item \textbf{Lichtabsorption/-transmission}
+
+		\item \textbf{Photoluminesenz}\\
+		Emission von Photonen nach vorheriger Anregung durch Licht
+	\end{itemize}
+
+\textbf{Beispiele}\\
+- Geometrie des Quantenpunkts bestimmt Wellenlänge für Absorption/Emission\\
+- \textcolor{blue}{Plasmonenfrequenz} \textcolor{gruen}{(=Frequenz, mit der Elektronen kollektiv im Material schwingen)} bestimmt die Farbe von Nanopartikeln
+
+
+\subsection{Elektrische Eigenschaften}
+	\begin{itemize}
+		\item \textbf{elektrische Leitfähigkeit $\sigma$ / spezifischer Widerstand $\rho$}\\
+		Gibt den Zusammenhang zwischen dem auf das Material wirkende elektrische Feld $\vec{E}$ und der hervorgerufenen Stromdichte $\vec{j}$ an.
+			\begin{equation}
+				\vec{j} = \sigma \cdot \vec{E}
+			\end{equation}
+		
+		
+		\item \textbf{Bandlücke $E_g$}\\
+		Energiedifferenz der Lücke zwischen Valenz- und Leitungsband.
+			\begin{equation}
+				E_g =
+				\begin{cases}
+					0\,\text{eV}, & \text{Leiter} \\
+					0,1-2\,\text{eV}, & \text{Halbleiter} \\
+					>3\,\text{eV}, & \text{Isolator}
+				\end{cases}
+			\end{equation}
+
+
+		\item \textbf{Beweglichkeit $\mu$}\\
+		Gibt den Zusammenhang zwischen den auf das Material wirkende elektrische Feld $\vec{E}$ und die dadurch Geschwindigkeit der Ladungsträger $\vec{v}_\text{D}$
+			\begin{equation}
+				\vec{v}_{\text{D}} = \mu \vec{E}
+			\end{equation}
+	\end{itemize}
+
+
+\subsection{Thermoelektrische Eigenschaften}
+	\begin{itemize}
+		\item \textbf{Seebeck-Koeffizient $S$}\\
+		Gibt den Zusammenhang zwischen der im Material entstehenden elektrischen Spannung aufgrund einer anliegenden Temperaturdifferenz an
+			\begin{equation}
+				S = -\frac{\Delta V}{\Delta T}
+			\end{equation}
+			
+		\item \textbf{ZT-Wert}
+		Bestimmt die Effizienz eines Thermoelektrikas
+			\begin{equation}
+				ZT = \frac{S^2\sigma T}{\lambda}
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+\section{Nanotechnologie}
+\subsection{Epitaxie}
+- Nanostrukturen können durch \textcolor{blue}{Epitaxie} hergestellt werden.\\
+- Man unterscheidet in \textcolor{blue}{Homo}epitaxie, bei der das Material, auf dem gewachsen wird, dasselbe ist, wie das Material, mit dem gewachsen wird und \textcolor{blue}{Hetero}epitaxie, bei dem es sich um verschiedene Materialien handelt.\\
+- Für Heteroepitaxie ist vor allem ein ähnlicher Gitterabstand wichtig, damit die Strukturen möglichst geringe Verspannungen haben und hoch gewachsen werden können.\\
+\\
+\textbf{Methoden}\\
+- \textcolor{blue}{Molekülstrahlexitaxie}\\
+- \textcolor{blue}{Flüssig-Gas-Phasen-Epitaxie}\\
+Tropfen flüssigen Metalls wird auf Substrat gebracht und von dort aus mittels Dampfgemisch Einstrahlung im Vakuum gewachsen. Ergebnis ist ein Nanodraht.
+
+	\begin{center}
+		\fbox{
+			\includegraphics[width=0.75\textwidth]{Grafiken/Nano Flüssig-Gas-Phasen-Epitaxie}
+		}
+	\end{center}
+
+\subsection{Lithografie}
+	\begin{enumerate}
+		\item Beschichtung des Substrats mit einem Lack
+		
+		\item Projiziere eine Maske auf den Lack
+		
+		\item Lackentfernung
+		
+		\item Ätzen/Dotieren der freien Stellen
+	\end{enumerate}
+
+Die Lithografie kann mit extrem ultravioletter Strahlung (\textcolor{blue}{EUV}) oder \textcolor{blue}{Elektronenstrahl}en durchgeführt werden.
+
+
+\newpage
+
+
+\section{Anhang}
+\subsection{Die goldenen 3}
+Gelangt die Geometrie von Materialien in den Bereich von Nanostrukturen, 
+	\begin{itemize}
+		\item Oberflächen-Volumen-Verhältnis
+		
+		\item Systemabmessung der Nanostrukturen erreicht physikalisch charakteristische Längen
+		
+		\item Quanteneffekte
+	\end{itemize}
+
+
+\begin{table}[H]
+	\centering
+	\caption{Übersicht physikalisch charakteristische Größen}
+	\begin{tabularx}{\textwidth}{X|c|X|X}
+		\hline\hline
+			physikalisch char. Größe &  & (Quasi)Teilchen & Bemerkung \\
+		\hline
+			mittlere freie Weglänge (bzw. \textcolor{blue}{Stoßzeit}) & $L_{\text{m}}$ & Ladungsträger & Unterschritten, findet ballistischer \textcolor{gruen}{(=keine Streuung)} und kein diffusiver Transport statt \\
+		\hline
+			De-Broglie-Wellenlänge & $\lambda_{\text{DB}}$ &  & Kennzeichnet Beginn der Quanteneffekte \\
+		\hline
+			\textcolor{gruen}{Fermi-Wellenlänge} & $\lambda_{\text{F}}$ &  Fermionen & spezischer Fall der De-Broglie-Wellenlänge für Fermionen, d.h. Elektronen, Protonen, etc. \\
+		\hline
+			Phasenkohärenzlänge & $L_\phi$ &  & Unterschritten gibt es eine feste Phasenbeziehung und Interferenzeffekte können beobachtet werden \\
+		\hline
+			Spin-Flip-Länge & $L_s$ & Teilchen mit Spin $\neq 0$ &  \\
+		\hline
+			Diffusionslänge & &  \\
+		\hline\hline
+	\end{tabularx}
+\end{table}
+
+
+\newpage
+
+
+\subsection{Zustandsdichte von quasi-0d-, -1d-, -2d- und -3d-Materialien}
+Für ein Elektronengas in 0d, 1d, 2d und 3d in einem Volumen mit periodischen Randbedingungen gilt (und falls vorhanden nur unter der Betrachtung des ersten Subbands)
+	\begin{align}
+		Z_{0d}(E) &= 2\cdot \delta(E) \\
+		Z_{1d}(E) &= \frac{L}{\pi} \lr{\frac{2m}{\hbar^2}}^{1/2} \frac{1}{\sqrt{E}} \\
+		Z_{2d}(E) &= \frac{A}{2\pi} \lr{\frac{2m}{\hbar^2}}^{2/2} \\
+		Z_{3d}(E) &= \frac{V}{2\pi^2} \lr{ \frac{2m}{\hbar^2} }^{3/2} \sqrt{E}
+	\end{align}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth]{Grafiken/Nano Zustandsdichten.pdf}
+		\caption{Zustandsdichten in Abhängigkeit der Energie für 1d, 2d und 3d}
+	\end{figure}
+
+Unter der Berücksichtigung anderer Subbänder, folgt
+	\begin{align}
+		Z_{0d}(E) &= 2\cdot \sum_i \delta(E-E_i) \\
+		Z_{1d}(E) &= \frac{L}{\pi} \lr{\frac{2m}{\hbar^2}}^{1/2} \cdot \sum_{n_1,n_2} \frac{1}{\sqrt{E-E_{n_1,n_2}}} \cdot \Theta(E-E_{n_1,n_2}) \\
+		Z_{2d}(E) &= \frac{A}{2\pi} \lr{\frac{2m}{\hbar^2}}^{2/2} \cdot \sum_{n_1} \Theta(E-E_{n_1}) \\
+		Z_{3d}(E) &= \frac{V}{2\pi^2} \lr{ \frac{2m}{\hbar} }^{3/2} \sqrt{E}
+	\end{align}
+
+und somit eine Dirac-Kamm für 0d, ein periodisch erhöhtes und wiederkehrendes Muster von 1d, 2d, aber ein unverändertes 3d, da dort keine Quantisierung und somit keine Subbänder vorliegen.
+
+
+\newpage
+
+
+Die zugehörigen \textcolor{blue}{Dispersionsrelationen} sind
+	\begin{align}
+		E_{0d} &= E_{n_x,n_y,n_z} \\
+		E_{1d}(k_x) &= \frac{\hbar^2}{2m} k_x^2 + E_{n_y,n_z} \\
+		E_{2d}(k_x,k_y) &= \frac{\hbar^2}{2m} (k_x^2 + k_y^2) + E_{n_z} \\
+		E_{3d}(k_x,k_y,k_z) &= \frac{\hbar^2}{2m}(k_x^2 + k_y^2 + k_z^2)
+	\end{align}
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+		\includegraphics[width=0.75\textwidth]{Grafiken/Nano Zustandsdichten Subbänder.png}
+		}
+		\caption{Zustandsdichten in Abhängigkeit der Energie für quasi-0d, -1d, -2d und -3d unter der Berücksichtigung der Subbänder}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Herleitung}\\
+	Betrachte ein freies Elektron in einem Volumen mit der periodischen Randbedingung $u(0) = u(L)$.\\
+	\\
+	\fbox{1d}\\
+	Die stationäre Schrödinger-Gleichung ist dann
+		\begin{align*}
+			\hat{H} u(x) &= E u(x) \\
+			-\frac{\hbar^2}{2m} \frac{\partial^2}{\partial x^2} u(x) &= E u(x) \\
+			\Leftrightarrow \frac{\partial^2}{\partial x^2} u(x) &= -\frac{2mE}{\hbar^2} u(x) \equiv -k^2 u(x)
+		\end{align*}
+
+	Diese DGL wird gelöst durch
+		$$u(x) \propto e^{ikx}$$
+	
+	Aus den Randbedingungen folgt
+		\begin{align*}
+			u(0) &= u(L) \\
+			1 &= e^{ikL} \\
+			\Leftrightarrow 1 &= \cos(kL) + i\sin(kL) \\
+			\Rightarrow k_n &= \frac{2\pi}{L} n \\
+			\Rightarrow E_n &= \frac{\hbar^2 k_n^2}{2m} = \frac{2\hbar^2\pi^2}{mL^2}n^2
+		\end{align*}
+	
+	Der Abstand zwischen zwei Punkten im $k$-Raum ist somit
+		$$\Delta k = k_{n+1} - k_n = \frac{2\pi}{L}$$
+	
+	Die Zustandsdichte im $k$-Raum ist, unter Berücksichtigung der Spin-Entartung, somit
+		$$Z(k) = 2\cdot \frac{1}{\frac{2\pi}{L}} = \frac{L}{\pi}$$
+	
+	Die Teilchenzahl im Volumen $V$ ist dann
+		\begin{align*}
+			N &= \int \diff k\, Z(k) = 2\frac{L}{2\pi} \int \diff k\, = 2\frac{L}{2\pi} \int \frac{\diff k}{\diff E}\diff E = 2\frac{L}{2\pi} \int \frac{1}{\frac{\diff E}{\diff k}}\diff E \\
+			&= 2\frac{L}{2\pi} \int \frac{1}{\frac{\hbar^2 k}{m}} \diff E = 2\frac{L}{2\pi} \int \frac{1}{\frac{\hbar^2}{m} \sqrt{\frac{2mE}{\hbar^2}}} \diff E = 2\frac{L}{2\pi} \frac{\sqrt{m}}{\hbar} \int \frac{1}{\sqrt{2E}}\,\diff E = \\
+			&= 2\frac{L}{2\pi} \sqrt{\frac{2m}{\hbar^2}} \frac{1}{\sqrt{E}} = \int \diff E\, Z(E)
+		\end{align*}
+	
+	Somit ist die Zustandsdichte im 1d Fall in Abhängigkeit der Energie
+		$$Z_{1d}(E) = \frac{L}{\pi} \lr{\frac{2m}{\hbar^2}}^{1/2} \frac{1}{\sqrt{E}}$$
+	
+	\fbox{2d}\\
+	Im zweidimensionalen Fall ist die Zustandsdichte im $k$-Raum
+		$$Z(k) = 2\cdot \frac{1}{\frac{2\pi}{L}} \frac{1}{\frac{2\pi}{L}} = 2 \frac{L^2}{(2\pi)^2} \equiv 2 \frac{A}{(2\pi)^2}$$
+	
+	Betrachte erneut die gesamte Teilchenzahl
+		\begin{align*}
+			N &= \int \diff^2 k\, Z(k) = 2 \frac{A}{(2\pi)^2} \int \diff^2 k \stackrel{\comment{Pol.koord.}}{=} 2 \frac{A}{(2\pi)^2} \int \diff k\, k \int \diff\varphi = \\
+			&= 2 \frac{A}{(2\pi)^{\cancel{2}}} \cancel{2\pi} \int \frac{\diff k}{\diff E} \diff E\, k = 2\frac{A}{2\pi} \int \frac{1}{\frac{\hbar^2 \cancel{k}}{m}} \diff E\, \cancel{k} = 2\frac{A m}{2\hbar^2 \pi} \int \diff E \\
+			&= \int \diff E\, Z(E)
+		\end{align*}
+	
+	Somit ist die Zustandsdichte im 2d Fall in Abhängigkeit der Energie
+		$$Z_{2d}(E) = 2\frac{A m}{2\hbar^2 \pi} \equiv \frac{A}{2\pi} \lr{\frac{2m}{\hbar^2}}^{2/2}$$
+	
+	\fbox{3d}\\
+	Im dreidimensionalen Fall ist die Zustandsdichte im $k$-Raum
+		$$Z(k) = 2\cdot \frac{1}{\frac{2\pi}{L}} \frac{1}{\frac{2\pi}{L}} \frac{1}{\frac{2\pi}{L}} = 2 \frac{L^3}{(2\pi)^3} \equiv 2 \frac{V}{(2\pi)^3}$$
+	
+	Betrachte erneut die gesamte Teilchenzahl
+		\begin{align*}
+			N &= \int \diff^3 k\, Z(k) = 2 \frac{V}{(2\pi)^3} \int \diff^3 k = 2 \frac{V}{(2\pi)^3} \int \diff k\, k^2 \int \diff\theta \diff\varphi\, \sin\theta = \\
+			&= 2 \frac{V}{(2\pi)^3} \cdot 4\pi \int \diff E\, \frac{1}{\frac{\hbar^2 k}{m}} k^2 = 2\frac{V}{2\pi^2} \frac{m}{\hbar^2} \int \diff E\, \sqrt{\frac{2mE}{\hbar^2}} = \frac{V}{2\pi^2}\frac{2^{3/2}m^{3/2}}{\hbar^3} \sqrt{E} = \\
+			&= \int \diff E\, Z_{3d}(E)
+		\end{align*}
+	
+	Somit ist die Zustandsdichte im 2d Fall in Abhängigkeit der Energie
+		$$Z_{3d}(E) = \frac{V}{2\pi^2} \lr{ \frac{2m}{\hbar} }^{3/2} \sqrt{E}$$
+	
+	\fbox{0d}\\
+	Im quasi nulldimensionalen Fall 
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Quantisierter Leitwert}
+Der quantisierte Leitwert ist
+	\begin{equation}
+		g(E) = \frac{2e^2}{h} \sum_{n_1,n_2} \Theta(E-E_{n_1,n_2})
+	\end{equation}
+
+wobei $E$ die Energie der Transportelektronen ist. Diese wird durch die angelegte Gate-Spannung
+	\begin{equation}
+		E = E_F + eE
+	\end{equation}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth]{Grafiken/Nano Quantisierter Leitwert.pdf}
+		\caption{Quantisierter Leitwert in Abhängigkeit der Systemenergie}
+	\end{figure}
+
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Herleitung}\\
+	Suche den Leitwert
+		$$g := \frac{1}{R} = \frac{\diff I}{\diff U}$$
+	Betrachte einen 1d Draht der Länge $L$. Dabei ist die Stromstärke gleich der -dichte $I=j$. Beginne also bei $j=-env$ mit der Teilchendichte $n = \frac{N}{L}$.
+		\begin{align*}
+			\diff j &= -e\cdot \diff n\cdot v = -e \cdot \frac{\diff N}{L} \cdot \frac{p}{m} = -e\cdot \frac{D(k)\,\diff k}{L} \cdot \frac{\hbar k}{m} = -e \cdot \frac{2\frac{1}{\frac{2\pi}{L}}\,\diff k}{L} \cdot \frac{1}{\hbar}\frac{\diff E}{\diff k} = \\
+			 &= -2e\cdot \frac{1}{2\pi} \cdot \frac{1}{\hbar} \diff E = -2e \frac{1}{h} (-e\diff U) = +\frac{2e^2}{h} \diff U \\
+			\Rightarrow g_i &= \frac{\frac{2e^2}{h} \diff U}{\diff U} = \frac{2e^2}{h} \\
+			\Rightarrow g &= \frac{2e^2}{h}\sum_i \Theta(E-E_i)
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Drude-Modell}
+Das Drude-Modell ist ein klassisches Modell, das die Elektronenbewegung im elektrischen Feld beschreibt.
+	\begin{equation}
+		ma = -e\vec{E} - \frac{m}{\tau}v
+	\end{equation}
+
+Für den stationären Fall $a=0$ ergeben sich 
+	\begin{align}
+		v_D &= -\frac{e\tau}{m}E\\
+		\mu &= -\frac{e\tau}{m}\\
+		j &= +\frac{n\tau e^2}{m} E\\
+		\sigma &= \frac{ne^2\tau}{m}
+	\end{align}
+
+
+\subsection{Mathematische Beschreibung der Nanophysik}
+\begin{itemize}
+	\item \textbf{Symmetrie}\\
+	Gruppentheorie zur Lösung qm. Systeme
+	
+	\item \textbf{Geometrie}\\
+	Euklidische Geometrie zur Beschreibung der Ausdehnung der Probe und folglich der Quantisierung
+	
+	\item \textbf{Topologie}\\
+	Klassifizierung der Körper unabhängig von ihrer Größe/Geometrie
+\end{itemize}
+
+
+\subsection{Spezifischer Widerstand Metalle und Halbleiter}
+Der spezifische Widerstand von Metallen und Halbleitern hängt von der Relaxationszeit ab, die widerum temperaturabhängig ist.
+	\begin{equation}
+		\rho = \frac{1}{\sigma} = \frac{m}{ne^2\tau}
+	\end{equation}
+
+
+
+Für Metalle gilt
+	\begin{equation}
+		\rho
+		\begin{cases}
+			= \rho_0, & \text{sehr tiefe $T$}\\
+			\propto T^5, & T\ll \theta_D\\
+			\propto T, & T\gg \theta_D
+		\end{cases}		
+	\end{equation}
+
+wobei der erste Fall durch Streuung an Defekten und die verbleibenden Fälle durch Phononenstreuung verursacht werden.\\
+\\	
+Für Halbleiter gilt
+	\begin{equation}
+		\rho \propto e^{-\frac{E_g}{k_B T}}
+	\end{equation}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth]{Grafiken/Nano spezifischer Widerstand.jpg}
+		\caption{Schematischer Verlauf des spezifischen Widerstands von Metallen und Halbleitern in Abhängigkeit der Temperatur}
+	\end{figure}
+
+
+\subsection{Streumechanismen}
+	\begin{itemize}
+		\item Oberflächenstreuung
+		
+		\item Grenzflächenstreuung
+		
+		\item Streuung an magnetischen Defekten
+		
+		\item Spin-Bahn-WW
+		
+		\item Streuung an Elektronen
+		
+		\item Streuung an Phononen
+		
+		\item Streuung an Atomen
+		
+		\item Streuung an Ionen
+	\end{itemize}
+
+Um die Gesamtstreurate auszudrücken, verwendet man die \textcolor{blue}{Matthiessen'sche Regel}
+	\begin{equation}
+		\frac{1}{\tau} = \sum_i \frac{1}{\tau_i}
+	\end{equation}
+
+mit der Streurate $\frac{1}{\tau}$ und unter der Voraussetzung, dass die Streumechanismen voneinander unabhängig sind.
+\end{document}

@@ -1,0 +1,1245 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Physik I: Mechanik und Wärmelehre}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section{Grundlegende Postulate und Definitionen}
+\fbox{
+\begin{minipage}{\textwidth}
+Die 3 Newton'schen Axiome lauten
+	\begin{itemize}
+		\item \textbf{Axiom 1: Trägheitsgesetz}\\
+		Jeder Körper verharrt in seinem Zustand der Ruhe oder der gleichförmigen geradlinigen Bewegung, wenn er nicht durch einwirkende Kräfte gezwungen wird, seinen Zustand zu ändern.
+		
+		\item \textbf{Axiom 2: Bewegungsgleichung}
+			\begin{equation}
+				F = \frac{\diff}{\diff t}(mv) \stackrel{\commenttext{Massenpunkt}}{=} ma
+			\end{equation}
+
+		\textcolor{gruen}{Im Fall von Nicht-Inertialsystemen müssen  zusätzlich Scheinkräfte berücksichtigt werden.}
+		
+		\item \textbf{Axiom 3: \textit{actio} gleich \textit{reactio}}\\
+		Die Wirkungen zweier Körper aufeinander sind stets gleich groß und von entgegengesetzter Richtung.
+	\end{itemize}
+\end{minipage}
+}
+
+\vspace{0.5cm}
+
+Die momentane Geschwindigkeit bzw. Beschleunigung eines Massenpunktes ergibt sich durch die Grenzwertbildung der mittleren Geschwindigkeit bzw. Beschleunigung
+
+	\begin{align}
+		v(t) &= \lim_{\Delta t\to 0} \frac{x(t+\Delta t) - x(t)}{\Delta t} \equiv \frac{\diff x}{\diff t} \equiv \dot{x}(t) \\
+		a(t) &= \lim_{\Delta t\to 0} \frac{v(t+\Delta t) - v(t)}{\Delta t} \equiv \frac{\diff v}{\diff t} \equiv \frac{\diff^2 x}{\diff t^2} \equiv \ddot{x}(t) 
+	\end{align}
+
+In 3 Dimensionen gilt für Orts-, Geschwindigkeits- und Beschleunigungsvektor
+	\begin{align}
+		\vec{r}(t) &= x(t) \vec{e}_x + y(t) \vec{e}_y + z(t) \vec{e}_z = \sum_{i=1}^3 r_i(t) \vec{e}_i \\
+		\vec{v}(t) &= \lim_{\Delta t\to 0} \frac{\vec{r}(t + \Delta t) - \vec{r}(t)}{\Delta t} \equiv \dot{\vec{r}}(t) \\
+		\vec{a}(t) &= \lim_{\Delta t\to 0} \frac{\vec{v}(t + \Delta t) - \vec{v}(t)}{\Delta t} \equiv \dot{\vec{v}}(t) \equiv \ddot{\vec{r}}(t)
+	\end{align}
+
+
+\newpage
+
+
+Bewegungsgleichungen werden wie folgt aufgestellt und gelöst:
+\begin{enumerate}
+	\item \textbf{Formulieren der Kraft}\\
+	Addiere bzw. subtrahiere die im System auftretenden Kräfte, z.B. Gravitations-, Hooke- oder Stokes-Kraft
+		\begin{align}
+			F_{\text{G}} &= mg \\
+			F_{\text{Hooke}} &= k (x-x_0) \\
+			F_{\text{Stokes}} &= -\gamma \dot{x}
+		\end{align}
+	
+	zur Gesamtkraft $F$.
+
+	
+	\item \textbf{Einsetzen in die Bewegungsgleichung}
+		\begin{align*}
+			F = m\ddot{x}
+		\end{align*}
+
+
+	\item \textbf{Integrieren oder DGL Lösungsverfahren anwenden}
+		\begin{itemize}
+			\item Separation der Variablen
+			\item $e$-Ansatz
+			\item Variation der Konstanten
+			\item Lösungsverfahren für inhomogene DGLs\\
+			1) Lösen der homogenen DGL \\
+			2) Finden eine spezielle Lsg. der inhom. DGL, z.B. durch Raten oder Ansatz\\
+			3) Summe von homogener und partikulärer Lsg. ergbit die allg. Lsg.	
+		\end{itemize}
+
+
+	\item \textbf{Verwenden von Anfangsbedingungen}
+\end{enumerate}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Massenpunkt unter Stokes-Reibung
+		\begin{align*}
+			F &= -\gamma\dot{x} = m\ddot{x}\\
+			\Leftrightarrow 0 &= \ddot{x} + \frac{\gamma}{m}\dot{x}
+		\intertext{Verwende den $e$-Ansatz $x(t) = e^{\lambda t}$, $\dot{x}(t) = \lambda e^{\lambda t}$, $\ddot{x}(t) = \lambda^2 e^{\lambda t}$.}
+			\Rightarrow 0 &= \lambda^2 + \frac{\gamma}{m}\lambda \\
+			\Rightarrow \lambda_1 &= 0 \\
+			\Rightarrow \lambda_2 &= -\frac{\gamma}{m}
+		\intertext{Somit ist die Lösung}
+			x(t) &= C_1 e^{\lambda_1 t} + C_2 e^{\lambda_2 t} = C_1 + C_2 e^{-\frac{\gamma}{m}t}
+		\intertext{Die Anfangsbedingungen seien allgemein $x(t=0)=x_0, v(t=0) = v_0$.}
+			\Rightarrow x_0 &= C_1 + C_2 \\
+			\Rightarrow v_0 &= -\frac{\gamma}{m}C_2
+		\intertext{Lösen des LGS ergibt $C_2 = -\frac{m}{\gamma}v_0$ und $C_1 = x_0 + \frac{m}{\gamma}v_0$ und somit der Ort}
+			x(t) &= x_0 + \frac{m}{\gamma}v_0 -\frac{m}{\gamma}v_0 e^{-\frac{\gamma}{m}t} = x_0 + \frac{m}{\gamma}v_0 \lr{ 1 - e^{-\frac{\gamma}{m}t} }
+		\intertext{Geschwindigkeit und Beschleunigung sind dann}
+			\Rightarrow v(t) &= v_0 e^{-\frac{\gamma}{m}t} \\
+			\Rightarrow a(t) &= -\frac{\gamma}{m}v_0 e^{-\frac{\gamma}{m}t}
+		\end{align*}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Grafiken/bewegungsgleichung stokes.pdf}
+	\caption{Ort $x(t)$, Geschwindigkeit $v(t)$ und Beschleunigung $a(t)$ eines Massenpunkts, der Stokes-Reibung erfährt}
+\end{figure}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Erhaltungssätze}
+Das zentrale Konzept für die Erhaltungssätze ist das Potential, das wie folgt definiert ist:
+
+\vspace{0.5cm}
+
+\hrule
+\fbox{Theorem}\\
+Für ein hinreichend oft differenzierbares Kraftfeld $\vec{F}(\vec{r})$, das den 3d Raum erfüllt, sind die folgenden Aussagen äquivalent:
+	\begin{enumerate}
+		\item $\vec{F}(\vec{r})$ ist konservativ, d.h. es existiert ein Potential s.d.
+			\begin{equation}
+				\vec{F}(\vec{r}) = -\vec{\nabla}_r V(\vec{r})
+			\end{equation}
+		
+		\item Das Wegintegral $\int_c \vec{F}(\vec{r})\,\diff\vec{r}$ (die Arbeit) ist bei festen Endpunkten wegunabhängig
+		
+		\item 
+			$$\oint \vec{F}\,\diff\vec{r} = 0$$
+		
+		\item Das Kraftfeld ist wirbelfrei
+			$$\vec{\nabla} \times \vec{F} = 0$$
+	\end{enumerate}
+\hrule
+
+\vspace{0.5cm}
+
+Strategie zur Berechnung eines Potentials
+\begin{enumerate}
+	\item \textbf{Überprüfe Wirbelfreiheit}\\
+	Falls das Kraftfeld nicht wirbelfrei ist, existiert kein Potential.
+	
+	\item \textbf{Bezugspunkt wählen}\\
+	
+	\item \textbf{Parametrisierung}\\
+	Parametrisiere einen einfachen Weg vom Bezugspunkt $\vec{r}_0$ nach $\vec{r}$ und berechne das Potential
+		\begin{equation}
+			V(\vec{r}) = -\int_{\vec{r}_0}^{\vec{r}} \vec{F}(\vec{r}')\,\diff\vec{r}'
+		\end{equation}
+\end{enumerate}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Schwerkraft an Erdoberfläche\\
+	\textcolor{red}{ERGÄNZEN VL9.2 11:15}
+
+
+
+\hrule
+}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Energieerhaltung}
+In einem statischen konservativen Kraftfeld ist die Energie $E$ erhalten
+	\begin{equation}
+		E = T(t) + V(x(t))
+	\end{equation}
+
+mi der kinetischen Energie $T = \frac{1}{2}m\dot{\vec{r}}^2$ und dem Potential $V$.\\
+\textcolor{gruen}{Zusatzkräfte, die stets senkrecht zur Geschwindigkeit zeigen, stören die Energieerhaltung nicht.}\\
+\\
+\fbox{
+\begin{minipage}{\textwidth}
+	Beobachtung: Alle fundamentalen Kräfte sind konservativ.\\
+	Somit ist in einem abgeschlossenen System die Energie $E=T+V$ immer erhalten
+\end{minipage}
+}
+
+
+
+\subsection{Impulserhaltung}
+Wirken keine äußeren Kräfte $\vec{F}$ \textcolor{gruen}{(z.B. Gravitationskraft, Federkraft, etc.; ausgenommen sind die Kräfte aus dem 3. Axiom)} auf ein System aus $N$ Teilchen, so ist der Impuls erhalten.
+	\begin{equation}
+		\vec{P} = \sum_{i=1}^N \vec{p}_i = \sum_i m_i \vec{v}_i = \text{konst.}
+	\end{equation}
+
+wobei $i$ der Teilchenindex ist.
+
+
+\subsection{Drehimpulserhaltung}
+Wirkt kein Drehmoment $\vec{M}$ bzw. ist das Potential rotationssymmetrisch $V(\vec{r}) = V(r)$ ist der Drehimpuls $\vec{L}$ erhalten
+	\begin{equation}
+		\vec{L} = \vec{r} \times \vec{p} = \text{konst.}
+	\end{equation}
+
+Ein Potential, das rotationssymmetrische um die $z$-Achse ist $V(\vec{r}) = V(r_\perp = \sqrt{x^2 + y^2}, z)$ erhält den Drehimpuls in $z$-Richtung
+	\begin{equation}
+		L_z = \text{konst.}
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	Aus der Drehimpulserhaltung im Zentralkraftfeld folgt der \textbf{Kepler'sche Flächensatz}.\\
+	\\
+	Ein Massenpunkt bewege sich in $\diff t$ von $\vec{r}(t)$ nach $\vec{r}(t+\diff t)$, d.h. er legt die Distanz $\vec{v}\cdot \diff t$ zurück.\\
+	Berechne nun das infinitesimale Dreieck, das von $\vec{r}$ und $\vec{v}\cdot \diff t$ aufgespannt wird, erkenne den Drehimpuls $\vec{L}$ und verwende, dass dieser erhalten ist $\vec{L} = \text{konst.}$
+		\begin{align*}
+			\diff A &= \frac{1}{2}|\vec{r} \times \vec{v}| \diff t = \frac{1}{2} \frac{|\vec{L}|}{m}\diff t \\
+			\Leftrightarrow \frac{\diff A}{\diff t} &= \frac{|\vec{L}|}{2m} = \text{konst.} \qquad\blacksquare
+		\end{align*}
+
+
+
+\hrule
+}
+
+
+
+\newpage
+
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Energieerhaltung $\Leftrightarrow$ zeitunabhängiges Potential\\
+	\\
+	Betrachte das totale Differential des Potentials, das an der Massenpunktposition ausgewertet wird.
+		\begin{align*}
+			\frac{\diff}{\diff t} V(x(t)) &= V'(x(t)) \cdot \dot{x}(t) = -F(x)\cdot \dot{x}(t) \stackrel{\comment{F = m\ddot{x}}}{=} -m\ddot{x}\dot{x} = -\frac{\diff}{\diff t} \lr{ \frac{1}{2} m\dot{x}^2 } \equiv -\frac{\diff}{\diff t} T(t) \\
+			\Leftrightarrow 0 &= \frac{\diff}{\diff t} \lr{T(t) + V(x(t))} \equiv \frac{\diff}{\diff t} E(t)
+		\end{align*}
+	
+	\textcolor{red}{Analog für 3d mit $V(\vec{r}(t))$ und $T = \frac{1}{2}m\dot{\vec{r}}^2$.}\\
+	\\
+	\fbox{Herleitung}\\
+	zz: Impulserhaltung $\Leftrightarrow$ Kräftefreiheit\\
+	\\
+	Betrachte ein System bestehend aus einem Teilchen.\\
+	Für Kraft und Impuls gilt der Zusammenhang $\vec{F} = \dot{\vec{p}}$.\\
+	Somit wird der Zusammenhang für $\vec{F} = \vec{0}$ zu $\vec{0} = \dot{\vec{p}}$, woraus folgt, dass $\vec{p} = \text{konst.}$.\\
+	\\
+	Betrachte nun ein System mit mehreren Teilchen, zur Anschaulichkeit hier $2$.\\
+	Die Bewegungsgleichungen der beiden Teilchen lauten
+		\begin{align*}
+			\frac{\diff \vec{p}_1}{\diff t} &= \vec{F}_{21},\qquad \frac{\diff \vec{p}_2}{\diff t} = \vec{F}_{12} \stackrel{\commenttext{3. Axiom}}{=} -\vec{F}_{21} \\
+				\Rightarrow \frac{\diff \vec{p}_1}{\diff t} + \frac{\diff \vec{p}_2}{\diff t} &= \vec{F}_{21} - \vec{F}_{21} = \vec{0} \\
+				\Rightarrow \vec{p}_1 + \vec{p}_2 \equiv \vec{P} &= \text{konst.}
+		\end{align*}
+		
+	\textcolor{red}{Dies lässt sich auf $N$ Teilchen verallgemeinern.}\\
+	\\
+	\fbox{Herleitung}\\
+	zz: Drehimpulserhaltung\\
+	\textcolor{red}{ERGÄNZEN}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Modellsysteme der Mechanik des Massenpunkts}
+\subsection{Harmonischer Oszillator}
+Der eindimensionale harmonische Oszillator ist ein System, in dem sich ein Massenpunkt im harmonischen Potential $V$ befindet bzw. auf diesen eine lineare Kraft wirkt
+	\begin{align}
+		V(x) &= \frac{1}{2} k x^2 \\
+		F(x) &= -kx,
+	\end{align}
+
+mit der Ruheposition $x'$ und einer Konstante $k$.
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+	\includegraphics[width=0.6\textwidth]{Grafiken/federkraft.pdf}
+	}
+	\caption{Skizze eines eindimensionalen harmonischen Oszillators}
+\end{figure}
+
+Die Dynamik dieses Systems wird durch die Differentialgleichung
+	\begin{equation}
+		\ddot{x} + \omega_0^2 x = 0
+	\end{equation}
+
+mit $\omega_0 := \sqrt{ \frac{k}{m} }$ beschrieben.
+	\begin{itemize}
+		\item \textbf{Trajektorie} 
+			\begin{align}
+				x(t) &= \frac{v_0}{\omega} \cdot \sin(\omega t) + x_0 \cdot \cos(\omega t) \\
+				&= A \cdot \sin(\omega t + \varphi),
+			\end{align}
+		mit der Anfangsgeschwindigkeit $v_0$, Anfangsposition $x_0$, Amplitude $A$ und Phase $\varphi$.
+
+
+		\item \textbf{Energie}
+			\begin{equation}
+				E = \frac{1}{2}m\omega_0^2 A^2
+			\end{equation}
+	\end{itemize}
+
+\newpage
+
+
+\subsubsection{Harmonischer Oszillator mit Stokes-Reibung}
+Berücksichtigt man die Stokes-Reibung, ergeben sich für die Bewegung drei Fälle
+	\begin{equation}
+		x(t) =
+		\left\{
+		\begin{array}{lll}
+			x_0 e^{\lambda_+ t} + \frac{1}{\lambda_- - \lambda_+}\lr{v_0 - \lambda_+ x_0} \lr{ e^{\lambda_- t} - e^{\lambda_+ t}}, & \gamma > 2\omega_0, & \text{Kriechfall} \\
+			e^{-\frac{\gamma}{2}t} (\frac{1}{\omega}(v_0 + \frac{\gamma}{2}x_0) \sin(\omega t) + x_0 \cos(\omega t)), & \gamma < 2\omega_0, & \text{Schwingfall} \\
+			(x_0 + (v_0 + \omega_0 x_0) t) e^{-\omega_0 t}, & \gamma = 2\omega_0, & \text{aperiodischer Grenzfall}
+		\end{array}
+		\right.
+	\end{equation}
+
+mit $\lambda_\pm = -\frac{\gamma}{2} \pm \sqrt{\frac{\gamma^2}{4} - \omega_0^2}$, $\omega = \sqrt{\omega_0^2 - \frac{\gamma^2}{4}}$ und $\omega_0 = \sqrt{\frac{k}{m}}$.
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+	\includegraphics[width=0.32\textwidth]{Grafiken/kriechfall.pdf}
+	\includegraphics[width=0.32\textwidth]{Grafiken/schwingfall.pdf}
+	\includegraphics[width=0.32\textwidth]{Grafiken/aperiodischer grenzfall.pdf}
+	}
+	\caption{$x$-$t$-Diagramm eines harmonischen Oszillators mit Stokes-Reibung für den Kriechfall (links), Schwingfall (mittig) und aperiodischen Grenzfall (rechts)}
+\end{figure}
+
+
+
+
+\newpage
+
+
+\subsubsection{Getriebener harmonischer Oszillator mit Stokes-Reibung}
+Betrachte die periodisch einwirkende Kraft $F(t) = m\alpha_0 \sin(\tilde{\omega} t)$.
+	\begin{equation}
+		x(t) = x_h(t) + A \cdot \sin\lreck{ \tilde{\omega} t + \varphi }
+	\end{equation}
+
+mit der Lösung des HO mit Reibung aber ohne äußere Kraft $x_h(t)$ sowie der Amplitude $A$ und Phase $\varphi$
+	\begin{align}
+		A &= \frac{\alpha_0}{\sqrt{(\tilde{\omega}^2 - \omega_0^2)^2 + (\gamma\tilde{\omega})^2}} \\
+		\varphi &= \arctan \lr{ \frac{\gamma\tilde{\omega}}{\tilde{\omega}^2 - \omega_0^2} }
+	\end{align}
+
+Die Resonanzamplitude $A_R$ ensteht bei der Resonanzfrequenz $\omega_R$
+	\begin{align}
+		A_R &= \frac{\alpha_0}{\gamma \sqrt{ \omega_0^2 - \frac{\gamma^2}{4} }} \equiv \frac{\alpha_0}{\gamma\omega} \\
+		\tilde{\omega}_R &= \sqrt{\omega_0^2 - \frac{\gamma^2}{2}}
+	\end{align}
+
+Dabei tritt eine Resonanz nur für den Fall auf, wenn $\omega_0^2 > \frac{\gamma^2}{2} \Leftrightarrow \gamma < \sqrt{2}\omega_0$, d.h. bei schwacher Dämpfung.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.65\textwidth]{Grafiken/getriebener ho amplitude phase.pdf}
+	\caption{Amplitude und Phase der partikulären Lösung in Abhängigkeit der Anregungsfrequenz}
+\end{figure}
+
+
+\newpage
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $A, \varphi, A_\text{max}, \omega_\text{R}$\\
+	\\
+	Die DGL des Systems lautet
+		\begin{align*}
+			m\ddot{x} + kx + m\gamma\dot{x} &= m\alpha_0\sin(\tilde{\omega} t) \\
+			\Leftrightarrow \ddot{x} + \omega_0^2 x + \gamma\dot{x} &= \alpha_0\sin(\tilde{\omega} t)
+		\end{align*}
+	
+	Da es sich um eine inhomogene DGL handelt, ist die allgemeine Lösung
+		$$x(t) = x_h(t) + x_s(t)$$
+
+	wobei $x_h(t)$ aus dem vorherigen Unterkapitel bekannt ist.\\
+	\\
+	Bestimme die partikuläre Lösung mit dem Ansatz
+		\begin{align*}
+			x_s(t) &= A\sin(\tilde{\omega}t + \varphi) \\
+			\dot{x}_s(t) &= \tilde{\omega}\cdot A\cos(\tilde{\omega}t + \varphi) \\
+			\ddot{x}_s(t) &= -\tilde{\omega}^2\cdot A\sin(\tilde{\omega}t + \varphi)
+		\end{align*}
+	
+	Einsetzen in die inhomogene DGL liefert
+		\begin{align*}
+			-\tilde{\omega}^2\cdot A\sin(\tilde{\omega}t + \varphi) + \omega_0^2  \cdot A\sin(\tilde{\omega}t + \varphi) + \gamma \cdot \tilde{\omega}\cdot A\cos(\tilde{\omega}t + \varphi) &= \alpha_0\sin(\tilde{\omega} t)
+		\intertext{Verwende die Identitäten $\sin(\alpha + \beta) = \sin\alpha\cos\beta + \sin\beta\cos\alpha$ und $\cos(\alpha + \beta) = \cos\alpha\cos\beta - \sin\alpha\sin\beta$.}
+			-\tilde{\omega}^2 A \lr{ \sin(\tilde{\omega}t)\cos\varphi + \cos(\tilde{\omega}t)\sin\varphi } + \omega_0^2 A \lr{ \sin(\tilde{\omega}t)\cos\varphi + \cos(\tilde{\omega}t)\sin\varphi } +& \\
+			+ \gamma\tilde{\omega} \lr{ \cos(\tilde{\omega}t)\cos\varphi - \sin(\tilde{\omega}t)\sin\varphi }&= \alpha_0 \sin(\tilde{\omega}t)
+		\end{align*}
+
+	Führe einen Koeffizientenvergleich nach \fbox{$\cos(\tilde{\omega}t)$} und \fbox{$\sin(\tilde{\omega}t)$} durch.
+		\begin{align*}
+			\begin{cases}
+				-\tilde{\omega}^2 \cancel{A} \sin\varphi + \omega_0^2 \cancel{A} \sin\varphi + \gamma\tilde{\omega} \cancel{A} \cos\varphi &= 0 \\
+				-\tilde{\omega}^2 A \cos\varphi + \omega_0^2 A \cos\varphi - \gamma\tilde{\omega} A \sin\varphi &= \alpha_0
+			\end{cases} \\
+			\Leftrightarrow
+			\begin{cases}
+				(\omega_0^2 - \tilde{\omega}^2) \sin\varphi + \gamma\tilde{\omega} \cos\varphi &= 0 \tag{1a,1b}\\
+				A\lreck{ (\omega_0^2 - \omega^2) \cos\varphi - \gamma\tilde{\omega} \sin\varphi } &= \alpha_0
+			\end{cases}
+		\end{align*}
+
+	Umstellen von (1a) liefert eine Bestimmungsgleichung für die Phase
+		\begin{align*}
+			\varphi = \arctan \frac{\gamma\tilde{\omega}}{\tilde{\omega}^2 - \omega_0^2} \tag{2} \qquad \blacksquare
+		\end{align*}
+	
+	\textcolor{gruen}{Bei der Darstellung muss auf die Quadranten der komplexen Ebene geachtet werden.}\\
+	Umstellen von (2a) ergibt die Amplitude $A$
+		\begin{align*}
+			A &= - \frac{\alpha_0}{(\tilde{\omega}^2 - \omega_0^2) \cos\varphi - \gamma\tilde{\omega} \sin\varphi} = - \frac{\alpha_0}{(\tilde{\omega}^2 - \omega_0^2) \cot\varphi + \gamma\tilde{\omega}} \cdot \frac{1}{\sin\varphi} = \\
+			&\stackrel{\comment{(2)}}{=} - \frac{\alpha_0}{(\tilde{\omega}^2 - \omega_0^2) \cdot \frac{(\tilde{\omega}^2 - \omega_0^2)}{\gamma\tilde{\omega}} + \gamma\tilde{\omega}} \cdot \frac{1}{\sin\varphi} = -\frac{\gamma\tilde{\omega}\alpha_0}{(\tilde{\omega}^2 - \omega_0^2)^2 + (\gamma\tilde{\omega})^2} \cdot \frac{1}{\sin\varphi}
+		\end{align*}
+	
+	Da die Amplitude $A>0$ sein muss, folgt aus der letzten Gleichung, dass $\sin\varphi < 0$ gelten muss und somit $-\pi \leq \varphi \leq 0$.\\
+	Formuliere schließlich das $\frac{1}{\sin\varphi}$ in $A$ um.
+		\begin{align*}
+			\frac{1}{\sin^2\varphi} &= 1 + \cot^2\varphi \stackrel{\comment{(2)}}{=} 1 + \frac{(\tilde{\omega}^2 - \omega_0^2)^2}{(\gamma\tilde{\omega})^2} = \frac{(\tilde{\omega}^2 - \omega_0^2)^2 + (\gamma\tilde{\omega})^2}{(\gamma\tilde{\omega})^2} \\
+			\Leftrightarrow \sin\varphi &= \pm \frac{\gamma\tilde{\omega}}{\sqrt{ (\tilde{\omega}^2 - \omega_0^2)^2 + (\gamma\tilde{\omega})^2 }}
+		\end{align*}
+	
+	Da $\sin\varphi < 0$ kann die positive Lösung ausgeschlossen werden.\\
+	Einsetzen in $A$ ergibt
+		\begin{align*}
+			A &= - \frac{\gamma\tilde{\omega}\alpha_0}{ (\tilde{\omega}^2 - \omega_0^2) + (\gamma\tilde{\omega})^2 } \cdot \lr{ -\frac{\sqrt{ (\tilde{\omega}^2 - \omega_0^2)^2 + (\gamma\tilde{\omega})^2 }}{\gamma\tilde{\omega}} } = + \frac{\alpha_0}{ \sqrt{ (\tilde{\omega}^2 - \omega_0^2)^2 + (\gamma\tilde{\omega})^2 } } \qquad \blacksquare
+		\end{align*}
+
+
+	Die maximale Amplitude, genannt Resonanzamplitude, tritt auf der Resonanzfrequenz $\omega_R$ auf.
+		\begin{align*}
+			A'(\tilde{\omega}) &= \frac{\diff}{\diff\tilde{\omega}} \frac{\alpha_0}{ \sqrt{ (\tilde{\omega}^2 - \omega_0^2)^2 + (\gamma\tilde{\omega})^2 } } = \\
+			&= -\frac{1}{2} \frac{\alpha_0}{ \lr{ (\tilde{\omega}^2 - \omega_0^2)^2 + (\gamma\tilde{\omega})^2 }^{3/2} } \cdot (2(\tilde{\omega}^2 - \omega_0^2) \cdot 2\tilde{\omega} + 2\gamma^2\tilde{\omega}) = \\
+			&= -\cancel{\frac{1}{2}} \frac{\cancel{2}\tilde{\omega}\alpha_0}{ \lr{ (\tilde{\omega}^2 - \omega_0^2)^2 + (\gamma\tilde{\omega})^2 }^{3/2}} \lr{ 2(\tilde{\omega}^2 - \omega_0^2) + \gamma^2 } \stackrel{!}{=} 0 \\
+			\Leftrightarrow 2(\tilde{\omega}^2 - \omega_0^2) + \gamma^2 &\stackrel{!}{=} 0 \\
+			\Leftrightarrow \tilde{\omega} \equiv \tilde{\omega}_R &= \sqrt{\omega_0^2 - \frac{\gamma^2}{2}} \qquad \blacksquare
+		\end{align*}
+
+	Somit ist die Resonanzamplitude
+		\begin{align*}
+			A(\tilde{\omega}_R) &= \frac{\alpha_0}{ \sqrt{ (\omega_0^2 - \frac{\gamma^2}{2} - \omega_0^2)^2 + (\gamma\sqrt{\omega_0^2 - \frac{\gamma^2}{2}})^2 } } = \frac{\alpha_0}{\sqrt{ \frac{\gamma^4}{4} + \gamma^2 \lr{\omega_0^2 - \frac{\gamma^2}{2}}}} = \frac{\alpha_0}{\gamma \sqrt{\frac{\gamma^2}{4} + \omega_0^2 - \frac{\gamma^2}{2}}} = \\
+			&= \frac{\alpha_0}{\gamma \sqrt{\omega_0^2 - \frac{\gamma^2}{4}}} \equiv \frac{\alpha_0}{\gamma\omega} \qquad \blacksquare
+		\end{align*}
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Teilchen auf einer Kreisbahn}
+Die Winkelgeschwindigkeit ist definiert als die Winkeländerung und steht senkrecht zum Kreis und ermöglicht eine \underline{dartsellungsfreie Beschreibung von Geschwindigkeit und Beschleunigung}.
+	\begin{equation}
+		\vec{\omega} := \dot{\varphi} \cdot \vec{e}_z
+	\end{equation}
+
+Für Ort, Geschwindigkeit und Beschleunigung gilt
+	\begin{align}
+		\vec{r} &=
+		\begin{pmatrix}
+			R \cos\varphi\\
+			R \sin\varphi\\
+			0
+		\end{pmatrix} \\
+		\vec{v} &=
+		R\dot{\varphi}
+		\begin{pmatrix}
+			-\sin\varphi\\
+			\cos\varphi\\
+			0
+		\end{pmatrix}
+		=
+		\vec{\omega} \times \vec{r} \\
+		\vec{\alpha} &=
+		\dot{\vec{\omega}} \times \vec{r} - \omega^2 \vec{r} {\color{gruen} = \vec{a}_{||} + \vec{a}_\perp}
+	\end{align}
+
+\textcolor{gruen}{Die Beschleunigung kann im Allgemeinen in einen parallelen Anteil $\vec{a}_{||}$, der den Betrag der Beschleunigung ändert, und einen senkrechten Anteil $\vec{a}_\perp$, der die Richtung ändert, zerlegt werden.}\\
+Die Umlaufperiode ist
+	\begin{equation}
+		T = \frac{2\pi}{\omega}
+	\end{equation}
+
+Für den Drehimpuls gilt
+	\begin{equation}
+		\vec{L} = m r_\perp^2 \vec{\omega} \equiv I \vec{\omega}
+	\end{equation}
+
+mit dem Hebelarm $r_\perp$ \textcolor{gruen}{(entspricht hier einfach $\vec{r}$)} und dem Trägheitstensor $I$.\\
+\textcolor{blue}{Folgt durch Einsetzen in $\vec{L} = \vec{r}\times\vec{p}$.}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Grafiken/kreisbahn.pdf}
+	\caption{Kurve eines Teilchens auf einer Kreisbahn; schwarz: Ortsvektor; rot: Geschwindigkeitsvektor; blau: Winkelgeschwindigkeit}
+\end{figure}
+
+
+
+\newpage
+
+
+\subsection{Wurfparabel}
+Die Wurfparabel ist die Trajektorie eines Massenpunkts unter homogen wirkender Gravitationskraft.\\
+\\
+Die Dynamik des Massenpunkts wird durch das DGS
+	\begin{equation}
+		\begin{cases}
+			m\ddot{x} &= -mg \\
+			m\ddot{y} &= 0
+		\end{cases}
+	\end{equation}
+
+beschrieben.
+	\begin{itemize}
+		\item \textbf{Trajektorie}\\
+		Die Wurfhöhe in Abhängigkeit der Wurfweite ist:
+			\begin{equation}
+		y(x) = - \frac{g}{2v_0^2\cos^2\alpha} \cdot x^2 + \tan\alpha \cdot x
+			\end{equation}
+		
+		
+		\item \textbf{Höchster Punkt des Wurfs}
+			\begin{equation}
+				H = \frac{v_0^2}{2g} \sin^2\alpha
+			\end{equation}
+		mit dem Abwurfwinkel $\alpha$, Geschwindigkeit zum Abwurf $v_0$ und Fallbeschleunigung $g$.
+		
+		
+		\item \textbf{Wurfweite}
+			\begin{equation}
+				L = \frac{2v_0^2 \sin\alpha \cos\alpha}{g} = \frac{v_0^2}{g}\sin(2\alpha)
+			\end{equation}
+		mit dem Abwurfwinkel $\alpha$, Geschwindigkeit zum Abwurf $v_0$ und Fallbeschleunigung $g$.
+	\end{itemize}
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Grafiken/wurfparabel.pdf}
+	\caption{Flugbahn $y(x)$ mit Markierungen für maximale Höhe und Wurfweite}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $y(t), H, L$\\
+	\\
+	Betrachte ein System, in dem die Gravitationskraft in negative $y$-Richtung wirkt und sich der Massenpunkt zur Zeit $t=0$ am Ursprung $(x,y)^T=(0,0)^T$ befindet und die momentane Geschwindigkeit $(v_x, v_y)^T = (v_{0x},v_{0y})^T$ hat.\\
+	\\
+	Die Bewegungsgleichung ergibt sich:
+		\begin{align*}
+			\vec{F} &=
+			\begin{pmatrix}
+				0\\ -mg
+			\end{pmatrix}
+			=
+			m\vec{a}
+			=
+			m
+			\begin{pmatrix}
+				a_x\\ a_y
+			\end{pmatrix}
+			\Rightarrow
+			\begin{cases}
+				0 &= m a_x \\
+				-mg &= m a_y
+			\end{cases}
+			\Leftrightarrow
+			\begin{cases}
+				0 &= a_x \\
+				-g &= a_y
+			\end{cases}
+		\end{align*}
+
+	Integrieren der beiden Gleichungen führt auf
+		\begin{align*}
+			\bullet \ v_x(t) &= v_{0x} \\
+			\Rightarrow x(t) &= v_{0x}t + \cancel{x_0} \\
+			\bullet \ v_y(t) &= -g t + v_{0y} \\
+			\Rightarrow y(t) &= -\frac{1}{2}gt^2 + v_{0y}t + \cancel{y_0}
+		\end{align*}
+
+	Die Komponenten des Geschwindigkeitsvektors zum Abwurf $\vec{v}_0$ lassen sich mittels trigonometrischer Identitäten mit dem Abwurfwinkel $\alpha$ in Verbindung bringen:
+		\begin{align*}
+			v_{0x} &= v_0 \cos\alpha \\
+			v_{0y} &= v_0 \sin\alpha
+		\end{align*}
+	
+	Einsetzen von in $x(t), y(t)$ ergibt
+		\begin{align*}
+			x(t) &= v_0\cos\alpha t \\
+			y(t) &= -\frac{1}{2}gt^2 + v_0 \sin\alpha t \qquad\blacksquare
+		\end{align*}
+	
+	Um die Wurfhöhe $y$ in Abhängigkeit von der Wurfweite $x$ auszudrücken, stelle die Relation $x(t)$ nach $t(x)$ um und setze ihn in $y(t) = y(t(x)) = y(x)$ ein.
+		\begin{align*}
+			x(t) &= v_0\cos\alpha t \\
+			\Leftrightarrow t(x) &= \frac{x}{v_0\cos\alpha} \\
+			\Rightarrow y(x) &= -\frac{1}{2}g \frac{x^2}{v_0^2\cos^2\alpha} + v_0\sin\alpha \frac{x}{v_0\cos\alpha} \\
+			&= -\frac{1}{2}\frac{g}{v_0^2\cos^2\alpha} x^2 + v_0\tan\alpha t \qquad\blacksquare
+		\end{align*}
+
+	Die Flugbahn erreicht ihr Maximum, wenn die Steigung von $y(x)$ bzw. $y(t)$ null wird.
+		\begin{align*}
+			y'(t) &= v_0 \sin\alpha - g t = 0 \\
+			\Leftrightarrow t_\text{max} &= \frac{v_0}{g}\sin\alpha \\
+			\Rightarrow H \equiv y(t_\text{max}) &= v_0\sin\alpha \cdot \frac{v_0}{g}\sin\alpha - \frac{1}{2}g \lr{\frac{v_0}{g}\sin\alpha}^2 = \\
+			&= \frac{v_0^2}{g}\sin^2\alpha - \frac{v_0^2}{g}\sin^2\alpha = \frac{v_0^2}{2g}\sin^2\alpha \qquad \blacksquare
+		\end{align*}
+
+	Die Wurfweite $L$ ergibt sich aus der Nullstelle von $y(t)$ bzw. $y(x)$.
+		\begin{align*}
+			y(t) &= v_0 \sin\alpha \cdot t - \frac{1}{2}gt^2 = 0 \\
+			\Leftrightarrow t^2 - \frac{2v_0}{g}\sin\alpha \cdot t &= 0 \\
+			\Leftrightarrow t_\pm &= +\frac{v_0}{g}\sin\alpha \pm \sqrt{\lr{\frac{v_0}{g}\sin\alpha}^2} \\
+			\Rightarrow t_+ &= \frac{2v_0}{g}\sin\alpha,\qquad  t_- = 0 \\
+			\Rightarrow L\equiv x(t_+) &= v_0 \cos\alpha \cdot \frac{2v_0}{g}\sin\alpha = \frac{2v_0^2\sin\alpha\cos\alpha}{g} = \frac{2v_0\sin(2\alpha)}{g} \qquad\blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Fadenpendel}
+Das Fadenpendel ist ein System bestehend aus einem Massenpunkt der Masse $m$, auf den die Graviationskraft $\vec{F}_\text{G}$ sowie die Zwangskraft $\vec{F}_\text{Z}$ wirkt, die den Massenpunkt in einem konstanten Abstand zur Aufhängung des Fadens hält.
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+	\includegraphics[width=0.6\textwidth]{Grafiken/fadenpendel.pdf}
+	}
+	\caption{Skizze Fadenpendel}
+\end{figure}
+
+Die Dynamik wird durch die \textbf{nichtlineare Pendelgleichung}
+	\begin{equation}
+		\ddot{\theta} + \omega_0^2 \sin\theta = 0,
+	\end{equation}
+
+mit $\omega_0 := \sqrt{ \frac{g}{L} }$ beschrieben, die sich unter der \textbf{Kleinwinkelnäherung} $\sin\theta \approx \theta$ zur DGL des eindimensional harmonischen Oszillators
+	\begin{equation}
+		\ddot{\theta} + \omega_0^2 \theta = 0
+	\end{equation}
+
+vereinfacht.
+	\begin{itemize}
+		\item \textbf{Auslenkungswinkel}\\
+		Der Auslenkungswinkel des Pendels aus seiner Ruheposition $\theta$ beschreibt die Trajektorie des Massenpunkts:
+			\begin{equation}
+				\theta(t) = A \cdot \sin(\omega_0 t + \varphi)
+			\end{equation}
+		
+		
+		\item \textbf{Periodendauer}\\
+		Die Periodendauer der Schwingung ist:
+			\begin{equation}
+				T = \frac{2\pi}{\omega_0} = 2\pi\sqrt{\frac{L}{g}}.
+			\end{equation}
+	\end{itemize}
+
+
+
+
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Strategie:\\
+	1) Formulierung der Energie\\
+	2) Wechsel zu Polarkoordinaten\\
+	3) Ableitung der Energie zu Null setzen\\
+	4) Kleinwinkelapproximation\\
+	\\
+	Da die wirkenden Potentiale zeitunabhängig sind, ist die Energie
+		\begin{align*}
+			E &= T + V = \frac{1}{2} m \dot{\vec{x}}^2 - mgx
+		\end{align*}
+	
+	erhalten.\\
+	\\
+	Da der Abstand zwischen Aufhängung und Massenpunkt konstant ist, eignen sich zur Beschreibung der Dynamik die Polarkoordinaten:
+		\begin{align*}
+			E &= \frac{1}{2}m
+			\cdot
+			\lreck{
+			\frac{\diff}{\diff t}
+			\begin{pmatrix}
+				L \cos\theta \\
+				L \sin\theta
+			\end{pmatrix}
+			}^2
+			-
+			mgL\cos\theta = \\
+			&= \frac{1}{2}mL^2\dot{\theta}^2 - mgL\cos\theta
+		\end{align*}
+	
+	Aus der Bedingung, dass die Energie erhalten ist, folgt:
+		\begin{align*}
+			\frac{\diff E}{\diff t} &= \frac{1}{\cancel{2}}mL^2 \cdot \cancel{2} \dot{\theta} \cdot \ddot{\theta} + mgL\sin\theta \cdot \dot{\theta} \stackrel{!}{=} 0 \\
+			\stackrel{\comment{:\dot{\theta}mL^2}}{\Leftrightarrow} 0 &= \ddot{\theta} + \frac{g}{L}\sin\theta \equiv \ddot{\theta} + \omega_0^2 \sin\theta
+		\end{align*}
+	
+	mit $\omega_0^2 := \frac{g}{L}$.\\
+	\\
+	Für kleine Winkel kann für $\sin\theta$ um $\theta_0=0$ entwickelt bis zur 1. Ordnung entwickelt werden, s.d. die nichtlineare Pendelgleichung linear wird:
+		\begin{align*}
+			\ddot{\theta} + \omega_0^2 \theta = 0 \qquad \blacksquare
+		\end{align*}
+	
+	Dies entspricht der DGL des 1d harmonischen Oszillators, dessen Lösung als
+		\begin{align*}
+			\theta(t) &= A \cdot \sin(\omega_0 t + \varphi)
+		\end{align*}
+	
+	geschrieben werden kann.
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\section{Reale Körper}
+\subsection{Reibung}
+\begin{itemize}
+	\item \textbf{Haftreibung}\\
+	Betrachte einen Körper, der an einer Oberfläche aufliegt.\\
+	Die Haftreibung $\vec{F}_\text{H}$ ist die Kraft, die einer an diesem Körper angreifenden Kraft entgegenwirkt, sodass dieser unbewegt bleibt. Es gilt
+		\begin{equation}
+			F_\text{H} = \mu_\text{N} \cdot F_\text{N},
+		\end{equation}
+
+	mit dem \textbf{Haftreibungskoeffizienten} $\mu_\text{N}$ und der Normalkraft $F_\text{N}$, die den Körper an die Oberfläche drückt.\\
+	Erst, wenn die äußere Kraft $\vec{F}_\text{außen}$ größer als die maximale Haftreibung $\vec{F}_\text{H, max}$ wird, gerät der Körper ins rutschen.
+
+
+	\item \textbf{Gleitreibung}\\
+	Die Gleitreibung ist eine Kraft, die bei einem auf einer Oberfläche gleitenden Körper entgegen der Bewegungsrichtung wirkt
+		\begin{equation}
+			F_\text{G} = \mu_\text{G} \cdot F_\text{N}
+		\end{equation}
+
+	mit dem Haftreibungskoeffizienten $\mu_\text{G}$ und der Normalkraft $F_\text{N}$, die den Körper an die Oberfläche drückt.
+
+
+	\item \textbf{Rollreibung}\\
+	Betrachte ein Rad, das über eine nicht ideal starre Oberfläche rollt. Letzteres bedeutet, dass das Rad fortwährend eine kleine ''Kuhle'' in die Oberfläche drückt und somit immer etwas bergauf fahren muss. {\color{red} Dies erzeugt das Drehmoment
+		\begin{equation}
+			M_\text{R} = \mu_\text{R} \cdot F_\text{N}
+		\end{equation}
+
+	} mit dem Rollreibungskoeffizienten $\mu_\text{R}$ und der Normalkraft $F_\text{N}$, die den Körper an die Oberfläche drückt.\\
+	\textcolor{red}{\fbox{?} Was bedeutet das anschaulich?}
+\end{itemize}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Ein Schiff sei durch ein Seil mit $N$ Windungen an einem Poller befestigt und wirke mit der Kraft $F_0$ auf das Seil.\\
+	ges: Kraft, mit der man am anderen Seilende ziehen muss, um das Schiff zu halten\\
+	\\
+	Teile das Seil in infinitesimale Stücke ein, die vom Pollermittelpunkt aus durch den Öffnungswinkel $\diff\varphi$ beschrieben werden. Jedes Seilstück wird eindeutig druch den Winkel $\varphi$ beschrieben, wobei $\phi\in[0,2\pi N]$. Auf das Seilstück $\varphi$ wirkt zudem an jedem Ende die Kraft $F(\varphi)$.
+
+Aus dem Kräfteparallelogramm ergibt sich somit der folgende Ausdruck für die Normalkraft
+	\begin{align*}
+		dF_\text{N} &= 2 F(\varphi) \cdot \sin\lr{ \frac{\diff\varphi}{2} } \approx 2 F(\varphi) \cdot \frac{\diff\varphi}{2} = F(\varphi) \cdot \diff\varphi
+	\end{align*}
+
+Für das Nachbarstück verringert sich die wirkende Kraft durch die Haftreibung des vorherigen Stücks
+	\begin{align*}
+		F(\varphi + \diff\varphi) &= F(\varphi) - F_\text{H}(\varphi) = F(\varphi) - F(\varphi) \diff\varphi \\
+		\Leftrightarrow \frac{F(\varphi + \diff\varphi) - F(\varphi)}{\diff\varphi} \equiv \frac{\diff F(\varphi)}{\diff\varphi} &= -\mu_\text{H} F(\varphi) \\
+		\Leftrightarrow \frac{\diff F}{F} &= -\mu_text{H} \diff\varphi \\
+		\stackrel{\comment{\int}}{\Leftrightarrow} \int_{F(0)}^{F(2\pi N)} \frac{\diff F}{F} = \ln \underbrace{ F(2\pi N) }_{\equiv F_\text{B}} - \ln \underbrace{F(0)}{\equiv F_0} &= -\mu_\text{H} \int_0^{2\pi N} \diff\varphi' = -\mu_\text{H} 2\pi N \\
+		\Leftrightarrow \ln F_\text{B} &= \ln F_0 - \mu_\text{H} 2\pi N \\
+		\Leftrightarrow F_\text{B} &= F_0 e^{-\mu_\text{H} 2\pi N}
+	\end{align*}
+
+\underline{Resultat}: Die Kraft, die man am anderen Ende aufbringen muss, um dem Schiff entgegenzuwirken nimmt mit zunehmender Windungszahl $N$ exponentiell ab.
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Deformation von Festkörpern}
+Betrachte in diesem Kapitel nur isotrope und homogene Körper.
+
+\begin{itemize}
+	\item \textbf{Elastizitätsmodul}\\ % VL 12.1
+	Das Elastizitätsmodul ist ein Materialparameter, der die am Körper angelegte Zugspannung $\sigma = F/A$ mit der relativen Dehnung $\varepsilon = \Delta L/L$ in Verbindung setzt
+		\begin{equation}
+			\sigma = E \varepsilon.
+		\end{equation}
+
+	Im elastischen Bereich folgt die Deformation des Festkörpers einer \textbf{Hysteresekurve} im $\sigma$-$\varepsilon$-Diagramm. Durch die \textbf{elastische Nachwirkung} kehrt ein Festkörper, sofern keine Zugspannung mehr anliegt, nach einer gewissen Zeit wieder in die ungedehnte Ausgangssituation zurück.
+		\begin{figure}[H]
+			\centering
+			\fbox{
+				\includegraphics[width=0.6\textwidth]{Grafiken/hysterese.png}
+			}
+			\caption{Hysteresekurve eines Festkörpers unter elastischer Dehnung}
+		\end{figure}
+
+	Die von der Hysteresekurve eingeschlossene Fläche ist dabei die Arbeit, die pro Volumen am Festkörper verrichtet wird
+		\begin{equation}
+			\frac{W}{V} = \oint \diff\varepsilon \, \sigma,
+		\end{equation}
+
+	\textcolor{violet}{denn $\frac{W}{V} = \frac{\oint \diff L \, F}{V} = \frac{\oint \diff L \, F}{L\cdot A} = \oint \frac{\diff L}{L} \frac{F}{A} \equiv \oint \diff\varepsilon \cdot \sigma \qquad\blacksquare$.}
+
+
+	\item \textbf{Querkontraktion}\\ % VL 12.2
+	Die Querkontraktion beschreibt das Phänomen, dass ein Festkörper bei horizontaler Dehnung ebenfalls vertikal gedehnt wird. Als Maß wird die \textbf{Poisson-Zahl}
+		\begin{equation}
+			\mu = \frac{\diff D / D}{\diff L / L}
+		\end{equation}
+
+	verwendet, wobei $\diff D/D$ die relative vertikale und $\diff L / L$ die relative horizontale Dehnung beschreibt.
+		\begin{figure}[H]
+			\centering
+			\fbox{
+				\includegraphics[width=0.6\textwidth]{Grafiken/querkontraktion.png}
+			}
+			\caption{Darstellung der Querkontraktion}
+		\end{figure}
+
+
+	\item \textbf{Kompressionsmodul}\\ % VL 12.2
+	Das Kompressionsmodul $K$ beschreibt den Zusammenhang zwischen der Volumenänderung eines Festkörpers und der Druckänderung
+		\begin{equation}
+			K := \frac{1}{\kappa} = -V \frac{\diff p}{\diff V}
+		\end{equation}
+
+	mit der Kompressibilität $\kappa$.
+
+
+	\item \textbf{Scher-/Schubmodul}\\ % VL 12.2
+	Das Schermodul $G$ beschreibt, 
+
+
+
+
+\end{itemize}
+
+Zwischen den Modulen gelten die Zusammenhänge
+	\begin{align}
+		K &= \frac{E}{3(1 - 2\mu)} \\
+		G &= \frac{E}{2(1 + 2\mu)}
+	\end{align}
+
+
+\newpage
+
+
+\subsection{Saite}
+Eine Saite wird als Kette von $N$ Massenpunkten, die jeweils mit ihrem nächsten Nachbarn im Abstand $\Delta x$ durch eine Feder $k$ verbunden sind, modelliert. Des Weiteren wird die kontinuierliche Näherung $N\to\infty$ und $\Delta x\to 0$ verwendet.\\
+\\
+Die Auslenkung der Seite wird für transversale und longitudinale Schwingungen durch die Wellengleichungen
+	\begin{align}
+		\frac{\partial^2}{\partial t^2} u(x,t) &= c_L^2 \frac{\partial^2}{\partial x^2} u(x,t) \\
+		\frac{\partial^2}{\partial t^2} u(x,t) &= c_T^2 \frac{\partial^2}{\partial x^2} u(x,t)		
+	\end{align}
+
+beschrieben, wobei $c_L$ bzw. $c_T$ die Phasengeschwindigkeit der jeweiligen Welle sind und sich gemäß
+	\begin{align*}
+		c_L &= \sqrt{\frac{E}{\rho}} \\
+		c_T &= \sqrt{\frac{\sigma}{\rho(1+\varepsilon)}}
+	\end{align*}
+
+aus der Massendichte $\rho$, dem Elastizitätsmodul $E$, Spannung $\sigma$ und der relativen Dehnung $\varepsilon$ berechnen.\\
+\\
+Die allgemeine Lösung ist eine Superposition der Moden $u_k(x,t)$
+	\begin{equation}
+		u(x,t) = \sum_k u_k(x,t)
+	\end{equation}
+
+mit $u_k(x,t) = A_k \sin(\omega_k t + \varphi_k ) \sin(kx) + B_k \sin( \omega_k t + \varphi_k ) \cos(kx)$.
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Wellengleichung longitudinaler Fall\\
+	Strategie: Stelle das Potential für die diskrete Kette auf, bestimme die Kraft und mache dann den Kontinuumsübergang.\\
+	\\
+	{\color{red}Das Potential ergibt sich aus der Summe der Federpotentiale}
+		\begin{align*}
+			V &= \frac{k}{2} \sum_j (u_j - u_{j-1} + \Delta x - l)^2
+		\end{align*}
+	
+	wobei $\Delta x - l$ die Federdehnung in der Ruhelage beschreibt.\\
+	Die Kraft, die auf den $i$-ten Massenpunkt ergibt sich dann mittels Gradientenbildung
+		\begin{align*}
+			F_i &= -\partial_i V = -\partial_i \frac{k}{2} \sum_j (u_j - u_{j-1} + \Delta x - l)^2 = \\
+			&= -\frac{k}{2} \partial_i \lreck{ ... + ( u_i - u_{i-1} + \Delta x - l)^2 + ( u_{i-1} - u_i + \Delta x - l)^2 + ... } = \\
+			&= -\frac{k}{2} \lreck{ 2( u_i - u_{i-1} + \Delta x - l ) - 2( u_{i+1} - u_i + \Delta x - l ) } = \\
+			&= -k (2u_i - u_{i-1} - u_{i+1}) = k (-2u_i + u_{i-1} + u_{i+1}) =\\
+			&= m \ddot{u}_i \\
+			\Leftrightarrow \ddot{u}_i &= k\frac{-2u_i + u_{i-1} + u_{i+1}}{m}
+		\end{align*}
+
+	Mache nun den Kontinuumsübergang $u_i = u(x_i,t) \to u(x,t)$, $u_{i\pm1} = u(x_i \pm \Delta x, t) \to u(x \pm \Delta x, t)$. Entwickle nun letzteren Ausdruck in einer Taylor-Reihe
+		\begin{align*}
+			u(x\pm\Delta x, t) &\approx u(x,t) \pm \frac{\partial u}{\partial x} \Delta x + \frac{1}{2} \frac{\partial^2 u}{\partial x^2} (\Delta x)^2.
+		\end{align*}
+	
+	Einsetzen in die zuvor gefundene Gleichung für $\ddot{u}_i$ ergibt
+		\begin{align*}
+			\partial_t^2 u(x,t) &= k\frac{ -2u(x,t) + \lr{ u(x,t) + \frac{\partial u}{\partial x} \Delta x + \frac{1}{2} \frac{\partial^2 u}{\partial x^2} (\Delta x)^2 } + \lr{ u(x,t) - \frac{\partial u}{\partial x} \Delta x + \frac{1}{2} \frac{\partial^2 u}{\partial x^2} (\Delta x)^2 } }{m} = \\
+			&= \frac{k}{m} \partial_x^2 u(x,t)
+		\end{align*}
+
+	\textcolor{red}{ERGÄNZEN: Zusammenhang k/m mit Dichte und Elastizitätsmodul (VL18 Teil 2)}
+	
+	\dotfill
+	
+	zz: Wellengleichung transversaler Fall\\
+	
+	\dotfill
+	
+	zz: Lösung der Wellengleichung\\
+	Strategie: Verwende den Separationsansatz $u(x,t) = X(x)\cdot T(t)$ und führe die Separationskonstante $-k^2$ ein, wobei sich $k$ später als Wellenzahl herausstellen wird.\\
+	\\
+	Setze den Separationsansatz in die Wellengleichung ein:
+		\begin{align*}
+			X(x) \ddot{T}(t) &= c^2 X''(x)\cdot T(t) \\
+			\Leftrightarrow \frac{1}{c^2}\frac{\ddot{T}(t)}{T(t)} &= \frac{X''(x)}{X(x)} \equiv -k^2
+		\end{align*}
+	
+	Löse zunächst die DGL für $X(x)$:
+		\begin{align*}
+			X'' + k^2 X = 0 \\
+			\Rightarrow X(X) &= a\sin(kx) + b\cos(kx)
+		\end{align*}
+	
+	Löse nun die DGL für $T(t)$:
+		\begin{align*}
+			T'' + \underbrace{ (ck)^2 }_{ =: \omega^2 } T &= 0 \\
+			\Rightarrow T(t) &\propto \sin(\omega t + \varphi)
+		\end{align*}
+	
+	Somit ist die Lösung zu einem bestimmten $k$
+		\begin{align*}
+			u_k(x,t) = A_k \sin(\omega_k t + \varphi_k ) \sin(kx) + B_k \sin( \omega_k t + \varphi_k ) \cos(kx),
+		\end{align*}
+	
+	wobei sich $A_k, B_k, \varphi_k$ aus den Anfangsbedingungen für $u$ ergeben.
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Zweiseitig eingespannte Saite}
+Für eine zweiseitig eingespannte Saite ergibt sich die allgemeine Lösung
+	\begin{equation}
+		u(x,t) = \sum_n A_n \cdot \sin(c \frac{n\pi}{L} t + \varphi_n) \sin\lr{ \frac{n\pi}{L} x}, \qquad n\in \mathbb{N}
+	\end{equation}
+
+\textcolor{gruen}{Mittels Additionstheorem $2\sin\alpha\sin\beta = \cos(\alpha - \beta) - \cos(\alpha + \beta)$ kann dies als Summe einer links und einer rechts laufenden Welle geschrieben werden.}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Grafiken/saite zweiseitig.pdf}
+	\caption{Darstellung der ersten zwei Moden einer eingespannten Saite ($u(0,t)=u(L,t)=0$) }
+\end{figure}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Betrachte die allgemeine Lösung der schwingenden Saite mit den Randbedingungen $u(x=0) = u(x=L) = 0$.
+		\begin{align*}
+			\bullet \ u(x=0) &= \sum_k B_k \cdot \sin(\omega_k t + \varphi_k) \stackrel{!}{=} 0 \\
+			\Rightarrow B_k = 0 \\
+			\Rightarrow u(x,t) &= \sum_k A_k \cdot \sin(c k t + \varphi_k) \cdot \sin(kx) \\
+%			\Rightarrow u(x) &= \sum_k A_k \cdot \sin(\omega_k t + \varphi_k) \sin(kx) \\
+			\bullet \ u(x=L) &= \sum_k A_k \cdot \sin(\omega_k t + \varphi_k) \cdot \sin(kL) \stackrel{!}{=} 0 \\
+			\Rightarrow kL &= n\pi, \qquad n\in\mathbb{N} \\
+			\Rightarrow u(x,t) &= \sum_n A_n \cdot \sin\lr{ c \frac{n\pi}{L} t + \varphi_n} \sin\lr{ \frac{n\pi}{L} x }
+		\end{align*}
+	
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Einseitig eingespannte Saite}
+Eine Saite, die an einem Ende befestigt ist und am anderen frei schwingt ergibt sich die allgemeine Lösung
+	\begin{equation}
+		u(x,t) = \sum_n A_n \cdot \sin\lr{ c \frac{(2n-1)}{2L} t + \varphi_n } \cdot \sin\lr{ \frac{(2n-1)}{2L} x }, \qquad n\in\mathbb{N}.
+	\end{equation}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Grafiken/saite einseitig.pdf}
+	\caption{Darstellung der ersten drei Moden einer einseitig eingespannten Saite}
+\end{figure}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Betrachte die allgemeine Lösung der schwingenden Saite mit den Randbedingungen $u(x=0) = 0$ und $\left. \frac{\partial u}{\partial x} \right|_L= 0$. Letztere Bedingung bedeutet, dass die Saite an diesem Punkt nicht geneigt ist, d.h. parallel zur $x$-Achse verläuft, ist äquivalent zur Forderung, dass auf das Teilchen am Ende der Saite keine Kraft wirkt und wird wie folgt hergeleitet:\\
+	Verwende den Ausdruck für die Kraft aus der allgemeinen Herleitung der Saite. Modifiziere den Ausdruck, indem die Kraft aufgrund des $i+1$-ten Teilchens vernachlässigt wird, denn nach dem letzten Teilchen folgt kein weiteres mehr:
+		\begin{align*}
+			F(L) &= \frac{k}{m}(-u(L) + u(L-\Delta x)) \approx \frac{k}{m}(\cancel{ -u(L) } + \cancel{ u(L) } + \frac{\partial u}{\partial x} \Delta x) = -\frac{k}{m} \left. \frac{\partial u}{\partial x} \right|_L \Delta x \stackrel{!}{=} 0 \\
+			\Rightarrow \left. \frac{\partial u}{\partial x} \right|_L  &\stackrel{!}{=} 0
+		\end{align*}
+		\begin{align*}
+			u(x=0) &= \sum_k B_k \cdot \sin(\omega_k t + \varphi_k) \stackrel{!}{=} 0 \qquad \Rightarrow B_k = 0 \\
+%			\Rightarrow u(x) &= \sum_k A_k \cdot \sin(\omega_k t + \varphi_k) \sin(kx) \\
+			u'(x=L) &= \sum_k A_k \cdot \sin(\omega_k t + \varphi_k) \lr{ k \cos(kL) } \stackrel{!}{=} 0 \\
+			\Rightarrow \cos(kL) &\stackrel{!}{=} 0 \\
+			\Leftrightarrow kL &= (2n-1)\frac{\pi}{2}, \qquad n\in\mathbb{N}\setminus\{0\} \\
+			\Rightarrow u(x) &= \sum_k A_k \cdot \sin\lr{ c (2n-1)\frac{\pi}{2L}t + \varphi_k } \sin( (2n-1)\frac{\pi}{2} x)
+		\end{align*}
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Membran}
+Die Schwingung einer Membran, die in der $x$-$y$-Ebene liegt, wird durch die zweidimensionale Wellengleichung
+	\begin{equation}
+		\frac{\partial^2}{\partial t^2} u(x,y,t) = c^2 \lr{ \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} } u(x,y,t)
+	\end{equation}
+
+beschrieben.
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: quadratische, eingespannte Membran in der $x$-$y$-Ebene\\
+	\\
+	Die allgemeine Lösung der Wellengleichung (inklusive RB $u(x=0)=u(y=0)=0$) lautet \textcolor{red}{(ERGÄNZEN: Herleitung mittels Separationsansatz)}
+		\begin{align*}
+			u(x,y,t) = \sum_k A_k \cdot \sin(\omega_k t + \varphi_k) \cdot \sin(k_x x) \cdot \sin(k_y y)
+		\end{align*}
+	
+	mit $\omega_{k_x,k_y} = \sqrt{k_x^2 + k_y^2}$.\\
+	\\
+	Die Randbedingungen lauten $u(L_x,y,t) = u(x,L_y,t) = 0$ und ergeben
+		\begin{align*}
+			\bullet \ u(L_x,y,t) &= \sum_k A_k \cdot \sin(\omega_k t + \varphi_k) \cdot \sin(k_x L_x) \cdot \sin(k_y y) \\
+			\Rightarrow k_x L_x &\stackrel{!}{=} n\pi, \qquad n\in\mathbb{N} \\
+			\bullet \ u(x,L_y,t) &= \sum_k A_k \cdot \sin(\omega_k t + \varphi_k) \cdot \sin(k_x x) \cdot \sin(k_y L_y) \\
+			\Rightarrow L_x x &\stackrel{!}{=} m\pi, \qquad m\in\mathbb{N}
+		\end{align*}
+	
+	Für die Kreisfrequenz ergibt sich $\omega_{m,n} = c \sqrt{ \lr{ \frac{n\pi}{L_x} }^2 + \lr{ \frac{m\pi}{L_x} }^2 }$ und somit für die Lösung
+		\begin{align*}
+			u(x,y,t) &= \sum_{n,m} A_{nm} \cdot \sin\lr{ c\pi \sqrt{ \lr{ \frac{n}{L_x} }^2 + \lr{ \frac{m}{L_x} }^2 } t + \varphi_{nm} } \cdot \sin\lr{ \frac{n\pi}{L_x} x } \cdot \sin\lr{ \frac{m\pi}{L_y} y }
+		\end{align*}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.3\textwidth]{Grafiken/membran.pdf}
+		\caption{Dichteplot der $(n,m)=(5,3)$ Mode}
+	\end{figure}
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\section{Stichwortverzeichnis}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		Arbeit & Die von der Kraft $\vec{F}$ am Massenpunkt verrichtete Arbeit ist definiert als
+			$$W = \int \vec{F}(\vec{x})\,\diff \vec{x}$$
+		Anschaulich: Energie, die bei der Bewegung eines Massenpunkts von diesem aufgenommen bzw. abgegeben wird. \\
+	\hline
+		Bewegung, gleichförmig & Ort und Zeit haben einen linearen Zusammenhang \\
+	\hline
+		Bewegung, ruhend & Ort des Massenpunktes ist konstant \\
+	\hline
+		Divergenz & Die Divergenz eines Vektorsfelds $\vec{F}$ ist definiert als
+			$$\vec{\nabla}\vec{F}$$ \\
+	\hline
+		Drehimpuls & Der Drehimpuls des Massenpunkts bzgl. des Referenzpunktes $O$ ist
+			$$\vec{L} = \vec{r} \times \vec{p}$$ \\
+	\hline
+		Drehmoment & Das Drehmoment des Massenpunkts bzgl. des Referenzpunktes $O$ ist
+			$$\vec{M} = \vec{r} \times \vec{F}$$ \\
+	\hline
+		Gradient & Der Grandient eines Skalarfelds $U$ ist definiert als
+			$$\vec{\nabla}U$$
+		Er zeigt in die Richtung größter Steigung von $U$. \\
+	\hline
+		Kurvenintegral & Das Kurvenintegral entlang der Kurve $c$ ist definiert als
+			$$\int_c \vec{F}\,\diff\vec{r} := \int_{\alpha_1}^{\alpha_2} \vec{F}(\vec{r}(\alpha)) \frac{\diff\vec{r}}{\diff\alpha}\,\diff\alpha$$ \\
+	\hline
+		Leistung & Die von der Kraft $\vec{F}$ am Massenpunkt vollbrachte Leistung ist definiert als
+			$$P = \frac{\diff W}{\diff t}$$ \\
+	\hline
+		Potential & Das Potential $U$ eines Kraftfeldes $\vec{F}$ ist definiert als
+			$$\vec{F} = -\vec{\nabla}U$$ \\
+	\hline
+		Rotation & Die Rotation eines Vektorsfelds $\vec{F}$ ist definiert als
+			$$\vec{\nabla} \times \vec{F}$$ \\
+	\hline
+		Wegintegral & \textcolor{blue}{Siehe Kurvenintegral}\\
+	\hline
+		Wirbelfeld & Vektorfeld $\vec{F}$, dessen Rotation nicht verschwindet
+			$$\vec{\nabla} \times \vec{F} \neq \vec{0}$$ \\
+	\hline
+		wirbelfrei & Ein Vektorfeld $\vec{F}$ ist wirbelfrei, falls die Rotation verschwindet.
+			$$\vec{\nabla} \times \vec{F} = \vec{0}$$ \\
+	\hline\hline
+\end{xltabular}
+
+
+\end{document}

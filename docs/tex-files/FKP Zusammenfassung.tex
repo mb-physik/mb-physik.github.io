@@ -1,0 +1,2780 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{xltabular}
+\usepackage{cancel}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\vnabla}{\vec{\nabla}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\lrschweif}[1]{\left\{#1\right\}}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+\newcommand{\comment}[1]{{\color{gruen}{#1}}}
+
+
+\begin{document}
+
+
+\begin{center}
+	\Large{\textbf{Einführung in die Festkörperphysik}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+{\scriptsize\tableofcontents}
+
+
+\newpage
+
+
+\section*{Abstrakt}
+Die Festkörperphysik beschreibt die physikalischen Eigenschaften von Materialien, die aus etwa $10^{23}$ Teilchen bestehen und im festen Aggregatszustand vorliegen. In diesem Dokument werden Konzepte, physikalische Größen und Modelle zur Beschreibung der Struktur, Beugung, Elastizität, elektrischen, thermischen, dielektrischen und optischen Eigenschaften von Festkörpern diskutiert, siehe Tabelle \ref{tabelle abstrakt}. Abschließend wird die Materialklasse der Halbleiter bezüglich seiner elektrischen Eigenschaften und einiger Anwendungen in der Elektronik behandelt. Die Appendizes beinhalten Messmethoden, die zur Charakterisierung von Festkörpern eingesetzt werden. Schließlich sind im Glossar alle wesentlichen Begriffe aufgeführt kurz definiert. \\
+Voraussetzung für dieses Dokument ist die Kenntnis der Mechanik, des Elektromagnetismus und der Quantenmechanik sowie einiger Theoreme der mehrdimensionalen Analysis.
+
+
+	\begin{table}[H]
+		\caption{Übersicht von Materialeigenschaften und deren zugehörige physikalische Größen}
+		\begin{tabularx}{\textwidth}{l|p{4cm}|c|X}
+			\hline\hline
+				Eigenschaften & Größe & Symbol & Beschreibung \\
+			\hline
+				Struktur & - Gitterabstand & $|\vec{a}|$ & räumlicher Abstand von Atomen/Ionen im Festkörper \\
+				& - Massendichte & $\rho$ & Verhältnis zwischen Masse und Volumen eines Festkörpers \\
+				& - Packungsdichte & $\eta$ & Verhältnis zwischen Atom- und Einheitszellenvolumen \\
+				& - Koordinationszahl & $Z$ & Anzahl nächster Nachbarn eines Atoms \\
+			\hline
+				Beugung 	& - Strukturfaktor & $F_{hkl}$ & Maß für die Amplitude der gebeugten Welle einer Netzebene \\
+			\hline
+				Elastische & - Schallgeschwindigkeit & $v_s$ & Geschwindigkeit, mit der sich Schallwellen im Festkörper ausbreiten \\
+%				&- Elastizitätstensor & $\underline{C}$ & Zusammenhang zwischen Spannung und Verzerrung \\
+			\hline
+				Thermische & - spezifische Wärme & $C_V$ & Energieänderung pro Temperaturänderung \\
+				& - thermischer Ausdehnungskoeffizient & $\alpha$ & Relative Volumen-/Flächen-/Längenänderung pro Temperaturänderung \\
+				& - Wärmeleitfähigkeit & $\underline{\Lambda}$ & Zusammenhang zwischen Wärmestrom und Temperaturgradient \\
+			\hline
+				Elektrische & - elektrische Leitfähigkeit & $\underline{\sigma}$ & Zusammenhang zwischen elektrischer Stromdichte und E-Feld \\
+			\hline
+				Dielektrische & - Dielektrizitätstensor & $\underline{D}$ & Zusammenhang zwischen angelegtem E-Feld und Polarisation in einem Festkörper \\
+			\hline
+				Optische & - Reflexionskoeffizient & $R$ & Verhältnis zwischen reflektierter und einfallender Strahlung \\
+				& - Transmissionskoeffizient & $T$ & Verhältnis zwischen transmittierter und einfallender Strahlung \\
+				& - Absorptionskoeffizient & $K$ & Maß für den Intensitätsabfall von Strahlung im Festkörper \\
+			\hline\hline		
+		\end{tabularx}
+		\label{tabelle abstrakt}
+	\end{table}
+
+
+
+
+%\newpage
+%
+%
+%\section{Chemische Bindung in Festkörpern}
+%\textcolor{red}{
+%Madelung-Konstante: $A = \sum_{i\neq j} \frac{\pm r}{r_{ij}}$\\
+%\textcolor{gruen}{mit Abstand zwischen den nächsten Nachbarn $r$. $r_{ij}$ ist in $r$ angegeben, somit ist $A$ dimensionslos}\\
+%Lennard-Jones-Potential: $E_{\text{pot}}^{\text{vdW}} = -\frac{C}{R^6} + \frac{B}{R^{12}}$\\
+%GGW-Abstand R: $\left.\frac{\diff E}{\diff r}\right|_{R} \stackrel{!}{=} 0$\\
+%Anziehungsenergie: $E(R)$\\
+%\textcolor{gruen}{mit GGW-Abstand $R$.}\\
+%Bindungswinkel: Zuordnen der Vektoren $\vec{e}_{x,y,z}$ zu den Zuständen $\ket{p_{x,y,z}}$\\
+%Kosinussatz: $\cos\theta = \frac{\vec{v}_1\cdot \vec{v}_2}{|\vec{v}_1|\cdot |\vec{v}_2|}$}
+
+
+\newpage
+
+
+\section{Mathematische Grundlagen}
+\subsection{Spatprodukt}
+Das Spatprodukt ist eine Verknüpfung dreier dreidimnesionaler Vektoren $\vec{a}, \vec{b}, \vec{c}$. Der abgebildete Wert entspricht dem Volumen $V$, das von eben jenen Vektoren aufgespannt wird
+	\begin{equation}
+		V = | (\vec{a} \times \vec{b}) \cdot \vec{c} |.
+	\end{equation}
+
+
+\subsection{Fourier-Reihe}
+Die Fourier-Reihe ist die Reihenentwicklung der periodischen Funktion $f(x)$ mit Periodendauer $T$ in Sinus- und Kosinus- bzw. Exponentialfunktionen.\\
+\\
+\fbox{Darstellungen}
+	\begin{itemize}
+		\item \textbf{trigonometrische Darstellung}\\
+		Die trigonometrische Darstellung verwendet die diskrete Basis aus Sinus- und Kosinusfunktionen
+		$\{1, \cos \lr{ \frac{2\pi \cdot 1}{T} \cdot x }, \cos \lr{ \frac{2\pi \cdot 2}{T} \cdot x}, ..., \sin \lr{ \frac{2\pi \cdot 1}{T} \cdot x }, \sin \lr{ \frac{2\pi \cdot 2}{T} \cdot x }, ... \}$:
+			\begin{equation}
+				f(x) = \frac{a_0}{2} + \sum_{n=1}^\infty \lreck{ a_n \cdot \cos \lr{ \frac{2\pi \cdot n}{T} \cdot x } + b_n \cdot \sin \lr{ \frac{2\pi \cdot n}{T} \cdot x } },
+			\end{equation}
+
+		mit den Fourier-Koeffizienten
+			\begin{align}
+				a_0 &= \frac{2}{T} \int_T \diff x \, f(x) \\
+				a_n &= \frac{2}{T} \int_T \diff x \, f(x) \cdot \cos \lr{ \frac{2\pi \cdot n}{T} \cdot x } \\
+				b_n &= \frac{2}{T} \int_T \diff x \, f(x) \cdot \sin \lr{ \frac{2\pi \cdot n}{T} \cdot x },
+			\end{align}
+
+		mit $n \in \{1, 2, ... \}$.\\
+		Die Integration über die Periodendauer gilt dabei für jedes Intervall der Länge $T$, z.B. $[0,T]$, $[a,a+T]$, $[-T/2,T/2]$, etc.
+		
+		
+		\item \textbf{Exponentialdarstellung}\\
+		Die Exponentialdarstellung verwendet die diskrete Basis aus Exponentialfunktionen\\
+		$\{1, \exp\lr{ \pm i \frac{2\pi \cdot 1}{T}x }, \exp\lr{ \pm i \frac{2\pi \cdot 2}{T}x }, ... \}$:
+			\begin{equation}
+				f(x) = \sum_{q=-\infty}^{+\infty} c_q \cdot e^{i\frac{2\pi \cdot q}{T} \cdot x}
+			\end{equation}
+
+		mit dem Entwicklungskoeffizienten
+			\begin{equation}
+				c_q = \frac{1}{T} \int_T f(x) \cdot e^{-i \frac{2\pi \cdot q}{T} x} \, \diff x.
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: Fourier-Reihe für die Rechteckfunktion
+		\begin{align*}
+			f(x) =
+			\begin{cases}
+				1, & 1 \leq x \leq T/2 \\
+				0, & T/2 < x \leq T
+			\end{cases}
+		\end{align*}
+
+	Lös: Die Fourier-Koeffizienten sind
+		\begin{align*}
+			\bullet \ a_0 &= \frac{2}{T} \int_0^{T/2} \diff x \, 1 \cdot 1 = \frac{2}{T} \cdot \frac{T}{2} = 1 \\
+			\bullet \ a_n &= \frac{2}{T} \int_0^{T/2} \diff x \, 1 \cdot \cos \lr{ \frac{2\pi \cdot n}{T} \cdot x } = \frac{\cancel{2}}{\cancel{T}} \cdot \frac{\cancel{T}}{\cancel{2}\pi \cdot n} \int_0^{u(T/2) = \pi \cdot n} \diff u \, \cos(u) = \\
+			&= \frac{1}{\pi \cdot n} \lreck{ \sin \lr{ \pi \cdot n } - \sin(0) } = 0 \\
+			\bullet \ b_n &= \frac{2}{T} \int_0^{T/2} \diff x \, 1 \cdot \sin \lr{ \frac{2\pi \cdot n}{T} \cdot x } = \frac{\cancel{2}}{\cancel{T}} \cdot \frac{\cancel{T}}{\cancel{2}\pi \cdot n} \int_0^{u(T/2) = \pi \cdot n} \diff u \, \sin(u) = \\
+			&= -\frac{1}{\pi \cdot n} \lreck{ \cos (\pi \cdot n) - \cos(0) } = \frac{ 1 - \cos(\pi \cdot n) }{ \pi \cdot n } =
+			\begin{cases}
+				\frac{2}{\pi \cdot n}, & \text{$n$ ungerade} \\
+				0, & \text{$n$ gerade}
+			\end{cases}
+		\end{align*}
+	
+	Somit ist die Fourier-Reihe:
+		\begin{align*}
+			f(x) = \frac{1}{2} + \sum_{n=1}^\infty \frac{2}{\pi \cdot (2n-1)} \cdot \sin \lr{ \frac{2\pi \cdot (2n-1) }{T} \cdot x }
+		\end{align*}
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/fourier-reihe.pdf}
+		}
+		\caption{Darstellung der Rechteckfunktion $f(x)$ sowie deren Fourier-Reihen bis zur 4-ten und 40-ten Ordnung $f_4(x)$ und $f_{40}(x)$ über dem Intervall $[0,T=4]$}
+	\end{figure}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Quasikontinuierlicher Übergang}
+Die Euler-MacLaurin-Formel erlaubt den Übergang von der Summe über eine Funktion zum Integral
+	\begin{equation}
+		\sum_{n=a}^b f(n) \approx \int_a^b f(x) \, \diff x.
+	\end{equation}
+
+
+\subsection{Erwartungswert}
+Der Erwartungswert $\braket{x}$ einer gemäß $f(x)$ über dem Intervall $[a,b]$ verteilten Größe $x$ ergibt sich über
+	\begin{equation}
+		\braket{x} = \int_a^b f(x) \cdot x \, \diff x.
+	\end{equation}
+
+
+\subsection{Mehrdimensionale Taylor-Entwicklung}
+Die Taylor-Entwicklung einer $N$-dimensionalen skalaren Funktion $f(\vec{x} \equiv \{x_1, ..., x_N\})$ um den Entwicklungspunkt $\vec{x}_0$ lautet:
+	\begin{align}
+		f(\vec{x}) &= \left. f(\vec{x}) \right|_{\vec{x}_0} \notag \\
+		&\phantom{\equiv} +
+		\sum_{i=1}^N \left. \frac{\partial f}{\partial x_i} \right|_{\vec{x}_0} (x_i - x_{0,i}) \notag \\
+		&\phantom{\equiv} +
+		\frac{1}{2}
+		\sum_{i,j=1}^N \left. \frac{\partial^2 f}{\partial x_i \partial x_j} \right|_{\vec{x}_0} (x_i - x_{0,i}) (x_j - x_{0,j}) \notag \\
+		&\phantom{\equiv} +
+		\frac{1}{6}
+		\sum_{i,j,k=1}^N \left. \frac{\partial^3 f}{\partial x_i \partial x_j \partial x_k} \right|_{\vec{x}_0} (x_i - x_{0,i}) (x_j - x_{0,j}) (x_k - x_{0,k}) \notag \\
+		&\phantom{\equiv} + ... \\
+		&\equiv
+		\left. f(\vec{x}) \right|_{\vec{x}_0} \notag \\
+		&\phantom{\equiv}
+		+
+		\left.
+		(\vec{\nabla} f)^T
+		\right|_{\vec{x}_0}
+		(\vec{x} - \vec{x}_0) \notag \\
+		&\phantom{\equiv}
+		+
+		\frac{1}{2}
+		(\vec{x} - \vec{x}_0)^T
+		\left.
+		\begin{pmatrix}
+			\frac{\partial^2 f}{\partial x_1^2} & ... & \frac{\partial^2 f}{\partial x_1 \partial x_N} \\
+			\vdots & \ddots & \vdots \\
+			\frac{\partial^2 f}{\partial x_1 \partial x_N} & ... & \frac{\partial^2 f}{\partial x_N^2}
+		\end{pmatrix}
+		\right|_{\vec{x}_0}
+		(\vec{x} - \vec{x}_0) \notag \\
+		&\phantom{\equiv}
+		+ ...		
+	\end{align}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule	
+	\fbox{Beispiel}\\
+	geg: $E(\vec{k}) = E_0 - 2t \lr{ \cos(k_x a) + \cos(k_y a) }$ \\
+	ges: Taylor-Entwicklung um $\vec{k}_0 = \vec{0}$ bis inklusive der 2-ten Ordnung\\
+	Lös: Das Taylor-Polynom lautet
+		\begin{align*}
+			T_{E,\vec{0},2}(\vec{k}) &= E(\vec{0}) +
+			\left.
+			\begin{pmatrix}
+				\frac{\partial E}{\partial k_x} \\
+				\frac{\partial E}{\partial k_y}				
+			\end{pmatrix}
+			\right|_{\vec{0}}^T
+			(\vec{k} - \vec{0})
+			+
+			\frac{1}{2} (\vec{k} - \vec{0})^T
+			\left.
+			\begin{pmatrix}
+				\frac{\partial^2 E}{\partial^2 k_x} & \frac{\partial^2 E}{\partial k_x \partial k_y} \\
+				\frac{\partial^2 E}{\partial k_x \partial k_y} & \frac{\partial^2 E}{\partial^2 k_y}
+			\end{pmatrix}
+			\right|_{\vec{0}}
+			(\vec{k} - \vec{0})
+		\end{align*}
+	
+	Bestimme alle Ableitungen separat:
+		\begin{align*}
+			\bullet \left. \frac{\partial E}{\partial k_x} \right|_{\vec{0}} &= \left. +2t\sin(k_x a) \cdot a \right|_{\vec{0}} = 0\\
+			\bullet \left. \frac{\partial E}{\partial k_y} \right|_{\vec{0}} &= \left. +2t\sin(k_y a) \cdot a \right|_{\vec{0}} = 0\\
+			\bullet \left. \frac{\partial^2 E}{\partial k_x^2} \right|_{\vec{0}} &= \left. +2t\cos(k_x a) \cdot a^2 \right|_{\vec{0}} = 2ta^2\\
+			\bullet \left. \frac{\partial^2 E}{\partial k_y^2} \right|_{\vec{0}} &= \left. +2t\cos(k_y a) \cdot a^2 \right|_{\vec{0}} = 2ta^2\\
+			\bullet \left. \frac{\partial^2 E}{\partial k_x \partial k_y} \right|_{\vec{0}} &= 0
+		\end{align*}
+
+	Somit ergibt sich für das Taylor-Polynom:
+		\begin{align*}
+			T_{E,\vec{0},2} &= E(\vec{0}) +
+			(0, 0)
+			\cdot
+			\vec{k}
+			+
+			\frac{1}{2} \vec{k}^T
+			\begin{pmatrix}
+				2ta^2 & 0 \\
+				0 & 2ta^2
+			\end{pmatrix}
+			\vec{k} = E(\vec{0}) + \frac{1}{2} \cdot 2ta^2 \cdot k^2 = E(\vec{0}) + ta^2k^2
+		\end{align*}
+
+	
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/taylor.pdf}
+		}
+		\caption{Darstellung der Energiedispersionsrelation $E(k_x,k_y)$ und dessen Taylor-Polynom um $\vec{k}_0=\vec{0}$}
+	\end{figure}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Physikalischer Eigenschaften von Festkörpern}
+\subsection{Struktur}
+\subsubsection{Chemische Bindungen}
+Unter einer \textit{chemischen Bindingung} versteht man das Phänomen, durch das zwei oder mehr Atome bzw. Ionen zu einem Material zusammengehalten werden.
+	\begin{itemize}
+		\item \textbf{kovalente Bindung}\\
+		Bindung, die durch den gerichteten Wellenfunktionsüberlapp benachbarter Atome charakterisiert ist, z.B. $H_2^+$-Molekül, Diamant (sp$^3$-Hybridisierung)
+		
+		
+		\item \textbf{Ionenbindung}\\
+		Bindung, bei der die Bindungspartner ionisiert sind, also Elektronen miteinander augetauscht haben, z.B. NaCl\\
+		Das elektrostatische Potential am Ort des $i$-ten Ions wird beschrieben durch
+			\begin{equation}
+				\varphi(\vec{x}_i) = \frac{e}{4\pi\varepsilon_0 R} \sum_{j \neq i} \frac{z_j}{|\vec{x}_i - \vec{x}_j| / R} \equiv \frac{e}{4\pi\varepsilon_0 R} \cdot A_i
+			\end{equation}
+		
+		mit dem Abstand der Ionen $R$, der Ladung des $j$-ten Ions $z_j$ (in Einheiten von $e$) und der \textit{Madelung-Konstante} $A_i$.
+		
+		
+		\item \textbf{metallische Bindung}\\
+		Bindung, die durch den ungerichteten Wellenfunktionsüberlapp über mehrere Atome hinweg charakterisiert ist, z.B. Cu
+		
+		
+		\item \textbf{Wasserstoffbrückenbindung}\\
+		Bindung, bei der ein Wasserstoffatom an ein stark elektronegatives Atom gebunden ist und durch die folgliche Elektronenverschiebung ein weiteres elektronegatives Atom binden kann, z.B. Wasser
+		
+		
+		\item \textbf{van-der-Waals-Brückenbindung}\\
+		Bindung, die durch Ladungsfluktuationen in Atomen zustande kommt, z.B. Alkane\\
+		Eine Modellierung der Bindungsenergie erfolgt durch das \textit{Lennard-Jones-Potential}
+			\begin{equation}
+				E(r) = -C'\lr{ \frac{a_0}{r} }^6 + B' \lr{ \frac{a_0}{r} }^{12},
+			\end{equation}
+		
+		mit den empirischen Konstanten $B' = 6,513 \cdot 10^8 \, \text{eV}$, $C' = 6,049 \cdot 10^3 \, \text{eV}$ und dem Bohr'schen Atomradius $a_0 = 0,529 \, \text{\AA}$.
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: Zur Modellierung der van-der-Waals-Kraft dient das Lennard-Jonas-Potential
+		\begin{align*}
+			E(r) = -C' \lr{ \frac{a_0}{r} }^6 + B' \lr{ \frac{a_0}{r} }^{12},
+		\end{align*}
+	
+	mit den Konstanten $C' = 2,405 \cdot 10^2 \, \text{eV}$, $B' = 4,635 \cdot 10^9 \, \text{eV}$ und dem Bohr'schen Atomradius $a_0$.\\
+	ges: Gleichgewichtsabstand $R_0$ \\
+	Lös: Der Gleichgewichtsabstand $R_0$ ist derjenige Abstand $r$, der die Energie minimiert:\\
+	\textcolor{red}{ERGÄNZEN: Wie kann man das rein quantenmechanisch motivieren?}
+		\begin{align*}
+			\left. \frac{\diff E}{\diff r} \right|_{R_0} &= \left. \frac{\diff}{\diff r} \lreck{ -C' \lr{ \frac{a_0}{r} }^6 + B' \lr{ \frac{a_0}{r} }^{12} } \right|_{R_0} \\
+			&= +C' a_0^6 \frac{1}{R_0^7} - B' a_0^{12} \frac{1}{R_0^{13}} \\
+			&\stackrel{!}{=} 0 \\
+			\Leftrightarrow C' a_0^6 \frac{1}{R_0^7} &= B' a_0^{12} \frac{1}{R_0^{13}} \\
+			\stackrel{ \comment{\cdot \frac{R_0^{13}}{a_0^6}} }{\Leftrightarrow} \frac{R_0^{13}}{R_0^7} = R_0^6 &= \frac{B'}{C'} \frac{a_0^{12}}{a_0^6} = \frac{B'}{C'} a_0^6 \\
+			\stackrel{ \comment{ ()^{1/6} } }{\Leftrightarrow} R_0 &= \lr{ \frac{B'}{C'} }^{1/6} a_0 = 9,723 \cdot 10^{-10} m \approx 10 \, \r{A}
+		\end{align*}
+\hrule
+}
+
+\vspace{0.5cm}
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: 1d Kette abwechselnd geladener Ionen mit Abstand $R$ \\
+	ges: Madelung-Konstante $A_i$ \\
+	Lös: Die Formel der Madelung-Konstante nimmt im 1d Fall die folgende Form an
+		\begin{align*}
+			A_i &= \sum_{j \neq i} \frac{z_j}{|x_i - x_j|/R}.
+		\end{align*}
+	
+	Betrachte ein negatives Ion als $i$-tes Ion und setze es in den Ursprung $x_i = 0$
+		\begin{align*}
+			A_i &= R \sum_{j \neq i, j \in \mathbb{Z}} \frac{z_j}{|x_j|} = 2R \sum_{j \neq i, j \in \mathbb{N} \setminus \{0\}} \frac{z_j}{x_j}.
+		\end{align*}
+	
+	Die Position des $j$-ten Ions ist $j \cdot R$ und dessen Ladung $(-1)^{j+1}$
+		\begin{align*}
+			A_i = 2 \cancel{R} \sum_{j \neq i, j \in \mathbb{N} \setminus \{0\}} \frac{(-1)^{j+1}}{j \cdot \cancel{R}} = 2 \cdot \lr{ \frac{1}{1} - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + ... } = 2 \ln 2 \approx 1,386,
+		\end{align*}
+
+	wobei im letzten Schritt die Potenzreihe des Logarithmus $\ln (x + 1) = \sum_{j=1}^\infty \frac{(-1)^{j-1}}{j} x^j$ für den Fall $x=1$ erkannte wurde.
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Reales Gitter}
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{Kristall}\\
+		Festkörper, der durch die periodische Anordnung einer Baugruppe beschrieben werden kann
+
+
+		\item \textbf{Basis}\\
+		Baugruppe bestehend aus Atomen oder Ionen, die den Kristall aufbaut
+		
+		
+		\item \textbf{Translationsgitter}\\
+		Periodisches Gitter, das aus allen Raumpunkten besteht, an denen Basen zum Aufbau des Kristalls platziert werden
+
+
+		\item \textbf{primitive Gittervektoren}\\
+		Vektoren $\vec{a}_1, \vec{a}_2, \vec{a}_3$, deren ganzzahlige Linearkombination jeden Punkt des Translationsgitters $\vec{R}$ beschreiben kann
+			\begin{equation}
+				\vec{R} = n_1 \vec{a}_1 + n_2 \vec{a}_2 + n_3 \vec{a}_3,
+			\end{equation}
+
+		mit $n_1, n_2, n_3 \in \mathbb{Z}$.
+
+
+		\item \textbf{primitive Einheitszelle / Elementarzelle}\\
+		Von den primitiven Gittervektoren aufgespannte Zelle
+
+
+		\item \textbf{konventionelle Gittervektoren}\\
+		Vektoren $\vec{a}_1, \vec{a}_2, \vec{a}_3$, die ein einfacheres Translationsgitter als die primitven Gittervektoren beschreiben und für gewisse Anwendungen oft zweckmäßiger sind. Durch das Verwenden teilchenreicher Basen kann jedoch dieselbe Struktur aufgebaut werden wie mit den primitven Gittervektoren.
+
+
+		\item \textbf{konventionelle Einheitszelle}\\
+		Von den konventionellen Gittervektoren aufgespannte Zelle, die \underline{größer} ist als die primitve Einheitszelle
+
+
+		\item \textbf{Gitterkonstante}\\
+		Betrag der Gittervektoren
+			\begin{equation}
+				|\vec{a}_1|, |\vec{a}_2|, |\vec{a}_3|
+			\end{equation}
+	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.9\textwidth]{Grafiken/schema kristallgitter.pdf}
+		}
+		\caption{Schema eines Kristalls}
+	\end{figure}
+
+
+\newpage
+
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth]{Grafiken/bravais 2d.png}\\
+		\includegraphics[width=0.75\textwidth]{Grafiken/bravais 3d.png}
+		\caption{Übersicht aller 2d- und 3d-Translationsgitter}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: fcc-Gitter mit einatomiger Basis und Gitterkonstante $a$\\
+	ges: \textit{Koordinationszahl} $Z$, \textit{Packungsdichte} $\eta$, primitive Gittervektoren $\vec{a}_{1,2,3}$, Volumen der Elementarzelle $V_\text{prim. EZ}$\\
+	Lös:	\\
+	\\
+	Bestimme zunächst das Kugelvolumen in Abhängigkeit der Gitterkonstante. Die Kugeln haben ihren kürzesten Abstand entlang der Flächendiagonalen. Diese ist gemäß dem Satz von Pythagoras
+		$$d = \sqrt{2}a.$$
+	
+	Ein Kugelvolumen ist, da 3 Kugeln entlang der Diagonalen sitzen
+		$$r = \frac{d}{4} = \frac{\sqrt{2}}{4}a.$$
+	
+	Die Anzahl der Atome in der Einheitszelle ist
+		$$N_\text{EZ} = 8\cdot \frac{1}{8} + 6\cdot \frac{1}{2} = 1 + 3 = 4.$$
+	
+	Somit ergibt sich die Packungsdichte zu
+		$$\eta = \frac{N_\text{EZ} + \frac{4\pi}{3}r^3}{V_\text{EZ}} = \frac{4 + \frac{4\pi}{3} \lr{\frac{\sqrt{2}}{4}a}^3}{a^3} = \frac{\sqrt{2}^3\pi}{12} \approx 0,74.$$
+
+	Die Anzahl der nächsten Nachbarn ist 
+		$$Z=14.$$
+
+	Ein Satz primitiver Gittervektoren ist
+		$$\vec{a}_1 =
+		a
+		\begin{pmatrix}
+			1\\0\\0
+		\end{pmatrix},\
+		\vec{a}_2 =
+		a
+		\begin{pmatrix}
+			1/2\\1/2\\0
+		\end{pmatrix},\
+		\vec{a}_3 =
+		a
+		\begin{pmatrix}
+			0\\1/2\\1/2
+		\end{pmatrix}$$
+	
+	mit dem Volumen der primitiven Einheitszelle
+		$$V_\text{prim. EZ} = \vec{a}_1 \cdot (\vec{a}_2 \times \vec{a}_3) = \frac{a^3}{4}$$
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Beugung}
+\subsubsection{Reziprokes Gitter}
+Das \textit{reziproke Gitter} ist ein essentielles Konzept, um die Beugungsbedingung nach Laue zu formulieren. Dessen Definition motiviert sich aus der Diskussion der elastischen Beugung ebener Wellen an periodischen Strukturen.\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{Reziprokes Gitter}\\
+		Gitter, das aus allen Punkten $\vec{G}$ besteht, die die folgende Bedingung erfüllen
+			\begin{equation}
+				\vec{G} \cdot \vec{R} = 2\pi \cdot q,
+			\end{equation}
+		
+		wobei $q \in \mathbb{Z}$ und $\vec{R}$ ein Translationsvektor ist.
+
+
+		\item \textbf{Primitive reziproke Gittervektoren}\\
+		Vektoren $\vec{g}_1, \vec{g}_2, \vec{g}_3$, deren ganzzahlige Linearkombination alle reziproken Gittervektoren $\vec{G}$ beschreiben kann
+			\begin{equation}
+				\vec{G} = m_1 \vec{g}_1 + m_2 \vec{g}_2 + m_3 \vec{g}_3,
+			\end{equation}
+		
+		mit $m_1, m_2, m_3 \in \mathbb{Z}$.
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Zusammenhang reale, reziproke Gittervektoren}\\
+		Ein Satz reziproker Gittervektoren $\vec{b}_1,\vec{b}_2,\vec{b}_3$ lässt sich über die Beziehung
+			\begin{align}
+				\vec{g}_1 &= \frac{2\pi}{V_\text{EZ}}(\vec{a}_2 \times \vec{a}_3) \\
+				\vec{g}_2 &= \frac{2\pi}{V_\text{EZ}}(\vec{a}_3 \times \vec{a}_1) \\
+				\vec{g}_3 &= \frac{2\pi}{V_\text{EZ}}(\vec{a}_1 \times \vec{a}_2)
+			\end{align}
+		
+		aus dem Satz von Gittervektoren $\vec{a}_1,\vec{a}_2,\vec{a}_3$ berechnen.
+		
+		
+		\item \textbf{Zusammenhang reales, reziprokes Volumen}\\
+		Für die Volumen einer Einheitszelle im Ortsraum bzw. reziproken Raum gilt der Zusammenhang
+			\begin{equation}
+				V_\text{rez. EZ} = \frac{(2\pi)^3}{V_\text{EZ}}.
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+\subsubsection{Netzebenenschar}
+Eine \textit{Netzebenenschar} ist eine Menge äquidistanter gedachter Ebenen im realen Kristall und stellt ein essentielles Konzept dar, um die Beugungsbedingung nach Bragg zu formulieren. Sie wird durch die Miller'schen Indizes $(h,k,l)$ eindeutig beschrieben.\\
+\\
+\fbox{Algorithmus}
+	\begin{enumerate}
+		\item \textbf{Koordinatensystem definieren}
+		
+		\item \textbf{Schnittpunkte der Ebene mit den Koordinatenachsen aufschreiben}\\
+		Falls mit einer Achse kein Schnittpunkt existiert, notiere $\infty$.
+			$$(m,n,o)$$
+		
+		\item \textbf{Bilde die Kehrwerte der Schnittpunkte}\\
+		Für $\infty$ ist der Kehrwert $0$.
+			$$(h',k',l') \equiv \lr{ \frac{1}{m},\frac{1}{n},\frac{1}{o} }$$
+		
+		\item \textbf{Bilde die kleinsten ganzen Zahlen}\\
+		Falls Brüche entstanden sind, multipliziere alle Zahlen mit der kleinsten ganzen Zahl $p$, die alle Zahlen zu ganzen Zahlen macht. Das verbleibende Tupel sind die Miller-Indizes der Netzebenenschar.\\
+		Falls ein negativer Miller-Indix $-a$ entstanden ist, notiere ihn mit $\bar{a}$.
+			$$(h,k,l) \equiv p \cdot (h',k',l')$$
+	\end{enumerate}
+
+%Äquivalent symmetrische Ebenen $\{h,k,l\}$ sind Ebenen, die identisch zu anderen aussehen.
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Zusammenhang Netzebenenabstand reziproker Gittervektor}\\
+		Der Abstand zweier aufeinanderfolgender Netzebenen $d_{hkl}$ hängt wie folgt mit dem reziproken Gittervektor $\vec{G}_{hkl} = h\vec{g}_1 + k\vec{g}_2 + l\vec{g}_3$ zusammen
+			\begin{equation}
+				d_{hkl} = \frac{2\pi}{G_{hkl}}.
+			\end{equation}
+	\end{itemize}	
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $\vec{G}_{hkl} \parallel \vec{e}_N$\\
+	\\
+%	Strategie:\\
+%	1) Etabliere ein Koordinatensystem\\
+%	2) Berechne den zu den Vektoren, die $d_{hkl}$ aufspannen, senkrechten Vektor mittels Kreuzprodukt und erkenne $\vec{G}_{hkl}$\\
+	Betrachte eine Netzebene in dem Koordinatensystem $\vec{a}_1, \vec{a}_2, \vec{a}_3$.\\
+	Die Ebene schneide die 1-Achse bei $m \equiv \frac{1}{h'}$, die 2-Achse bei $n \equiv \frac{1}{k'}$ und die 3-Achse bei $o \equiv \frac{1}{l'}$.\\
+	Dann spannen die folgenden Vektoren (oBdA) die Netzebene auf:
+		\begin{align*}
+			\frac{\vec{a}_1}{h'} - \frac{\vec{a}_2}{k'},\ \frac{\vec{a}_3}{l'} - \frac{\vec{a}_2}{k'}
+		\end{align*}
+	
+	Ihr Kreuzprodukt ist dann
+		\begin{align*}
+			\lr{ \frac{\vec{a}_1}{h'} - \frac{\vec{a}_2}{k'} } \times \lr{ \frac{\vec{a}_3}{k'} - \frac{\vec{a}_2}{l'} } &= \frac{1}{h'l'} \cdot \vec{a}_1 \times \vec{a}_3 - \frac{1}{h'k'} \cdot \vec{a}_1 \times \vec{a}_2 - \frac{1}{k'l'} \cdot \vec{a}_2 \times \vec{a}_3 = \\
+			&= -\lr{ \frac{1}{k'l'} \vec{a}_2 \times \vec{a}_3 + \frac{1}{h'l'} \cdot \vec{a}_3 \times \vec{a}_1 + \frac{1}{h'k'} \cdot \vec{a}_1 \times \vec{a}_2 }
+		\end{align*}
+
+	Multipliziere diesen Vektor mit $-2\pi \frac{h'k'l'}{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|}$, um den reziproken Gittervektor $G_{h'k'l'}$ zu erkennen:
+		\begin{align*}
+			&\phantom{=} -\lr{ \frac{1}{k'l'} \vec{a}_2 \times \vec{a}_3 + \frac{1}{h'l'} \cdot \vec{a}_3 \times \vec{a}_1 + \frac{1}{h'k'} \cdot \vec{a}_1 \times \vec{a}_2 } \cdot \lr{ -2\pi \frac{h'k'l'}{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|} } = \\
+			&= + h' \frac{2\pi \cdot \vec{a}_2 \times \vec{a}_3 }{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|} + k' \frac{2\pi \cdot \vec{a}_3 \times \vec{a}_1 }{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|} + l' \frac{2\pi \cdot \vec{a}_1 \times \vec{a}_2 }{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|} \equiv \\
+			&\equiv h'\vec{b}_1 + k'\vec{b}_2 + l'\vec{b}_3 \equiv \vec{G}_{h'k'l'} = \frac{\vec{G}_{hkl}}{p},
+		\end{align*}
+
+	wobei $p$ der ganzzahlige Faktor ist, der die Kehrwerte der Achsenschnittpunkte auf die Miller-Indizes bringt. $\qquad \blacksquare$\\
+	\\
+	\fbox{Herleitung}\\
+	zz: $d_{hkl} = \frac{2\pi}{G_{hkl}}$\\
+	\\
+%	Strategie:\\
+%	1) Setze den Ursprung des Koordinatensystems auf eine Netzebene\\
+%	2) Betrachte den Schnittpunkt der benachbarten Netzebene mit einer Koordinatenachse\\
+%	3) Projeziere den Vektor, der auf den Schnittpunkt weist auf $\vec{G}_{hkl}$\\
+%	\\
+	Betrachte ein Koordinatensystem, dessen Ursprung auf einer Netzebene liegt.\\
+	Die benachbarte Netzebene schneide o.B.d.A. die 1-Achse am Punkt $m\equiv \frac{1}{h'}$.\\
+	Der Vektor, der vom Ursprung auf die Schnittstelle weist, ist somit $\frac{\vec{a}_1}{h'}$.\\
+	\\
+	Der Betrag der Projektion dieses Vektors auf die Flächennormale ergibt, da die andere Netzebene im Ursprung liegt, den Abstand der Netzebenen. Im Beweis zuvor wurde gezeigt, dass die Flächennormale proportional zu $\vec{G}_{hkl}$ ist.\\
+	Sei $\alpha$ der Winkel zwischen $\vec{G}_{hkl}$ und $\frac{\vec{a}_1}{h'}$, dann folgt aus der Definition des Kosinus:
+		\begin{align*}
+			d_{hkl} &= \left| \frac{\vec{a}_1}{h} \right| \cdot \cos\alpha = \left| \frac{ \cancel{ \vec{a}_1} }{h} \right| \cdot \frac{ \vec{a}_1 \vec{G}_{hkl} }{ \cancel{a_1} G_{hkl} } = \frac{1}{h G_{hkl}} \cdot \vec{a}_1 \cdot \lr{ h\vec{b}_1 + k\vec{b}_2 + l\vec{b}_3 } = \\
+			&= \frac{1}{\cancel{h} G_{hkl}} \cdot 2\pi \cdot \cancel{h} = \frac{2\pi}{G_{hkl}} \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Elastische Streuung}
+Die \textit{elastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektron, Atome oder Neutron) ist diejenige Streuung, bei der sich die Gesamtenergie der Welle nicht ändert.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Laue'sche Beugungsbedingung}\\
+		Die \textit{Laue'sche Beugungsbedingung} besagt, dass ein \textit{Beugungsreflex} dann auftritt, falls die Differenz des aus- und einlaufenden Wellenvektors $\vec{K} := \vec{k}'-\vec{k}$ einem reziproken Gitterpunkt entspricht
+			\begin{equation}
+				\vec{K} = \vec{G}.
+			\end{equation}
+		
+		
+		\item \textbf{Bragg'sche Beugungsbedingung}\\
+		Die \textit{Bragg'sche Beugungsbedingung} ist eine äquivalente Formulierung zur Laue'schen, erlaubt jedoch die anschauliche Intepretation der Beugung als eine Reflexion der Welle an der Netzebenenschar $d_{hkl}$, die eindeutig einem $G_{hkl}$ zugeordnet werden kann. Für den Beugungsreflex gilt die Bedingung
+			\begin{equation}
+				2d_{hkl}\sin\theta = n\lambda,
+			\end{equation}
+		
+		mit $n\in\mathbb{N}$, der Netzebene $d_{hkl}$, dem Bragg-Winkel $\theta$ und der Wellenlänge $\lambda$.
+		
+		
+		\item \textbf{Intensität}\\
+		Die Intensität eines Beugungsreflexes ergibt sich aus \textit{Struktur}- bzw. \textit{Atomfaktor}
+			\begin{align}
+				I_{hkl} &\propto \left| S_{hkl} \right|^2 \\ 
+				S_{hkl} &:= \sum_\alpha f_\alpha e^{-i\vec{G}_{hkl}\vec{x}_\alpha} \\
+				f_\alpha &:= \int \diff^3x' \, \rho_\alpha(\vec{x}') \cdot e^{i\vec{G}_{hkl}\vec{x}'},
+			\end{align}
+
+		sowie des Strukturfaktors des $\alpha$-ten Atoms $\rho_\alpha(\vec{x})$ in der Einheitszelle berechnet werden.
+	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+		\includegraphics[width=0.8\textwidth]{Grafiken/elastische streuung.pdf}
+		}
+		\caption{Schema der elastischen Streuung}
+		%	Von der Quelle $Q$ wird eine elektromagnetische Kugelwelle (blau) emittiert, die auf einen $\vec{R}$ entfernten Festkörper (rot) näherungsweise als ebene Welle trifft. Diese regt im Festkörper Atome an, die an den Positionen $\vec{R}+\vec{r}$, sitzen, sodass diese ebenfalls beginnen Kugelwellen als Quellen $Q'$ zu emittieren. Letztere werden am Detektor $D$ detektiert.}
+		\label{elastische streuung}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: ... \\
+	ges: Strukturfaktor $S_{hkl}$\\
+	Lös: \textcolor{red}{ERGÄNZEN ÜB3}
+
+
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Laue-Bedingung $\vec{K}=\vec{G}$; Röntgen-Reflex-Intensität\\
+	\\
+	Herleitungsskizze:\\
+	1) Formuliere die komplexe E-Feld Amplitude der ebenen Welle am Punkt $Q'$\\
+	2) Formuliere die komplexe E-Feld Amplitude der Kugelwelle am Punkt $D$\\
+	3) Einsetzen der periodische Streudichte mittels Fourier-Entwicklung\\
+	4) Erkennen der Laue-Bedingung\\
+	5) Berechnung des Fourier-Koeffizienten\\
+	6) Formuliere die Intensität als Betragsquadrat der E-Feld Amplitude\\
+	\\
+	Betrachte die Abbildung \ref{elastische streuung}.\\
+	Die komplexe Amplitude des E-Feldes (Amplitude multipliziert mit der Phase unter Vernachlässigung des Richtungsvektors) am Punkt des Atoms $Q'$, also $\vec{R}+\vec{x}$, ist
+		\begin{align*}
+			A_{Q'} = A_Q \cdot e^{i(\vec{k}(\vec{R}+\vec{x}) - \omega t)},
+		\end{align*}
+	
+	da die einlaufende Welle als ebene Welle behandelt wird.\\
+	\\
+	Die infinitesimale Amplitude am Detektor, die aufgrund der Kugelwelle vom Atom am Ort $Q'$ zustande kommt ist
+		\begin{align*}
+			\diff A_D &= A_{Q'}(\vec{R}+\vec{x}) \cdot \rho(\vec{x}) \cdot \frac{ e^{i k' |\vec{R}'-\vec{x}|} }{ |\vec{R}' - \vec{x}| } \, \diff^3x \stackrel{\comment{A_{Q'}}}{=} A_Q \cdot e^{i(\vec{k}(\vec{R}+\vec{x}) - \omega t)} \cdot \rho(\vec{x}) \cdot \frac{ e^{i k' |\vec{R}'-\vec{x}|} }{ |\vec{R}' - \vec{x}| } \, \diff^3x
+		\end{align*}	
+
+	wobei die Streudichte $\rho(\vec{x})$ eingeführt wurde, um die Streuung eines ausgedehnten Atoms zu beschreiben.\\
+	Da $\vec{k}' \parallel \vec{R}'-\vec{x}$, gilt $k' |\vec{R}'-\vec{x}| = \vec{k}'(\vec{R}'-\vec{x})$.\\
+	Die gesamte Amplitude ergibt sich somit unter der Näherung $|\vec{R}'-\vec{x}| \approx |\vec{R}'| \equiv R'$, d.h. für große Abstände zwischen Detektor und Probe, aus Integration zu
+		\begin{align*}
+			A_D &= \int \diff^3 x \, A_Q \cdot e^{i(\vec{k}(\vec{R}+\vec{x}) - \omega t)} \cdot \rho(\vec{x}) \cdot \frac{ e^{i \vec{k}' (\vec{R}'-\vec{x})} }{ |\vec{R}' - \vec{x}| } \approx \\
+			&\approx \frac{A_Q}{R'} \cdot e^{i(\vec{k}\vec{R}+\vec{k}'\vec{R}')} \cdot e^{-i\omega t} \int \diff^3x \, \rho(\vec{x}) \cdot e^{i(\vec{k}-\vec{k}')\vec{x}} \propto \\
+			&\propto \int \diff^3x \, \rho(\vec{x}) \cdot e^{i(\vec{k}-\vec{k}')\vec{x}} \equiv \int \diff^3x \, \rho(\vec{x}) \cdot e^{-i\vec{K}\vec{x}},
+		\end{align*}
+	
+	wobei im letzten Schritt der \underline{Streuvektor} $\vec{K} := \vec{k}' - \vec{k}$ definiert wurde.\\
+	\\	
+	Der Kristall ist eine periodische Anordnung von Atomen und somit auch von Streudichten. Die gesamte Streudichte lässt sich daher mittels Fourier-Entwicklung schreiben als
+		\begin{align*}
+			\rho(\vec{x}) &= \sum_{\vec{G}} \rho_{\vec{G}} \cdot e^{i\vec{G}\vec{x}},
+		\end{align*}
+	
+	mit $\rho_{\vec{G}} = \frac{1}{V_\text{EZ}} \int_{V_\text{EZ}} \diff^3 x \, \rho(\vec{x}) \cdot e^{i\vec{G}\vec{x}}$.\\
+	\\
+	Einsetzen in die komplexe Amplitude am Detektor liefrt
+		\begin{align*}
+			A_D = \sum_{\vec{G}} \rho_{\vec{G}} \int \diff^3x \, e^{i(\vec{G}-\vec{K})\vec{x}}.
+		\end{align*}
+	
+	Da das Integral nur für $\vec{G}=\vec{K}$ nicht verschwindet, entsteht nur dann eine nicht verschwindende Amplitude am Detektor, wenn die Differenz der Wellenvektoren $\vec{K}$ gleich einem reziproken Gittervektor $\vec{G} \equiv \vec{G}_{hkl}$ ist
+		\begin{align*}
+			A_D = \rho_{\vec{G}} \cdot V \propto \rho_{\vec{G}}.
+		\end{align*}
+
+	Berechne nun den Fourier-Koeffizienten $\rho_{\vec{G}} \equiv \rho_{hkl}$.
+		\begin{align*}
+			\rho_{hkl} &= \frac{1}{V_\text{EZ}} \int_{V_\text{EZ}} \diff^3 x \, \rho(\vec{x}) \cdot e^{i\vec{G}_{hkl}\vec{x}} =
+		\intertext{Zerlege die Streudichte in die Streudichten der einzelnen Atome in der Einheitszelle $\rho(\vec{x}) = \sum_\alpha \rho(\vec{x} - \vec{x}_\alpha)$:}
+			&= \frac{1}{V_\text{EZ}} \int_{V_\text{EZ}} \diff^3 x \, \sum_\alpha \rho_\alpha(\vec{x}-\vec{x}_\alpha) \cdot e^{i\vec{G}_{hkl}\vec{x}} = \\
+			&\stackrel{\comment{\vec{x}_\alpha'=\vec{x}-\vec{x}_\alpha}}{=} \frac{1}{V_\text{EZ}} \sum_\alpha e^{i\vec{G}_{hkl}\vec{x}_\alpha} \int \diff^3x_\alpha' \, \rho_\alpha(\vec{x}_\alpha') \cdot e^{i\vec{G}_{hkl}\vec{x}_\alpha} \equiv
+			\intertext{Erkenne, dass $\vec{x}_\alpha'$ eine Dummy-Variable ist und als $\vec{x}'$ notiert werden kann:}
+			&\equiv \frac{1}{V_\text{EZ}} \sum_\alpha e^{i\vec{G}_{hkl}\vec{x}_\alpha} \int \diff^3x' \, \rho_\alpha(\vec{x}') \cdot e^{i\vec{G}_{hkl}\vec{x}'} \equiv \\
+			&\equiv \frac{1}{V_\text{EZ}} \sum_\alpha f_\alpha \cdot e^{i\vec{G}_{hkl}\vec{x}_\alpha} \equiv \frac{1}{V_{EZ}} \cdot S_{hkl}
+		\end{align*}
+	
+	wobei in den letzten beiden Schritten der \underline{Atomfaktor} $f_\alpha$ und der \underline{Strukturfaktor} $S_{hkl}$ definiert wurden.\\
+	\\
+	Die Proportionalität für die Intensität lautet somit
+		\begin{align*}
+			I_{hkl} \propto |A_D|^2 = |\rho_{hkl}|^2 \propto |S_{hkl}|^2 \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $2 d_{hkl} \sin\theta =n \lambda$ mit $n\in\mathbb{N}$\\
+	\\
+	Herleitungsskizze:\\
+	1) Bilde den Betrag der Laue-Bedingung\\
+	2) Einsetzen $d_{hkl} = \frac{2\pi}{G_{hkl}}$\\
+	3) Formuliere $|\vec{k}'-\vec{k}|$ mithilfe der Skizze der Laue-Bedingung, Einführung Bragg-Winkel\\
+	\\
+	Wende den Betrag auf die Laue-Bedingung an:
+		\begin{align*}
+			|\vec{G}| &= |\vec{K}| = |\vec{k}'-\vec{k}|
+		\end{align*}
+	
+	\textcolor{red}{ERGÄNZEN Skizze}\\
+	Führe den Bragg-Winkel $\theta$ als Winkel zwischen der Netzebene und dem einlaufenden bzw. auslaufenden Wellenvektors ein.\\
+	Aus der geometrischen Überlegung der Skizze folgt der Zusammenhang
+		\begin{align*}
+			|\vec{k}' - \vec{k}| &= 2k \cdot \sin\theta.
+		\end{align*}
+	
+	Einsetzen dieses Ergebnisses, sowie dem Zusammenhang zwischen der Netzebene und dem zugehörigen reziproken Gittervektor, in die Laue-Bedingung ergibt:
+		\begin{align*}
+			\frac{2\pi}{d_{hkl}} &= 2k \cdot \sin\theta \\
+			\Leftrightarrow \frac{2\pi}{k} = \lambda &= 2d_{hkl} \sin\theta
+		\end{align*}
+	
+	\textcolor{red}{ERGÄNZEN Zustandekommen der Ordnungen $n$}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Inelastische Streuung}
+Die \textit{inelastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektronen, Atome oder Neutronen) ist diejenige Streuung, bei der die einlaufende Welle mit dem Gitter wechselwirkt und somit Energie abgibt oder aufnimmt.\\\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{inelastische Detektoramplitude}\\
+		Die komplexe Amplitude der inelastisch gestreuten Welle wird am Detektor durch
+			\begin{equation}
+				A_\text{inel} \propto \sum_{\vec{n}} e^{i ( \vec{K} \pm \vec{q}) \vec{r}_{\vec{n}}} i \vec{K} \cdot \vec{u} \frac{1}{\sqrt{M}} e^{-i \lreck{ \omega \pm \omega(\vec{q}) } t}
+			\end{equation}
+		
+		beschrieben, mit der ...
+		
+		
+		\item \textbf{Energie- und Quasiimpulserhaltung}\\
+		Für nicht-verschwindende inelastische Detektoramplitude gelten die folgenden Erhaltungssätze
+			\begin{align}
+				\hbar \omega' - \hbar \omega \mp \hbar \omega(\vec{q}) &= 0 \\
+				\hbar \vec{k}' - \hbar \vec{k} \mp \hbar \vec{q} + \hbar \vec{G} &= \vec{0},
+			\end{align}
+		
+		mit der Frequenz der ein- bzw. auslaufenden Welle $\omega$ bzw. $\omega'$, der Frequenz der Gitterschwingung $\omega(\vec{q})$, dem Wellenvektor der ein- bzw. auslaufenden Welle $\vec{k}$ bzw. $\vec{k}'$, dem Wellenvektor der Gitterschwingung $\vec{q}$ und einem reziproken Gittervektor $\vec{G}$.
+	\end{itemize}
+
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Detektoramplitude für inelastische Streuung \\
+	\\
+	Herleitungsskizze:\\
+	1) Modifizierung der elastischen Detektoramplitude $\vec{x} \to \vec{x}(t)$\\
+	2) Annahme: punktförmige Streuzentren \\
+	3) Zerlegung Ortsvektor in Ruhelage und Auslenkung \\
+	4) Taylor-Entwicklung um kleine Auslenkungen \\
+	5) Ebene-Welle-Ansatz für Auslenkung \\
+	\\
+	1) Modifiziere den Ausdruck für die Detektoramplitude aus der Diskussion der elastischen Streuung, durch $\vec{x} \to \vec{x}(t)$. Verwende dabei den Ausdruck mit der allgemeinen Streudichte $\rho(\vec{x})$, d.h. ohne Fourier-Reihenentwicklung und behalte den Exponentialterm mit der Frequenz der einlaufenden Welle $\exp(i\omega t)$
+		\begin{align*}
+			A_\text{D} &\propto e^{i\omega t} \int \diff^3 x \, \rho(\vec{x}) \cdot e^{i\vec{K}\vec{x}} \\
+			&\to e^{i\omega t} \int \diff^3 x \, \rho(\vec{x}(t)) \cdot e^{i\vec{K}\vec{x}(t)},
+		\end{align*}
+	
+	mit der Differenz der Wellenvektoren $\vec{K} = \vec{k} - \vec{k}'$.\\
+	\\
+	2) Verwende die Annahme, dass es sich um ein primitives Gitter mit punktförmigen Atomen handelt. Damit folgt für die Streudichte
+		\begin{align*}
+			\rho(\vec{x}(t)) \propto \sum_{\vec{n}} \delta(\vec{x} - \vec{x}_{\vec{n}}),
+		\end{align*}
+	
+	wobei $\vec{n}$ eine Einheitszelle indiziert.\\
+	Einsetzen in die Detektoramplitude liefert
+		\begin{align*}
+			A_\text{D} &\propto e^{i\omega t} \int \diff^3 x \, \lreck{ \sum_{\vec{n}} \delta(\vec{x} - \vec{x}_{\vec{n}}) } \cdot e^{i\vec{K}\vec{x}(t)} \\
+			&= e^{i\omega t} \sum_{\vec{n}} e^{i\vec{K}\vec{x}_{\vec{n}}}.
+		\end{align*}
+		
+	3) Zerlege den Ortsvektor $\vec{x}_{\vec{n}}$ in den Vektor, der auf die Gleichgewichtsposition weist $\vec{x}_{\vec{n}}$ und die zugehörige Auslenkung $\vec{s}_{\vec{n}}(t)$, womit für die Amplitude folgt:
+		\begin{align*}
+			A_\text{D} &\propto e^{i\omega t} \sum_{\vec{n}} e^{i\vec{K} [\vec{x}_{\vec{n}} + \vec{s}_{\vec{n}}(t)]} \\
+			&= e^{i\omega t} \sum_{\vec{n}} e^{i\vec{K} \vec{x}_{\vec{n}}} \cdot e^{i\vec{K} \vec{s}_{\vec{n}}(t)}
+		\end{align*}
+	
+	4) Führe eine Taylor-Entwicklung der Detektoramplitude um die Auslenkung $\vec{u}_0 = \vec{0}$ bis einschließlich der 1. Ordnung durch:
+		\begin{align*}
+			A_\text{D} &\approx T_{A_\text{D},\vec{s}_0=\vec{0},1}(\vec{s} = e^{i\omega t} \sum_{\vec{n}} e^{i\vec{K}\vec{x}_{\vec{n}}} \lreck{ 1 + i \vec{K} \vec{s}(t) }
+		\end{align*}
+	
+	5) Verwende den Ebene-Welle-Ansatz
+		\begin{align*}
+			\vec{s}_{\vec{n}}(t) &= \vec{u} \frac{1}{\sqrt{M}} e^{\pm i \lreck{ \vec{q} \vec{x}_{\vec{n}} - \omega(\vec{q}) t }}
+		\end{align*}
+	
+	mit der Amplitude $\vec{u}$ und der Atommasse $M$ und setze ihn in die Detektoramplitude ein
+		\begin{align*}
+			A_\text{D} &\propto e^{i\omega t} \sum_{\vec{n}} e^{i\vec{K}\vec{x}_{\vec{n}}} \lreck{ 1 + i \vec{K} \cdot \vec{u} \frac{1}{\sqrt{M}} e^{\pm i \lreck{ \vec{q} \vec{x}_{\vec{n}} - \omega(\vec{q}) t }} } \\
+			&\equiv A_\text{D,el} + A_\text{D,inel},
+		\end{align*}
+	
+	wobei der erste Term der Detektoramplitude aus der elastischen Diskussion entspricht und der neue Term die folgende Form annimmt:
+		\begin{align*}
+			A_\text{D,inel} &= \sum_{\vec{n}} e^{i (\vec{K} \pm \vec{q})\vec{x}_{\vec{n}}} \cdot i\vec{K} \cdot \vec{u} \frac{1}{\sqrt{M}} e^{-i \lreck{ \omega_0 \pm \omega(\vec{q}) } t } \qquad \blacksquare
+		\end{align*}
+	
+	
+	\fbox{Herleitung}\\
+	zz: Energie- und Quasiimpulserhaltung\\
+	Lös: Der inelastische Anteil der Detektoramplitude hat nur dann einen Beitrag, wenn $\vec{K} \pm \vec{q}$ einem Gittervektor $\vec{G}$ entspricht. Dann folgt aus $\vec{G} \cdot \vec{x}_{\vec{n}} = 2\pi m$, dass der Exponent schlicht 1 wird. Dies entspricht
+		\begin{align*}
+			\underbrace{\vec{K}}_{\equiv \vec{k}' - \vec{k}} \pm \vec{q} &= \vec{G} \\
+			\Leftrightarrow \vec{k} - \vec{k}' \mp \vec{q} + \vec{G} &= \vec{0} \\
+			\stackrel{ \comment{\cdot \hbar} }{\Leftrightarrow} \hbar \vec{k} - \hbar \vec{k}' \mp \hbar \vec{q} + \hbar \vec{G} &= \vec{0} \qquad \blacksquare
+		\end{align*}
+	
+	Für die Frequenz der Auslaufenden Welle lässt sich am zweiten Exponenten ablesen
+		\begin{align*}
+			\omega &= \omega_0 \pm \omega(\vec{q}) \\
+			\Leftrightarrow \omega - \omega_0 \mp \omega(\vec{q}) &= 0 \\
+			\stackrel{ \comment{\cdot \hbar} }{\Leftrightarrow} \hbar \omega - \hbar \omega_0 \mp \hbar \omega(\vec{q}) &= 0 \qquad \blacksquare
+		\end{align*}				
+\hrule
+}
+
+
+
+\newpage
+
+
+\subsection{Elastische Eigenschaften}
+\subsubsection{Schallgeschwindigkeit (harmonische Gitterdynamik)}
+Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen beschrieben, die ein System aus $3rN$ gekoppelten Differentialgleichungen ergeben.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Ortsvektor}\\
+		Für das $\alpha$-te Atom in der $n$-ten Einheitszelle gilt
+			\begin{equation}
+				\vec{x}_{\vec{n}\alpha}(t) = \vec{x}_n(t) + \vec{x}_{n,\alpha} + \frac{1}{\sqrt{m_\alpha}} \cdot \vec{A}_\alpha(\vec{q}) \cdot e^{i(\vec{q}\vec{x}_n - \omega t)},
+			\end{equation}
+		
+		wobei die Amplitude der Verschiebung die Eigenvektoren der dynamischen Matrix $\underline{D}$ sind.
+
+		
+		\item \textbf{Dynamische Matrix}\\
+		Matrix, dessen Eigenvektoren die Amplitude $\vec{A}_{\alpha,i}(\vec{q})$ des Ortsvektors ergeben
+			\begin{equation}
+				D_{\beta,j}^{\alpha,i} := \sum_m \frac{1}{\sqrt{m_\alpha \cdot m_\beta}} \cdot \Phi_{m,\beta,j}^{n,\alpha,i} \cdot e^{i\vec{q}(\vec{x}_m-\vec{x}_n)},
+			\end{equation}
+	
+		mit der \textit{Kopplungskonstanten} $\Phi_{m,\beta,j}^{n,\alpha,i} := \frac{\partial^2\Phi}{\partial u_{n,\alpha,i} \partial u_{m,\beta,j}}$ (mit der potentiellen Energie des Kristalls $\Phi$) sowie der Atommasse des $\alpha$-ten Atoms $m_\alpha$.
+	
+	
+%		\item \textbf{Eigenwertgleichung Amplitude Ortsvektor}\\
+%		Die Amplitude des Verschiebungsterms im Ortsvektor ergibt sich aus der Eigenwertgleichung der dynamischen Matrix
+%			\begin{equation}
+%				\underline{D} \cdot \vec{A}_{\alpha,i}(\vec{q}) = -\omega^2 \cdot \vec{A}_{\alpha,i}(\vec{q}) \qquad \forall \alpha.
+%			\end{equation}
+		
+		
+		\item \textbf{Schallgeschwindigkeit}\\
+		Geschwindigkeit, mit der sich Schwingungen, die groß gegenüber der Atomabstände sind, ausbreiten
+			\begin{equation}
+				\vec{v}_s := \lim_{\vec{q} \to \vec{0}} \vec{\nabla}_{\vec{q}} \omega(\vec{q})
+			\end{equation}
+	\end{itemize}
+	
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.3\textwidth]{Grafiken/atomdynamik.pdf}
+		}
+		\caption{Skizze zur Notation der Atomdynamik}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung: Dynamische Matrix}\\
+	zz: $-\omega^2 \vec{u}_\alpha(\vec{q}) + \underline{D}_\alpha(\vec{q}) \cdot \vec{u}_\alpha(\vec{q}) = \vec{0} \qquad \forall\alpha$\\
+	\\
+	Herleitungsskizze:\\
+	1) Führe eine Notation ein, die die Auslenkung des $\alpha$-ten Atoms in der $n$-ten EZ beschreibt\\
+	2) Entwickle die potentielle Energie des Kristalls um die Ruheposition bis inkl. zur 2. Ordnung\\
+	3) Aufstellen der Newton'schen Bewegungsgleichungen\\
+	4) Einsetzen eines ebene-Wellen-Ansatzes in die Bewegungsgleichungen\\
+	5) Definition der dynamischen Matrix\\
+	\\
+	Betrachte die \textcolor{red}{ERGÄNZEN Skizze ...}.\\
+	\\
+	Die Position eines Atoms zum Zeitpunkt $t$ wird beschrieben durch
+		\begin{align*}
+			\vec{x}(t) &= \vec{x}_n + \vec{x}_\alpha + \vec{u}_{n,\alpha}(t) \equiv \vec{x}_{n,\alpha} + \vec{u}_{n,\alpha}(t),
+		\end{align*}
+		
+	mit dem Ortsvektor der $n$-ten EZ $\vec{x}_n$, dem Ortsvektor von der $n$-ten EZ zur $\alpha$-ten Ruheposition des Atoms und der Auslenkung des Atoms aus seiner Ruheposition $\vec{u}_{n,\alpha}(t)$.\\
+	\\
+	Entwickle die potentielle Energie des Kristalls $\Phi$, die von allen Atompositionen $\{\vec{x}_{n,\alpha} + \vec{u}_{n,\alpha}(t)\}$ abhängt, um den Vektor der Gleichgewichtslage $\vec{x}_{n,\alpha}$:
+		\begin{align*}
+			\Phi(\{ \vec{x}_{n,\alpha}+\vec{u}_{n,\alpha}(t) \}) &= \Phi( \vec{x}_{n,\alpha} ) + \sum_{n,\alpha,i} \underbrace{ \frac{\partial \Phi}{\partial x_{n,\alpha,i}} (\{ \vec{x}_{n,\alpha} \}) }_{=0} \cdot u_{n,\alpha,i}(t) + \\
+			&\phantom{=} + \frac{1}{2} \sum_{n,\alpha,i} \sum_{m,\beta,j} \frac{ \partial^2 \Phi }{ \partial x_{n,\alpha,i} \partial x_{n,\beta,j} }(\{ \vec{x}_{n,\alpha}\}) \cdot u_{n,\alpha,i}(t) \cdot u_{m,\beta,j}(t)
+		\end{align*}
+
+	Die Newton'sche Bewegungsgleichung für die $i$-te Komponente des $\alpha$-te Atom in der $n$-ten Einheitszelle ergibt sich mittels $F_i = -\partial_i\Phi = m a_i$ mit $i \in \{x,y,z\}$ zu
+		\begin{align*}
+			m_\alpha \frac{\diff^2}{\diff t^2} x_i(t) = m_\alpha \cdot \ddot{u}_{n,\alpha,i}(t) &= - \frac{1}{2} \sum_{n,\alpha,i} \frac{\partial^2\Phi}{\partial x_{n,\alpha,i} \partial_{m,\beta,j}} (\{\vec{x}_{n,\alpha}\}) \cdot u_{m,\beta,j}(t) - \\
+			&\phantom{=} - \frac{1}{2} \sum_{m,\beta,j} \frac{\partial^2\Phi}{\partial x_{n,\alpha,i} \partial_{m,\beta,j}} (\{\vec{x}_{n,\alpha}\}) \cdot u_{n,\alpha,i}(t) = \\
+			&= -\sum_{n,\alpha,i} \frac{\partial^2\Phi}{\partial x_{m,\beta,j} \partial x_{m,\beta,j}} u_{n,\alpha,i}(t) \equiv -\sum_{n,\alpha,i} \Phi_{x,\beta,j}^{n,\alpha,i} \cdot u_{m,\beta,i}(t) \\
+			\Leftrightarrow m_\alpha \cdot \ddot{u}_{n,\alpha,i}(t) &= -\sum_{n,\alpha,i} \Phi_{m,\beta,j}^{n,\alpha,i} \cdot u_{m,\beta,i}(t)
+		\end{align*}
+	
+	Da die $\Phi_{m,\beta,j}^{n,\alpha,i}$ die Auslenkung des $\beta$-ten Atoms in der $m$-ten Einheitszelle mit der Kraft auf das $\alpha$-te Atom in der $n$-ten Einheitszelle verknüpft, wird sie als \textbf{Kopplungskonstante} beschrieben.\\
+	\\
+	Dieses System $3rN$ gekoppelter Differentialgleichungen lässt sich durch den ebenen-Welle-Ansatz für die $i$-te Komponente der Auslenkung des $\alpha$-ten Atoms in der $n$-ten Einheitszelle
+		\begin{align*}
+			u_{n,\alpha,i}(t) &= \frac{1}{\sqrt{m_\alpha}} \cdot A_{\alpha,i}(\vec{q}) \cdot e^{i(\vec{q}\vec{x}_n - \omega t)}
+		\end{align*}
+	
+	lösen. \textcolor{red}{Die ebene Welle ist nur an den Ruhepositionen der Atome definiert, wobei $+\vec{x}_\alpha$ in die Amplitude absorbiert wurde.}
+
+
+	Einsetzen in die Bewegungsgleichung ergibt
+	\begin{align*}
+		m_\alpha \frac{\diff^2}{\diff t^2} \lr{ \frac{1}{\sqrt{m_\alpha}} \cdot A_{\alpha,i}(\vec{q}) \cdot e^{i(\vec{q}\vec{x}_n - \omega t)} } &= -\sum_{m,\beta,j} \Phi_{m,\beta,j}^{n,\alpha,i} \cdot \frac{1}{\sqrt{m_\beta}} \cdot A_{\beta,j}(\vec{q}) \cdot e^{i(\vec{q}\vec{x}_m - \omega t)} \\
+		\Leftrightarrow -\omega^2 \cdot \frac{1}{\sqrt{m_\alpha}} \cdot A_{\alpha,i}(\vec{q}) \cdot e^{i(\vec{q}\vec{x}_n - \omega t)} &= -\sum_{m,\beta,j} \Phi_{m,\beta,j}^{n,\alpha,i} \cdot \frac{1}{\sqrt{m_\beta}} \cdot A_{\beta,j}(\vec{q}) \cdot e^{i(\vec{q}\vec{x}_m - \omega t)} \\
+		\stackrel{\comment{:\frac{1}{\sqrt{m_\alpha}} \cdot e^{i\vec{q}\vec{x}_m}}}{\Leftrightarrow} -\omega^2 \cdot A_{\alpha,i}(\vec{q}) &= -\sum_{m,\beta,j} \Phi_{m,\beta,j}^{n,\alpha,i} \cdot \frac{1}{\sqrt{m_\alpha \cdot m_\beta}} \cdot e^{i\vec{q}(\vec{x}_m - \vec{x}_n)} \cdot A_{\beta,j}(\vec{q}) \\
+		\Leftrightarrow -\omega^2 \cdot A_{\alpha,i}(\vec{q}) &= \sum_{\beta,j} D_{\beta,j}^{\alpha,i} \cdot A_{\beta,j}(\vec{q}),
+	\end{align*}
+
+	wobei im letzten Schritt die \underline{dynamische Matrix}
+		\begin{align*}
+			D_{\beta,j}^{\alpha,i} := \sum_m \frac{1}{\sqrt{m_\alpha \cdot m_\beta}} \cdot \Phi_{m,\beta,j}^{n,\alpha,i} \cdot e^{i\vec{q}(\vec{x}_m-\vec{x}_n)}
+		\end{align*}
+	
+	definiert wurde.\\
+	\\
+	Somit lässt sich in Matrix-Notation schreiben:
+		\begin{align*}
+			\underline{D} \cdot \vec{A}_\alpha &= -\omega^2 \cdot \vec{A}_\alpha \qquad \forall\alpha \qquad \blacksquare
+		\end{align*}
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Lineare zweiatomige Kette}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{nur longitudinale Schwingungen}
+	
+		\item \textbf{abwechelnde Atomtypen}
+		
+		\item \textbf{Nächste-Nachbar-Näherung}\\
+		Ausschließlich nächste Nachbarn üben eine Kraft aufeinander aus
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Ort}\\
+		Das $\alpha$-te Atom der $n$-ten Einheitszelle hat die Position
+			\begin{equation}
+				x_{n\alpha}(t) = x_n + x_\alpha + \frac{1}{\sqrt{m_\alpha}} \cdot A_\alpha(q) \cdot e^{i \lreck{ qan - \omega_\pm(q) t} }.
+			\end{equation}
+		
+		
+		\item \textbf{Dispersionsrelation}
+			\begin{equation}
+				\omega_\pm(q) = \sqrt{ f \lr{ \frac{1}{m_1} + \frac{1}{m_2} } \pm f \lreck{ \lr{ \frac{1}{m_1} + \frac{1}{m_2} }^2 - \frac{4}{m_1 m_2} \sin^2\lr{ \frac{qa}{2} } } }
+			\end{equation}
+		
+		
+		\item \textbf{Schallgeschwindigkeit}
+			\begin{equation}
+				v_s = a \sqrt{ \frac{f}{ 2(m_1 + m_2) } }
+			\end{equation}
+	\end{itemize}
+
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+		\includegraphics[width=0.6\textwidth]{Grafiken/dispersion lineare zweiatomige kette.pdf}
+	}
+	\caption{Qualitativer Plot der Dispersionsrelation einer linearen zweiatomigen Kette; blau: \textit{optischer} Zweig; orange: \textit{akkustischer} Zweig}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	\\
+	Herleitungsskizze:\\
+	1) Formuliere die Kraft auf das $n$-te Atom von Typ 1 bzw. 2\\
+	2) Einsetzen des ebene Welle Ansatzes in das Gleichungssystem\\
+	3) Lösen des Gleichungssystems durch Nullsetzen der Determinante\\
+	\\
+	\textcolor{red}{ERGÄNZEN Herleitung Ibach, Lüth S. 56}
+
+
+
+
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Thermische Eigenschaften}
+\subsubsection{Wärmekapazität (Debye-Modell)}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{lineare Dispersionsrelation}\\
+		Der Zusammenhang zwischen der Frequenz $\omega$ und der Wellenzahl $q$ wird durch
+			\begin{equation}
+				\omega = v_s \cdot q
+			\end{equation}
+		
+		modelliert, wobei $v_s$ die Schallgeschwindigkeit ist.
+		
+
+		\item \textbf{Debye-Frequenz}\\
+		Die Gitterschwingungen können maximal die Debye-Frequenz $\omega_D$ erreichen
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Wärmekapazität}\\
+		Wichtigstes Ergebnis des Modells ist die korrekte Beschreibung der Wärmekapazität sowohl für niedrige Temperaturen ($T^3$-Verhalten) als auch für hohe Temperaturen (Dulong-Petit-Gesetz):
+			\begin{equation}
+				C_V =
+				\begin{cases}
+					\frac{12}{5}\pi^4 \cdot N k_B \cdot \lr{ \frac{T}{T_D} }^3, & T \ll T_D \\
+					3 k_B N, & T \gg T_D
+				\end{cases}
+			\end{equation}
+
+		mit der \textit{Debye-Temperatur]} $T_D = \frac{\hbar\omega_D}{k_B}$ als charakteristische Größe.
+		
+		
+		\item \textbf{Debye-Frequenz}\\
+		Höchste besetzbare Frequenz
+			\begin{equation}
+				\omega_\text{D} = (6\pi^2 v_s^3 n)^{1/3}
+			\end{equation}
+	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/debye-modell.png}
+		}
+		\caption{Skizze Wärmekapazität im Debye-Modell}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Wärmekapazität $C_V$; Debye-Frequenz $\omega_\text{D}$\\
+	\\
+	Herleitungsskizze:\\
+	1) Phononen Wellenvektoren erfüllen Born-von-Karman-RB \\
+	2) Zustandsdichte \\
+	3) Berechnung der inneren Energie via mittlerer Besetzungszahl \\
+	4) Ableiten der inneren Energie nach Temperatur $T$ \\
+	\\
+	Aus der Periodizitätsbedingung des Kristalls folgt, dass die Wellenvektoren $k$ die Werte
+		\begin{align*}
+			\vec{k} = \lr{ \frac{2\pi}{L} n_x, \frac{2\pi}{L} n_y, \frac{2\pi}{L} n_z }^T
+		\end{align*}
+	
+	mit $n_i \in \mathbb{Z}$ annehmen können.\\
+	\\
+	Die Anzahl aller Freiheitsgrade $3N$ ist gleich der Anzahl aller Zustände im $n$- bzw. $k$-Raum multipliziert mit der Anzahl der Polarisationen $3$.\\
+	Diese folgt somit im quasi-kontinuierlichen Übergang
+		\begin{align*}
+			3N = 3 \cdot \sum_{\vec{n}} 1 \longrightarrow 3 \cdot \int \diff n_x \diff n_y \diff n_z.
+		\end{align*}
+	
+	Substitution zu den $k$-Koordinaten ergibt
+		\begin{align*}
+			3N = 3 \cdot \frac{V}{(2\pi)^3} \int \diff k_x \diff k_y \diff k_z = 3 \cdot \frac{V}{(2\pi)^3} \cdot (4\pi) \int \diff k \, k^2,
+		\end{align*}
+	
+	wobei im letzten Schritt zu Kugelkoordinaten übergegangen wurde.\\
+	\\
+	Führe unter Berücksichtigung der linearen Dispersionsrelation $\omega = v_S \cdot k$ erneut eine Koordinatentransformation durch. Beachte dabei, dass die Schallgeschwindigkeit für die 2 transversalen Schwingungen $v_T$ zu der der longitudinalen $v_L$unterschiedlich ist:
+		\begin{align*}
+			3N &= \frac{V}{(2\pi)^3} \cdot (4\pi) \cdot \int_0^{\omega_D} \lr{ \frac{\diff\omega}{v_L} \, \frac{\omega^2}{v_L^2} + 2 \frac{\diff\omega}{v_T} \, \frac{\omega^2}{v_T^2} } = \\
+			&= \frac{V}{(2\pi)^3} \cdot (4\pi) \cdot \lr{ \frac{1}{v_L^3} + \frac{2}{v_T^2} } \cdot \int_0^{\omega_D} \diff\omega \, \omega^2 = \\
+			&= \int_0^{\omega_D} \diff\omega \, \lreck{ \frac{V}{2\pi^2} \lr{ \frac{1}{v_L^3} + \frac{2}{v_T^3} } \omega^2 } \equiv \\
+			&\equiv \int_0^{\omega_D} \diff\omega \, Z(\omega)
+		\end{align*}
+	
+	Im letzten Schritt wurde die Zustandsdichte
+		\begin{align*}
+			Z(\omega) &:= \frac{V}{2\pi^2} \lr{ \frac{1}{v_L^3} + \frac{2}{v_T^3} } \omega^2 \equiv \frac{V}{2\pi^2} \frac{3}{v_S^3} \omega^2
+		\end{align*}
+	
+	definiert, die ebenfalls mit der mittleren Schallgeschwindigkeit $v_S$ notiert werden kann.\\
+	\\
+	Die Debye-Frequenz $\omega_D$ findet man durch Integration der Zustandsdichte
+		\begin{align*}
+			3N &= \frac{V}{2\pi^2}\frac{3}{v_S^3} \int_0^{\omega_D} \diff\omega \, \omega^2 = \frac{V}{2\pi^2}\frac{3}{v_S^3} \cdot \frac{\omega_D^3}{3} \\
+			\Leftrightarrow \omega_D &= \lr{ 6\pi^2 v_S^3 \frac{N}{V} }^{1/3} \equiv (6\pi^2 v_S^3 n)^{1/3}. \qquad \blacksquare
+		\end{align*}
+
+	Die innere Energie des Kristalls ist nun die ''Summe'' der einzelnen Modenenergien. Letztere sind das Produkt der mittleren Besetzungszahl der Mode mit der Modenenergie $\hbar\omega$. Die Nullpunktsenergie wird hier vernachlässigt, da diese in der Ableitung eh verschwindet. Da Phononen Bosononen sind, wird die mittlere Besetzungszahl durch die Bose-Einstein-Verteilung $f_\text{BE}(\omega)$ gegeben.\\
+	Auch hier wird der quasi-kontinuierliche Übergang mit der zuvor gefundenen Zustandsdichte $Z(\omega)$ durchgeführt:
+		\begin{align*}
+			U &= \sum_i f_\text{BE}(\omega_i) \cdot \hbar\omega_i \longrightarrow \int_0^{\omega_D} \diff\omega \, f_\text{BE}(\omega) \cdot \hbar\omega \cdot Z(\omega) = \\
+			&= \int_0^{\omega_D} \diff\omega \, \frac{1}{e^{\frac{\hbar\omega}{k_BT}} - 1} \cdot \hbar\omega \cdot \frac{V}{2\pi^2} \frac{3}{v_S^3} \omega^2 = \\
+			&= \frac{3V}{2\pi^2v_S^3}\hbar \int_0^{\omega_D} \diff\omega \frac{\omega^3}{e^{\beta\hbar\omega} - 1}
+			\intertext{Substituiere $x = \beta\hbar\omega$, $\frac{\diff x}{\diff\omega} = \beta\hbar$:}
+			&= \frac{3V}{2\pi^2v_S^3}\hbar \int_0^{\beta\hbar\omega_D} \lr{ \frac{\diff x}{\beta\hbar} } \cdot \frac{\lr{ \frac{x}{\beta\hbar} }^3}{e^x - 1} = \\
+			&= \frac{3V}{2\pi^2v_S^3\beta^4\hbar^2} \int_0^{\beta\hbar\omega_D} \diff x \, \frac{x^3}{e^x - 1}
+		\end{align*}
+	
+	Definiere die Debye-Temperatur:
+		\begin{align*}
+			T_D := \frac{\hbar\omega_D}{k_B}
+		\end{align*}
+
+	\textcolor{red}{Lösen des Integrals durch Polylogarithmen.}
+
+\hrule
+}
+
+
+
+\newpage
+
+
+\subsubsection{Wärmekapazität (Metallelektronen-Beitrag)}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{Fermi-Gas}\\
+		Quantenmechanisches freies Elektronengas
+		
+		
+		\item \textbf{niedrige Temperaturen}\\
+		Im Rahmen der Näherung der Fermi-Dirac-Statistik (Sommerfeld-Entwicklung) wird angenommen, dass die Temperatur deutlich unterhalb der Fermi-Temperatur liegt $T \ll T_F$.
+	\end{itemize}
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Wärmekapazität}
+			\begin{equation}
+				C_V = \gamma \cdot T,
+			\end{equation}
+		
+		mit der Sommerfeld-Konstante $\gamma := \frac{\pi^2}{2} N k_B \frac{1}{T_F}$
+	\end{itemize}
+
+
+\vspace{0.5cm}
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+		\includegraphics[width=0.6\textwidth]{Grafiken/wärmekapazität elektronisch.pdf}
+	}
+	\caption{Elektronischer Beitrag zur Wärmekapazität von Argon in Abhängigkeit der Temperatur}
+\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $C_V = \gamma \cdot T$\\
+	\\
+	Herleitungsskizze:\\
+	1) Formuliere innere Energie \\
+	2) Quasi-kontinuierlicher Übergang \\
+	3) Sommerfeld-Entwicklung für die Fermi-Dirac-Statistik $f_\text{FD}(\omega)$\\
+	4) Ableitung der inneren Energie\\
+	\\
+	Die innere Energie des Systems ergibt sich gemäß Erwartungswert
+		\begin{align*}
+			U &= \sum_i E_i \cdot f_\text{FD}(E_i) = \sum_i E_i \cdot \frac{1}{e^{\beta(E - \mu)} + 1} \longrightarrow \\
+			&\longrightarrow \int_0^\infty \diff E \, E \cdot \frac{1}{e^{\beta(E - \mu)} + 1} \cdot Z(E)
+			\intertext{Einsetzen der elektronischen Zustandsdichte $Z(E) = \frac{V}{2\pi^2} \lr{ \frac{2m}{\hbar^2} }^{3/2} \sqrt{E}$ (siehe Kapitel 6.1: Freies Elektronengas)}
+			&= \frac{V}{2\pi^2} \lr{ \frac{2m}{\hbar^2} }^{3/2} \int_0^\infty \diff E \, \frac{E^{3/2}}{e^{\beta(E-\mu)} + 1} \approx
+			\intertext{Dieser Ausdruck kann mit der Sommerfeld-Entwicklung wie folgt approximiert werden:}
+			&\approx U(T=0) + (k_B T)^2 \cdot \frac{\pi^2}{6} \cdot Z(E_F)
+		\end{align*}
+	
+	Die Wärmekapazität ist schließlich die Ableitung der inneren Energie nach der Temperatur:
+		\begin{align*}
+			C_V &= \lr{ \frac{\partial U}{\partial T} }_V = \\
+			&= \frac{\partial}{\partial T} \lr{ U(T=0) + (k_B T)^2 \cdot \frac{\pi^2}{6} \cdot Z(E_F) }_V = \\
+			&= \frac{1}{3} \cdot \pi^2 k_B^2 \cdot Z(E_F) \cdot T = \\
+		&\equiv \gamma \cdot T \qquad \blacksquare	
+		\end{align*}
+	
+	mit der Sommerfeld-Konstante $\gamma := \frac{1}{3} \cdot \pi^2 k_B^2 \cdot Z(E_F)$.
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Thermische Ausdehnung}
+Die thermische Ausdehnung ist das Phänomen, dass sich das Volumen bzw. die Fläche bzw. die Länge eines Festkörpers mit der Temperatur ändert.\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{Längenausdehnungskoeffizient}\\
+		Beschreibt die relative Längenänderung eines Festkörpers der Länge $L$
+			\begin{equation}
+				\alpha_L := \frac{1}{L} \frac{\diff L}{\diff T}.
+			\end{equation}
+		
+		
+		\item \textbf{Volumenausdehnungskoeffizient}\\
+		Beschreibt die relative Volumenänderung eines Festkörpers des Volumens $V$
+			\begin{equation}
+				\alpha_V := \frac{1}{V} \frac{\diff V}{\diff t}
+			\end{equation}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Grüneisen-Parameter}\\
+		Beschreibt den Zusammenhang zwischen dem Volumenausdehnungskoeffizienten und der Wärmekapazität eines Festkörpers
+			\begin{equation}
+				\gamma := -\frac{\partial \ln \omega(\vec{q},j)}{\partial \ln V},
+			\end{equation}
+		
+		mit Phononenwellenvektor $\vec{q}$ und dem Zweigindex $j$
+		
+		
+		\item \textbf{Längenausdehnungskoeffizient}
+			\begin{equation}
+				\alpha_L = ...
+			\end{equation}
+		
+		
+		\item \textbf{Volumenausdehnungskoeffizient}
+			\begin{equation}
+				\alpha_V = ...
+			\end{equation}
+	\end{itemize}
+
+\textcolor{red}{ERGÄNZEN Herleitung ($\star$)}
+
+
+\newpage
+
+
+\subsubsection{Wärmeleitfähigkeit durch Phononen}
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{Wärmeleitfähigkeit}\\
+		Die \textit{Wärmeleitfähigkeit} ist im Allgemeinen eine tensorielle Größe $\underline{\lambda}$, die den Zusammenhang zwischen der \textit{Wärmestromdichte} $\vec{Q}$ und dem negativen Temperaturgradienten $-\vec{\nabla}T$ beschreibt
+			\begin{equation}
+				\vec{Q} = -\underline{\lambda} \vec{\nabla} T.
+			\end{equation}
+			
+		
+		\item \textbf{Normalprozess}\\
+		...
+		
+		
+		\item \textbf{Umklappprozess}\\
+		...
+	\end{itemize}
+
+
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{kubischer/isotropischer Kristall}
+		
+		
+		\item \textbf{Relaxationszeitansatz}
+		
+		
+		\item \textbf{...}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Wärmeleitfähigkeit}
+			\begin{equation}
+				\lambda = \frac{1}{3V} \sum_{\vec{q},j} v(\vec{q},j) \Lambda(\vec{q},j) \frac{\partial}{\partial T} \varepsilon(\omega(\vec{q},j),T),
+			\end{equation}
+			
+		mit dem Kristallvolumen $V$, dem Phononenwellenvektor $\vec{q}$, dem Zweigindex $j$, der Phonon-Gruppengeschwindigkeit $v$, der freien Weglänge der Phononen $\Lambda$, der Phononenergie $\varepsilon$ und der Temperatur $T$.
+		
+		
+	\end{itemize}
+
+
+\newpage
+
+
+\subsection{Elektrische Eigenschaften}
+\subsubsection{Bloch-Theorem}
+\hrule
+	\fbox{Theorem}\\
+	Ein Potential $V$, das die Periodizität des realen Gitters hat, lässt sich die Lösung der stationären Schrödinger-Gleichung als Produkt aus einer Funktion, die ebenfalls die Periodizität des Gitters hat $u_{\vec{k}}(\vec{x})$ und einer ebenen Welle $e^{i\vec{k}\vec{x}}$
+		\begin{equation}
+			\psi_{\vec{k}}(\vec{x}) = u_{\vec{k}}(\vec{x}) \cdot e^{i\vec{k}\vec{x}},
+		\end{equation}
+	
+	schreiben, die als \textit{Bloch-Welle} bezeichnet wird.\\
+	\\
+	Die Wellenfunktion erfüllt weiter, dass die Verschiebung des Wellenvektors um einen reziproken Gittervektor die Wellenfunktion unverändert lässt
+		\begin{equation}
+			\psi_{\vec{k}}(\vec{x}) = \psi_{\vec{k} + \vec{G}}(\vec{x}).
+		\end{equation}
+	
+	Daher genügt es, die Wellenfunktion sowie die Energiedispersion $E(\vec{k})$ in der 1. Brillouin-Zone darzustellen.
+\hrule
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/bloch-welle.png}
+		}
+		\caption{Schema einer Bloch-Welle sowie deren Bestandteilen}
+	\end{figure}
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $\psi_{\vec{k}}(\vec{x}) = u_{\vec{k}}(\vec{x}) \cdot e^{i\vec{k}\vec{x}}$\\
+	\\
+	Herleitungsskizze:\\
+	1) Potential durch Fourier-Reihe entwickeln \\
+	2) Ansatz Wellenfunktion als Überlagerung ebener Wellen \\
+	3) ... \\
+	4) ... \\
+	\\
+	\textcolor{red}{ERGÄNZEN Ibach, Lüth S.105-107}\\
+	\\
+	\fbox{Herleitung}\\
+	zz: $\psi_{\vec{k}}(\vec{x}) = \psi_{\vec{k} + \vec{G}}(\vec{x})$\\\\
+	\textcolor{red}{ERGÄNZEN Ibach, Lüth S.107}	
+	
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Bandstruktur (Freies Elektronengas)}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{keine Elektron-Elektron-Wechselwirkung}
+
+
+		\item \textbf{keine Elektron-Atomkern-Wechselwirkung}
+	\end{itemize}
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Energie-Dispersion}
+			\begin{equation}
+				E(\vec{k}) = \frac{ \hbar^2 \vec{k}^2 }{ 2m_e }
+			\end{equation}
+		
+		
+		\item \textbf{Fermi-Energie}
+			\begin{equation}
+				E_\text{F} = \frac{\hbar^2}{2m_e} (3n\pi^2)^{2/3},
+			\end{equation}
+		
+		mit der Elektronendichte $n$.
+
+		
+		\item \textbf{Zustandsdichte}\\
+		Die Zustandsdichte im Energieraum ist abhängig von der Geometrie des Elektronengases:
+			\begin{align}
+				Z_{0d}(E) &= 2\cdot \delta(E) \\
+				Z_{1d}(E) &= \frac{L}{\pi} \lr{\frac{2m}{\hbar^2}}^{1/2} \frac{1}{\sqrt{E}} \\
+				Z_{2d}(E) &= \frac{A}{2\pi} \lr{\frac{2m}{\hbar^2}}^{2/2} \\
+				Z_{3d}(E) &= \frac{V}{2\pi^2} \lr{ \frac{2m}{\hbar^2} }^{3/2} \sqrt{E}
+			\end{align}
+	\end{itemize}
+
+
+\begin{figure}[h]
+	\centering
+	\fbox{
+		\includegraphics[width=0.25\textwidth]{Grafiken/feg.pdf}
+	}
+	\caption{Bandstruktur des freien Elektronengases}
+\end{figure}
+
+
+\newpage
+
+
+\subsubsection{Bandstruktur (Quasifreies Elektronengas)}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{Einelektronnäherung}
+		
+		
+		\item \textbf{schwaches, periodisches Potential}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Energieaufspaltung}\\
+		Am Rand der 1. Brillouin-Zone beträgt die Differenz der ...
+			\begin{equation}
+				\Delta E = 2 |V_{\vec{G}}|,
+			\end{equation}
+		
+		mit ...
+	\end{itemize}
+
+
+
+
+
+
+\newpage
+
+
+\subsubsection{Bandstruktur (Tight-Binding-Modell)}
+
+
+\newpage
+
+
+\subsubsection{Elektrische Leitfähigkeit (Drude-Modell)}
+Das \textit{Drude-Modell} ist ein klassisches Modell zur Beschreibung der \textit{elektrischen Leitfähigkeit}.\\
+\\
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{klassisches Elektronengas}\\
+		Die Dynamik wird durch die Newton'sche Bewegungsgleichung
+			\begin{equation}
+				m\vec{a} = -e\vec{E} - \frac{m}{\tau}\vec{v}_D,
+			\end{equation}
+		
+		mit der Driftgeschwindigkeit $\vec{v}_D$ und der Streurate $\tau$ beschrieben.\\
+		Letztere berechnet sich über die empirische \textit{Matthissen'sche Regel}.
+
+
+		\item \textbf{alle Elektronen am Transport beteiligt}
+	\end{itemize}
+	
+	
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Driftgeschwindigkeit}\\
+		In stationären Strömen bewegen sich die Ladungsträger mit der Driftgeschwindigkeit
+			\begin{equation}
+				\vec{v}_D = -\mu \cdot \vec{E},
+			\end{equation}
+		
+		mit der \textit{Beweglichkeit} 
+			\begin{equation}
+				\mu := \frac{e\tau}{m}.
+			\end{equation}	
+		
+		
+		\item \textbf{Ohm'sches Gesetz}\\
+		Für stationäre Ströme gilt das Ohm'sche Gesetz
+			\begin{equation}
+				\vec{j} = \sigma \cdot \vec{E},
+			\end{equation}
+		
+		mit der Stromdichte $\vec{j}$, der elektrischen Leitfähigkeit
+			\begin{equation}
+				\sigma := \frac{e^2 n \tau}{m}
+			\end{equation}
+		
+		und dem angelegten elektrischen Feld $\vec{E}$.
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $\vec{v}_D = -\mu \cdot \vec{E}$ für stationäre Ströme \\
+	\\
+	Herleitungsskizze: Nullsetzen der Beschleunigung und umstellen\\
+	\\
+	Stationäre Ströme sind Ströme, deren Ladungsträger unbeschleunigt sind, d.h. $\vec{a} = 0$.\\
+	Einsetzen in die Newton'sche Bewegungsgleichung dieses Modells liefert demnach:
+		\begin{align*}
+			0 &= -e \vec{E} - \frac{m}{\tau} \vec{v}_D \\
+			\Leftrightarrow \vec{v}_D &= -\frac{e\tau}{m} \vec{E} \equiv \\
+			&\equiv -\mu \vec{E} \qquad \blacksquare
+		\end{align*}
+	
+
+	\fbox{Herleitung}\\
+	zz: Ohm'sches Gesetz $\vec{j} = \sigma \cdot \vec{E}$\\
+	\\
+	Herleitungsskizze:\\
+	1) Formuliere die Stromdichte $\vec{j}$ in Abhängigkeit der Driftgeschwindigkeit $\vec{v}_D$\\
+	2) Einsetzen der Driftgeschwindigkeit $\vec{v}_D = -\mu \cdot \vec{E}$\\
+	\\
+	Der Zusammenhang zwischen der Stromdichte $\vec{j}$ und Driftgeschwindigkeit $\vec{v}_D$ kann sich ausgehend von der Definition von $|\vec{j}|$ überlegt werden:
+		\begin{align*}
+			|\vec{j}| &:= \frac{I}{A}
+		\end{align*}
+
+	Setze die Definition der Stromstärke $I = \frac{\diff Q}{\diff t}$ ein:
+		\begin{align*}
+			|\vec{j}| &= \frac{\diff Q}{\diff t \cdot A}
+		\end{align*}
+	
+	Drücke nun die Ladung durch $\diff Q = -e \cdot \diff N$ aus:
+		\begin{align*}
+			|\vec{j}| &= \frac{-e \cdot \diff N}{\diff t \cdot A}
+		\end{align*}
+	
+	Erweitere nun mit der infinitesimalen Länge $\diff x$, die die Ladung in der Zeit $\diff t$ zurücklegt:
+		\begin{align*}
+			|\vec{j}| &= \frac{e \cdot \diff N \cdot \diff x}{\diff t \cdot A \cdot \diff x}
+		\end{align*}
+	
+	Erkenne das infinitesimale Volumen $\diff V = A \cdot \diff x$, das durch die Bewegung der Ladung aufgespannt wird sowie die Driftgeschwindigkeit $v_D = \frac{\diff x}{\diff t}$. Weiterhin kann die Ladungsdichte $n = \frac{\diff N}{\diff V}$ eingesetzt werden:
+		\begin{align*}
+			\vec{j} &= -e \cdot n \cdot \vec{v}_D
+		\end{align*}
+	
+	Einsetzen des im vorherigen Beweis gefundenen Ausdrucks $\vec{v}_D = -\mu \cdot \vec{E} \equiv -\frac{e\tau}{m} \cdot \vec{E}$ liefert
+		\begin{align*}
+			\vec{j} &= -e \cdot n \cdot \lr{ -\frac{e\tau}{m} \cdot \vec{E} } = +\frac{e^2 n \tau}{m} \cdot \vec{E} \equiv \sigma \cdot \vec{E} \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Elektrische Leitfähigkeit (Sommerfeld-Modell)}
+Das \textit{Sommerfeld-Modell} ist ein semi-klassisches Modell zur Beschreibung der elektrischen Leitfähigkeit.\\
+Es kommt formell auf dieselben Gleichungen wie das Drude-Modell, verwendet jedoch eine andere Streuzeit $\tau$ und liefert somit abweichende Ergebnisse für insbesondere die Beweglichkeit und elektrische Leitfähigkeit.\\
+\\
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{Fermi-Gas}\\
+		Quantenmechanisches freies Elektronengas
+		
+		
+		\item \textbf{ausgewählte Elektronen am Transport beteiligt}\\
+		Lediglich Elektronen nahe der Fermi-Kante tragen zur elektrischen Leitfähigkeit bei
+	\end{itemize}
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Driftgeschwindigkeit}\\
+			\begin{equation}
+				\vec{v}_\text{D} = -\mu \cdot \vec{E},
+			\end{equation}
+		
+		mit der Beweglichkeit
+			\begin{equation}
+				\mu := \frac{e\tau_\text{relax}}{m}.
+			\end{equation}
+		
+		
+		\item \textbf{Ohm'sches Gesetz}\\
+			\begin{equation}
+				\vec{j} = \sigma \cdot \vec{E},
+			\end{equation}
+		
+		mit der elektrischen Leitfähigkeit
+			\begin{equation}
+				\sigma := \frac{e^2n\tau_\text{relax}}{m}.
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $\vec{j} = \sigma \cdot \vec{E}$ \\
+	\\
+	Herleitungsskizze:\\
+	1) Drude-Modell Stromdichte $\vec{j}$ mit qm. Erwartungswert $\braket{\vec{v}} = \frac{m}{\hbar}\braket{\vec{k}}$ formulieren \\
+	2) Relaxationszeitansatz für $\braket{\vec{k}}$ \\
+	3) Zerlegung der Verschiebung $\delta \vec{k}$ in Kraft- und Streuanteil \\
+	\\
+	Die Stromdichte im semi-klassischen Modell verwendet den klassischen Ausdruck $\vec{j} = -e \cdot n \cdot \vec{v}$ aus dem Drude-Modell und ersetzt die Geschwindigkeit mit dem quantenmechanischen Erwartungswert $\vec{v} \to \braket{\vec{v}}$:
+		\begin{align*}
+			\vec{j} &= -e \cdot n \cdot \braket{\vec{v}} = -e \cdot n \cdot \frac{1}{m} \braket{\vec{p}} = -e \cdot n \cdot \frac{\hbar}{m} \braket{\vec{k}}
+		\end{align*}
+	
+	Eine nicht-verschwindende Stromdichte existiert jedoch nur im Nicht-Gleichgewicht, d.h. bei einer Verschiebung $\vec{k} \to \braket{\vec{k}} + \braket{\vec{k}'} \equiv \delta\vec{k}$:
+		\begin{align*}
+			\vec{j} &= -\frac{en\hbar}{m} \cdot \delta\vec{k}
+		\end{align*}
+	
+	Untersuche die zeitliche Veränderung des Erwartungswerts $\braket{\vec{k}}$. Diese setzt sich aus der Veränderung aufgrund einer wirkenden Kraft und der Veränderung aufgrund von Stoßprozessen zusammen:
+		\begin{align*}
+			\frac{\diff \braket{\vec{k}}}{\diff t} = \left. \frac{\diff \braket{\vec{k}}}{\diff t} \right|_\text{Kraft} + \left. \frac{\diff \braket{\vec{k}}}{\diff t} \right|_\text{Stoß}
+		\end{align*}
+	
+	Untersuche beide Terme separat.\\
+	Beginne mit dem Kraftterm. In diesem Modell wirkt ein elektrisches Feld, womit für die Kraft $\vec{F} = -e\vec{E}$ gilt. Dies kann gleichgesetzt werden mit der semi-klassischen Newton'schen Bewegungsgleichung $\vec{F} = m \frac{\diff \braket{\vec{v}}}{\diff t}$:
+		\begin{align*}
+			-e\vec{E} &\stackrel{!}{=} m \frac{\diff \braket{\vec{v}}}{\diff t} = \hbar \left. \frac{\diff \braket{\vec{k}}}{\diff t} \right|_\text{Kraft} \\
+			\Leftrightarrow \left. \frac{\diff \braket{\vec{k}}}{\diff t} \right|_\text{Kraft} &= -\frac{e\vec{E}}{\hbar}
+		\end{align*}
+	
+	Für den Stoßterm wird der Ansatz
+		\begin{align*}
+			\left. \frac{\diff \braket{\vec{k}}}{\diff t} \right|_\text{Stoß} &= -\frac{\delta\vec{k}}{\tau}
+		\end{align*}
+	
+	mit der Stoßzeit $\tau$ verwendet.\\
+	\\
+	Einsetzen der beiden Terme in $\frac{\diff\braket{\vec{k}}}{\diff t}$ und Nullsetzen (da stationäre Prozesse betrachtet werden) liefert:
+		\begin{align*}
+			0 &= -\frac{e}{\hbar} \vec{E} - \frac{1}{\tau} \delta\vec{k} \\
+			\Leftrightarrow \delta\vec{k} &= -\frac{e\tau}{\hbar} \vec{E}
+		\end{align*}
+	
+	Einsetzen in die Stromdichte ergibt sich das Ohm'sche Gesetz:
+		\begin{align*}
+			\vec{j} &= -\frac{e n \hbar}{m} \cdot \lr{ - \frac{e\tau}{\hbar} \vec{E} } = \frac{e^2 n \tau}{m} \vec{E} \equiv \sigma \vec{E}
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+%\subsubsection{Sommerfeld-Modell mit B-Feld}
+%\fbox{Annahmen}
+%	\begin{itemize}
+%		\item \textbf{Fermi-Gas}\\
+%		Quantenmechanisches freies Elektronengas
+%		
+%		
+%		\item \textbf{ausgewählte Elektronen am Transport beteiligt}\\
+%		Lediglich Elektronen nahe der Fermi-Kante tragen zur elektrischen Leitfähigkeit bei
+%		
+%		
+%		\item \textbf{B-Feld in z-Richtung}\\
+%			\begin{equation*}
+%				\vec{B} = B \cdot \vec{e}_z
+%			\end{equation*}
+%	\end{itemize}
+%
+%
+%\fbox{Resultate}
+%	\begin{itemize}
+%		\item \textbf{angepasstes Ohm'sche Gesetz}
+%			\begin{equation}
+%				\vec{j}
+%				=
+%				\begin{pmatrix}
+%					j_x \\ j_y \\ j_z
+%				\end{pmatrix}
+%				=
+%				\frac{\sigma_0}{1 + (\omega_c \tau)^2}
+%				\begin{pmatrix}
+%					1 & -\omega_c \tau & 0 \\
+%					\omega_c \tau & 1 & 0 \\
+%					0 & 0 & 1 + (\omega_c \tau)^2
+%				\end{pmatrix}
+%				\cdot
+%				\begin{pmatrix}
+%					E_x \\ E_y \\ E_z
+%				\end{pmatrix}
+%				=
+%				\underline{\sigma}
+%				\cdot
+%				\vec{E}
+%			\end{equation}
+%
+%			mit der \underline{Zyklotronfrequenz} $\omega_c = \frac{eB}{m}$ und der elektrischen Leitfähigkeit in Abwesenheit eines B-Feldes $\sigma_0$.\\
+%\textcolor{gruen}{Für $B=0$ vereinfacht sich dieser Ausdruck offenkundig zum Ohm'schen Gesetz ohne B-Feld, da alle Terme mit der Zyklotronfrequenz verschwinden.}
+%	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $\vec{j} = \underline{\sigma} \cdot \vec{E}$\\
+	\\
+	Herleitungsskizze:\\
+	1) Passe die Herleitung des Sommerfeld-Modells an: Coulomb-Kraft $\to$ Lorentz-Kraft \\
+	2) Löse Gleichungssystem nach $\delta\vec{v}$ \\
+	3) Einsetzen der Lösung in Stromdichte \\
+	\\
+	Formuliere die zeitliche Änderung des $\vec{k}$-Erwartungswerts wie im Sommerfeld-Modell, jedoch mit der Lorentz-Kraft statt der Coulomb-Kraft im Kraftterm:
+		\begin{align*}
+			\frac{\diff \braket{\vec{k}}}{\diff t} = \left. \frac{\diff \braket{\vec{k}}}{\diff t} \right|_\text{Kraft} + \left. \frac{\diff \braket{\vec{k}}}{\diff t} \right|_\text{Stoß} \\
+			\Leftrightarrow \frac{\diff \braket{\vec{v}}}{\diff t} = \left. \frac{\diff \braket{\vec{v}}}{\diff t} \right|_\text{Kraft} + \left. \frac{\diff \braket{\vec{v}}}{\diff t} \right|_\text{Stoß}
+		\end{align*}
+	
+	Für den Kraftterm ergibt sich somit:
+		\begin{align*}
+			\vec{F} &= -e\lr{ \vec{E} + \braket{\vec{v}} \times \vec{B} } = m \left. \frac{\diff \braket{\vec{v}}}{\diff t} \right|_\text{Kraft} \\
+			\Leftrightarrow \left. \frac{\diff \braket{\vec{v}}}{\diff t} \right|_\text{Kraft} &= -\frac{e}{m} \lr{ \vec{E} + \braket{\vec{v}} \times \vec{B} }
+		\end{align*}
+	
+	Der Stoßterm bleibt unverändert.\\
+	\\
+	Einsetzen in den oberen Zusammenhang, erneut für den stationären Fall, ergibt:
+		\begin{align*}
+			0 &= -\frac{e}{m} \lr{ \vec{E} + \delta\vec{v} \times \vec{B} } - \frac{1}{\tau}\delta\vec{v} \\ \Leftrightarrow \delta\vec{v} &= -\frac{e\tau}{m} \lr{ \vec{E} + \delta\vec{v} \times \vec{B} } \\
+			\Leftrightarrow
+			\begin{pmatrix}
+				\delta v_x \\ \delta v_y \\ \delta v_z
+			\end{pmatrix}
+			&=
+			-\frac{e\tau}{m}
+			\begin{pmatrix}
+				E_x + \delta v_y \cdot B_z - \delta v_z \cdot B_y \\
+				E_y + \delta v_z \cdot B_x - \delta v_x \cdot B_z \\
+				E_z + \delta v_x \cdot B_y - \delta v_y \cdot B_x
+			\end{pmatrix}
+			\intertext{Mit der Annahme $\vec{B} = B \cdot \vec{e}_z$ vereinfacht sich dieser Ausdruck zu:}
+			\Leftrightarrow
+			\begin{pmatrix}
+				\delta v_x \\ \delta v_y \\ \delta v_z
+			\end{pmatrix}
+			&=
+			-\frac{e\tau}{m}
+			\begin{pmatrix}
+				E_x + \delta v_y \cdot B_z \\
+				E_y - \delta v_x \cdot B_z \\
+				E_z
+			\end{pmatrix} \equiv -\omega_c\tau 
+			\begin{pmatrix}
+				E_x + \delta v_y \cdot B_z \\
+				E_y - \delta v_x \cdot B_z \\
+				E_z
+			\end{pmatrix}
+		\end{align*}
+	
+	Die ersten beiden Gleichungen bilden ein gekoppeltes lineares Gleichungssystem, das sich leicht lösen lässt. Die Lösung für $\delta\vec{v}$ ist schließlich:
+		\begin{align*}
+			\delta\vec{v} =
+			\begin{pmatrix}
+				\delta v_x \\\delta v_y \\ \delta v_z
+			\end{pmatrix}
+			=
+			\frac{\omega_c\tau}{1 + (\omega_c\tau)^2} \frac{1}{B} \cdot
+			\begin{pmatrix}
+				-E_x + \omega_c\tau \cdot E_y \\
+				-\omega_c\tau \cdot E_x - E_y \\
+				-(1 + (\omega_c\tau)^2) \cdot E_z
+			\end{pmatrix}
+		\end{align*}
+
+
+\newpage
+
+
+	Die Stromdichte ist somit:
+		\begin{align*}
+			\vec{j} &= - e \cdot n \cdot \delta\vec{v} = \\
+			&= - \lr{ \frac{e \cdot n \cdot \omega_c\tau}{B} } \cdot \frac{1}{1 + (\omega_c\tau)^2} \cdot
+			\begin{pmatrix}
+				-E_x + \omega_c\tau \cdot E_y \\
+				-\omega_c\tau \cdot E_x - E_y \\
+				-(1 + (\omega_c\tau)^2) \cdot E_z
+			\end{pmatrix} = \\
+			&= - \lr{ \frac{e \cdot n \cdot \frac{eB}{m}\tau}{B} } \cdot \frac{1}{1 + (\omega_c\tau)^2} \cdot
+			\begin{pmatrix}
+				-E_x + \omega_c\tau \cdot E_y \\
+				-\omega_c\tau \cdot E_x - E_y \\
+				-(1 + (\omega_c\tau)^2) \cdot E_z
+			\end{pmatrix} = \\
+			&= - \frac{e^2 n \tau}{m} \cdot \frac{1}{1 + (\omega_c\tau)^2} \cdot
+			\begin{pmatrix}
+				-E_x + \omega_c\tau \cdot E_y \\
+				-\omega_c\tau \cdot E_x - E_y \\
+				-(1 + (\omega_c\tau)^2) \cdot E_z
+			\end{pmatrix} \equiv \\
+			&\equiv - \frac{\sigma_0}{1 + (\omega_c\tau)^2} \cdot 
+			\begin{pmatrix}
+				-E_x + \omega_c\tau \cdot E_y \\
+				-\omega_c\tau \cdot E_x - E_y \\
+				-(1 + (\omega_c\tau)^2) \cdot E_z
+			\end{pmatrix} \equiv \\
+			&\equiv -\frac{\sigma_0}{1 + (\omega_c\tau)^2} \cdot
+			\begin{pmatrix}
+				-1 & \omega_c\tau & 0 \\
+				-\omega_c\tau & -1 & 0 \\
+				0 & 0 & 1 + (\omega_c\tau)^2
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				E_x \\ E_y \\ E_z
+			\end{pmatrix} = \\
+			&= \frac{\sigma_0}{1 + (\omega_c\tau)^2} \cdot
+			\begin{pmatrix}
+				1 & -\omega_c\tau & 0 \\
+				\omega_c\tau & 1 & 0 \\
+				0 & 0 & 1 + (\omega_c\tau)^2
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				E_x \\ E_y \\ E_z
+			\end{pmatrix} = \\
+			& \equiv \underline{\sigma} \cdot \vec{E} \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Dielektrische Eigenschaften}
+\subsubsection{Grundlegende Begriffe und Definitionen}
+\fbox{Kategorisierung}
+	\begin{itemize}
+		\item \textbf{dielektrische Festkörper}\\
+		Festkörper ohne permanente elektrische Dipole oder spontane Polarisation, die durch ein äußeres Feld polarisiert werden können
+		
+		
+		\item \textbf{paraelektrische Festkörper}\\
+		Festkörper, die aus permanenten elektrischen Dipolen bestehen, die durch ein äußeres elektrisches Feld ausgerichtet werden können
+		
+		
+		\item \textbf{ferro- und antiferroelektrische Festkörper}\\
+		Festkörper, die unterhalb einer spezifischen Temperatur spontane Polarisation aufweisen		
+	\end{itemize}
+
+
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{Elektrische Suszeptbilität}\\
+		Die \textit{elektrische Suszeptibilität} $\chi$ beschreibt den Zusammenhang zwischen Polarisation $\vec{P}$ und E-Feld $\vec{E}$ und ist im Allgemeinen ein Tensor:
+			\begin{equation}
+				\vec{P}(\vec{r},t) = \chi \cdot \vec{E}(\vec{r},t)
+			\end{equation}
+		
+		
+		\item \textbf{Dielektrische Funktion}\\
+		Die \textit{dielektrische Funktion} hängt wie folgt mit der elektrischen Suszeptibilität zusammen und ist ebenfalls im Allgemeinen ein Tensor
+			\begin{equation}
+				\varepsilon_{ij} := 1 + \chi_{ij}.
+			\end{equation}
+		
+		
+		\item \textbf{lokales E-Feld}\\
+		Das \textit{lokale E-Feld} in einem Festkörper $\vec{E}_\text{lok}$, der durch ein externes E-Feld $\vec{E}_\text{ext}$ polarisiert wird, ist
+			\begin{equation}
+				\vec{E}_\text{lok} = \vec{E}_\text{ext} + \vec{E}_\text{L} + \vec{E}_\text{N},
+			\end{equation}
+		
+		mit dem Lorentz-Feld $\vec{E}_\text{L}$ und dem Depolarisationsfeld $\vec{E}_\text{N}$.
+		
+	
+%		\item \textbf{Polarisation}\\
+%		Die Polarisation ist definiert als das elektrische Dipolmoment pro Volumen
+%			\begin{equation}
+%				\vec{P} := \frac{\vec{p}_\text{el}}{V} = \frac{\sum_i \vec{p}_\text{el,i}}{V}
+%			\end{equation}
+
+%
+%		\item \textbf{Dielektrische Verschiebung}
+%			\begin{equation}
+%				\vec{D}(\vec{r},t) := \varepsilon_0 \vec{E}(\vec{r},t) + \vec{P}(\vec{r},t)
+%			\end{equation}
+%		
+%		
+%		\item \textbf{Polarisierbarkeit}\\
+%		Die Polarisierbarkeit $\alpha$ beschreibt den Zusammenhang zwischen dem induzierten elektrischen Dipolmoment $\vec{p}_\text{el}$ und dem E-Feld $\vec{E}$
+%			\begin{equation}
+%				\vec{p}_\text{el} = \alpha \cdot \vec{E}
+%			\end{equation}
+	\end{itemize}
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=\textwidth]{Grafiken/dielektrische festkörper.png}
+		}
+		\caption{Darstellung dielektrische und paraelektrische Festkörper; a) Lorentz-Oszillator-Modell dielektrischer Festkörper; b) Ionenkristall-Modell dielektrischer Festkörper; c) Modell eines paraelektrischen Fesktörpers}
+	\end{figure}
+
+
+%\hrule
+%	\fbox{Theorem}\\
+%	Die \textit{Kramers-Kronig-Relation} beschreibt den Zusammenhang zwischen Real- und Imaginärteil der dielektrischen Funktion $\varepsilon_\text{R}$ bzw. $\varepsilon_\text{I}$
+%		\begin{align}
+%			\varepsilon_\text{R}(\omega) &= \frac{2}{\pi} \mathcal{P} \lrschweif{ \int_0^\infty \diff\omega' \, \frac{ \omega' \cdot \varepsilon_\text{I}(\omega) }{ \omega'^2 - \omega^2 } } \\
+%			\varepsilon_\text{I}(\omega) &= -\frac{2\omega}{\pi} \mathcal{P} \lrschweif{ \int_0^\infty \diff\omega' \, \frac{ \varepsilon_\text{R}(\omega') }{ \omega'^2 - \omega^2 }},
+%		\end{align}
+%	
+%	wobei $\mathcal{P}$ den Hauptwert des Integrals berechnet.
+%\hrule
+
+
+\newpage
+
+
+\subsubsection{Dielektrische Funktion (Lorentz-Oszilator)}
+Das Lorentz'sche Oszillator-Modell modelliert Elektronen als negative Punktladungen, die an einen Atomkern gebunden sind und mit einem äußeren E-Feld interagieren.\\
+\\
+Die dielektrische Funktion dieses Modells ist:
+	\begin{align}
+		\varepsilon(\omega) &= 1 + \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{1}{(\omega_0^2 - \omega^2) - i\Gamma\omega} \\
+		\varepsilon_\text{R}(\omega) &= 1 + \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{(\omega_0^2 - \omega^2)}{(\omega_0^2 - \omega^2) - \Gamma\omega} \\
+		\varepsilon_\text{I}(\omega) &= \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{\Gamma\omega}{(\omega_0^2 - \omega^2) - \Gamma\omega}
+	\end{align}
+
+mit der Teilchendichte $n_\text{V}$.
+
+\vspace{0.5cm}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Grafiken/reflexivität lorentz.png}
+	\caption{Real- und Imaginärteil der dielektrischen Funktion eines durch Lorentz-Oszillatoren modellierten Festkörpers mit 2 Resonanzfrequenzen}
+\end{figure}
+
+
+\newpage
+
+
+\subsubsection{Dielektrische Funktion (Ionische Polarisation)}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{zweiatomige Basis aus Anion und Kation}
+		
+		
+		\item \textbf{harmonische Näherung}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{dielektrische Funktion}
+			\begin{align}
+			\varepsilon(\omega) = \varepsilon_\text{stat} \frac{\omega_L^2 - \omega^2}{\omega_T^2 - \omega^2}
+			\end{align}
+
+		mit der freien longitudinalen bzw. freien transversalen Schwingungsfrequenz
+			\begin{align}
+				\omega_L &= \omega_0 \sqrt{ 1 + \frac{ \frac{2}{3} n_V \alpha_\text{ion}(0) }{ 1 + \frac{2}{3} n_V \alpha_\text{el}(0) } } \\
+				\omega_T &= \omega_0 \sqrt{ 1 - \frac{ \frac{1}{3} n_V \alpha_\text{ion}(0) }{ 1 + \frac{1}{3} n_V \alpha_\text{el}(0) } },
+			\end{align}
+
+		wobei $\alpha$ die Polarisierbarkeit ist.
+	\end{itemize}
+
+\vspace{0.5cm}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Grafiken/reflexivität ion.png}
+	\caption{Reflexivität eines Ionkristalls}
+\end{figure}
+
+
+\newpage
+
+
+\subsubsection{Dielektrische Funktion (Orientierungspolarisation)}
+Die \textit{Orientierungspolarisation} ist die Polarisation, die aufgrund der Ausrichtung von permanenten elektrischen Dipolen in einem Material auftritt.\\
+\\
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{permanente elektrische Dipole}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{elektrische Suszeptibilität}
+			\begin{align}
+				\chi_\text{dip,r}(\omega) &= \frac{1}{1 + \omega^2\tau^2} \chi_\text{dip}(0) \\
+				\chi_\text{dip,i}(\omega) &= \frac{\omega\tau}{1 + \omega^2\tau^2} \chi_\text{dip}(0)
+			\end{align}
+	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/orientierungspolarisation.png}
+		}
+		\caption{Elektrische Suszeptiblität aufgrund von Orientierungspolarisation}
+	\end{figure}
+
+
+\newpage
+
+
+\subsubsection{Dielektrische Funktion (Freies Elektronengas)}
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{Effektive-Masse-Näherung}
+		
+		
+		\item \textbf{Reibungsterm}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{dielektrische Funktion}
+			\begin{align}
+				\varepsilon_\text{R}(\omega) &= \varepsilon_\text{el}(\omega) \cdot \lreck{ 1 - \lr{\frac{\omega_p}{\omega}^2} \frac{(\omega\tau)^2}{1 + (\omega\tau)^2} } \\
+				\varepsilon_\text{I}(\omega) &= \varepsilon_\text{el}(\omega) \cdot \lr{\frac{\omega_p}{\omega}}^2 \cdot \frac{\omega\tau}{1 + (\omega\tau)^2}
+			\end{align}
+	\end{itemize}
+
+\vspace{0.5cm}
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Grafiken/reflexivität feg.png}
+		\caption{Reflexivität $R$ und Realteil der dielektrischen Funktion $\varepsilon_\text{R}(\omega)$ eines freien Elektronengases}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: dielektrische Funktion $\varepsilon(\omega)$\\
+	\\
+	Herleitungsskizze: \\
+	1) Newton'sche Bewegungsgleichung aufstellen \\
+	2) Polarisation formulieren \\
+	3) Elektrische Suszeptibilität berechnen \\
+	4) Dielektrische Funktion berechnen \\
+	\\
+	In der Effektive-Masse-Näherung kann die Bewegung des Elektrons durch die Newton'sche Physik, unter Verwendung der effektiven Masse $m^\star$, beschrieben werden
+		\begin{align*}
+			m^\star \frac{\diff^2 x}{\diff t^2} + \frac{m^\star}{\tau} \frac{\diff x}{\diff t} = -e E_0 e^{i\omega\tau},
+		\end{align*}
+
+	wobei der Reibungsterm durch Stoßprozesse zustande kommt.\\
+\\
+	Die Lösung diese Problems ist aus der Mechanik bekannt:
+		\begin{align*}
+			x(t) = \frac{e}{m^\star} \frac{1}{\omega \lr{ \omega + i \frac{1}{\tau}} } \cdot E_0 e^{-i\omega t}
+		\end{align*}
+	
+	Die Polarisation ergibt sich durch Multiplikation mit der Ladungsdichte und der negativen Elementarladung:
+		\begin{align*}
+			P_\text{L}(t) = -e n_V x(t) = -\frac{n_V e^2}{\varepsilon_0 m^\star} \frac{1}{\omega \lr{ \omega + i \frac{1}{\tau} } } E_0 e^{-i\omega t}
+		\end{align*}
+	
+	Die elektrische Suszeptibilität ergibt sich aus dessen Definition:
+		\begin{align*}
+			\chi_\text{L}(\omega) = \frac{P_\text{L}}{\varepsilon_0 E} = -\frac{n_V e^2}{\varepsilon_0 m^\star} \frac{1}{\omega \lr{\omega + i \frac{1}{\tau}} }
+		\end{align*}
+	
+	Schließlich ist die dielektrische Funktion
+		\begin{align*}
+			\varepsilon(\omega) &= 1 + \chi_\text{el}(\omega) + \chi_\text{L}(\omega) = \varepsilon_\text{el}(\omega) + \chi_\text{L}(\omega) = \\
+			&= \varepsilon_\text{el}(\omega) -\frac{n_V e^2}{\varepsilon_0 m^\star} \frac{1}{\omega \lr{\omega + i \frac{1}{\tau}} } = \\
+			&= \varepsilon_\text{el}(\omega) \lr{ 1 - \frac{n_V e^2}{\varepsilon_0 \varepsilon_\text{el}(\omega) m^\star} \frac{1}{\omega \lr{\omega + i \frac{1}{\tau}} } } \equiv \\
+			&\equiv \varepsilon_\text{el}(\omega) \lr{ 1 - (\omega_p\tau)^2  \frac{1-i\frac{1}{\omega\tau}}{1 + (\omega\tau)^2} }
+		\end{align*}
+	
+	mit der Plasmafrequenz $\omega_p := \sqrt{\frac{n_V e^2}{\varepsilon_0\varepsilon_\text{el}(\omega)m^\star}}$ und $\varepsilon_\text{el}(\omega)$ die dielektrische Funktion aufgrund von an die Ionen gebundenen Elektronen ist. $\qquad \blacksquare$
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Optische Eigenschaften}
+\subsubsection{Absorption, Reflexion und Transmission}
+Die optischen Eigenschaften Absorption, Reflexion und Transmission lassen sich unmittelbar aus den dielektrischen Eigenschaften ableiten.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Absorptionskoeffizient}\\
+		Der \textit{Absorptionskoeffizient} $K$ ist die Energie, die beim Durchlauf eines Materials der Länge $1$ absorbiert wird:
+			\begin{align}
+				K(\omega) &= \frac{2\omega n_\text{I}}{c} = \frac{4\pi n_\text{I}}{\lambda} = 2k n_\text{I} = \frac{\varepsilon_\text{I}(\omega)}{c}
+			\end{align}
+		
+		
+		\item \textbf{Reflexionskoeffizient}\\
+		Der \textit{Reflexionskoeffizient} ist definert als das Verhältnis der reflektierten und einfallenden Intensität.\\
+		Im Falle normaler Inzidenz gilt:
+			\begin{equation}
+				R(\omega) = \left| \frac{n_\text{R}-1}{n_\text{R}+1} \right|^2 = \frac{(n_\text{R}-1)^2 + n_\text{I}^2}{(n_\text{R}+1)^2 + n_\text{I}^2}
+			\end{equation}
+		
+		
+		\item \textbf{Transmissionskoeffizient}\\
+		Der \textit{Transmissionskoeffizient} ist definiert als das Verhältnis der transmittierten und einfallenden Intensität.\\
+		Im Falle normaler Inzidenz gilt:
+			\begin{equation}
+				T(\omega) = \left| \frac{2}{n_\text{R}+1} \right|^2 = \frac{4n_\text{R}(\omega)}{(n_\text{R}+1)^2 + n_\text{I}^2}
+			\end{equation}
+	\end{itemize}
+	
+	
+\newpage
+
+
+%\subsection{Supraleitung}
+%\subsubsection{Phänomene}
+%\subsubsection{London-Theorie}
+%\subsubsection{Verallgemeinerte London-Theorie}
+%\subsubsection{Ginzburg-Landau-Theorie}
+%\subsubsection{BCS-Theorie}
+
+
+\newpage
+
+
+\section{Halbleiter}
+\textit{Halbleiter} sind Materialien, die eine Energielücke $E_g$ zwischen Valenz- und Leitungsbandkante aufweisen.\\
+\\
+\fbox{Kategorisierung}
+	\begin{itemize}
+		\item \textbf{Direkte Halbleiter}\\
+		Halbleiter, in denen das Maximum der Valenzbandkante direkt unterhalb des Minimums der Leitungsbandkante liegt
+		
+		\item \textbf{Indirekte Halbleiter}\\
+		Halbleiter, in denen das Maximum der Valenzbandkante versetzt zum zum Minimum der Leitungsbandkante liegt
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{elektrische Leitfähigkeit}\\
+			\begin{equation}
+				\sigma = |e| n \mu_n + |e| p \mu_p,
+			\end{equation}
+
+		mit der Beweglichkeit der Elektronen bzw. Löcher $\mu_n$ und $\mu_p$.
+		
+		
+		\item \textbf{Massenwirkungsgesetz}\\
+		Das \textit{Massenwirkungsgesetz} beschreibt, dass sich Elektron- und Lochdichte im Halbleiter gemäß effektiver Massen, Bandlücke und Temperatur einstellen
+			\begin{equation}
+				n \cdot p = 4 \cdot \lr{ \frac{k_B T}{2\pi\hbar^2} } \cdot \lr{ m_n^\star m_p^\star }^{3/2} \cdot e^{-\frac{E_g}{k_B T}}.
+			\end{equation}
+	\end{itemize}	
+
+
+\newpage
+
+
+\subsection{Intrinsische Halbleiter}
+\textit{Intrinsische Halbleiter} sind Halbleiter ohne Dotieratome, sodass der Festkörper elektrisch neutral ist
+	\begin{equation}
+		n = p,
+	\end{equation}
+
+mit der Dichte der Transportelektronen $n$ und der Dichte der Transportlöcher $p$ bezüglich dem Realraum $V$.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+	\item \textbf{Transportelektronen- und -lochdichte}
+		\begin{align}
+			n &= 2 \cdot \lr{ \frac{2\pi \cdot m_n^\star \cdot k_B T}{h^2} }^{3/2} \cdot e^{-\frac{E_\text{L,min} - E_\text{F}}{k_\text{B}T}} \\
+			p &= 2 \cdot \lr{ \frac{2\pi \cdot m_p^\star \cdot k_B T}{h^2} }^{3/2} \cdot e^{+\frac{E_\text{V,max} - E_\text{F}}{k_\text{B}T}}
+		\end{align}
+
+	mit der effektiven Elektronen- und Lochmasse $m_n^\star$ bzw. $m_p^\star$.
+	
+	
+	\item \textbf{Massenwirkungsgesetz}\\
+	Das Massenwirkungsgesetz nimmt für intrinsische Halbleiter die folgende Form
+		\begin{equation}
+			n \cdot p = 4 \cdot \lr{ \frac{k_BT}{2\pi\hbar^2} }^3 \cdot (m_n^\star \cdot m_p^\star)^{3/2} \cdot e^{-\frac{E_g}{k_BT}}
+		\end{equation}
+	
+	mit der Bandlücke $E_g$ an.
+	
+	
+	\item \textbf{Elektrische Leitfähigkeit}
+		\begin{align}
+			\sigma &= 2 \cdot \lr{ \frac{2\pi \cdot k_B T}{h^2} }^{3/2} \lreck{ \tau_n \sqrt{m_n^\star} \cdot e^{-\frac{E_\text{L,min} - E_\text{F}}{k_\text{B}T}} + \tau_p \sqrt{m_p^\star} \cdot e^{+\frac{E_\text{V,max} - E_\text{F}}{k_\text{B}T}} }
+		\end{align}
+	\end{itemize}
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $n = 2 \cdot \lr{ \frac{2\pi \cdot m_n^\star \cdot k_BT}{h^2} }^{3/2} \cdot e^{-\frac{E_\text{L,min}-E_F}{k_B T}}$\\
+	\\
+	Herleitungsskizze:\\
+	1) Annahme parabolischer Bänder \\
+	2) Formulierung diskreten Dichten \\
+	3) Quasikontinuierlicher Übergang unter Beachtung der Integrationsgrenzen \\
+	\\
+	Betrachte eine parabolische Leitungs- und eine parabolische Valenzbandkante mit den effektiven Massen $m_n^\star, m_p^\star$.\\
+	\\
+	Die Transportelektronen- und Transportlöcherdichte  $n$ bzw. $p$ berechnet sich gemäß:
+		\begin{align*}
+			n &= \frac{N}{V} = \frac{\sum_E f_\text{FD}(E)}{V} \\
+			p &= \frac{N}{V} = \frac{\sum_E (1 - f_\text{FD}(E))}{V}
+		\end{align*}
+
+	Beim quasikontinuierlichen Übergang muss dabei zum einen beachtet werden, dass Leitungs- und Valenzband im $E$-$k$-Diagramm aus dem Ursprung verschoben sind und zum anderen durch zwei unterschiedliche effektive Massen $m_n^\star$ bzw. $m_p^\star$ beschrieben werden.\\
+	Die Zustandsdichte des Leitungsbandes beginnt beim Leitungsbandkantenminimum $E_\text{L,min}$ und nimmt in positive $E$-Richtung zu. Somit $D_\text{L}(E) \to D_\text{L}(E-E_\text{L,min})$.\\
+	Die Zustandsdichte des Valenzbandes beginnt beim Valenzbandkantenmaximum $E_\text{V,max}$ und nimmt in negative $E$-Richtung zu. Somit $D_\text{V}(E) \to D(E_\text{V,max}-E)$.\\
+	Daraus folgt für $n,p$:
+		\begin{align*}
+			n &\longrightarrow \frac{\int_{E_\text{L,min}}^\infty \diff E \, D_\text{L}(E-E_\text{L,min}) \cdot f_\text{FD}(E)}{V} \\
+			p &\longrightarrow \frac{\int^{E_\text{V,max}}_{-\infty} \diff E \, D_\text{V}(E_\text{V,max}-E) \cdot f_\text{FD}(E)}{V}
+		\end{align*}
+
+	Berechne die Dichten explizit, beginnend mit der Elektrondichte:
+		\begin{align*}
+			n &= \frac{\int_{E_\text{L,min}}^\infty \diff E \, \frac{\cancel{V} \cdot (2m_n^\star)^{3/2}}{2\pi^2\hbar^3} \sqrt{E-E_\text{L,min}} \cdot e^{-\frac{E-E_\text{F}}{k_B T}}}{\cancel{V}} = \\
+			&= \frac{(2m_n^\star)^{3/2}}{2\pi^2\hbar^3} \int_{E_\text{L,min}}^\infty \diff E \, \sqrt{E-E_\text{L,min}} \cdot e^{-\frac{E-E_\text{F}}{k_B T}}
+			\intertext{Substituiere $u = E - E_\text{L,min}$, $\frac{\diff u}{\diff E} = 1$, $u(E_\text{L,min}) = 0, u(\infty) = \infty$:}
+			&= \frac{(2m_n^\star)^{3/2}}{2\pi^2\hbar^3} \cdot \int_0^\infty \diff u \, \sqrt{u} \cdot e^{-\frac{u+E_\text{L,min}-E_F}{k_B T}} = \\
+			&= \frac{(2m_n^\star)^{3/2}}{2\pi^2\hbar^3} \cdot e^{-\frac{E_\text{L,min}-E_F}{k_B T}} \cdot \underbrace{ \int_0^\infty \diff u \, \sqrt{u} \cdot e^{-\frac{u}{k_B T}} }_{=: I} = \\
+		\end{align*}
+
+	Betrachte das Integral $I$ separat.\\
+	Substituiere $v = \sqrt{u}, \frac{\diff v}{\diff u} = \frac{1}{2\sqrt{u}} = \frac{1}{2v} \Leftrightarrow \diff u = 2v\,\diff v$ und definiere $c := \frac{1}{k_BT}$:
+		\begin{align*}
+			I &= \int_0^\infty (2v\,\diff v) \, v \cdot e^{-c \cdot v^2} = \\
+			&= \frac{1}{2} \int_{-\infty}^\infty (2v\,\diff v) \, v \cdot e^{-c \cdot v^2} = \\
+			&= \int_{-\infty}^\infty \diff v \, v^2 \cdot e^{-c \cdot v^2} = \\
+			&= \int_{-\infty}^\infty \diff v \, \lr{-\frac{\diff}{\diff c} e^{-c \cdot v^2}} = \\
+			&= - \frac{\diff}{\diff c} \int_{-\infty}^\infty \diff v e^{-c \cdot v^2} = \\
+			&= - \frac{\diff}{\diff c} \sqrt{\frac{\pi}{c}} = \\
+			&= -\sqrt{\pi}\frac{\diff}{\diff c} c^{-1/2} = \\
+			&= - \sqrt{\pi}\lr{-\frac{1}{2}} \cdot c^{-3/2} = \\
+			&= \frac{\sqrt{\pi}}{2} \cdot (k_BT)^{3/2}
+		\end{align*}
+
+	Einsetzen in $n$ liefert:
+		\begin{align*}
+			n &= \frac{(2m_n^\star)^{3/2}}{2\pi^2h^3} \cdot \lr{ \frac{\sqrt{\pi}}{2} \cdot (k_BT)^{3/2} } \cdot e^{-\frac{E_\text{L,min}-E_F}{k_B T}} = \\
+			&= \frac{1}{4} \cdot \lr{ \frac{2m_n^\star \cdot k_BT}{\pi h^2} }^{3/2} \cdot e^{-\frac{E_\text{L,min}-E_F}{k_B T}} = \\
+			&= \frac{1}{4} \cdot \lr{ \frac{2m_n^\star \cdot k_BT}{\pi \lr{ \frac{h}{2\pi} }^2} }^{3/2} \cdot e^{-\frac{E_\text{L,min}-E_F}{k_B T}} = \\
+			&= 2 \cdot \lr{ \frac{2\pi \cdot m_n^\star \cdot k_BT}{h^2} }^{3/2} \cdot e^{-\frac{E_\text{L,min}-E_F}{k_B T}} \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Dotierte Halbleiter}
+
+
+\newpage
+
+
+\subsection{pn-Übergang}
+Der \textit{pn-Übergang} ist eine \textit{Heterostruktur} bestehend aus einem n- und einem p-dotierten Halbleiter.
+
+
+\newpage
+
+
+%\section*{Appendix A: Die 32 kristallographischen Punktgruppen} %\textcolor{red}{Ibach, Lüth S.19-21}
+%Eine Kristallklasse bzw. Punktgruppe ist eine Gruppe $(G,\star)$, deren Menge aus Symmetrieoperationen und deren Verknüpfung durch die Hintereinanderausführung besteht. \textcolor{red}{(KI: Da physikalische Eigenschaften mit gewissen Symmetrien zusammenhängen, können durch die Kenntnis der Kristallklasse bereits einige Materialeigenschaften ausgeschlossen/angenommen werden.)}
+%
+%
+%\begin{table}[H]
+%	\caption{...}
+%	\begin{tabularx}{\textwidth}{l|c|c}
+%		\hline\hline
+%			Operation & Schönflies-Notation & Hermann-Mauguin-Notation \\
+%		\hline
+%			Identität & $E$ & $1$ \\
+%		\hline
+%			Ebenenspiegelung & $\sigma$ & $m$ \\
+%		\hline
+%			Drehung & $C_n$ & $n$ \\
+%		\hline
+%			Punktspiegelung / Inversion & $i$ & $\bar{1}$ \\
+%		\hline
+%			Drehspiegelung & $S_n$ & $\bar{n}$ \\
+%		\hline\hline	
+%	\end{tabularx}
+%\end{table}
+%
+%\textcolor{red}{ERGÄNZEN Grafik Stereogramme Kristallografie}
+
+
+\newpage
+
+
+\section{Appendix A: Strukturbestimmung}
+\textcolor{red}{ERGÄNZEN Laue-Verfahren Groß-Marx S.91/92}\\
+\textcolor{red}{ERGÄNZEN Drehkristall-Verfahren Groß-Marx S.91/92}\\
+\textcolor{red}{ERGÄNZEN Debye-Scherrer-Verfahren Groß-Marx S.91/92}
+
+%\newpage
+%
+%
+%\section{Appendix B: Raman-Spektroskopie}
+
+
+\newpage
+
+
+\section{Appendix B: Elektronendichtebestimmung (Hall-Effekt)}
+Der Hall-Effekt beschreibt das Phänomen, dass sich in einer stromdurchflossenen Probe, an die ein konstantes B-Feld senkrecht zur Stromrichtung angelegt wird, ein E-Feld senkrecht zur Stromrichtung ausbildet.\\
+Er liefert die Möglichkeit, die Elektronendichte eines Materials experimentell zu bestimmen.
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/hall-bar.pdf}
+		}
+		\caption{Skizze der Hall-Bar}
+	\end{figure}
+
+
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{Strom \underline{nur} in x-Richtung}
+			\begin{equation*}
+				\vec{I} = I \cdot \vec{e}_x
+			\end{equation*}
+		
+		
+		\item \textbf{B-Feld in z-Richtung}
+			\begin{equation*}
+				\vec{B} = B \cdot \vec{e}_z
+			\end{equation*}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Hall-Feld}
+			\begin{equation}
+				E_y = -\omega_c\tau \cdot E_x
+			\end{equation}
+		
+		
+		\item \textbf{Hall-Koeffizient}
+			\begin{align}
+				R_H &:= -\frac{1}{en} \\
+				&= \frac{U_x \cdot D}{I_x \cdot B}
+			\end{align}
+		
+		mit der Höhe der Probe $D$.
+		
+		
+		\item \textbf{Elektronendichte}
+			\begin{equation}
+				n = -\frac{1}{R_\text{H} \cdot e}
+			\end{equation}
+		
+		mit dem Hall-Koeffizienten $R_\text{H}$
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Hall-Feld $E_y = -\omega_c \tau \cdot E_x$\\
+	\\
+	Herleitungsskizze: Einsetzen der Annahmen in das Ohm'sche Gesetz des Sommerfeld-Modells mit B-Feld
+		\begin{align*}
+			&\begin{pmatrix}
+				j_x \\ 0 \\ 0
+			\end{pmatrix}
+			=
+			\frac{\sigma_0}{1 + (\omega_c\tau)^2}
+			\begin{pmatrix}
+				1 & -\omega_c\tau & 0 \\
+				\omega_c\tau & 1 & 0 \\
+				0 & 0 & 1 + (\omega_c\tau)^2
+			\end{pmatrix}
+			\cdot
+			\begin{pmatrix}
+				E_x \\ E_y \\ E_z
+			\end{pmatrix} \\
+			\Leftrightarrow &
+			\begin{cases}
+				j_x &= \frac{\sigma_0}{1 + (\omega_c\tau)^2} \lr{ E_x - \omega_c\tau \cdot E_y } \\
+				0 &= \frac{\sigma_0}{1 + (\omega_c\tau)^2} \lr{ \omega_c\tau \cdot E_x + E_y } \\
+				0 &= \sigma_0 E_z
+			\end{cases}
+		\end{align*}
+	
+	Umstellen der zweiten Gleichung liefert:
+		\begin{align*}
+			E_y &= -\omega_c\tau \cdot E_x \qquad \blacksquare
+		\end{align*}
+
+
+	\fbox{Herleitung}\\
+	zz: Hall-Koeffizient $R_\text{H} = \frac{U_x}{I_x \cdot B}$\\
+	\\
+	Herleitungsskizze:\\
+	1) Ohm'sches Gesetz in Hall-Feld-Gleichung einsetzen \\
+	2) Elektrische Leitfähigkeit einsetzen \\
+	3) Definition Hall-Koeffizient \\
+	4) Integration über die Länge der Hall-Bar \\
+	\\
+	Beginne mit der zuvor hergeleiteten Hall-Feld-Gleichung und setze das Ohm'sche Gesetz, die Zyklotronfrequenz sowie im Anschluss die elektrische Leitfähigkeit in Abwesenheit eines B-Felds ein:
+		\begin{align*}
+			E_y &= -\omega_c\tau \cdot E_x \stackrel{\comment{\omega_c}}{=} \frac{eB}{m} \tau \cdot \frac{j_x}{\sigma_0} \stackrel{\comment{\sigma_0}}{=} -\frac{eB\tau}{m} \cdot \frac{j_x}{\lr{ \frac{e^2n\tau}{m} }} = -\frac{1}{en} \cdot B \cdot j_x \equiv\\
+			&\equiv R_\text{H} \cdot B \cdot j_x
+		\end{align*}
+
+	Integration über die Länge der Hallbar ergibt:
+		\begin{align*}
+			U_\text{H} = \int_W E_y \, \diff x &= \int \lr{ R_H \cdot B \cdot j_x } \, \diff x = \\
+			&= R_\text{H} \cdot B \cdot j_x \cdot W
+			\intertext{Drücke die Stromdichte durch die Stromstärke aus:}
+			&= R_\text{H} \cdot B \cdot \frac{I}{D \cdot \cancel{W}} \cdot \cancel{W} = R_\text{H} \cdot B \cdot \frac{I}{D} \\
+			\Leftrightarrow R_\text{H} &= \frac{U_\text{H} \cdot D}{I \cdot B} \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Appendix C: Photoemissionsspektroskopie}
+
+
+\newpage
+
+
+\section{Glossar}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		Absorptionskoeffizient &  \\
+	\hline
+		adiabatische Näherung & Näherung, die die elektronische von der gitterdynamik trennt. \\
+	\hline
+		akkustischer Zweig & Gitterschwingung mit einer Dispersionsrelation, die für $q=0$ $\omega=0$ aufweist \\
+	\hline
+		Atomfaktor &  \\
+	\hline
+		Bandaufspaltung & Phänomen, dass die Energieparabeln im Quasifreien-Elektron-Modell am Rand der 1. \textit{Brillouin-Zone} aufspalten und somit \textit{Energiebänder} und eine \textit{Bandlücke} vorliegen \\
+	\hline
+		Bandlücke &  \\
+	\hline
+		Bandstruktur & Darstellung der Energie-Dispersion $E(\vec{k})$ \\
+	\hline
+		Basis & Atom/Ion bzw. Atom-/Ionengruppe, die an jedem Gitterpunkt des Bravais-Gitters platziert wird, um so die Struktur des Festkörpers aufzubauen \\
+	\hline
+		Beugungsreflex &  \\
+	\hline
+		Beweglichkeit &  \\
+	\hline
+		Bloch-Theorem &  \\
+	\hline
+		Bloch-Welle &  \\
+	\hline
+		Boltzmann-Gleichung &  \\
+	\hline
+		Bragg-Bedingung &  \\
+	\hline
+		Bravais-Gitter & Punktgitter im Raum, das invariant unter Translationen ist, die einen Gitterpunkt auf einen anderen Gitterpunkt verrücken \\
+	\hline
+		Brillouin-Zone &  \\
+	\hline
+		chemische Bindung & Phänomen, durch das zwei oder mehr Atome bzw. Ionen zu einem Material zusammengehalten werden \\
+	\hline
+		Debye-Temperatur &  \\
+	\hline
+		Diamantstruktur & Flächenzentriertes kubisches Gitter mit einer zweiatomigen Basis gleicher Atome \\
+	\hline
+		Effektive-Masse-Näherung &  \\
+	\hline
+		Einelektron-Näherung &  \\
+	\hline
+		elastische Streuung &  \\
+	\hline
+		elektrische Leitfähigkeit &  \\
+	\hline
+		elektrische Suszeptibilität &  \\
+	\hline
+		Elektronenaffinität & Energie, die gewonnen wird, wenn einem neutralen Atom ein Elektron hinzugefügt wird \\
+	\hline
+		Elementarzelle & Von den primitiven Gittervektoren aufgespannte Zelle \\
+	\hline
+		Energieband &  \\
+	\hline
+		Gitterkonstante & Betrag der Gittervektoren \\
+	\hline
+		ionische Polarisation &  \\
+	\hline
+		Halbleiter &  \\
+	\hline
+		Halbleiter, direkt &  \\
+	\hline
+		Halbleiter, dotiert &  \\
+	\hline
+		Halbleiter, indirekt &  \\
+	\hline
+		Halbleiter, intrinsisch &  \\
+	
+	\hline
+		Heterostruktur &  \\
+	\hline
+		Ionisierungsenergie & Energie, die benötigt wird, um ein Elektron aus einem neutralen Atom zu entfernen \\
+	\hline
+		konventionelle Gittervektoren & Vektoren, die ein einfacheres Bravais-Gitter als die primitiven Gittervektoren beschreiben und für gewisse Anwendungen zweckmäßiger sind \\
+	\hline
+		Koordinationszahl &  \\
+	\hline
+		kovalente Bindung & gerichtete Bindung durch großen Wellenfunktions-Überlapp benachbarter Atome \\
+	\hline
+		Kristallelektron & Elektronischer Zustand in einem System mit gitterperiodischem Potential\\
+		 & Wird durch eine Bloch-Wellenfunktion beschrieben \\
+	\hline
+		Laue-Bedingung &  \\
+	\hline
+		lokales E-Feld &  \\
+	\hline
+		Lorentz-Oszillator &  \\
+	\hline
+		Madelung-Konstante & Dimensionsloser Faktor $A_i$ des Coulomb-Potentials des $i$-ten Ions $\varphi_i$ im Ionenkristall, normiert auf den Abstand der nächsten Nachbarn $R$ und die Elementarladung $e$
+			{
+			\begin{align*}
+				\varphi_i = \frac{e}{4\pi\varepsilon_0} \sum_{j \neq i} \frac{z_j}{|\vec{r}_i - \vec{r}_j|} \cdot \frac{R}{R} \equiv \frac{e}{4\pi\varepsilon_0 R} \cdot A_i
+			\end{align*}
+			} 	\\
+	\hline
+		Massenwirkungsgesetz & Für Halbleiter im thermodynamischen Gleichgewicht ist das Produkt aus Elektronen- und Löcherdichte konstant \\
+	\hline
+		Matthissen'sche Regel & Empirisches Gesetz, das die gesamte Streurate $R := \frac{1}{\tau}$ aus einzelnen, unabhängigen Streuprozessen $\frac{1}{\tau_i}$ berechnet
+			$$\frac{1}{\tau} = \sum_i \frac{1}{\tau_i}$$
+		
+		wobei $\tau$ die sog. Stoßzeit ist. \\
+	\hline
+		Netzebene &  \\
+	\hline
+		Normalprozess &  \\
+	\hline
+		optischer Zweig & Gitterschwingung mit einer Dispersionsrelation, die für $q=0$ einen nicht-verschwindenden Wert für $\omega$ hat \\
+	\hline
+		Orientierungspolarisation &  \\
+	\hline
+		Packungsdichte & Die Packungsdichte einer Einheitszelle $\eta$ ist das Verhältnis des von den Atomen eingenommenen Volumens zum Gesamtvolumen der Einheitszelle
+			$$\eta := \frac{N_\text{EZ} \cdot \frac{4\pi}{3}r^3}{V_\text{EZ}},$$
+		
+		wobei die Atome als Kugeln mit dem Radius $r$ behandelt werden und $N_\text{EZ}$ die Anzahl der Atome in der Einheitszelle beschreibt. \\
+	\hline
+		Phonon &  \\
+	\hline
+		primitive Einheitszelle & \textcolor{blue}{siehe Elementarzelle} \\
+	\hline
+		primitive Gittervektoren & Vektoren, deren Linearkombination mit ganzzahligen Koeffizienten jeden Punkt des Bravais-Gitters beschreiben kann \\
+	\hline
+		primitive reziproke Gittervektoren & Vektoren, deren ganzzahlige Linearkombination alle reziproken Gittervektoren beschreiben kann \\
+	\hline
+		Reflexionskoeffizient &  \\
+	\hline
+		Relaxationszeitansatz &  \\
+	\hline
+		Restwiderstandsverhältnis &  \\
+	\hline
+		reziprokes Gitter & Satz aller Wellenvektoren $\vec{k}$, die ebene Wellen mit der Periodizität des Bravais-Gitters im Ortsraum beschreiben \\
+	\hline
+		Schallgeschwindigkeit &  \\
+	\hline
+		Streuvektor &  \\
+	\hline
+		Strukturfaktor &  \\
+	\hline
+		thermische Ausdehnungskoeffizienten &  \\
+	\hline
+		Transmissionskoeffizient &  \\
+	\hline
+		Umklappprozess &  \\
+	\hline
+		Wannier-Funktion &  \\
+	\hline
+		Wärmeleitfähigkeit &  \\
+	\hline
+		Wärmestromdichte & Wärme $Q$, die in der Zeit $t$ durch die Fläche $A$ strömt
+			$$j := \frac{Q}{A\cdot t}$$ \\
+	\hline
+		Wigner-Seitz-Zelle & primitive Einheitszelle, die nicht durch primitive Gittervektoren aufgespannt wird, sondern  durch einen Konstruktionsalgorithmus erzeugt wird:
+		{\begin{enumerate}
+			\item Wähle einen Gitterpunkt, um den die Zelle konstruiert wird
+		
+			\item Zeichne von diesem Punkt Verbindungslinien zu seinen nächsten Nachbarn (ggf. übernächste Nachbarn)
+		
+			\item Zeichne auf den Abstandslinien die Mittelsenkrechte ein. Die von den Mittelsenkrechten eingeschlossene Zelle ist die Wigner-Seitz-Zelle
+		\end{enumerate} } \\
+	\hline
+		Zinkblendestruktur & Flächenzentriertes kubisches Gitter mit einer zweiatomigen Basis unterschiedlicher Atome \\
+	\hline\hline
+\end{xltabular}
+\end{document}

@@ -1,0 +1,363 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{marvosym}
+\usepackage{cancel}
+\usepackage{xltabular}
+
+%\usepackage{pascaltriangle}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\lrschweif}[1]{\left\{#1\right\}}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen}{#1}}}
+
+
+\begin{document}
+
+
+\begin{center}
+	\Large{\textbf{Analysis III Zusammenfassung}}\\
+	\small{613348}\\
+	\today
+\end{center}
+
+\tableofcontents
+
+
+\newpage
+
+
+\section*{Übersicht}
+Das Modul Analysis III behandelt:
+	\begin{itemize}
+		\item \textbf{Differentialgleichungen}
+		
+		
+		\item \textbf{Operatoren}
+		
+		
+		\item \textbf{Fourier-Reihe/-Transformation}
+		
+		
+		\item \textbf{Lebesgue-Integration}
+	\end{itemize}
+
+
+\newpage
+
+
+\section{Fourier-Reihe/-Transformation}
+\subsection{Fourier-Reihe}
+\subsubsection{Trigonometrische Darstellung}
+Die Fourier-Reihe ist die Darstellung einer periodischen Funktion $f(x)$ mit der Periodendauer $T$ in der \underline{diskreten} Basis $\{1, \cos \lr{ \frac{2\pi \cdot 1}{T} \cdot x }, \cos \lr{ \frac{2\pi \cdot 2}{T} \cdot x}, ..., \sin \lr{ \frac{2\pi \cdot 1}{T} \cdot x }, \sin \lr{ \frac{2\pi \cdot 2}{T} \cdot x }, ... \}$:
+	\begin{equation}
+		f(x) = \frac{a_0}{2} + \sum_{n=1}^\infty \lreck{ a_n \cdot \cos \lr{ \frac{2\pi \cdot n}{T} \cdot x } + b_n \cdot \sin \lr{ \frac{2\pi \cdot n}{T} \cdot x } }
+	\end{equation}
+
+mit den \textbf{Fourier-Koeffizienten}
+	\begin{align}
+		a_n &= \frac{2}{T} \int_T \diff x \, f(x) \cdot \cos \lr{ \frac{2\pi \cdot n}{T} \cdot x } \\
+		b_n &= \frac{2}{T} \int_T \diff x \, f(x) \cdot \sin \lr{ \frac{2\pi \cdot n}{T} \cdot x },
+	\end{align}
+
+wobei $n \in \{0, 1, ...\}$.\\
+Die Integration über die Periodendauer gilt dabei für jedes Intervall der Länge $T$, z.B. $[0,T]$, $[a,a+T]$, $[-T/2,T/2]$, etc.
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: Fourier-Reihe für die Rechteckfunktion\\
+	\\
+	Die Rechteckfunktion auf dem Intervall $[0,T]$ wird beschrieben durch die Funktion
+		\begin{align*}
+			f(x) =
+			\begin{cases}
+				1, & 1 \leq x \leq T/2 \\
+				0, & T/2 < x \leq T
+			\end{cases}.
+		\end{align*}
+
+	Die Fourier-Koeffizienten sind
+		\begin{align*}
+			\bullet \ a_0 &= \frac{2}{T} \int_0^{T/2} \diff x \, 1 \cdot 1 = \frac{2}{T} \cdot \frac{T}{2} = 1 \\
+			\bullet \ a_n &= \frac{2}{T} \int_0^{T/2} \diff x \, 1 \cdot \cos \lr{ \frac{2\pi \cdot n}{T} \cdot x } = \frac{\cancel{2}}{\cancel{T}} \cdot \frac{\cancel{T}}{\cancel{2}\pi \cdot n} \int_0^{u(T/2) = \pi \cdot n} \diff u \, \cos(u) = \\
+			&= \frac{1}{\pi \cdot n} \lreck{ \sin \lr{ \pi \cdot n } - \sin(0) } = 0 \\
+			\bullet \ b_n &= \frac{2}{T} \int_0^{T/2} \diff x \, 1 \cdot \sin \lr{ \frac{2\pi \cdot n}{T} \cdot x } = \frac{\cancel{2}}{\cancel{T}} \cdot \frac{\cancel{T}}{\cancel{2}\pi \cdot n} \int_0^{u(T/2) = \pi \cdot n} \diff u \, \sin(u) = \\
+			&= -\frac{1}{\pi \cdot n} \lreck{ \cos (\pi \cdot n) - \cos(0) } = \frac{ 1 - \cos(\pi \cdot n) }{ \pi \cdot n } =
+			\begin{cases}
+				\frac{2}{\pi \cdot n}, & \text{$n$ ungerade} \\
+				0, & \text{$n$ gerade}
+			\end{cases}
+		\end{align*}
+	
+	Somit ist die Fourier-Reihe:
+		\begin{align*}
+			f(x) = \frac{1}{2} + \sum_{n=1}^\infty \frac{2}{\pi \cdot (2n-1)} \cdot \sin \lr{ \frac{2\pi \cdot (2n-1) }{T} \cdot x }
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	geg: Periodische Funktion $f(x)$ mit der Periodendauer $T$\\
+	zz: $f(x) = \frac{a_0}{2} + \sum_{n=1}^\infty \lreck{ a_n \cdot \cos\lr{ \frac{2\pi \cdot n}{T} \cdot x } + b_n \cdot \sin\lr{ \frac{2\pi \cdot n}{T} \cdot x } }$ mit den Fourier-Koeffizienten $a_n = \frac{2}{T} \int_T f(x) \cdot \cos \lr{ \frac{2\pi \cdot n}{T} \cdot x } \, \diff x$ und $b_n = \frac{2}{T} \int_T f(x) \cdot \sin \lr{ \frac{2\pi \cdot n}{T} \cdot x } \, \diff x$\\
+	\\
+	Strategie:\\
+	1) Zeige, dass die Basis orthonormal und vollständig ist\\
+	2) Entwickle die Funktion in der Basis\\
+	3) Bestimme die Entwicklungskoeffizienten durch Integration\\
+	\\
+	Zeige die Orthonormalität, indem alle möglichen Skalarprodukte der Basis ausgerechnet werden. Die Basisvektoren lassen sich allgemein formulieren als
+		\begin{align*}
+			\sin\lr{ \frac{2\pi \cdot n}{T} x }, \ \cos\lr{ \frac{2\pi \cdot m}{T} x },
+		\end{align*}
+	
+	mit $n \in \{1, 2, ... \}$ und $m \in \{0, 1, ...\}$.\\
+	\\
+	Wähle als Integrationsinterval oBdA $[-T/2,T/2]$.\\
+	Somit sind die möglichen Skalarprodukte:
+		\begin{align*}
+			\bullet \ &\phantom{=} \int_{-T/2}^{T/2} \diff x \, \sin\lr{ \frac{2\pi \cdot n}{T} x } \cdot \cos\lr{ \frac{2\pi \cdot m}{T} x }
+			\intertext{Verwende den trigonometrischen Zusammenhang $\sin(A) \cdot \cos(B) = \frac{1}{2} \lr{ \sin(A+B) - \sin(A-B) }$:}
+			&= \frac{1}{2} \int_{-T/2}^{T/2} \diff x \, \sin\lr{ \frac{2\pi (n+m)}{T} x } - \frac{1}{2} \int_{-T/2}^{T/2} \diff x \, \sin\lr{ \frac{2\pi (n-m)}{T} x } = \\
+			\intertext{$u$-Substitution des jeweiligen Sinusarguments liefert:}
+			&= \frac{1}{2} \frac{T}{2\pi(n+m)} \int_{-u(T/2)}^{u(T/2)} \diff u \, \sin(u) - \frac{1}{2} \frac{T}{2\pi(n-m)} \int_{-u(T/2)}^{u(T/2)} \diff u \, \sin(u) = \\
+			&= \frac{1}{2} \frac{T}{2\pi(n+m)} \cdot \lreck{ - \cos \lr{ \frac{2\pi (n+m)}{T} \frac{T}{2} } + \cos \lr{ \frac{-2\pi (n+m)}{T} \frac{T}{2} } } - \\
+			&= - \frac{1}{2} \frac{T}{2\pi(n-m)} \cdot \lreck{ - \cos \lr{ \frac{2\pi (n-m)}{T} \frac{T}{2} } + \cos \lr{ \frac{-2\pi (n-m)}{T} \frac{T}{2} } } =
+			\intertext{Aus der Symmetrie des Cosinus $\cos(x) = \cos(-x)$ folgt, dass sich die jeweils eingeklammerten Terme wegheben:}
+			&= 0 \\
+			\bullet \ &\phantom{=} \int_{-T/2}^{T/2} \diff x \, \sin\lr{ \frac{2\pi \cdot n}{T} x } \cdot \sin\lr{ \frac{2\pi \cdot m}{T} x } =...=
+			\begin{cases}
+				0, & n\neq m \\
+				T/2, & n=m
+			\end{cases}
+		\end{align*}
+	
+	Analog für das Cosinus-Cosinus-Integral.\\
+	\textcolor{red}{ERGÄNZEN Vollständigkeitsbeweis (vielleicht aber auch einfach hinnehmen)}
+
+
+\newpage
+
+
+	Die Entwicklung der Funktion $f(x)$ in der Basis hat die Form
+		\begin{align*}
+			f(x) &= \sum_{n=0}^\infty a_n \cdot \cos \lr{ \frac{2\pi n}{T} x } + \sum_{n=1}^\infty b_n \cdot \sin \lr{ \frac{2\pi n}{T} x } = \\
+			&= a_0 + \sum_{n=1}^\infty \lreck{ a_n \cdot \cos\lr{ \frac{2\pi \cdot n}{T} \cdot x } + b_n \cdot \sin\lr{ \frac{2\pi \cdot n}{T} \cdot x } }.
+		\end{align*}
+
+	Die einzelnen Fourier-Koeffizienten folgen nun durch Multiplikation mit einer Basisfunktion, gefolgt von der Integration:
+		\begin{align*}
+			\bullet \ &\phantom{=} \int_T \diff x \, f(x) \cdot \sin \lr{ \frac{2\pi n}{T} x } = \\
+			&= \int_T \diff \, x \lreck{ a_0 + \sum_{m=1}^\infty \lreck{ a_m \cdot \cos\lr{ \frac{2\pi \cdot m}{T} \cdot x } + b_m \cdot \sin\lr{ \frac{2\pi \cdot m}{T} \cdot x } } } \cdot \sin \lr{ \frac{2\pi \cdot n}{T} x } =
+			\intertext{Aus der Orthonormalität der Basis folgt, dass lediglich der Term mit $b_m$ nicht verschwindet:}
+			&= \sum_{n=1}^\infty b_n \cdot \delta_{nm} \cdot \frac{T}{2} = b_n \cdot \frac{T}{2} \\
+			\Leftrightarrow b_n &= \frac{2}{T} \int_T \diff x \, f(x) \cdot \sin\lr{ \frac{2\pi n}{T}x } \qquad \checkmark
+		\end{align*}
+	
+	\textcolor{red}{ERGÄNZEN cos}\\
+	\\
+	Die einfache Integration liefert
+		\begin{align*}
+			\bullet \, &\phantom{=} \int_T \diff x \, f(x) = a_0 \cdot T \\
+			\Leftrightarrow a_0 &= \frac{1}{T} \int_T \diff x \, f(x).
+		\end{align*}
+	
+	Damit $a_0$ dieselbe Definition wie $a_n$ mit $n\neq 0$ verwenden kann, wird lediglich der Faktor $\frac{1}{2}$ in der Reihenentwicklung ergänzt. $\qquad \blacksquare$
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Exponentialform-Darstellung}
+Eine alternative Darstellung der Fourier-Reihe nutzt die komplexe Exponentialfunktion
+	\begin{equation}
+		f(x) = \sum_{q=-\infty}^{+\infty} c_q \cdot e^{i\frac{2\pi \cdot q}{T} \cdot x}
+	\end{equation}
+
+mit dem Entwicklungskoeffizienten
+	\begin{equation}
+		c_q = \frac{1}{T} \int_T f(x) \cdot e^{-i \frac{2\pi \cdot q}{T} x}.
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Strategie: Ausgehend von der trigonometrischen Darstellung, können Sinus und Cosinus durch die komplexe Exponentialfunktion ausgedrückt werden.\\
+	\\
+	Setze die Exponentialausdrücke für Cosinus und Sinus
+		\begin{align*}
+			\cos \lr{ \frac{2\pi \cdot n}{T} \cdot x } &= \frac{1}{2} \lr{ e^{i \frac{2\pi \cdot n}{T} x} + e^{-i \frac{2\pi \cdot n}{T} x} } \\
+			\sin \lr{ \frac{2\pi \cdot n}{T} \cdot x } &= \frac{1}{2i} \lr{ e^{i \frac{2\pi \cdot n}{T} x} - e^{-i \frac{2\pi \cdot n}{T} x} }
+		\end{align*}
+
+	anstelle der Basisfunktionen in der Fourier-Reihe ein:
+		\begin{align*}
+			f(x) &= \frac{a_0}{2} + \sum_{n=1}^\infty \lreck{ a_n \cdot \frac{1}{2} \lr{ e^{i \frac{2\pi \cdot n}{T} x} + e^{-i \frac{2\pi \cdot n}{T} x} } + b_n \cdot \frac{1}{2i} \lr{ e^{i \frac{2\pi \cdot n}{T} x} - e^{-i \frac{2\pi \cdot n}{T} x} } } = \\
+			&= \frac{a_0}{2} + \sum_{n=1}^\infty \lreck{ e^{i \frac{2\pi \cdot n}{T} x} \lr{ \frac{a_n}{2} + \frac{b_n}{2i} } + e^{-i \frac{2\pi \cdot n}{T} x} \lr{ \frac{a_n}{2} - \frac{b_n}{2i} } } = \\
+			&= \frac{a_0}{2} + \sum_{n=1}^\infty e^{i \frac{2\pi \cdot n}{T} x} \lr{ \frac{a_n}{2} + \frac{b_n}{2i} } + \sum_{n=1}^\infty e^{-i \frac{2\pi \cdot n}{T} x} \lr{ \frac{a_n}{2} - \frac{b_n}{2i} } = \\
+			&= \frac{1}{2} \cdot \frac{2}{T} \int_T f(x) \cdot e^{-i \frac{2\pi \cdot q}{T} x} + \sum_{n=1}^\infty e^{i \frac{2\pi \cdot n}{T} x} \lr{ \frac{a_n}{2} + \frac{b_n}{2i} } + \sum_{n=-\infty}^{-1} e^{i \frac{2\pi \cdot n}{T} x} \lr{ \frac{a_n}{2} - \frac{b_n}{2i} }
+		\end{align*}
+	
+	Die Definition des Entwicklungskoeffizients
+		\begin{align*}
+			c_q &:= \frac{1}{T} \int_T f(x) \cdot e^{-i \frac{2\pi \cdot q}{T} x}
+		\end{align*}
+	
+	ermöglicht die Zusammenfassung der drei Terme zu
+		\begin{align*}
+			f(x) &= \sum_{n=-\infty}^{+\infty} c_n \cdot e^{-i \frac{2\pi \cdot q}{T} x} \qquad \blacksquare
+		\end{align*}
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Fourier-Transformation}
+Die Fourier-Transformation ist die Darstellung einer Funktion $f(x)$ in der \underline{kontinuierlichen} Basis $\{ e^{i \frac{2\pi \cdot q}{T} x} \ | \ q \in \mathbb{R} \}$:
+	\begin{alignat}{2}
+		\tilde{f}(k) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} \diff x \, f(x) \cdot e^{-i k x} &&\equiv \mathcal{F}\{ f(x) \}(k) \\
+		f(x) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} \diff k \, \tilde{f}(k) \cdot e^{i k x} &&\equiv \mathcal{F}^{-1}\{ \tilde{f}(k) \}(x)
+	\end{alignat}
+
+Wichtige Fourier-Transformationen sind:
+	\begin{itemize}
+		\item \textbf{Gauß-Funktion}\\
+		Die Fourier-Transformation der Gauß-Funktion $f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \cdot e^{-\frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}}$ ist
+			\begin{equation}
+				\tilde{f}(k) = \frac{1}{\sqrt{2 \pi}} \cdot e^{- \frac{\sigma^2}{2} k^2 - i \mu k}.
+			\end{equation}
+
+
+		\item \textbf{Delta-Funktion}\\
+		Die Fourier-Tranformation der Delta-Funktion $\delta(x-x_0)$ ist
+			\begin{equation}
+				\tilde{f}(k) = \frac{1}{\sqrt{2\pi}} \cdot e^{ikx_0}
+			\end{equation}
+		
+		
+		\item \textbf{Konstante}\\
+		Die Fourier-Transformation der Konstanten $f(x) = A$ ist
+			\begin{equation}
+				\tilde{f}(k) = \sqrt{2\pi} \cdot A \cdot \delta(k).
+			\end{equation}
+		
+		
+		\item \textbf{Box-Funktion}\\
+		Die Fourier-Transformation der Box-Funktion
+		$f(x) = 
+		\begin{cases}
+			A, & -a \leq x \leq a \\
+			0, & \text{sonst}
+		\end{cases}$
+		ist
+			\begin{equation}
+				\tilde{f}(k) = \frac{1}{\sqrt{2\pi a^2}} \cdot \text{sinc} \lr{ \frac{\omega}{2\pi a} }
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Strategie: Anwendung der Euler-McLaurin-Formel auf die komplexe Darstellung der Fourier-Reihe
+		\begin{align*}
+			f(x) &= \sum_{q=-\infty}^{+\infty} c_q \cdot e^{i\frac{2\pi \cdot q}{T} \cdot x} \longrightarrow \int_{-\infty}^{+\infty} \diff q \, c_q \cdot e^{i \frac{2\pi \cdot q}{T} x} = \\
+			&= \int_{-\infty}^{+\infty} \diff q \lr{ \frac{1}{T} \int_T f(x) \cdot e^{-i \frac{2\pi \cdot q}{T} x} } \cdot e^{i \frac{2\pi \cdot q}{T} x} = \\
+			&\stackrel{\comment{k = \frac{2\pi}{T} q}}{=} \frac{\cancel{T}}{2\pi} \int_{-\infty}^{+\infty} \diff k \lr{ \frac{1}{\cancel{T}} \int_T f(x) \cdot e^{-i \frac{2\pi \cdot q}{T} x} } \cdot e^{i \frac{2\pi \cdot q}{T} x} = \\
+			&= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} \diff k \lr{ \frac{1}{\sqrt{2\pi}} \int_T f(x) \cdot e^{-i \frac{2\pi \cdot q}{T} x} } \cdot e^{i \frac{2\pi \cdot q}{T} x} \equiv \\
+			&\equiv \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} \diff k \, \tilde{f}(k) \cdot e^{i \frac{2\pi \cdot q}{T} x}
+		\end{align*}
+
+	Somit gilt
+		\begin{alignat}{2}
+		\tilde{f}(k) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} \diff x \, f(x) \cdot e^{-i k x} &&\equiv \mathcal{F}\{ f(x) \}(k) \\
+		f(x) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} \diff k \, \tilde{f}(k) \cdot e^{i k x} &&\equiv \mathcal{F}^{-1}\{ \tilde{f}(k) \}(x)
+	\end{alignat}
+
+	wobei für beide Transformationen noch die abkürzenden Bezeichnungen $\mathcal{F}$ und $\mathcal{F}^{-1}$ eingeführt wurden. $\qquad \blacksquare$\\
+	\\
+	\fbox{Herleitung: Fourier-Transformation Gauß-Funktion}\\
+	geg: $f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \cdot e^{-\frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}}$ zz: $\tilde{f}(k) = \frac{1}{\sqrt{2 \pi}} \cdot e^{- \frac{\sigma^2}{2} k^2 - i \mu k}$
+		\begin{align*}
+			\tilde{f}(k) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} \diff x \, \frac{1}{\sqrt{2 \pi \sigma^2}} \cdot e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}} \cdot e^{-ikx} = 
+			\intertext{Substituiere $u = x-\mu \Rightarrow \diff x = \diff u$:}
+			&= \frac{1}{\sqrt{2\pi}} \frac{1}{\sqrt{2\pi\sigma^2}} \int_{-\infty}^{+\infty} \diff u \, e^{-\frac{1}{2}\frac{u^2}{\sigma^2}} \cdot e^{-ik(u+\mu)} = \\
+			&= \frac{1}{\sqrt{2\pi}} \frac{1}{\sqrt{2\pi\sigma^2}} e^{-ik\mu} \int_{-\infty}^{+\infty} \diff u \, e^{-\frac{1}{2}\frac{1}{\sigma^2} \cdot u^2 - ik \cdot u}
+			\intertext{Führe nun eine quadratische Ergänzung für den Exponenten durch, um das gängige Gauß-Integral erkennen zu können:}
+				-\frac{1}{2\sigma^2} u^2 - ik u &= -\frac{1}{\sigma^2} \lr{ u^2 - i \frac{2k}{\sigma^2} u } = -\frac{1}{\sigma^2} \lr{ u^2 - i \frac{2k}{\sigma^2} u + (ik\sigma^2)^2 - (ik\sigma^2)^2 } = \\
+				&= -\frac{1}{\sigma^2} \lr{ (u + ik\sigma^2)^2 - (ik\sigma^2)^2 } = -\frac{1}{\sigma^2} (u + ik\sigma^2)^2 - \frac{k^2\sigma^2}{2}
+			\intertext{Einsetzen in das Integral ergibt:}
+			&= \frac{1}{\sqrt{2\pi}} \frac{1}{\sqrt{2\pi\sigma^2}} e^{-ik\mu} \int_{-\infty}^{+\infty} \diff u \, e^{-\frac{1}{\sigma^2} (u + ik\sigma^2)^2 - \frac{k^2\sigma^2}{2}} = \\
+			&= \frac{1}{\sqrt{2\pi}} \frac{1}{\sqrt{2\pi\sigma^2}} e^{-ik\mu} e^{-\frac{k^2\sigma^2}{2}} \int_{-\infty}^{+\infty} \diff u \, e^{-\frac{1}{2\sigma^2} (u + ik\sigma^2)^2} =
+			\intertext{Substituiere $v = u + ik\sigma^2 \Rightarrow \diff u = \diff v$:}
+			&= \frac{1}{\sqrt{2\pi}} \frac{1}{\sqrt{2\pi\sigma^2}} e^{-ik\mu} e^{-\frac{k^2\sigma^2}{2}} \int_{-\infty}^{+\infty} \diff v \, e^{-\frac{1}{2\sigma^2} v^2} =
+			\intertext{Erkenne das Gauß-Integral $\int_{-\infty}^{+\infty} \diff x \, e^{-c\cdot x^2} = \sqrt{\pi/c}$:}
+			&= \frac{1}{\sqrt{2\pi}} \frac{1}{\cancel{\sqrt{2\pi\sigma^2}}} e^{-ik\mu} e^{-\frac{k^2\sigma^2}{2}} \cdot \cancel{\sqrt{2\pi\sigma^2}} = \\
+			&= \frac{1}{\sqrt{2 \pi}} \cdot e^{- \frac{\sigma^2}{2} k^2 - i \mu k} \qquad \blacksquare
+		\end{align*}
+
+
+
+\hrule
+}
+
+\newpage
+
+
+\section{Stichwortverzeichnis}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		
+	\hline\hline
+\end{xltabular}
+\end{document}
