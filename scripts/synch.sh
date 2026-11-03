@@ -6,6 +6,7 @@ SOURCE="$HOME/Seafile/Physik"
 
 # Kopieren – Leerzeichen einfach in Anführungszeichen lassen
 cp "$SOURCE/Bachelor/Ana I/Zusammenfassung/Ana I Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
+cp "$SOURCE/Bachelor/Ana I/Zusammenfassung/Ana I Zusammenfassung.tex" "$REPO/docs/tex-files/"
 cp "$SOURCE/Bachelor/Ana II/Zusammenfassung/Ana II Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
 cp "$SOURCE/Bachelor/Ana III/Zusammenfassung/Ana III Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
 cp "$SOURCE/Bachelor/LinA/Zusammenfassung/Lineare Algebra Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"

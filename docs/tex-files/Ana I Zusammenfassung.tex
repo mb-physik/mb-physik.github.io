@@ -1,0 +1,2260 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{marvosym}
+\usepackage{cancel}
+\usepackage{xltabular}
+
+%\usepackage{pascaltriangle}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\lrschweif}[1]{\left\{#1\right\}}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+
+\definecolor{gruen}{HTML}{038133}
+
+\newcommand{\comment}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\commentmath}[1]{{\color{gruen}{#1}}}
+
+
+\begin{document}
+
+
+	\begin{center}
+		\Large{\textbf{Analysis I Zusammenfassung}}\\
+		\small{613348}\\
+		\today
+	\end{center}
+
+
+\tableofcontents
+
+
+\newpage
+
+
+\section*{Abstrakt}
+Die eindimensionale Analysis beschäftigt sich hauptsächlich mit dem Konvergenzverhalten Folgen, Reihen und reellen Funktionen sowie der Integral- und Differentialrechnung.\\
+Sie beginnt dabei mit der Aussagenlogik und führt weiter
+
+
+\newpage
+
+
+
+
+
+\section{Konvergenz und Divergenz}
+\label{konvergenz und divergenz}
+Eine Funktion $f:I\rightarrow\mathbb{R}, x \mapsto f(x)$ konvegiert gegen $l$ bzw. divergiert, falls
+	\begin{align}
+		\lim\limits_{x\rightarrow a} f(x) = l &\quad :\Leftrightarrow\quad \forall \varepsilon > 0\ \exists\delta > 0 \text{ s.d. } \forall x\in\mathbb{R}: |x - a|\leq\delta \Rightarrow |f(x) - l| \leq \varepsilon\\
+		\lim\limits_{x\rightarrow \infty} f(x) = l &\quad :\Leftrightarrow\quad \forall \varepsilon > 0\ \exists x_0 > 0 \text{ s.d. } \forall x\in\mathbb{R}\ x\geq x_0: |f(x) - l| \leq \varepsilon\\
+		\lim\limits_{x\rightarrow a} f(x) = \pm\infty &\quad :\Leftrightarrow\quad \forall M > 0\ \exists \delta \gtrless 0 \text{ s.d. } \forall x\in\mathbb{R}: |x - a| \leq \delta \Rightarrow f(x) \gtrless M\\	
+		\lim\limits_{x\rightarrow \infty} f(x) = \pm\infty &\quad :\Leftrightarrow\quad \forall M > 0\ \exists x_0 \gtrless 0 \text{ s.d. } \forall x\in\mathbb{R}\ x\stackrel{\geq}{\leq} x_0: f(x) \gtrless M.
+	\end{align}
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=\textwidth]{Grafiken/konvergenz divergenz.pdf}
+		}
+		\caption{Grafische Darstellung der Definitionen; oben links: $\epsilon$-$\delta$-, oben rechts: $\varepsilon$-$x_0$-, unten links: $M$-$\delta$-, unten rechts: $M$-$x_0$-Kriterium}
+	\end{figure}
+
+\newpage
+
+
+\subsection{Folgen}
+Eine \textbf{Folge} ist eine Funktion $a:I\to\mathbb{K}$, dessen Definitionsbereich $I$ eine Teilmenge der natürlichen und dessen Zielbereich die reellen oder komplexen Zahlen sind
+	\begin{equation}
+		(a_n)_{n\in I}.
+	\end{equation}
+
+
+\subsubsection{Konvergenz von Folgen}
+Es gelten die Grenzwertsätze
+	\begin{align}
+		\lim_{n\rightarrow\infty} (u_n + v_n) &= \lim_{n\rightarrow\infty} u_n + \lim_{n\rightarrow\infty} v_n\\
+		\lim_{n\rightarrow\infty} (u_n \cdot v_n) &= \lim_{n\rightarrow\infty} u_n \cdot \lim_{n\rightarrow\infty} v_n\\
+		\lim_{n\rightarrow\infty} \frac{u_n}{v_n} &= \frac{\lim_{n\rightarrow\infty} u_n}{\lim_{n\rightarrow\infty} v_n} \qquad \text{falls $\lim_{n\rightarrow\infty} v_n \neq 0$}\\
+		\lim_{n\rightarrow\infty} e^{u_n} &= \exp({\lim_{n\rightarrow\infty} u_n})\\
+		\lim_{n\rightarrow\infty} \ln(u_n) &= \ln (\lim_{n\rightarrow\infty} u_n) \qquad \text{falls $\lim_{n\rightarrow\infty} u_n > 0$}
+	\end{align}
+
+
+Um das Konvergenzverhalten bzw. den Grenzwert einer Folge zu bestimmen, können folgende Techniken angewendet werden:
+\begin{itemize}
+	\item \textbf{Elementare Folgen}\\
+	Die Grenzwerte folgender elementarer Folgen sind bekannt:\\
+	Sei $a,\alpha \in \mathbb{R}_{>0}$, dann gilt:
+	\begin{align*}
+		\lim_{n\rightarrow\infty} n! &= +\infty\\
+		\lim_{n\rightarrow\infty} a^n &= 
+			\begin{cases}
+				0, & a\in(0,1)\\
+				+\infty, & a > 1
+			\end{cases}\\
+		\lim_{n\rightarrow\infty} n^\alpha &= +\infty\\
+		\lim_{n\rightarrow\infty} n^{-\alpha} &= 0\\
+		\lim_{n\rightarrow\infty} \ln(n) &= +\infty\\
+		\lim_{n\rightarrow\infty} \lr{1 + \frac{x}{n}}^n &= e^x\\
+		\lim_{n\rightarrow\infty} \lr{1 + \frac{a}{n}}^{bn} &= e^{ab}\\
+		\lim_{n\rightarrow\infty} \frac{n}{(n!)^{1/n}} &= e\\
+		\lim_{n\rightarrow\infty} \sqrt[n]{n} &= 1\\
+		\lim_{n\rightarrow\infty} \sqrt[n]{n!} &= \infty\\
+		\lim_{n\rightarrow\infty} \sqrt[n]{a} &= 1\\
+		\lim_{n\rightarrow\infty} \frac{\sqrt[n]{n!}}{n} &= \frac{1}{e}
+	\end{align*}
+
+
+\newpage
+
+
+	\item \textbf{Brüche/Wurzelterme/Induktionsformel}\\
+	- Bei Brüchen ist es sinnvoll Potenzen von $n$ auszuklammern, um vor allem Nullfolgen zu erkennen\\
+	{\color{blue}
+		$$\lim_{n\rightarrow\infty} \frac{n^4 + 3n^2 + 3n + 1}{6n^4 + 3} = \lim_{n\rightarrow\infty} \frac{{n^4}}{{n^4}} \frac{1 + \frac{2}{n^2} + \frac{3}{n^3} + \frac{1}{n^4}}{6 + \frac{3}{n^4}} = \frac{1 + 0 + 0 + 0}{6 + 0} = \frac{1}{6}$$
+	}\\
+	\\
+	- Bei einer Summe von mehreren Wurzeltermen kann es sinnvoll sein mit dem Term (aber umgekehrten Vorzeichen) zu erweitern und dann wie mit Brüchen zu verfahren.\\
+	{\color{blue}
+		$$\sqrt{n^2 + 2} - \sqrt{n^2 + 3n} = \sqrt{n^2 + 2} - \sqrt{n^2 + 3n} \cdot \frac{\sqrt{n^2 + 2} + \sqrt{n^2 + 3n}}{\sqrt{n^2 + 2} + \sqrt{n^2 + 3n}} = ... = \frac{\frac{2}{n} - 3}{\sqrt{1 + \frac{2}{n^2}} + \sqrt{1 + \frac{3}{n}}}$$}\\
+	\\
+	- Lässt sich das Folgenglied über eine Summe beschreiben, ist es sinnvoll, eine mittels Induktion gezeigte Formel einzusetzen.\\
+	{\color{blue}
+		$$\frac{1}{n^3} \sum_{k=1}^n k^2 = \frac{1}{n^3} \cdot \frac{1}{6}n(n+1)(2n+1)$$
+	}
+
+
+	\item \textbf{Einschnürungssatz}\\
+	Seien $(x_n)_n, (y_n)_n, (w_n)_n$ Folgen, es gelte $x_n\leq w_n\leq y_n$ und $(x_n)_n, (y_n)_n \stackrel{\commentmath{n\rightarrow\infty}}{\longrightarrow} a$. Dann ist der Grenzwert von $w_n$ auch $a$.
+
+
+	\item \textbf{Vergleich} mit kleinerer/größerer Folge
+		\begin{align}
+			u_n\leq v_n \quad &\Rightarrow\quad \lim\limits_{n\rightarrow\infty} u_n \leq \lim\limits_{n\rightarrow\infty} v_n
+		\intertext{Dann insbesondere:}
+			\lim\limits_{n\rightarrow\infty} u_n = +\infty \quad &\Rightarrow\quad \lim\limits_{n\rightarrow\infty} v_n = +\infty\\
+			\lim\limits_{n\rightarrow\infty} v_n = -\infty \quad &\Rightarrow\quad \lim\limits_{n\rightarrow\infty} u_n = -\infty
+		\end{align}
+
+
+	\item Zeige \textbf{Divergenz durch Teilfolgen Beispiele}\\
+	Wenn \underline{nicht} alle Teilfolgen gegen $a$ konv., konv. die Folge $(u_n)_n$ nicht gegen $a$.\\
+	\textcolor{blue}{Kontraposition von: $(u_n)_n$ konv. gegen $a$ gdw. alle TF gegen $a$ konv.}
+
+
+	\item \textbf{Definition} ($\varepsilon$-$n_0$ bzw. $M$-$n_0$-Kriterium)\\
+	Verwende die Definitionen der Grenzwerte aus Kapitel \ref{konvergenz und divergenz}.
+
+\vspace{0.5cm}
+
+\begin{minipage}{\textwidth}
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	zz: $\lim_{n\rightarrow\infty} \frac{1}{n^2 + 4} = 0$\\
+	\textbf{Nebenrechnung}
+		$$\left|\frac{1}{n^2 + 4} - 0\right| = \frac{1}{n^2 + 4} \leq \frac{1}{n^2} \stackrel{!}{\leq} \varepsilon$$
+	Stelle die Ungl. nach $n$ um. Dieses wird im Beweis als $n_0$ gewählt.
+		$$\Leftrightarrow n \geq \frac{1}{\sqrt{\varepsilon}}$$
+		
+	\textbf{Beweis}\\
+	Sei $\varepsilon > 0$. Gemäß dem archimedischem Axiom kann ein $n_0\in\mathbb{N}$ gewählt werden s.d. $n_0 \geq \frac{1}{\sqrt{\varepsilon}}$.\\
+	Dann folgt $\forall n\geq n_0$ 
+		\begin{align*}
+			\left|\frac{1}{n^2 + 4} - 0\right| &= \frac{1}{n^2 + 4} \leq \frac{1}{n^2} \leq \frac{1}{n_0^2} = \frac{1}{\left(\frac{1}{\sqrt{\varepsilon}}\right)^2} = \varepsilon \qquad\blacksquare
+		\end{align*}
+
+	Somit wurde gezeigt, dass $\forall\varepsilon > 0\ \exists n_0 > 0$ (nämlich $n_0 = \frac{1}{\sqrt{\varepsilon}}$): $\forall n\in\mathbb{N}\ n\geq n_0: |\frac{1}{n^2 + 4} - 0| \leq \varepsilon$.
+\hrule
+}
+\end{minipage}
+\end{itemize}
+
+
+\subsubsection*{Komplexe Folgen}
+Komplexe Folgen konvergieren dann, wenn Realteil und Imaginärteil konvergieren. Der Grenzwert der Folge ergibt sich dann aus der algebraischen Form
+	\begin{equation}
+		\lim_{n\rightarrow\infty} z_n = \lim_{n\rightarrow\infty} \Re(z_n) + i \lim_{n\rightarrow\infty} \Im(z_n).
+	\end{equation}
+
+Dargestellt in der trigonometrischen Form lässt sich direkt der Betrag des Folgenglieds ablesen und einen Schluss auf z.B. Nullfolgen- oder Divergenzverhalten zu.
+
+
+
+%{\color{red}
+%Für $n\rightarrow \infty$ gilt
+%	$$\ln(n) \ll n^p \ll b^n \ll n! \ll n^n$$
+%mit $p > 0$ und $b > 1$.
+%}
+
+
+\newpage
+
+
+\subsection{Reihen}
+Eine \textbf{Reihe} ist eine Folge der Form
+	\begin{equation}
+		(a_n)_{n\in I} = \sum_{i=0}^n b_i,
+	\end{equation}
+
+wobei $(b_i)_i$ ebenfalls eine Folge ist.
+
+
+\subsubsection{Konvergenz von Reihen}
+Um festzustellen, ob eine Reihe konvergiert oder divergiert, können die folgenden Kriterien angewendet werden:
+\begin{itemize}
+	\item \textbf{Elementare Reihen}\\
+	Die Grenzwerte bzw. Konvergenzverhalten der geometrischen, harmonischen und Teleskopreihe sind bekannt:
+	\begin{align}
+		\sum_{k=0}^\infty a^k & 
+		\begin{cases} 
+			= \frac{1}{1 - a}, & \text{falls $|a| < 1$}\\
+			\text{divergiert}, & \text{sonst}
+		\end{cases}\\
+	%
+		\sum_{k=1}^\infty \frac{1}{k^s} & 
+		\begin{cases}
+			\text{konvergiert}, & \text{falls $s > 1$}\\ 
+			\text{divergiert}, & \text{sonst}
+		\end{cases}\\
+	%
+		\sum_{k=0}^n a_k - a_{k+1} &= a_0 - a_{n+1}
+	\end{align}
+
+
+	\item \textbf{Divergenz falls keine Nullfolge}
+		\begin{align}
+			%\sum_{k\geq n_0}^\infty u_k < +\infty \quad&\Rightarrow\quad \lim\limits_{n\rightarrow\infty} u_n = 0\\
+			\lim\limits_{n\rightarrow\infty} u_n \neq 0 \quad&\Rightarrow\quad \sum_{k\geq n_0}^\infty u_k = +\infty
+		\end{align}
+	
+	
+	\item \textbf{Quotientenkriterium (QK)}
+		\begin{equation}
+			\lim\limits_{n\rightarrow\infty} \left|\frac{u_{n+1}}{u_n}\right|
+			\begin{cases}
+				< 1, & \text{absolut konvergent}\\
+				> 1, & \text{divergent}\\
+				= 1, & \text{keine Aussage}
+			\end{cases}
+		\end{equation}
+	\textcolor{gruen}{Nützlich bei Fakultäten.}
+
+
+	\item \textbf{Wurzelkriterium (WK)}
+		\begin{equation}
+			\lim\limits_{n\rightarrow\infty} \sqrt[n]{|u_n|}
+			\begin{cases}
+				< 1, & \text{konvergent}\\
+				> 1, & \text{divergent}\\
+				= 1, & \text{keine Aussage}
+			\end{cases}	
+		\end{equation}
+		
+
+	\item \textbf{Satz der alternierenden Reihen (Leibniz-Kriterium)}\\
+	Wird eine alternierende Reihe $\sum_{k\geq n_0} (-1)^k a_k$ untersucht, gilt das Kriterium
+		\begin{equation}
+			a_k \quad\text{positive Nullfolge} \quad\Rightarrow\quad \sum_{k\geq n_0} (-1)^k a_k \quad\text{konvergent}
+		\end{equation}
+
+
+	\item \textbf{Verdichtungskriterium}\\
+	Sei $(u_n)_n$ eine positive fallende Folge, dann gilt
+		\begin{equation}
+			\sum_{n\geq n_0} u_n \quad\text{konvergiert} \quad\Rightarrow\quad \sum_{n\geq n_0} 2^k u_{2^k} \quad\text{konvergiert}
+		\end{equation}
+
+
+	\item \textbf{Majorantenkriterium (Maj.)}\\
+	Konvergiert eine größere Reihe, so konvergiert auch die zu untersuchende Reihe.\\
+	Sei $|a_n|\leq b_n$, so folgt
+		\begin{equation}
+			\sum_{n=1} b_n \quad \text{konvergent} \quad\Rightarrow\quad \sum_{n=1} a_n \quad \text{absolut konvergent}
+		\end{equation}
+		
+		
+	\item \textbf{Minorantenkriterium (Min.)}\\
+	Divergiert eine kleinere Reihe, so divert auch die zu untersuchende Reihe.\\
+	Sei $a_n\geq b_n$, so folgt
+		\begin{equation}
+			\sum_{n=1} b_n \quad \text{divergent} \quad\Rightarrow\quad \sum_{n=1} a_n \quad \text{divergent}
+		\end{equation}
+		
+	
+	\item \textbf{Absolute Konvergenz}\\
+	Eine Reihe $(a_n)_n$ konvergiert absolut (und ist somit konvergent), wenn
+		\begin{equation}
+			\sum_{n=1} |a_n| \quad\text{konv.}\quad
+		\end{equation}
+	\textcolor{gruen}{Nützlich für z.B. $\sin$, da dieser im Betrag mit $\leq 1$ weggenähert werden kann.}
+\end{itemize}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel Quotientenkriterium}\\
+	geg: $\sum_{k = 2} \frac{k+2}{4^k}$
+		\begin{align*}
+			\left|\frac{(k + 1) + 2}{4^{k+1}} \cdot \frac{4^k}{k + 2}\right| &= \frac{k + 3}{4} \cdot \frac{1}{k + 2} = \frac{k}{k}\frac{(1 + \frac{3}{k})}{4(1 + \frac{2}{k})} \stackrel{\commentmath{k\rightarrow \infty}}{\longrightarrow} \frac{1}{4} < 1 \quad\text{konvergiert}
+		\end{align*}				
+
+
+	\fbox{Beispiel Wurzelkriterium}
+	
+	geg: $\sum_{k = 0} \frac{k}{2^k}$
+		\begin{align*}
+			\lim\limits_{k\rightarrow \infty} \sqrt[k]{\left| \frac{k}{2^k} \right|} &= \lim\limits_{k\rightarrow \infty} \frac{\sqrt[k]{k}}{2} = \frac{\lim\limits_{k\rightarrow \infty} \sqrt[k]{k}}{\lim\limits_{n\rightarrow \infty} 2} = \frac{1}{2} < 1 \quad\text{konvergiert}
+		\end{align*}
+
+
+	\fbox{Beispiel Majorantenkriterium}
+	
+	geg: $\sum_{n=1}\frac{n + 1 + \sqrt{n}}{2n^3 - n}$
+		\begin{align*}
+			\sum_{n=1}\frac{n + 1 + \sqrt{n}}{2n^3 - n} \leq \sum_{n=1}\frac{n + n + n}{2n^3 - n^3} = \sum_{n=1}\frac{3n}{n^3} = 3\sum_{n=1}\frac{1}{n^2} \qquad\text{konvergiert}
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Konvergenzradius}
+Der \textbf{Konvergenzradius} KR ist das größte $z$, für das eine Potenzreihe $\sum_k a_k z^k$ absolut konvergiert:
+	\begin{equation}
+		\sum_{k\geq n_0} a_k \cdot z^k
+		\begin{cases}
+			\text{absolut konvergent}, & |z| < \text{KR}\\
+			\text{divergiert}, & |z| > \text{KR}
+		\end{cases}
+	\end{equation}
+\textcolor{gruen}{$z^k$ kann dabei auch die Form $(z - z_0)^k$ annehmen.}
+
+\begin{itemize}
+	\item Bestimmung über \textbf{Hadamand-Formel}
+		\begin{equation}
+			\frac{1}{\text{KR}} = \lim\limits_{n\rightarrow\infty} |a_n|^{1/n} \in [0,+\infty]
+		\end{equation}
+	
+	\item Bestimmung über \textbf{QK für Potenzreihen}\\
+	Seien $(a_n)_{n\geq n_0}$ s.d. $a_n\neq 0$ für $n$ groß genug.
+		\begin{equation}
+			\frac{1}{\text{KR}} = \lim\limits_{n\rightarrow\infty} \frac{|a_{n+1}|}{|a_n|} \in [0,+\infty]
+		\end{equation}			
+\end{itemize}
+
+
+\begin{minipage}{\textwidth}
+{\color{blue}
+\hrule
+	\fbox{Beispiel Quotientenkriterium}\\
+	ges: KR von $\sum_{n=1}^\infty \frac{(-1)^{n-1}}{n} \cdot z^n$
+		\begin{align*}
+			\frac{|a_{n+1}|}{|a_n|} &= \left| \frac{(-1)^{n+1-1}}{n+1} \right| \cdot \left| \frac{n}{(-1)^n} \right| = \frac{n}{n+1} = \frac{1}{1 + \frac{1}{n}} \stackrel{\commentmath{n\rightarrow\infty}}{\longrightarrow} 1\\
+			 \Rightarrow \text{KR} &= \frac{1}{1} = 1
+		\end{align*}
+
+%	\vspace{0.5cm}
+
+	\fbox{Beispiel Hadamand-Formel}\\
+	ges: KR von $\sum_{n=1}^\infty n^4 \cdot 4^n \cdot (z-1)^n$
+		\begin{align*}
+			\sqrt[n]{|a_n|} &= (\sqrt[n]{n})^4 \cdot 4 \stackrel{\commentmath{n\rightarrow\infty}}{\longrightarrow} 4 \\
+		\Rightarrow \text{KR} &= \frac{1}{4}
+		\end{align*}
+\hrule
+}
+\end{minipage}
+
+
+\newpage
+
+
+\subsubsection{Grenzwert von Reihen}
+Der Grenzwert einer Reihe
+	\begin{equation}
+		\lim\limits_{n\rightarrow\infty} \sum_{k\geq n_0}^n a_k \equiv \sum_{k\geq n_0}^\infty a_k
+	\end{equation}
+bestimmt sich dadurch, dass die zu untersuchende Reihe in eine der elementaren Reihen umgeformt wird, dessen Grenzwert bereits bekannt ist.\\
+\\
+Wichtige Techniken dabei sind:
+\begin{itemize}
+	\item \textbf{Aufspalten der Summe}
+		$$\sum_{k=0}^\infty \frac{n + 1}{n} = 1 + \sum_{k=1}^\infty \frac{n + 1}{n}$$
+		
+	\item \textbf{Indexverschiebung}\\
+	Was im Folgengliedindex addiert wird, wird in Start und Endwert der Summe subtrahiert.
+		$$\lim\limits_{n\rightarrow\infty}\sum_{k = 2}^n \frac{1}{(n - 2)!} = \lim\limits_{n\rightarrow\infty} \sum_{k = 0}^{ n- 2} \frac{1}{n!}$$
+\end{itemize}
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: $\lim\limits_{n\to\infty} \sum_{k=1}^n \frac{1}{\sqrt{n^2 + k}}$\\
+	\\
+	\textcolor{red}{ERGÄNZEN}
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Reelle Funktionen}
+Eine reelle Funktion ist eine Abbildung $f:I\subset\mathbb{R}\to\mathbb{R}$, die von einer Teilmenge der reellen Zahlen in die reellen Zahlen abbildet.
+
+
+\subsubsection{Konvergenz reeller Funktionen}
+Für zwei stetige reelle Funktionen $f, g$ gelten die Grenzwertsätze
+	\begin{align}
+		\lim_{x \to x_0} (f(x) + g(x)) &= \lim_{x\rightarrow x_0} f(x) + \lim_{x \to x_0} g(x)\\
+		\lim_{x \to x_0} (f(x) \cdot g(x)) &= \lim_{x \to x_0} f(x) \cdot \lim_{x \to x_0} g(x)\\
+		\lim_{x \to x_0} \frac{f(x)}{g(x)} &= \frac{\lim_{x \to x_0} f(x)}{\lim_{x \to x_0} g(x)} \qquad \text{falls $\lim_{x \to x_0} g(x) \neq 0$} \\
+		\lim_{x \to x_0} f(g(x)) &= f \lr{ \lim_{x \to x_0} g(x) },
+	\end{align}
+
+wobei $x_0\in \mathbb{R} \cup \{\infty\} \cup \{-\infty\}$.\\
+\\
+Um den Grenzwert einer reellen Funktion zu bestimmen, können folgende Techniken angewendet werden:
+\begin{itemize}
+	\item \textbf{Einsetzen}
+	{\color{blue}
+		$$\lim\limits_{x\rightarrow 1} (3x^2 + 4) = 3\cdot 1^2 + 4 = 7$$
+	}
+	Außerdem gilt: 
+		\begin{align}
+%%%%			&\infty + \infty,\ -\infty - \infty = -\infty,\ a\pm\infty = \pm\infty,\ \infty \cdot \infty = \infty,\ b \cdot \infty = \text{sgn}(b) \cdot \infty\\
+			&\frac{b}{\pm\infty} = 0,\ e^\infty = \infty,\ e^{-\infty} = 0,\ \ln(\infty) = \infty,\ \ln(0) = -\infty
+		\end{align}
+	
+	Wichtige Umstelltricks für das Einsetzen sind
+	\begin{itemize}
+		\item \textbf{Faktorisieren}
+			$$\lim\limits_{x\rightarrow 2} \frac{x^3 - 8}{x - 2} = \lim\limits_{x\rightarrow 2} \frac{\cancel{(x - 2)}(x^2 + 2x + 4)}{\cancel{(x - 2)}} = 12$$
+		\item \textbf{Rationalisierung des Zählers} für Wurzeln
+			$$\lim\limits_{x\rightarrow 4} \frac{\sqrt{x + 5} - 3}{x - 4} \stackrel{\commentmath{1}}{=} \lim\limits_{x\rightarrow 4} \lr{\frac{\sqrt{x + 5} - 3}{x - 4} \cdot \frac{\sqrt{x + 5} + 3}{\sqrt{x + 5} + 3}} = \lim\limits_{x\rightarrow 4} \frac{\cancel{x + 5 - 9}}{\cancel{(x - 4)}\sqrt{x + 5} + 3} = \frac{1}{6}$$
+			
+		\item \textbf{Doppelbrüche mittels Hauptnenner lösen} 
+			$$\lim\limits_{x\rightarrow 3} \frac{\frac{x}{x + 2} - \frac{3}{5}}{x - 3} \stackrel{\commentmath{1}}{=} \lim\limits_{x\rightarrow 3} \frac{\frac{x}{x + 2} - \frac{3}{5}}{x - 3} \cdot \frac{5(x+2)}{5(x+2)} = \lim\limits_{x\rightarrow 3} \frac{5x - 3(x + 2)}{5(x - 3)(x + 2)} = \lim\limits_{x\rightarrow 3} \frac{2 \cancel{(x-3)}}{5\cancel{(x - 3)}(x + 2)} = \frac{2}{25}$$
+	\end{itemize}
+
+
+	\item \textbf{Einschnürungssatz}\\
+	Wenn $g(x) \leq f(x) \leq h(x)$, dann folgt aus 
+		\begin{equation}
+			\lim\limits_{x\rightarrow a} g(x) = \lim\limits_{x\rightarrow a} h(x) = l \quad\Rightarrow\quad \lim\limits_{x\rightarrow a} f(x) = l
+		\end{equation}
+		
+
+	\item \textbf{L'Hopital}\\
+	De l'Hopitals Regel kann in den Fällen $\frac{0}{0},\ \frac{\infty}{\infty},\ \frac{-\infty}{\infty},\ \frac{\infty}{-\infty}$ angewendet werden. Dann gilt
+		\begin{equation}
+			\lim\limits_{x\rightarrow a} \frac{f'(x)}{g'(x)} = l \quad\Rightarrow\quad \lim\limits_{x\rightarrow a} \frac{f(x)}{g(x)} = l
+		\end{equation}
+	wobei $a$ auch $\pm\infty$ sein kann.
+
+\vspace{0.5cm}
+
+\begin{minipage}{\textwidth}
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: $\lim\limits_{x\rightarrow 0} \frac{\sqrt{2 + x} + \sqrt{2 - x}}{1 + x (1 - x)^{1/4}}$
+		\begin{align*}
+			\lim\limits_{x\rightarrow 0} \frac{\sqrt{2 + x} + \sqrt{2 - x}}{1 + x (1 - x)^{1/4}} &\stackrel{\comment{Typ ''0/0''}}{=} \lim\limits_{x\rightarrow 0} \frac{\frac{1}{\sqrt{2 + x}} + \frac{1}{\sqrt{2 - x}}}{1 + \frac{1}{4}(1 - x)^{-3/4}} =  \frac{2\sqrt{2}}{5}
+		\end{align*}
+\hrule
+} 
+\end{minipage}
+
+	Die anderen pathologischen Fälle lassen sich wie folgt auf die L'Hopital Fälle umformen.
+	\begin{itemize}
+		\item ''$0\cdot \infty$''\\
+		Falls bereits ein Bruch vorhanden, können die Faktoren einfach ''zusammengeschoben'' werden:
+			$$\lim\limits_{x\rightarrow\infty} \lr{\frac{1}{x} \cdot \ln(x)} \stackrel{\comment{''$0\cdot\infty$''}}{=} \lim\limits_{x\rightarrow\infty} \lr{\frac{\ln(x)}{x}} \stackrel{\comment{''$\frac{\infty}{\infty}$''}}{=} ...$$
+		
+		Falls kein Bruch vorhanden, erzeuge einen Doppelbruch:
+			$$\lim\limits_{x\rightarrow 0^+} (x\cdot \ln(x)) \stackrel{\comment{''$0\cdot\infty$''}}{=} \lim\limits_{x\rightarrow 0^+} \frac{\ln(x)}{\frac{1}{x}} \stackrel{\comment{''$\frac{\infty}{\infty}$''}}{=} ...$$
+		
+		\item ''$0^0$'', ''$\infty^0$'', ''$1^\infty$''\\
+		Diese Pathologien werden mittels des $\exp$-$\ln$-Tricks in ''$0\cdot \infty$'' umgeformt
+			$$\lim\limits_{x\rightarrow 0^+} x^{2x} \stackrel{\comment{''$0^0$''}}{=} \lim\limits_{x\rightarrow 0^+} e^{\ln\lr{x^{2x}}} = \lim\limits_{x\rightarrow 0^+} e^{2x\cdot \ln(x)} = \exp\lr{{\lim\limits_{x\rightarrow 0^+} (2x\cdot \ln(x))}} \stackrel{\comment{''$0\cdot \infty$''}}{=} ...$$
+			
+		\item ''$\infty - \infty$''
+			$$\lim\limits_{x\rightarrow 1^+} \lr{\frac{1}{1 - x} - \ln(x)} \stackrel{\comment{''$\infty - \infty$''}}{=} \lim\limits_{x\rightarrow 1^+} \frac{\ln(x) - (1 - x)}{(1 - x)\ln(x)} \stackrel{\comment{''$\frac{0}{0}$''}}{=} ...$$
+	\end{itemize}
+
+
+	\item \textbf{Beidseitiger-Grenzwert-Kriterium}\\
+	$f$ ist stetig im Punkt $a$, wenn
+		\begin{equation}
+			\lim\limits_{x\rightarrow a}f(x) = f(a)
+		\end{equation}
+	d.h. $f(a)$ existiert, $\lim\limits_{x\rightarrow \pm a}f(x)$ existieren und sind gleich.
+
+\vspace{0.5cm}
+
+\begin{minipage}{\textwidth}
+{\color{blue}
+	\hrule
+		\fbox{Beispiel}\\
+		geg: $f(x) = \begin{cases}3x^2\sin(1/x) - x\cos(1/x), & x\neq 0\\ 0, x = 0 \end{cases}$\quad ges: Stetigkeit in $x = 0$
+			$$f(0) = 0 \stackrel{!}{=} \lim\limits_{x\rightarrow 0} \lr{3x^2\sin(1/x) - x\cos(1/x)} = 0 - 0 = 0 \checkmark$$
+	\hrule
+	}
+\end{minipage}
+
+
+	\item \textbf{Potenzreihe}\\
+	Teile der Funktion können durch ihre Potenzreihen genähert werden (z.B. bis Grad 3).
+		\begin{alignat}{3}
+			e^x &= \sum_{k=0}^\infty \frac{x^k}{k!} &&= 1 + x + \frac{x^2}{2} + \frac{x^3}{6} + ... && \quad\text{KR} = \infty\\
+			\sin(x) &= \sum_{k=0}^\infty \frac{x^{2k + 1}}{(2n + 1)!} &&= x - \frac{x^3}{6} + \frac{x^5}{120} + ... && \quad\text{KR} = \infty\\
+			\cos(x) &= \sum_{k=0}^\infty \frac{x^{2k}}{(2n)!} &&= 1 - \frac{x^2}{2} + \frac{x^4}{24} + ... && \quad\text{KR} = \infty\\
+			\ln(1 + x) &= \sum_{k=1}^\infty (-1)^{k + 1} \frac{x^k}{k} &&= x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + ... && \quad\text{KR} = 1\\
+			\sqrt{1 + x} &= &&= 1 + \frac{x}{2} - \frac{x^2}{8} + ... && \quad\text{KR} = 1
+		\end{alignat}
+
+\vspace{0.5cm}
+		
+\begin{minipage}{\textwidth}
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: $\lim\limits_{x\rightarrow 0} \frac{\ln\lr{\frac{\sin x}{x}}}{x^2}$ mit Näherungen bis Grad 3 um $x=0$
+		\begin{align*}
+			\sin x &\approx x - \frac{x^3}{6} \qquad\Rightarrow \frac{\sin x }{x} \approx 1 - \frac{x^2}{6}\\
+			\ln\lr{1 + x} &\approx x - \frac{x^2}{2} + \frac{x^3}{3} \qquad\Rightarrow \ln\lr{\frac{\sin x}{x}} \approx \ln\lr{1 + (-\frac{x^2}{6})} \approx -\frac{x^2}{6}\\
+			\lim\limits_{x\rightarrow 0} \frac{\ln\lr{\frac{\sin x}{x}}}{x^2} &\approx \lim\limits_{x\rightarrow 0} \frac{-x^2/6}{x^2} = -\frac{1}{6}
+		\end{align*}
+\hrule
+}
+\end{minipage}
+
+
+\newpage
+
+
+	\item \textbf{Definition} ($\varepsilon$-$\delta$-, $\varepsilon$-$x_0$-, $M$-$\delta$- und $M$-$x_0$-Kriterium)\\
+	Verwende die Definitionen der Grenzwerte aus Kapitel \ref{konvergenz und divergenz}.
+
+\vspace{0.5cm}
+
+\begin{minipage}{\textwidth}
+{\color{blue}
+\hrule
+	\fbox{Beispiel 1 $\varepsilon$-$\delta$-Kriterium}\\
+	zz: $x^2$ stetig in $\mathbb{R}$\\
+	\\
+	Zeige $\forall\varepsilon > 0\ \exists\delta > 0: \forall x\in\mathbb{R}: |x - a| \leq\delta \Rightarrow \left|x^2 - a^2\right| \leq \varepsilon$\\
+	\textbf{Nebenrechnung}
+		\begin{align*}
+			|x^2 - a^2| &= |(x + a) \cdot (x - a)| = |x + a| \cdot |x - a| \leq |x + a| \cdot \delta = |x - a + 2a| \cdot \delta\\
+			&\leq (|x - a| + |2a|) \cdot \delta \leq (\delta + |2a|) \cdot \delta \stackrel{\commentmath{\delta \leq 1}}{\leq} (1 + |2a|) \cdot \delta \leq \varepsilon\\
+			&\Rightarrow \lr{\delta \leq \frac{\varepsilon}{1 + |2a|} \wedge \delta	\leq 1} \Leftrightarrow \delta = \min\lr{1, \frac{\varepsilon}{1 + |2a|}}
+		\end{align*}
+
+	\textbf{Beweis}\\
+	Sei $\varepsilon > 0$. Wähle $\delta = \min\lr{1, \frac{\varepsilon}{1 + |2a|}}$.\\
+	Sei $a\in \mathbb{R}$ beliebig. Sei $x\in\mathbb{R}$ mit $|x - a| \leq \delta$.
+		$$|x^2 - a^2| =... \leq (1 + |2a|) \cdot \delta \leq (1 + |2a|) \cdot \frac{\varepsilon}{1 + |2a|} = \varepsilon \qquad\blacksquare$$
+
+
+	\fbox{Beispiel 2 $\varepsilon$-$\delta$-Kriterium}\\
+	zz: $\lim\limits_{x\rightarrow 3} \frac{x}{x - 2} = 3$\\
+	\\
+	Zeige $\forall\varepsilon > 0\ \exists\delta > 0\ \text{s.d.}\ \forall x\in\mathbb{R}: |x - 3|\leq \delta \Rightarrow |\frac{x}{x - 2} - 3|\leq\varepsilon$
+		$$\left|\frac{x}{x - 2} - 3\right| = \left|\frac{x - (3x - 2)}{x - 2}\right| = \frac{|-2||x - 3|}{|x - 2|} = 2\delta \frac{1}{|x - 2|}$$
+	Wähle $\delta \leq \frac{1}{2}$ \textcolor{gruen}{(Nicht $\delta = 1$, da der linke äußere Rand des $\delta$-Schlachs dort eine Def.lücke hat: $3-\delta = 3-1 = 2$, $f(2)$  undefiniert)}.
+		$$|x -3| \leq\delta \leq \frac{1}{2} \Rightarrow -\frac{1}{2} \leq x - 3 \leq \frac{1}{2} \Rightarrow \frac{1}{2} \leq x - 2 \leq \frac{3}{2} \Rightarrow \frac{1}{|x - 2|} \leq 2$$
+	Sei $\varepsilon > 0$. Wähle $\delta = \min\{\frac{1}{2}, \frac{\varepsilon}{4}\}$. $\forall x\in\mathbb{R}$ folgt
+		$$\left|\frac{x}{x - 2} - 3\right| = \left|\frac{x - (3x - 2)}{x - 2}\right| = \frac{|-2||x - 3|}{|x - 2|} = 2\delta \frac{1}{|x - 2|} \leq 4\delta \leq 4\frac{\varepsilon}{4} = \varepsilon \quad\blacksquare$$
+\hrule 
+}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{minipage}{\textwidth}
+	{\color{blue}
+	\hrule
+		\fbox{Beispiel $\varepsilon$-$x_0$-Beweis}\\
+	zz: $\lim\limits_{x\rightarrow\infty} \frac{x^2}{3x^2 + 1} = \frac{1}{3}$\\
+	\\
+	Zeige $\forall\varepsilon > 0\ \exists x_0 > 0\ \text{s.d.}\ \forall x\in\mathbb{R}\ x\geq x_0: |\frac{x^2}{3x^2 + 1} - \frac{1}{3}| \leq \varepsilon$
+		$$\left|\frac{x^2}{3x + 1} - \frac{1}{3} \right| = \left|\frac{3x^2 - (3x^2 + 1)}{3(3x^2 + 1)}\right| = \frac{|-1|}{9x^2 + 1} \leq \frac{1}{9x^2} \leq \frac{1}{x^2} \leq \frac{1}{x_0^2} \stackrel{!}{\leq} \varepsilon$$
+	Sei $\varepsilon > 0$. Wähle $x_0 \geq \frac{1}{\sqrt{\varepsilon}}$. $\forall x\in\mathbb{R}$ mit $x \geq x_0$ folgt
+		$$\left|\frac{x^2}{3x + 1} - \frac{1}{3} \right| = \left|\frac{3x^2 - (3x^2 + 1)}{3(3x^2 + 1)}\right| = \frac{|-1|}{9x^2 + 1} \leq \frac{1}{9x^2} \leq \frac{1}{x^2} \leq \frac{1}{x_0^2} \leq \frac{1}{\frac{1}{\varepsilon}} = \varepsilon \quad\blacksquare$$
+	\hrule
+	}
+\end{minipage}
+
+
+%\begin{minipage}{\textwidth}
+%\hrule
+%	\fbox{Beispiel}\\
+%	zz: $\frac{1}{3}x$ stetig in $\mathbb{R}$\\
+%	Lös: Zeige $\forall\varepsilon > 0\ \exists\delta > 0: \forall x\in\mathbb{R}: |x - a| \leq\delta \Rightarrow \left|\frac{1}{3}x - \frac{1}{3}a\right| \leq \varepsilon$\\
+%	\textbf{Nebenrechnung}\\
+%		$$\left|\frac{1}{3}x - \frac{1}{3}a\right| = \left|\frac{1}{3}(x - a)\right| = \frac{1}{3}|x - a| \leq \frac{1}{3}\delta \leq \varepsilon \quad\Rightarrow \delta \leq 3\varepsilon$$
+%	
+%	\textbf{Beweis}\\
+%	Sei $\varepsilon > 0$. Wähle $\delta \leq 3\varepsilon$.\\
+%	Sei $a\in \mathbb{R}$ beliebig. Sei $x\in\mathbb{R}$ mit $|x - a|\leq \delta$.
+%		$$\left|\frac{1}{3}x - \frac{1}{3}a\right| = \left|\frac{1}{3}(x - a)\right| = \frac{1}{3}|x - a| \leq \frac{1}{3}\delta \leq \frac{1}{3}(3\varepsilon) = \varepsilon \qquad\blacksquare$$
+%\hrule
+%\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{minipage}{\textwidth}
+{\color{blue}
+\hrule
+	\fbox{Beispiel $M$-$\delta$-Beweis}\\
+	zz: $\lim\limits_{x\rightarrow \infty} \frac{x}{2x - 2} = \infty$\\
+	\\
+	Zeige $\forall M > 0\ \exists\delta > 0\ \text{s.d.}\ \forall x\in\mathbb{R}: |x - 1|\leq \delta \Rightarrow \frac{x}{2x - 2} > M$\\
+	Da $x\rightarrow 1^+$, ist $x>1$ und somit $|x - 1| = x - 1 \leq \delta$.
+		$$\frac{x}{2x - 2} = \frac{x}{2(x - 1)} \geq \frac{x}{2\delta} \geq \frac{1}{2\delta} \stackrel{!}{>} M$$
+	Sei $M > 0$. Wähle $\delta < \frac{1}{2M}$. $\forall x\in\mathbb{R}$ folgt
+		$$\frac{x}{2x - 2} = \frac{x}{2(x - 1)} \geq \frac{x}{2\delta} \geq \frac{1}{2\delta} > \frac{1}{2\frac{1}{2M}} = M \quad\blacksquare$$
+\hrule
+}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{minipage}{\textwidth}
+{\color{blue}
+\hrule
+	\fbox{Beispiel $M$-$x_0$-Beweis}\\
+	zz: $\lim\limits_{x\rightarrow\infty} \frac{x^2}{x + 1} = \infty$\\
+	\\
+	Zeige $\forall\varepsilon > 0\ \exists x_0 > 0 \text{ s.d. } \forall x\in\mathbb{R}\ x\geq x_0: \frac{x^2}{x + 1} > M$
+		$$\frac{x^2}{x + 1} \stackrel{\commentmath{x\geq x_0\geq 1}}{\geq} \frac{x^2}{x + x} = \frac{x^2}{2x} = \frac{x}{2} \geq \frac{x_0}{2} \stackrel{!}{>} M \quad\Rightarrow\quad x_0 > 2M$$
+	Sei $\varepsilon > 0$. Wähle $x_0 = \max(1, 2M)$. $\forall x\in\mathbb{R}$ mit $x\geq x_0$ gilt:
+		$$\frac{x^2}{x + 1} \stackrel{\commentmath{x\geq x_0\geq 1}}{\geq} \frac{x^2}{x + x} = \frac{x^2}{2x} = \frac{x}{2} \geq \frac{x_0}{2} \geq \frac{2M}{2} = M \qquad\blacksquare$$
+\hrule
+}
+\end{minipage}
+
+{\color{gruen}
+- Um z.B. $|x + 2|$ abzuschätzen, wähle $\delta$ kleiner einer Zahl (typisch: 1) und stelle die Ungl. um.\\
+	$$|x - 2| \leq \delta \leq 1 \quad\Rightarrow\quad -1 \leq x - 2 \leq 1 \quad\Rightarrow\quad 3 \leq x + 2 \leq 5 \quad\Rightarrow\quad |x + 2| \leq 5$$
+
+Schreibe dann $\delta = \min\{1, ...\}$ wobei $...$ eine weitere Bedingung für $\delta$ ist, die i.d.R. später gefunden wird.\\
+- Für z.B. $x\rightarrow 1^+$ folgt die Bedingung $x>1$, da es sich von rechts annähert.\\
+- Für mehrere Abschätzungen z.B. $x_0 \geq 1,\ x_0 \geq ...$, schreibe $x_0 = \max(1,...)$}
+
+
+	\item \textbf{Folgenkriterium}\\
+	$\forall (u_n)_n \in A$ mit $\lim\limits_{n\rightarrow \infty} = a$, gilt:
+		\begin{equation}
+			\lim\limits_{n\rightarrow \infty} f(u_n) = f(a)
+		\end{equation}
+	
+	\begin{minipage}{\textwidth}
+	{\color{blue}
+	\hrule
+		\fbox{Beispiel 1}\\
+		zz: $x^2$ stetig in $a=2$\\
+		\\
+		Sei $\forall(u_n)_n$: $\lim\limits_{n\rightarrow \infty}u_n = 2$.
+		\begin{align*}			
+			\lim\limits_{n\rightarrow \infty} f(u_n) &= \lim\limits_{n\rightarrow \infty} (u_n)^2 = \lim\limits_{n\rightarrow \infty} = (u_n \cdot u_n) = \lim\limits_{n\rightarrow \infty} u_n \cdot \lim\limits_{n\rightarrow \infty} u_n = 2 \cdot 2 = 4\\
+			f(a) &= f(2) = 2^2 = 4\\
+			&\Rightarrow \lim\limits_{n\rightarrow \infty} f(u_n) = f(a) \qquad\blacksquare
+		\end{align*}
+
+
+		\fbox{Beispiel 2}\\
+		zz: f(x) = $\begin{cases}1, & x > 0\\ 0, & x = 0\\ -1, & x < 0\end{cases}$ \quad ist unstetig in $0$.\\
+		\\
+		Betrachte die Folge $(u_n)_n = (1/n)_n$
+			$$\lim\limits_{n\rightarrow \infty} f(1/n) = \lim\limits_{n\rightarrow \infty} 1 = 1 \neq f(0) = 0 \qquad\blacksquare$$
+	\hrule
+	}
+	\end{minipage}
+\end{itemize}
+
+
+\newpage
+
+
+\section{Ableitungen}
+Eine Funktion $f$ ist am Punkt $a$ \textbf{differenzierbar}, wenn der Grenzwert des Differenzenquotients, genannt \textbf{Ableitung}, existiert.
+	\begin{equation}
+		f'(a) := \lim\limits_{x\rightarrow a} \frac{f(x) - f(a)}{x - a} = \lim\limits_{h\rightarrow 0} \frac{ f(x+h) - f(x) }{h}
+	\end{equation}
+
+Eine Funktion $f$ ist \textbf{stetig differenzierbar}, wenn ihre Ableitung $f'(x)$ stetig ist.
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	zz: $f(x) = \begin{cases}x^3\sin\lr{\frac{1}{x}}, & x\neq 0\\ 0, & x= 0\end{cases}$ \quad diff.bar, stetig diff.bar\\
+	\\
+	Untersuche die Differenzierbarkeit.\\
+	$f$ ist für $x\neq 0$ als Verkettung und Produkt von diff.baren Funktionen diff.bar.\\
+	Es bleibt zu zeigen, dass $f$ in $0$ diff.bar ist.
+		$$\lim\limits_{x\rightarrow 0} \frac{f(x) - f(0)}{x - 0} = \lim\limits_{x\rightarrow 0} \frac{x^3\sin\lr{\frac{1}{x}}}{x} = \lim\limits_{x\rightarrow 0} x^2\sin\lr{\frac{1}{x}} = 0$$
+	{\color{gruen} Denn $-1\leq \sin\lr{\frac{1}{x}} \leq 1 \quad\Rightarrow\quad -x^2\leq x^2\sin\lr{\frac{1}{x}} \leq x^2$ und dann Einschnürungssatz.}\\
+	\\
+	Untersuche stetige Diff.barkeit.\\
+	Stetig Diff.bar bedeutet, dass die Ableitung $f'$ stetig ist.
+		$$f'(x) = \begin{cases}3x^2\sin\lr{\frac{1}{x}} - x\cos\lr{\frac{1}{x}}, & x\neq 0\\0, & x = 0\end{cases}$$
+	$f'$ ist als Verkettung, Summe und Produkt von stetigen Fktn. stetig. Es bleibt zu zeigen, dass $f'$ in $0$ stetig ist. Dazu muss gelten:
+		\begin{align*}
+			f'(0) &= \lim\limits_{x\rightarrow 0}  f'(x)\\
+			f'(0) = 0 &\stackrel{!}{=} \lim\limits_{x\rightarrow 0} \lreck{3x^2\sin\lr{\frac{1}{x}} - x\cos\lr{\frac{1}{x}}} = 0 - 0 = 0 \qquad \checkmark
+		\end{align*}			
+	
+\hrule
+} 
+
+
+\newpage
+
+
+Für zwei differenzierbare Funktionen $f,g$ gelten die folgenden Rechenregeln:
+\begin{itemize}
+	\item \textbf{Additionsregel}
+		\begin{equation}
+			(f(x) + g(x))' = f'(x) + g'(x)
+		\end{equation}
+	
+	
+	\item \textbf{Produktregel}
+		\begin{equation}
+			(f(x) \cdot g(x))' = f'(x) \cdot g(x) + f(x) \cdot g'(x)
+		\end{equation}
+		
+	
+	\item \textbf{Quotientenregel}
+	Für $g\neq 0$ gilt
+		\begin{equation}
+			\lr{ \frac{f(x) }{ g(x)} }' = \frac{ f'(x) \cdot g(x) - f(x) \cdot g'(x) }{ g^2(x) }
+		\end{equation}
+		
+	
+	\item \textbf{Potenzregel}
+		\begin{equation}
+			(x^n)' = n \cdot x^{n-1}
+		\end{equation}
+	
+	mit $n \in \mathbb{Z}$.
+		
+	
+	\item \textbf{Kettenregel}
+		\begin{align}
+			(f(g(x)))' &= f'(g(x)) \cdot f'(x) \\
+			\frac{\diff z}{\diff x} &= \frac{\diff z}{\diff y}\cdot \frac{\diff y}{\diff x}
+		\end{align}
+		mit $z = g(y),\ y = f(x)$.
+\end{itemize}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel Kettenregel}\\
+	ges: $\lr{ \ln \lr{ \sin^2 \lr{ \frac{x}{e^{x^5+4}} } + \frac{1}{\cos^2(x^2)} } }'$\\
+	\\
+	Strategie: Substituiere alle auftauchenden Funktionen abgesehen von solchen, die über die 4 Grundrechenarten verbunden sind.\\
+	Berechne anschließend alle Ableitung mittels Additions,- Produkt-, Quotienten- und Kettenregel Schritt für Schritt. Hierbei bietet es sich an, die Leibniz-Notation zu verwenden.\\
+	Berechne anschließend in einer Nebenrechnung alle vorkommenden Ableitungen der Substitutionen und setze diese ein.
+		\begin{align*}
+			&\phantom{=} \lr{ \ln \lr{ \sin^2 \lr{ \frac{x}{e^{x^5+4}} } + \frac{1}{\cos^2(x^2)} } }' = \lr{ w \lr{ u_4 \lr{ u_3 \lr{ \frac{x}{u_2(u_1(x))} } } + \frac{1}{v_2(v_1(x))} } }' = (\star) \\
+		\end{align*}
+	
+	Dabei wurden die folgenden Substitutionen vorgenommen:
+		\begin{align*}
+			\bullet \ u_1(x) &= x^5+4 \\
+			\bullet \ u_2(u_1) &= e^{u_1} \\
+			\bullet \ u_3\lr{ x/u_2 } &= \sin\lr{ x/u_2 } \\
+			\bullet \ u_4(u_3) &= u_3^2 \\
+			\bullet \ v_1(x) &= x^2 \\
+			\bullet \ v_2(v_1) &= \cos(v_1) \\
+			\bullet \ w\lr{ u_4 + 1/v_2 } &= \ln\lr{ u_4 + 1/v_2 }
+		\end{align*}
+
+
+\newpage
+
+
+		\begin{align*}
+			(\star) &= \frac{\diff w}{\diff x} = \frac{\diff w \lr{u_4 + \frac{1}{v_2}}}{\diff \lr{u_4 + \frac{1}{v_2}}} \cdot \frac{\diff \lr{u_4 + \frac{1}{v_2}}}{\diff x} = \frac{\diff w \lr{u_4 + \frac{1}{v_2}}}{\diff \lr{u_4 + \frac{1}{v_2}}} \cdot \lreck{ \frac{\diff u_4}{\diff x} + \frac{\diff \lr{ \frac{1}{v_2} }}{\diff x} } = \\
+			&= \frac{\diff w \lr{u_4 + \frac{1}{v_2}}}{\diff \lr{u_4 + \frac{1}{v_2}}} \cdot \lreck{ \frac{\diff u_4}{\diff u_3} \cdot \frac{\diff u_3 \lr{ \frac{x}{u_2} } }{\diff \lr{ \frac{x}{u_2} }} \cdot \frac{\diff \lr{ \frac{x}{u_2} }}{\diff x} + \frac{0 - \frac{\diff v_2}{\diff x}}{v_2^2} } = \\
+			&= \frac{\diff w \lr{u_4 + \frac{1}{v_2}}}{\diff \lr{u_4 + \frac{1}{v_2}}} \cdot \lreck{ \frac{\diff u_4}{\diff u_3} \cdot \frac{\diff u_3 \lr{ \frac{x}{u_2} } }{\diff \lr{ \frac{x}{u_2} }} \cdot \frac{u_2 - x \cdot \frac{\diff u_2}{\diff u_1} \cdot \frac{\diff u_1}{\diff x}}{u_2^2} + \frac{- \frac{\diff v_2}{\diff v_1} \cdot \frac{\diff v_1}{\diff x}}{v_2^2} } = (\star)
+		\end{align*}
+
+
+	Berechne nun alle auftretenden Ableitungen.\\
+	Setze nach dieser Berechnung jeweils alle Substitutionen wieder ein, s.d. die Terme wieder von $x$ abhängen:
+		\begin{align*}
+			\bullet \ \frac{\diff w \lr{ u_4 + \frac{1}{v_2} }}{\diff \lr{ u_4 + \frac{1}{v_2} }} &= \frac{\diff \ln \lr{ u_4 + \frac{1}{v_2} }}{\diff \lr{ u_4 + \frac{1}{v_2} }} = \frac{1}{u_4 + \frac{1}{v_2}} = \frac{1}{\sin^2\lr{ \frac{x}{e^{x^5+4}} } + \frac{1}{\cos(x^2)}} \\
+			\bullet \ \frac{\diff u_4}{\diff u_3} &= \frac{u_3^2}{\diff u_3} = 2 u_3 = 2 \sin\lr{ \frac{x}{e^{x^5+4}} } \\
+			\bullet \ \frac{\diff u_3 \lr{ \frac{x}{u_2} }}{\diff \lr{ \frac{x}{u_2} }} &= \frac{\diff \sin\lr{ \frac{x}{u_2} }}{\diff \lr{ \frac{x}{u_2} }} = \cos\lr{ \frac{x}{u_2} } = \cos\lr{ \frac{x}{e^{x^5+4}} } \\
+			\bullet \ \frac{\diff u_2}{\diff u_1} &= \frac{\diff e^{u_1}}{\diff u_1} = e^{u_1} = e^{x^5+4} \\
+			\bullet \ \frac{\diff u_1}{\diff x} &= \frac{\diff (x^5+4)}{\diff x} = 5x^4 \\
+			\bullet \ \frac{\diff v_2}{\diff v_1} &= \frac{\diff \cos(v_1)}{\diff v_1} = -\sin(v_1) = -\sin(x^2) \\
+			\bullet \ \frac{\diff v_1}{\diff x} &= \frac{\diff x^2}{\diff x} = 2x
+		\end{align*}
+
+	Einsetzen in den zuvor gefundenen Ausdruck ergibt:
+		\begin{align*}
+			(\star) &= \frac{1}{\sin^2\lr{ \frac{x}{e^{x^5+4}} } + \frac{1}{\cos(x^2)}} \cdot \Bigg[ 2\sin\lr{ \frac{x}{e^{x^5+4}} } \cdot \cos\lr{ \frac{x}{e^{x^5+4}} } \cdot \frac{e^{x^5+4} - x \cdot e^{x^5+4} \cdot 5x^4}{ \lr{e^{x^5+4}}^2 } - \\
+			&- \frac{1}{\cos^2(x^2)} \cdot \lr{-\sin(x^2)} \cdot 2x \Bigg] = \\
+			&= \frac{1}{\sin^2\lr{ \frac{x}{e^{x^5+4}} } + \sec(x^2)} \cdot \Bigg[ 2\sin\lr{ \frac{x}{e^{x^5+4}} } \cdot \cos\lr{ \frac{x}{e^{x^5+4}} } \cdot \frac{1 - 5x^5}{ e^{x^5+4} }  + \frac{\tan(x^2)}{\cos(x^2)} \cdot 2x \Bigg]
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $(f(x)+g(x))' = f'(x) + g'(x)$
+		\begin{align*}
+			(f(x) + g(x))' &= \lim_{h\rightarrow 0} \frac{ (f(x+h) + g(x+h)) - (f(x) + g(x)) }{h} = \\
+			&= \lim_{h\rightarrow 0} \frac{ f(x+h) - f(x) + g(x+h) - g(x) }{h} = \\
+			&= \lim_{h\rightarrow 0} \frac{f(x+h) - f(x)}{h} + \lim_{h\rightarrow 0} \frac{g(x+h) - g(x)}{h} \equiv \\
+			&\equiv f'(x) + g'(x) \qquad \blacksquare
+		\end{align*}
+
+
+	zz: $(f(x) \cdot g(x))' = f'(x) \cdot g(x) + f(x) \cdot g'(x)$\\
+	\\
+	Der entscheidende Schritt im Beweis, ist das Einfügen der Null $0 = f(x+h) \cdot g(x) - f(x+h) \cdot g(x)$, gefolgt von der Separation in zwei Terme unter Verwendung der Grenzwertsätze für reelle Funktionen:
+		\begin{align*}
+			(f(x) \cdot g(x))' &= \lim_{h\rightarrow 0} \frac{f(x+h) \cdot g(x+h) - f(x) \cdot g(x)}{h} = \\
+			&= \lim_{h\rightarrow 0} \frac{f(x+h) \cdot g(x+h) - f(x) \cdot g(x) + f(x+h) \cdot g(x) - f(x+h) \cdot g(x)}{h} = \\
+			&= \lim_{h\rightarrow 0} \frac{f(x+h)(g(x+h) - g(x)) + g(x)(f(x+h) - f(x))}{h} = \\
+			&= \lim_{h\rightarrow 0} \frac{f(x+h)(g(x+h) - g(x))}{h} + \lim_{h\rightarrow 0} \frac{g(x)(f(x+h) - f(x))}{h} = \\
+			&= \lim_{h\rightarrow 0}f(x+h) \cdot \lim_{h\rightarrow 0} \frac{g(x+h) - g(x)}{h} + \lim_{h\rightarrow 0}g(x) \cdot \lim_{h\rightarrow 0}\frac{f(x+h) - f(x)}{h} \equiv \\
+			&\equiv f(x) \cdot g'(x) + g(x) \cdot f'(x) \qquad \blacksquare
+		\end{align*}
+
+
+	zz: $(x^n)' = n \cdot x^{n-1}$ für $n \in \mathbb{Z}$\\
+	\\
+	IA $n=0$:
+		\begin{align*}
+			(x^0)' = 1' = 0 &= 0 \cdot x^{0-1} = 0 \qquad \checkmark
+		\end{align*}
+	
+	IV: $(x^n)' = n \cdot x^{n-1}$\\
+	IS: $(x^{n+1})' = (n+1) \cdot x^{n}$
+		\begin{align*}
+			(x^{n+1})' &= (x^n \cdot x)' \stackrel{\comment{Produktregel}}{=} (x^n)' \cdot x + x^n \cdot 1 = \\
+			&= n \cdot x^{n-1} \cdot x + x^n = \\
+			&= n \cdot x^n + x^n = (n+1) \cdot x^n \qquad \checkmark
+		\end{align*}
+
+	Zeige analog $(x^{-n})' = -n \cdot x^{-n-1}$. $\qquad \blacksquare$
+
+
+\newpage
+
+
+	zz: $\lr{ \frac{f(x)}{g(x)} }' = \frac{f'(x) \cdot g(x) - f(x) \cdot g'(x)}{g^2(x)}$ für $g(x) \neq 0$\\
+	\\
+	Der entscheidende Schritt dieses Beweises ist das Einfügen der Null $0 = f(x) \cdot g(x) - f(x) \cdot g(x)$:
+		\begin{align*}
+			\lr{ \frac{f(x)}{g(x)} }' &= \lim_{h\rightarrow 0} \frac{ \frac{f(x+h)}{g(x+h)} - \frac{f(x)}{g(x)} }{h} = \\
+			&= \lim_{h\rightarrow 0} \lreck{ \frac{1}{h} \cdot \lr{ \frac{f(x+h) \cdot g(x) - f(x) \cdot g(x+h)}{ g(x+h) \cdot g(x)} } } = \\
+			&= \lim_{h\rightarrow 0} \lreck{ \frac{1}{h} \cdot \frac{f(x+h) \cdot g(x) - f(x) \cdot g(x+h) + f(x) \cdot g(x) - f(x) \cdot g(x)}{ g(x+h) \cdot g(x)} } = \\
+			&= \lim_{h\rightarrow 0} \lreck{ \frac{1}{h} \cdot \frac{g(x) \lreck{ f(x+h) - f(x) } - f(x) \lreck{ g(x+h) - g(x) } }{ g(x+h) \cdot g(x) } } = \\
+			&= \lim_{h\rightarrow 0} \lreck{ \frac{g(x) \cdot \frac{ f(x+h) - f(x) }{h} - f(x) \cdot \frac{ g(x+h) - g(x) }{h} }{ g(x+h) \cdot g(x) } } \equiv \\
+			&\equiv \lim_{h\rightarrow 0} \frac{g(x) \cdot f'(x) - f(x) \cdot g'(x)}{ g(x+h) \cdot g(x) } = \\
+			&= \frac{ \lim_{h\rightarrow 0} \lreck{ g(x) \cdot f'(x) - f(x) \cdot g'(x) } }{ \lim_{h\rightarrow 0} \lreck{ g(x+h) \cdot g(x) } } = \\
+			&= \frac{ f'(x) \cdot g(x) - f(x) \cdot g'(x) }{ g^2(x) } \qquad \blacksquare
+		\end{align*}
+
+
+	zz: $(f(g(x)))' = f'(g(x)) \cdot g'(x)$\\
+	\\
+	Der entscheidende Schritt ist das Multiplizieren mit der Eins $1 = \frac{•}{•}$:
+		\begin{align*}
+			(f(g(x)))' &= \lim_{h\rightarrow 0} \frac{ f(g(x+h)) - f(g(x)) }{h} = \\
+			&= \lim_{h\rightarrow 0} \lreck{ \frac{ f(g(x+h)) - f(g(x)) }{ g(x+h) - g(x) } \cdot \frac{ g(x+h) - g(x) }{h} } = \\
+			&= \lim_{h\rightarrow 0} \frac{ f(g(x+h)) - f(g(x)) }{ g(x+h) - g(x) } \cdot \lim_{h\rightarrow 0} \frac{ g(x+h) - g(x) }{h} = \\
+			\intertext{Führe die Variablen $t=x+h$ und $u=g(x)$ ein, um im ersten Term die Ableitung zu erkennen. Dazu muss noch der Grenzwert $\lim_{h\rightarrow 0}$ angepasst werden. Da $\lim_{h \rightarrow 0} \lr{ f(g(x+h)) - f(g(x)) } = 0$, ist das Äquivalent $\lim_{t\rightarrow u} \lr{ f(t) - g(u) }$. Analog für den Nenner:}
+			&= \lim_{t\rightarrow u} \frac{f(t) - f(u)}{t-u} \cdot g'(x) = \\
+			&\equiv f'(u) \cdot g'(x) \equiv f'(g(x)) \cdot g'(x) \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+Elementare Ableitungen sind:
+	\begin{align}
+		(e^x)' &= e^x\\
+		(\ln x)' &= \frac{1}{x}\\
+		(x^\alpha)' &= \alpha \cdot x^{\alpha - 1} \qquad\text{mit $\alpha\in\mathbb{R}$}\\
+		\sin' &= \cos\\
+		\cos' &= -\sin\\
+		\tan' &= 1 + \tan^2 = \frac{1}{\cos^2} \equiv \sec^2(x)\\
+		\cot' &= -\frac{1}{\sin^2} \equiv -\csc^2(x)= -1 - \cot^2\\
+		\sec' &= \sec x \cdot \tan x\\
+		\csc' &= -\cot x \cdot \csc x\\
+		\arccos' &= -\frac{1}{\sqrt{1 - y^2}}\\
+		\arcsin' &= \frac{1}{\sqrt{1 - y^2}}\\
+		\arctan' &= \frac{1}{1 + y^2}\\
+		\text{arccot}' &= -\frac{1}{1 + y^2}\\
+		\sinh' &= \cosh\\
+		\cosh' &= \sinh\\
+		\tanh' &= \frac{1}{\cosh^2} = 1 - \tanh^2\\
+		\coth' &= -\frac{1}{\sinh^2} = 1 - \coth^2\\
+		\text{arcsinh}' &= \frac{1}{\sqrt{y^2 + 1}}\\
+		\text{arccosh}' &= \frac{1}{\sqrt{y^2 - 1}}
+	\end{align}
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Die Ableitungen der Umkehrfunktionen stammen aus dem Satz der diff.baren Umkehrfunktionen, der unter gewissen Voraussetzungen besagt: $(f^{-1})'(x) = \frac{1}{(f'\circ f^{-1})(x)}$.
+		\begin{align*}
+			(\sin^{-1})'(x) \equiv (\arcsin)'(x) &= \frac{1}{((\sin)'\circ \arcsin)(x)} = \frac{1}{(\cos\circ \arcsin)(x)} = \frac{1}{\cos(\arcsin(x))}\\
+		 &= \frac{1}{\sqrt{1 - \sin^2(\arcsin(x))}} = \frac{1}{\sqrt{1 - x^2}}
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Kurvendiskussion}
+Die kritischen Punkte einer Funktion $f$ sind die Nullstellen ihrer Ableitung $f'$.
+	\begin{equation}
+		f'(x_0) = 0
+	\end{equation}
+mit einem kritischen Punkt $x_0$.\\
+\\
+Handelt es sich bei $f(x_0)$ um ein lokales Extremum, gilt
+	\begin{equation}
+		f''(x_0) \begin{cases}< 0, & \text{lokales Maximum} \\ > 0, & \text{lokales Minimum}\end{cases}.
+	\end{equation}
+
+Sind alle Punkte $\leq$ bzw. $\geq$ des Funktionswerts des lokalen Maximums (Minimums), handelt es sich um ein \textbf{globales} Maximum (Minimum).\\
+\\
+Die Funktion ist \textbf{monoton wachsend} falls $f'(x)\geq 0$ (streng: $>$) bzw. \textbf{monoton fallend} falls $f'(x)\leq 0$ (streng: $<$) und \textbf{konstant} falls $f'(x) = 0$.
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $f(x) = \frac{\ln^2(x)}{x^2}$\\
+	ges: lokale und globale Minima bzw. Maxima, Definitionsbereich, Grenzwerte am Rand des Definitionsbereichs\\
+	\\
+	Bestimme zunächst die \underline{kritischen Punkte} der Funktion, d.h. die Nullstellen von $f'(x)$:
+		\begin{align*}
+			f'(x) &= \frac{\diff}{\diff x} \frac{\ln^2(x)}{x^2} = -2\frac{\ln^2(x)}{x^3} + \frac{1}{x^2} \cdot 2\ln(x) \cdot \frac{1}{x} = \\
+			&= -2 \frac{\ln^2(x)}{x^3} + 2\frac{\ln(x)}{x^3} = \frac{2\ln(x)}{x^3}(1 - \ln(x)) \stackrel{!}{=} 0
+		\end{align*}
+	
+	Dies ist erfüllt, falls entweder $\ln(x) = 0$ oder $1 - \ln(x) = 0$ wird. Umstellen dieser Bedingungen ergibt die kritischen Punkte:
+		\begin{align*}
+			\bullet \ \ln(x) &= 0 \\
+			\stackrel{\commentmath{e^{()}}}{\Leftrightarrow} e^{\ln(x)} = x &= e^0 = 1 \\
+			\bullet \ 1 - \ln(x) &= 0 \\
+			\Leftrightarrow \ln(x) &= 1 \\
+			\stackrel{ \commentmath{ e^{()} } }{\Leftrightarrow} e^{\ln(x)} = x &= e^1 = e
+		\end{align*}
+	
+	Somit sind die kritischen Punkte $x_1 = 1$ und $x_2 = 2$.\\
+	\\
+	Bestimme die zweite Ableitung, um herauszufinden, ob es sich dabei um lokale Maxima oder Minima handelt:
+		\begin{align*}
+			f''(x) &= \frac{\diff}{\diff x} \frac{2\ln(x)}{x^3}(1 - \ln(x)) = \lr{ -3 \frac{2\ln(x)}{x^4} + \frac{2}{x^4} }\lr{1 - \ln(x)} + \frac{2\ln(x)}{x^3}\lr{ -\frac{1}{x} }			
+		\end{align*}
+	
+	Werte nun die zweite Ableitung an den kritischen Punkten aus:
+		\begin{align*}
+			f''(1) &= \lr{ -3 \frac{2\ln(1)}{1^4} + \frac{2}{1^4} }\lr{1 - \ln(1)} + \frac{2\ln(1)}{1^3}\lr{ 1 - \frac{1}{1} } = \\
+			&= 2 \\
+			f''(e) &= \lr{ -3 \frac{2\ln(e)}{e^4} + \frac{2}{e^4} }\lr{ \underbrace{ 1 - \ln(e) }_{=0} } + \frac{2\ln(e)}{e^3}\lr{ -\frac{1}{e} } = \\
+			&= -\frac{2}{e^4}
+		\end{align*}
+	
+	Somit ist $x_1 = 1$ ein lokales Minimum und $x_2 = e$ ein lokales Maximum.\\
+	\\
+	Untersuche nun den Definitionsbereich der Funktion $f(x)$.\\
+	Da der Logarithmus auftaucht, der lediglich für $\mathbb{R}_{>} \setminus \{0\}$ definiert ist, ist dies der Definitionsbereich.\\
+	\\
+	Untersuche nun den Grenzwert am Rand des Definitionsbereich, d.h. $\lim_{x\to 0} f(x)$ und $\lim_{x\to\infty}$
+		\begin{align*}
+			\bullet \ \lim_{x\to 0} \frac{\ln^2(x)}{x^2} &= \frac{\infty}{0} = \infty \\
+			\bullet \ \lim_{x\to\infty} \frac{\ln^2(x)}{x^2} &\stackrel{ \comment{''$\infty/\infty$'', L'H.} }{=} \lim_{x\to\infty} \frac{2\ln(x) \cdot \frac{1}{x}}{2x} = \lim_{x\to\infty} \frac{\ln(x)}{x^2} \stackrel{ \comment{''$\infty/\infty$'', L'H.} }{=} \lim_{x\to\infty} \frac{\frac{1}{x}}{2x} = \lim_{x\to\infty} \frac{1}{x^2} = 0
+		\end{align*}
+	
+	Somit wird auch deutlich, dass es sich bei $x_1 = 1$ um ein globales Minimum handelt. Denn für $x\in(0,1]$ kommt die Funktion aus dem Unendlichen, erreicht bei $x=1$ das Minimum, steigt auf dem Intervall $[1,e]$ wieder an und erreicht anschließend auf $[e,+\infty)$ nie den Wert null, sondern konvergiert nur dagegen.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Grafiken/kurvendiskussion.pdf}
+		\caption{Darstellung der diskutierten Funktion $f(x) = \frac{\ln^2(x)}{x^2}$ und dessen Ableitung}
+	\end{figure}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Tangentengleichung}
+Die Tangentengleichung beschreibt eine Tangente $t(x)$, die eine Funktion $f(x)$ am Punkt $x_0$ schneidet
+	\begin{equation}
+		t_{f,x_0}(x) = f'(x_0)\cdot (x - x_0) + f(x_0).
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: Tangentengleichung für $f(x) = x^2 \cdot \sin\lr{ \frac{1}{x} }$ am Punkt $x_0 = \frac{1}{\pi}$\\
+	\\
+	Bestimme zunächst die Ableitung der Funktion $f$:
+		\begin{align*}
+			f'(x) &= 2x \cdot \sin\lr{ \frac{1}{x} } + x^2 \cdot \cos\lr{ \frac{1}{x} } \cdot \lr{ -\frac{1}{x^2} } = \\
+			&= 2x \cdot \sin\lr{ \frac{1}{x} } - \cos\lr{  \frac{1}{x} }
+			\intertext{Werte die Funktion sowie dessen Ableitung am interessierenden Punkt $x_0$ aus.}
+			f(x_0) &= \lr{ \frac{1}{\pi} }^2 \underbrace{ \sin(\pi) }_{=0} = 0 \\
+			f'(x_0 &= \frac{1}{\pi}) = \frac{2}{\pi} \cdot \underbrace{ \sin(\pi) }_{=0} - \underbrace{ \cos(\pi) }_{=-1} = 1
+			\intertext{Somit lautet die Tangentengleichung:}
+			t_{f,1/\pi}(x) &= 1 \cdot (x-\frac{1}{\pi}) + 0 = x - \frac{1}{\pi}
+		\end{align*}
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Grafiken/tangentengleichung.pdf}
+		\caption{Darstellung der Funktion $f(x) = x^2 \cdot \sin\lr{ \frac{1}{\pi} }$ und der Tangente $t(x)$, die sich am Punkt $x_0 = \frac{1}{\pi}$ der Funktion $f(x)$ anschmiegt}
+	\end{figure}
+\hrule
+}
+
+\newpage
+
+
+\section{Integration}
+Das eindimensinoale Integral ist wie folgt über die Riemann-Summe definiert
+	\begin{equation}
+		\int_a^b f(x)\,\diff x := \lim\limits_{n\rightarrow\infty} \frac{b - a}{n} \sum_{k=1}^n f\lr{a + \frac{b - a}{n} k}.
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: $\lim\limits_{n\rightarrow\infty} \frac{3}{n} \sum_{k = 0}^n \sqrt{1 + \frac{3k}{n}}$\\
+	\\
+	Am Faktor vor der Summe liest man ab, dass $b - a = 3$. Aus dem Argument der Wurzel folgt, dass $a = 1$ ist. Somit ist $b = 4$. Die Wurzel ist die Funktion $f$.
+		\begin{align*}
+			\lim\limits_{n\rightarrow\infty} \frac{3}{n} \sum_{k = 0}^n \sqrt{1 + \frac{3k}{n}} = \int_1^4 \sqrt{x}\,\diff x = \left.\frac{2}{3} x^{3/2}\right|_1^4 = \frac{14}{3}
+		\end{align*}
+\hrule
+}
+
+\vspace{0.5cm}
+
+Für die Integration gelten die Rechenregeln:
+	\begin{itemize}
+		\item \textbf{Faktorregel}
+			\begin{equation}
+				\int c \cdot f(x) \, \diff x = c \cdot \int f(x) \, \diff x
+			\end{equation}
+
+
+		\item \textbf{Potenzgesetz}
+			\begin{equation}
+				\int x^n \, \diff x = \frac{1}{n+1} x^{n+1} + C
+			\end{equation}
+
+
+		\item \textbf{Summenregel}
+			\begin{equation}
+				\int (f(x) + g(x)) \, \diff x = \int f(x) \, \diff x + \int g(x) \, \diff x
+			\end{equation}
+
+
+		\item \textbf{Vertauschungsregel}
+			\begin{equation}
+				\int_a^b f(x) \, \diff x = - \int_b^a f(x) \, \diff x
+			\end{equation}
+
+
+		\item \textbf{Intervallregel}
+			\begin{equation}
+				\int_a^b f(x) \, \diff x = \int_a^c f(x) \, \diff x + \int_c^b f(x) \, \diff x
+			\end{equation}
+
+
+		\item \textbf{Gleichheit der Grenzen}
+			\begin{equation}
+				\int_a^a f(x) \, \diff x = 0
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	Die Faktorregel, Summenregel, Vertauschungsregel und Gleichheit der Grenzen folgen unmittelbar aus der Definition des Integrals über die Riemann-Summe:
+		\begin{align*}
+			\bullet \ \int c \cdot f(x) \, \diff x &= \lim_{n\to\infty} \frac{b-a}{n} \sum_{k=1}^n c\cdot f\lr{ a + \frac{b-a}{n}k } = \\
+			&= c \cdot \lr{ \lim_{n\to\infty} \frac{b-a}{n} \sum_{k=1}^n f\lr{ a + \frac{b-a}{n}k } } \equiv \\
+			&\equiv c \cdot \int f(x) \, \diff x \qquad \blacksquare \\
+			\bullet \ \int \lr{ f(x) + g(x) } \, \diff x &= \lim_{n\to\infty} \frac{b-a}{n} \sum_{k=1}^n \lreck{ f\lr{ a + \frac{b-a}{n}k } + g\lr{ a + \frac{b-a}{n}k } } = \\
+			&= \lim_{n\to\infty} \frac{b-a}{n} \sum_{k=1}^n f\lr{ a + \frac{b-a}{n}k } + \lim_{n\to\infty} \frac{b-a}{n} \sum_{k=1}^n g\lr{ a + \frac{b-a}{n}k } \equiv \\
+			&\equiv \int f(x) \, \diff x + \int g(x) \, \diff x \qquad \blacksquare \\
+			\bullet \ \int_a^b f(x) \, \diff x &= \lim_{n\to\infty} \frac{b-a}{n} \sum_{k=1}^n f\lr{ a + \frac{b-a}{n}k } = \\
+			&=\lim_{n\to\infty} -\frac{a-b}{n} \sum_{k=1}^n f\lr{ a + \frac{b-a}{n}k } = \\
+			&= -\lr{ \lim_{n\to\infty} \frac{a-b}{n} \sum_{k=1}^n f\lr{ a + \frac{b-a}{n}k } } \equiv \\
+			&\equiv -\int_b^a f(x) \, \diff x \qquad \blacksquare \\
+			\bullet \ \int_a^a f(x) \, \diff x &= \lim_{n\to\infty} \cancel{ \frac{a-a}{n} } \sum_{k=1}^n f\lr{ a + \frac{a-a}{n}k } = 0 \qquad \blacksquare
+		\end{align*}
+
+
+	zz: $\int_a^b x^n \, \diff x = \frac{1}{n+1}x^{n+1} + C$\\
+\\
+	Das Potenzgesetz folgt aus dem Fundamentalsatz der Analysis	, der besagt, dass $\int_a^b f(x) \, \diff x = F(b) - F(a)$, wobei die Stammfunktion $F(x)$ durch die Eigenschaft $f(x) = F'(x)$ definiert ist.\\
+	Somit folgt durch
+		\begin{align*}
+			\frac{\diff}{\diff x} F(x) &= \frac{\diff}{\diff x} \lr{ \frac{1}{n+1} \cdot x^{n+1} + C } = x^n = f(x) \qquad \blacksquare
+		\end{align*}
+
+\newpage
+
+
+	zz: $\int_a^b f(x) \, \diff x = \int_a^c f(x) \, \diff x + \int_c^b f(x) \, \diff x$\\
+	\\
+	Der Punkt, an dem die Integration separiert wird, sei $\tilde{n}$ $\frac{b-a}{n}$ Intervalle über dem Punkt $a$, d.h.
+		\begin{align*}
+			c &:= a + \frac{b-a}{n} \tilde{n}
+		\end{align*}
+
+
+	Der entscheidende Punkt der Herleitung ist die Aufspaltung der Summe am Indexpunkt $\tilde{n}$:
+		\begin{align*}
+			\int_a^b f(x) \, \diff x &= \lim_{n\to\infty} \frac{b-a}{n} \sum_{k=1}^n f\lr{ a + \frac{b-a}{n}k } = \\
+%			&= \lim_{n\to\infty} \lr{ \frac{b-a}{n} \sum_{k=1}^{\tilde{n}} f\lr{ a + \frac{b-a}{n}k } + \frac{a-b}{n} \sum_{k=\tilde{n}+1}^n f\lr{ a + \frac{b-a}{n}k } } = \\
+			&= \lim_{n\to\infty} \frac{b-a}{n} \sum_{k=1}^{\tilde{n}} f\lr{ a + \frac{b-a}{n}k } + \lim_{n\to\infty} \frac{b-a}{n} \sum_{k=\tilde{n}+1}^n f\lr{ a + \frac{b-a}{n}k }
+		\end{align*}
+
+	Ziel ist es nun die Riemann-Summe in beiden Termen zu erkennen.\\
+	Formuliere für den ersten Term das Wegstück $\frac{b-a}{n}$ in Abhängigkeit von $\tilde{n}$. Dies folgt aus der Definition von c:
+		\begin{align*}
+			c &= a + \frac{b-a}{n}\tilde{n} \\
+			\Leftrightarrow \frac{b-a}{n} &= \frac{c-a}{\tilde{n}}
+		\end{align*}
+	
+	Da $n\propto \tilde{n}$, folgt $\lim_{n\to\infty} = \lim_{\tilde{n}\to\infty}$.\\
+	\\
+	Im zweiten Term wird die Indexverschiebung $k\to k+\tilde{n}$ vorgenommen, woraus $n\to n+\tilde{n} \equiv m$ folgt. Drücke nun $\frac{b-a}{n}$ in Abhängigkeit von $m$ aus:
+		\begin{align*}
+			c &= a + \frac{b-a}{n}\tilde{n} \\
+			\Leftrightarrow \frac{\tilde{n}}{n} &= \frac{c-a}{b-a} \\
+			\frac{b-a}{n} &= \frac{b-a}{n} \cdot \frac{n-\tilde{n}}{n-\tilde{n}} = \frac{\lr{b-a} \cdot \lr{ 1 - \frac{\tilde{n}}{n} }}{n-\tilde{n}} \stackrel{\comment{$\frac{\tilde{n}}{n}$}}{=} \frac{(b-a) \cdot \lr{ 1 - \frac{c-a}{b-a}}}{n-\tilde{n}} = \\ 				&= \frac{b-a - (c-a)}{n-\tilde{n}} \equiv \frac{b-c}{m}
+		\end{align*}
+	
+	Erneut, da $n\propto m$, folgt $\lim_{n\to\infty} = \lim_{m\to\infty}$.\\
+	\\
+	Einsetzen in das Integral liefert:
+		\begin{align*}
+			\int_a^b f(x) \, \diff x &= \lim_{\tilde{n}\to\infty} \frac{c-a}{\tilde{n}} \sum_{k=1}^{\tilde{n}} f\lr{ a + \frac{c-a}{\tilde{n}}k } + \lim_{m\to\infty} \frac{b-c}{m} \sum_{k=1}^m f \Bigg( \underbrace{ a + \frac{b-c}{m}(k+\tilde{n}) }_{ = c + \frac{b-c}{m}k} \Bigg) \equiv \\
+			&\equiv \int_a^c f(x) \, \diff x + \int_c^b f(x) \, \diff x \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Rechentechniken Integration}
+\begin{itemize}
+	\item \textbf{Partielle Integration}\\
+		\begin{equation}
+			\int^x f(x)\cdot g'(x)\,\diff x = f(x) \cdot g(x) - \int^x f'(x) \cdot g(x)\,\diff x
+		\end{equation}
+		
+	
+	\item \textbf{Variablentransformation}
+		\begin{equation}
+			\int_a^b f(g(x)) \cdot g'(x) \, \diff x \stackrel{\commentmath{u = g(x)}}{=} \int_{u(a)}^{u(b)} f(u) \, \diff u
+		\end{equation}
+
+
+	\item \textbf{Trigonometrische Funktionen}, um den Integrand zu vereinfachen
+		\begin{align}
+			\cos^2(x) + \sin^2(x) &= 1\\
+			\cos(2x) &= 2\cos^2(x) -1 = 1 - 2\sin^2(x) = \cos^2(x) - \sin^2(x)\\
+			\sin(2x) &= 2\sin(x)\cos(x)
+		\end{align}
+
+
+	\item \textbf{Uneigentliche Integrale}\\
+	Uneigentliche Integrale sind Integrale mit $\pm\infty$ oder einer Definitionslücke als ihrer Integrationsgrenze. Sie werden gelöst, indem zunächst das bestimmte Integral mit einer Platzhaltervariable, hier $a,b$, gelöst und anschließend der interessierende Grenzwert betrachtet wird:
+		\begin{align}
+			\int_{-\infty}^\infty f(x) \, \diff x &= \lim\limits_{a\to-\infty}\lim\limits_{b\to+\infty} \int_a^b f(x) \, \diff x = \lim\limits_{a\to-\infty}\lim\limits_{b\to+\infty} \left. F(x) \right|_a^b
+		\end{align}
+
+
+	\item \textbf{Trigonometrische Substitution}\\
+	Ziel der trigonometrischen Substitution ist es, eine derartige Variablensubstitution vorzunehmen, s.d. eine trigonometrische Funktion genutzt werden kann, um den substituierten Ausdruck zu vereinfachen.
+		
+	
+	\item \textbf{Linearisierung} von trig. Fktn. , um den Integrand zu vereinfachen
+		\begin{align}
+			\cos^n(x) &= \lr{\frac{e^{ix} + e^{-ix}}{2}}^n = \frac{1}{2^n} \sum_{k=0}^n \binom{n}{k} e^{i(2k - n)x} \\
+			\sin^n(x) &= \lr{\frac{e^{ix} - e^{-ix}}{2i}}^n = \frac{1}{(2i)^n} \sum_{k=0}^n \binom{n}{k} e^{ix k} \cdot (-e^{ix})^{n-k}
+		\end{align}
+
+
+%	\item \textbf{Substitutionen für trig./hyperb. Fktn. mit Symmetrien}
+%		\begin{table}[H]
+%		\centering
+%		\caption{Trigonometrische Funktionen $f(x) = R(\cos x,\sin x)$}
+%		\begin{tabularx}{\textwidth}{l|X}
+%			\hline\hline
+%				$f$ ungerade & $u=\cos x \Rightarrow \diff u = -\sin x \,\diff x$\\
+%			\hline
+%				$f(x) = -f(-\pi - x)$ & $u = \sin x \Rightarrow \diff u = \cos x \,\diff x$\\
+%			\hline
+%				$f(x) = f(x + \pi)$ & $u = \tan x \Rightarrow \diff u = 1 + \tan^2x = (1 + u^2)\,\diff u$\\
+%			\hline
+%				keine Symmetrie & $t = \tan\lr{\frac{x}{2}} \Rightarrow \frac{2\,\diff t}{1 + t^2} = \diff x$\\
+%				& $\Rightarrow \cos x = \frac{1 - t^2}{1 + t^2},\ \sin x = \frac{2t}{1 + t^2},\ \tan x = \frac{2t}{1 - t^2}$\\
+%			\hline\hline			
+%		\end{tabularx}
+%		\end{table}
+%	
+%
+%		\begin{table}[H]
+%		\centering
+%		\caption{Hyperbelfunktionen $f(x) = R(\cosh x,\sinh x)$}
+%		\begin{tabularx}{\textwidth}{l|X}
+%			\hline\hline
+%				Im Allgemeinen & $u = e^x \Rightarrow \diff x = \frac{\diff t}{e^x} = \frac{\diff t}{u}$\\
+%			\hline
+%				$f(x) = -f(-x)$ & $u = \cosh x$\\
+%			\hline
+%				$f(x) = -f(i\pi - x)$ & $u = \sinh x$\\
+%			\hline
+%				$f(x) = f(i\pi + x)$ & $u = \tanh x$\\
+%			\hline
+%				keine Symmetrie & $t = \tanh\lr{\frac{x}{2}} \Rightarrow \frac{2\,\diff t}{1 + t^2} = \diff x$\\
+%				& $\Rightarrow \cosh x = \frac{1 + t^2}{1 - t^2},\ \sinh x = \frac{2t}{1 - t^2},\ \tanh x = \frac{2t}{1 + t^2}$\\				
+%			\hline\hline			
+%		\end{tabularx}
+%		\end{table}
+\end{itemize}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel partielle Integration}\\
+	ges: $\int \frac{\ln(x)}{x^2} \, \diff x$\\
+	\\
+	Wähle $u(x) = \ln(x)$ und $v'(x) = \frac{1}{x^2}$. Dann ist $u'(x) = \frac{1}{x}$ und $v(x) = -\frac{1}{x}$. Einsetzen in die Formel $\int u(x) \cdot v'(x) \, \diff x = u(x) \cdot v(x) - \int u'(x) \cdot v(x) \, \diff x$ ergibt:
+		\begin{align*}
+			\int \frac{\ln(x)}{x^2} \, \diff x &= \ln(x) \cdot \lr{ -\frac{1}{x} } - \int \frac{1}{x} \cdot \lr{ -\frac{1}{x} } \, \diff x = \\
+			&= -\frac{\ln(x)}{x} + \int \frac{1}{x^2} \, \diff x = \\
+			&= -\frac{\ln(x)}{x} - \frac{1}{x} + C = \\
+			&= -\frac{\ln(x)+1}{x} + C
+		\end{align*}
+
+
+	\fbox{Beispiel Variablentransformation}\\
+	ges: $\int_0^{\sqrt{\pi/2}} \cos(x^2) \cdot x \, \diff x$\\
+	\\
+	Wähle $u=x^2$. Somit ist $\frac{\diff u}{\diff x} = 2x \Leftrightarrow \diff x = \frac{\diff u}{2}$. Die neuen Integrationsgrenzen ergeben sich zu $u(0) = 0^2 = 0$ und $u(\sqrt{\pi/2}) = \pi/2$:
+		\begin{align*}
+			\int_0^{\sqrt{\pi/2}} \cos(x^2) \cdot x \, \diff x &= \int_0^{\sqrt{\pi/2}} \cos(x^2) \cdot x \, \diff x = \\
+			&= \int_{u(0)}^{u(\sqrt{\pi/2})} \cos(u) \cdot \cancel{x} \, \frac{\diff u}{2 \cancel{x} } = \\
+			&= \frac{1}{2} \int_0^{\pi/2} \cos(u) \, \diff u = \\
+			&=\frac{1}{2} \left. \sin(u) \right|_0^{\pi/2} = \\
+			&= \frac{1}{2} \Big( \underbrace{ \sin(\pi/2) }_{=1} - \underbrace{ \sin(0) }_{=0} \Big) = \\
+			&= \frac{1}{2}
+		\end{align*}
+
+
+	\fbox{Beispiel trigonometrische Funktionen}\\
+	ges: $\int_0^{\pi/2} \sin^2(x) \, \diff x$\\
+	\\
+	Verwende den Zusammenhang $\cos(2x) = 1 - 2\sin^2(x)$, stelle ihn nach dem Integranden um und setze ihn in das Integral ein:
+		\begin{align*}
+			\cos(2x) &= 1 - 2\sin^2(x) \\
+			\Leftrightarrow \sin^2(x) &= \frac{1 - \cos(2x)}{2}
+		\end{align*}
+
+
+\newpage
+
+
+		\begin{align*}
+			\int_0^{\pi/2} \frac{1 - \cos(2x)}{2} \, \diff x &= \frac{1}{2} \int_0^{\pi/2} \lr{ 1 - \cos(2x) } \, \diff x = \\
+			&= \frac{1}{2} \lr{ \int_0^{\pi/2} \, \diff x - \int_0^{\pi/2} \cos(2x) \, \diff x } = \\
+			&= \frac{1}{2} \lr{ \frac{\pi}{2} - \int_0^{\pi} \cos(u) \, \frac{\diff u}{2} } = \\
+			&= \frac{1}{2} \Bigg( \frac{\pi}{2} - \frac{1}{2} \underbrace{ \left. \sin(u)\right|_0^\pi }_{=0} \Bigg) = \\
+			&= \frac{\pi}{4}
+		\end{align*}
+
+
+	\fbox{Beispiel uneigentliche Integrale}\\
+	ges: $\int_1^\infty \frac{1}{x^2} \, \diff x$
+		\begin{align*}
+			\int_1^\infty \frac{1}{x^2} \, \diff x &= \lim\limits_{b\to\infty} \int_1^b \frac{1}{x^2} \, \diff x = \lim\limits_{b\to\infty} \left. \lr{ -\frac{1}{x} } \right|_1^b = \lim\limits_{b\to\infty} \lr{ -\frac{1}{b} + 1 } = 0 + 1 = 1
+		\end{align*}
+
+
+	\fbox{Beispiel trigonometrische Substitution}\\
+	ges: $\int_a^b \sqrt{1-x^2} \, \diff x$\\
+	\\
+	Erkenne, dass der Integrand der trigonometrischen Identität $\cos(u) = \sqrt{1 - \sin^2(u)}$ ähnlich sieht.\\
+	Suche also eine Substitution, die den Integranden auf diese Form bringt. Dafür muss gelten:
+		\begin{align*}
+			\sin^2(u) &\stackrel{!}{=} x^2 \\
+			\Leftrightarrow u &= \arcsin(x) \\
+			\Rightarrow \frac{\diff u}{\diff x} &= \frac{1}{\sqrt{1 - x^2}} \\
+			\Leftrightarrow \diff x &= \sqrt{1-x^2} \, \diff u = \sqrt{1-u^2} \, \diff u \\
+			u(0) &= \arcsin(0) = 0 \\
+			u(1) &= \arcsin(1) = \frac{\pi}{2}
+		\end{align*}
+	
+	Somit ergibt sich für das Integral
+		\begin{align*}
+			\int_0^1 \sqrt{1-x^2} \, \diff x &= \int_0^{\pi/2} \sqrt{1-\sin^2(u)} \, \sqrt{1-\sin^2(u)} \diff u = \\
+			 &= \int_0^{\pi/2} \lr{ 1 - \sin^2(u) } \, \diff u = \\
+			 &= \int_0^{\pi/2} \cos^2(u) \, \diff u =
+		\end{align*}
+	
+	Verwende die trigonometrische Identität $\cos^2(u) = \frac{\cos(2u) + 1}{2}$:
+		\begin{align*}
+			&= \int_0^{\pi/2} \frac{\cos(2u) + 1}{2} \, \diff u = \\
+			&= \frac{1}{2} \lr{ \int_0^{\pi/2} \cos(2u) \, \diff u + \int_0^{\pi/2} \, \diff u} = \\
+			&= \frac{1}{2} \lr{ \int_0^{\pi} \cos(v) \, \frac{\diff v}{2} + \frac{\pi}{2} } = \\
+			&= \frac{1}{2} \lr{ -\frac{1}{2} \left. \sin(v) \right|_0^\pi + \frac{\pi}{2}} = \\
+			&= \frac{1}{2} \lr{ 0 + \frac{\pi}{2} } = \\
+			&= \frac{\pi}{4}
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $\int_a^b f(x) \cdot g'(x) \, \diff x = f(x) \cdot g(x) - \int_a^b f'(x) \cdot g(x) \, \diff x$\\
+	\\
+	Betrachte die Produktregel der Differentialrechnung
+		\begin{align*}
+			(f(x) \cdot g(x))' &= f'(x) \cdot g(x) + f(x) \cdot g'(x) \\
+			\Leftrightarrow f'(x) \cdot g(x) &= (f(x) \cdot g(x))' - f(x) \cdot g'(x)
+			\intertext{Integriere diesen Ausdruck und verwende die Additionsregel der Integration auf der rechten Seite:}
+				\int_a^b f'(x) \cdot g(x) \, \diff x &= \int_a^b (f(x) \cdot g(x))' \, \diff x - \int_a^b f(x) \cdot g'(x) \, \diff x
+			\intertext{Verwende nun den Fundamentalsatz der Analysis $\int_a^b \frac{\diff F(x)}{\diff x} \, \diff x = \left. F(x) \right|_a^b$, für den zweiten Term der rechten Seite:}
+				\int_a^b f'(x) \cdot g(x) \, \diff x &= \left. f(x) \cdot g(x) \right|_a^b - \int_a^b f(x) \cdot g'(x) \, \diff x \qquad \blacksquare
+		\end{align*}
+
+
+	zz: $\int_a^b f(g(x)) \cdot g'(x) \,\diff x \stackrel{\commentmath{u = g(x)}}{=} \int_{u(a)}^{u(b)} f(u) \,\diff u$\\
+	\\
+	Der entscheidende Schritt dieses Beweises ist, in der linken Seite der zu zeigenden Relation die Ableitung der Kettenregel zu erkennen
+		\begin{align*}
+			f(g(x)) \cdot g'(x) &= (F(g(x)))'
+			\intertext{Einsetzen in die linke Seite liefert:}
+			\int_a^b f(g(x)) \cdot g'(x) \,\diff x &= \int_a^b (F(g(x)))' \diff x = F(g(b)) - F(g(a)) \equiv \\
+			&\equiv F(u(b)) - F(u(a)) = \int_{u(a)}^{u(b)} f(u) \, \diff u \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+
+\newpage
+
+
+\section{Appendix A: Beweise}
+Die grundlegenden Beweismethoden sind:
+\begin{itemize}	
+	\item \textbf{Wahrheitstafel}\\
+	Die Wahrheitstafel definiert die Symbole $\neg$, $\wedge$, $\vee$, $\Rightarrow$, $\Leftrightarrow$ und kann dazu genutzt werden einfache logische Aussagen, darunter einige der nachfolgenden Beweismethoden, zu zeigen:
+		\begin{table}[h]
+			\centering
+			\begin{tabular}{c|c||c|c|c|c|c|c}
+				\hline\hline
+					$A$ & $B$ & $\neg A$ & $A \wedge B$ & $A \vee B$ & $A \Rightarrow B$ & $A \Leftrightarrow B$ & $\perp$ \\
+				\hline
+					w & f & f & f & w & f & f & f \\
+					f & w & w & f & w & w & f & f \\
+					w & w & f & w & w & w & w & f \\
+					f & f & w & f & f & w & w & f \\
+				\hline\hline
+			\end{tabular}
+		\end{table}
+
+
+	\item \textbf{Beidseitige Implikation}\\
+	Die logische Äquivalenz ist definiert als Relation zweier Aussagen, die dieselben Einträge in der Wahrheitstabelle haben. Es gilt die folgende, sehr nützliche Beziehung, mit der eine Äquivalenz durch zwei Implikationen gezeigt werden kann.
+		\begin{equation}
+			(A\Leftrightarrow B) \Leftrightarrow (A\Rightarrow B) \wedge (B\Rightarrow A)
+		\end{equation}
+
+	\item \textbf{Widerspruchsbeweis}\\
+	Die Implikation $A\Rightarrow B$ kann gezeigt werden, indem $A$ und die Verneinung von $B$ (meist kreativ) über logische Schritte auf einen Widerspruch geführt werden
+		\begin{equation}
+			(A\Rightarrow B) \Leftrightarrow ((A\wedge \neg B) \Rightarrow \perp)
+		\end{equation}
+
+	\item \textbf{Kontraposition}\\
+	Die folgenden Aussagen sind äquivalent, d.h. $\neg B \Rightarrow \neg A$ zu zeigen, zeigt $A\Rightarrow B$, was unter Umständen leichter zu beweisen ist.
+		\begin{equation}
+			(A\Rightarrow B) \Leftrightarrow (\neg B \Rightarrow \neg A)
+		\end{equation}
+
+	\item \textbf{Vollständige Induktion}\\
+	Die Aussage $A(n)$ (\textbf{Induktionsvoraussetzung}) gilt für alle $n\geq n_0$ (wobei $n\in\mathbb{N}$), wenn gezeigt wird, dass
+		\begin{enumerate}
+			\setlength{\itemsep}{0cm}
+			\item $A(n_0)$ ist wahr (\textbf{Induktionsanfang})
+			\item Für ein beliebiges $n$ folgt, dass $A(n+1)$ richtig ist, wenn $A(n)$ richtig ist (\textbf{Induktionsschritt})
+		\end{enumerate}
+\end{itemize}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel vollständige Induktion}\\
+	zz: $A(n): \sum_{i=1}^n i = \frac{1}{2}n(n + 1)$ gilt für alle $n\geq 1$\\
+	\\
+	1. Induktionsanfang\\
+	Zeige, dass A($n_0 = 1$) gilt. Setze dafür auf beiden Seiten des zu zeigenden Ausdrucks $n_0=1$ ein.
+		\begin{align*}
+			\sum_{i=1}^1 i = 1 &\stackrel{!}{=} \frac{1}{2}(2) = 1 \qquad\checkmark
+		\end{align*}
+	
+	2. Induktionsschritt\\
+	Zeige nun unter der Annahme, dass $A(n)$ gilt, dass $A(n+1)$ ebenfalls gilt.\\
+	Formuliere dafür $A(n+1)$ (IB)
+		\begin{align*}
+			\sum_{i=1}^{n+1} i &\stackrel{!}{=} \frac{1}{2}(n + 1)(n + 2)
+		\end{align*}
+	
+	Beginne nun einer auf Seite \textcolor{gruen}{(bei Beweisen mit Summen typischerweise auf der Seite mit der Summe)}, separiere diese, s.d. die Induktionsvoraussetzung $A(n)$ eingesetzt werden kann und forme die Terme so um, dass die andere Seite des Induktionsschrittes herauskommt:
+		\begin{align*}
+			\sum_{i=1}^{n+1} i &= (n + 1) + \sum_{i=1}^n i = \\
+			&\stackrel{\comment{IV}}{=} (n + 1) + \frac{1}{2}n(n + 1) = \\
+			&\stackrel{\commentmath{1}}{=} \frac{2}{2}\cdot(n + 1) + \frac{1}{2}n(n + 1) =
+		\end{align*}
+	
+	Es ist oft zweckmäßig von der anderen Seite entgegenzukommen. In diesem Fall kann bspw. sowohl der aktuelle Ausdruck, als auch der gewünschte Zielausdruck ausmultipliziert werden. Ein Vergleich zeigt dann die Gleichheit:
+		\begin{align*}
+			&= \frac{1}{2} (2n+2) + \frac{1}{2}n(n+1) = \\
+			&= \frac{1}{2} \lr{ 2n + 2 + n(n+1) } = \\
+			&= \frac{1}{2} \lr{ 2n + 2 + n^2 + n } = \\
+			&= \frac{1}{2} \lr{ n^2 + 3n + 2 } =
+		\end{align*}
+	
+	Der gewünschte Zielausdruck ist $\frac{1}{2}(n+1)(n+2) = \frac{1}{2} (n^2 + 2n + n + 2) = \frac{1}{2} (n^2 + 3n + 2)$.\\
+	Dies ist identisch zum aktuellen Ausdruck, weshalb gilt:
+		\begin{align*}
+			&= \frac{1}{2}(n+1)(n+2) \qquad \checkmark
+		\end{align*}
+	
+	Somit wurde der Induktionsschritt bewiesen.\\
+	\\
+	Da sowohl Induktionsanfang als auch Induktionsschritt bewiesen wurde, gilt die zu zeigende Aussage. $\qquad \blacksquare$
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $(A\Leftrightarrow B) \Leftrightarrow (A \Rightarrow B) \wedge (B \Rightarrow A)$ (beidseitige Implikation)
+		\begin{table}[h]
+			\centering
+			\begin{tabular}{c|c||c||c|c|c}
+				\hline\hline
+					$A$ & $B$ & $A \Leftrightarrow B$ & $A \Rightarrow B$ & $B \Rightarrow A$ & $(A \Rightarrow B) \wedge (B \Rightarrow A)$ \\
+				\hline
+					w & f & f & f & w & f \\
+					f & w & f & w & f & f \\
+					w & w & w & w & w & w \\
+					f & f & w & w & w & w \\
+				\hline\hline
+			\end{tabular}		
+		\end{table}
+	
+	Da $A \Leftrightarrow B$ und $(A \Rightarrow B) \wedge (B \Rightarrow A)$ dieselbe Struktur in der Wahrheitstafel haben, wurde gezeigt, dass diese äquivalente Aussagen sind. $\qquad \blacksquare$\\
+	\\
+	\fbox{Herleitung}\\
+	zz: $(A\Rightarrow B) \Leftrightarrow ((A\wedge \neg B) \Rightarrow \perp)$ (Widerspruchsbeweis)
+		\begin{table}[h]
+			\centering
+			\begin{tabular}{c|c||c||c|c|c|c}
+				\hline\hline
+					$A$ & $B$ & $A \Rightarrow B$ & $\neg B$ & $A \wedge \neg B$ & $\perp$ & $A \wedge \neg B \Rightarrow \perp$ \\
+				\hline
+					w & f & w & w & w & f & f \\
+					f & w & w & f & f & f & w \\
+					w & w & w & f & f & f & w \\
+					f & f & f & w & f & f & w \\
+				\hline\hline
+			\end{tabular}		
+		\end{table}
+	
+	Da $A \Rightarrow B$ und $(A \wedge \neg B \Rightarrow \perp)$ dieselbe Struktur in der Wahrheitstafel haben, wurde gezeigt, dass diese äquivalente Aussagen sind. $\qquad \blacksquare$\\
+	\\
+	\fbox{Herleitung}\\
+	zz: $(A \Rightarrow B) \Leftrightarrow (\neg B \Rightarrow \neg A)$ (Kontraposition)
+		\begin{table}[h]
+			\centering
+			\begin{tabular}{c|c||c||c|c|c}
+				\hline\hline
+					$A$ & $B$ & $A \Rightarrow B$ & $\neg A$ & $\neg B$ & $\neg B \Rightarrow \neg A$ \\
+				\hline
+					w & f & f & f & w & f \\
+					f & w & w & w & f & w \\
+					w & w & w & f & f & w \\
+					f & f & w & w & w & w \\
+				\hline\hline
+			\end{tabular}		
+		\end{table}
+	
+	Da $A \Rightarrow B$ und $(\neg B \Rightarrow \neg A)$ dieselbe Struktur in der Wahrheitstafel haben, wurde gezeigt, dass diese äquivalente Aussagen sind. $\qquad \blacksquare$\\
+\hrule
+}
+
+
+\newpage
+
+
+\subsection*{Beweise Mengenlehre}
+Eine \textbf{Menge} $A = \{a_1,a_2,...\}$ ist ein abstraktes Objekt, bestehend aus einzelnen Objekten, genannt \textbf{Elemente}, $a_i$.\\
+\\
+Wichtige Definitionen sind:
+	\begin{itemize}
+		\item \textbf{Teilmenge}\\
+		$A$ ist eine Teilmenge von $B$, falls
+			\begin{equation}
+				(A \subseteq B) :\Leftrightarrow (\forall x \in A \Rightarrow x \in B)
+			\end{equation}
+
+
+		\item \textbf{Gleichheit} zweier Mengen\\
+		Zwei Mengen $A$, $B$ sind gleich, falls
+			\begin{equation}
+				(A = B) :\Leftrightarrow (A \subseteq B \wedge B \subseteq A)
+			\end{equation}
+	\end{itemize}
+
+
+Für Beweise mit Mengen ist es oft zweckmäßig, die Mengennotationen, z.B. für das Komplement, Schnitt, Vereinigung, etc. auszuformulieren und erst dann den Beweis zu führen.
+\begin{table}[h]
+	\centering
+	\caption{Ausformulierungen der Mengennotation}
+	\begin{tabular}{l|l}
+		\hline\hline
+			Mengennotation & Ausformuliert\\
+		\hline
+			$x\in A$ & $x\in A$\\
+		\hline
+			$x\in A^c$ & $x\notin A$\\
+		\hline
+			$x\in (A\cup B)$ & $x\in A$ oder $x\in B$\\
+		\hline
+			$x\in (A\cap B)$ & $x\in A$ und $x\in B$\\
+		\hline
+			$x\in (A\setminus B)$ & $x\in A$ und $x\notin B$\\
+		\hline
+			$\neg (x\in ...)$ & $x\notin ...$\\
+		\hline
+			$(x,y)\in (A\times B)$ & $x\in A$ und $y\in B$\\
+		\hline
+			$(x,y) \notin (A \times B)$ & $x\notin A$ oder $y\notin B$ \\
+		\hline\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	zz: $A\subseteq C \wedge B\subseteq C \Leftrightarrow ((A\cup B)\subseteq C)$\\
+	\\
+	\fbox{$\Rightarrow$} Es gelte $A\subseteq C \wedge B\subseteq C$.\\
+	Sei $x\in A\cup B$ beliebig. Dann ist entweder $x\in A \vee x\in B$.\\
+	Aus der Annahme der linken Seite folgt: $A\subseteq C \Rightarrow (x\in A \Rightarrow x\in C)$ und $B\subseteq C \Rightarrow (x\in B \Rightarrow x\in C)$.\\
+	Daher folgt $(x\in A \vee x\in B) \Rightarrow x\in C$, weil in beiden Fällen das Element in $C$ liegt.\\
+	Zurück in Mengennotation wurde gezeigt, dass $A\subseteq C \wedge B\subseteq C \Rightarrow ((A\cup B) \subseteq C)$ \checkmark\\
+	\\
+	\fbox{$\Leftarrow$} Es gelte $(A\cup B) \subseteq C$.\\
+	Sei $a\in A$ beliebig.\\
+	Eingesetzt in die linke Annahme folgt dann: $a\in A\cup B$ und somit $a\in C$.\\
+	Analog für $b\in B$. $b\in A\cup B$ und somit $b\in C$.\\
+	Es gilt also $a\in A\Rightarrow a\in C$ und $b\in B \Rightarrow b\in C$.\\
+	Zurück in Mengennotation wurde gezeigt, dass $A\subseteq C \wedge B\subseteq C \Leftarrow ((A\cup B) \subseteq C)$ \checkmark\\
+	\\
+	Es wurde also gezeigt, dass $A\subseteq C \wedge B\subseteq C \Leftrightarrow ((A\cup B)\subseteq C)$ \hfill $\blacksquare$\\
+	\\
+	\fbox{Beispiel}\\
+	zz: $(A\cup B)^c = A^c \cap B^c$ (eine De Morgan'sche Regel)\\
+	\\
+	\fbox{$\subseteq$} Zeige, dass $(A\cup B)^c \subseteq A^c \cap B^c$
+		$$x\in (A\cup B)^c \Rightarrow x\notin (A\cup B) \Rightarrow x\notin A \wedge x\notin B \Rightarrow x\in A^c \wedge x\in B^c \Rightarrow x\in A^c \cap B^c$$
+		Es wurde gezeigt, dass $x\in (A\cup B)^c \Rightarrow x\in A^c\cap B^c \Leftrightarrow (A\cup B)^c \subseteq A^c\cap B^c$ \checkmark.\\
+	\\
+	\fbox{$\supseteq$} Zeige, dass $(A\cup B)^c \supseteq A^c \cap B^c$.\\
+	Es kann derselbe Weg aus \fbox{$\subset$}, nur rückwärts genommen werden. In diesem Fall werden die Folgepfeile zu Äquivalenzpfeilen umgeschrieben und der Beweis ist vollendet. \hfill $\blacksquare$\\
+	\\
+	\fbox{Beispiel}\\
+	zz: $(A \subseteq B) \Leftrightarrow (B^c \subseteq A^c)$\\
+	\\
+	\fbox{$\subseteq$} Zeige $(A \subseteq B) \Rightarrow (B \subseteq A^c)$
+		\begin{align*}
+			&(x\in A \Rightarrow x\in B) \stackrel{\comment{Kontraposition}}{\Rightarrow} (\neg(x\in B) \Rightarrow \neg(x\in A)) \Rightarrow (x\notin B \Rightarrow x\notin A) \Rightarrow\\
+			\Rightarrow &(x\in B^c\Rightarrow x\in A^c)
+		\end{align*}
+	
+	Zurück in Mengennotation: $(A\subseteq B) \Rightarrow (B^c \subseteq A^c)$ \checkmark.\\
+	\\
+	\fbox{$\supseteq$} Zeige $\subseteq$ Rückwärts. \hfill $\blacksquare$
+\hrule
+}
+
+
+
+\newpage
+
+
+\subsection*{Beweise Funktionen}
+Eine \textbf{Abbildung}/\textbf{Funktion} $f:A\to B$ ist ein mathematisches Objekt, das jedem Element einer Menge $A$, genannt \textbf{Startmenge}, eindeutig ein Element der Menge $B$, genannt \textbf{Zielmenge}, zuordnet.\\
+\\
+Wichtige Definitionen sind:
+\begin{itemize}
+	\item \textbf{Surjektiv}, \textbf{Injektiv}, \textbf{Bijektiv}\\
+	$f$ ist surjektiv, wenn jedes Element der Zielmenge $B$ \underline{mindestens} einmal getroffen wird.
+		\begin{equation}
+			\forall b\in B \exists a\in A: f(a) = b
+		\end{equation}
+	
+	$f$ ist injektiv, wenn jedes Element der Zielmenge $B$ \underline{höchstens} einmal getroffen wird.
+		\begin{equation}
+			\forall a,a'\in A: f(a)=f(a') \Rightarrow a=a'
+		\end{equation}
+
+	$f$ ist bijektiv, wenn jedes Element der Zielmenge $B$ \underline{genau} einmal getroffen wird.\\
+	Alt.: $f$ ist surjektiv und injektiv.
+		\begin{equation}
+			\forall b\in B \exists ! a\in A: f(a) = b
+		\end{equation}
+
+\textcolor{gruen}{In Beweisen wird das $\forall b$ bzw. $\forall a,a'$ dadurch gewährleistet, dass $b\in B$ bzw. $a,a'\in A$ beliebig gewählt wird.\\
+Für den Injektivitätsbeweis wird $f(a)=f(a')$ als wahr angenommen und die Implikation $a=a'$ gezeigt.}
+
+
+	\item \textbf{Bild}\\
+	Nutze die Definition. Liegt ein Element im Bild $y\in f(M)$, dann folgt aus der Definition von $f$, dass
+		\begin{equation}
+			\exists x\in M: f(x)=y
+		\end{equation}
+	Ist $M$ z.B. ein Schnitt oder eine Vereinigung, können dann wie in Mengenbeweisen üblich logische Operationen durchgeführt werden.
+		
+	\item \textbf{Urbild}\\
+	Nutze die Definition des Urbildes. Analog zum Bild folgt aus der Definition des Urbilds.
+		\begin{equation}
+			x\in f^{-1}(M) \Leftrightarrow f(x)\in M
+		\end{equation}
+\end{itemize}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $A,B,C$ Mengen, $i:A\rightarrow B, s:B\rightarrow C$ Funktionen\\
+	 zz: $s,i$ sind injektiv $\Rightarrow$ $s\circ i$ ist injektiv\\
+	\\
+	Es gelte $s,i$ sind injektiv.\\
+	Zeige, dass $\forall a,a'\in A: (s\circ i)(a) = (s\circ i)(a') \Rightarrow a=a'$.\\
+	Sei $a,a'\in A$ beliebig.\\
+	Es gelte $(s\circ i)(a) = (s\circ i)(a') \Leftrightarrow s(i(a)) = s(i(a')) \Rightarrow i(a) = i(a') \Rightarrow a=a'$.\\
+	Da $a,a'\in A$ beliebig, wurde gezeigt, dass $s,i$ inj. $\Rightarrow \forall a,a'\in A: (s\circ i)(a) = (s\circ i)(a') \Rightarrow a=a'$ \hfill $\blacksquare$
+\hrule
+}
+
+
+\newpage
+
+
+\section{Appendix B: Komplexe Zahlen}
+Komplexe Zahlen sind Tupel $z = (a,b) \in \mathbb{R} \times \mathbb{R}$, für die die Addition und Multiplikation als
+	\begin{align}
+		(a_1, b_1) + (a_2, b_2) &:= (a_1 + a_2, b_1 + b_2) \\
+		(a_1, b_1) \cdot (a_2, b_2) &:= (a_1 \cdot a_2 - b_1 \cdot b_2, a_1 \cdot b_2 + a_2 \cdot b_1).
+	\end{align}
+
+Wichtige Definitionen sind die \textbf{imaginäre Einheit}, \textbf{Betrag}, \textbf{komplexe Konjugation} sowie die komplexe Exponentialfunktion
+	\begin{align}
+		i &:= (0,1) \\
+		|z| &:= \sqrt{a^2 + b^2} \\
+		z^\star &:= (a,-b) \\
+		\exp(z) &:= (e^a \cdot \cos(b), e^a \cdot \sin(b)).
+	\end{align}
+
+Nützliche Rechenregeln sind:
+	\begin{align}
+		\Im z &= \frac{z - z^\star}{2i} \\
+		\Re z &= \frac{z + z^\star}{2} \\
+		\frac{1}{z} &= \frac{z^\star}{|z|^2} = \lr{\frac{a}{|z|^2}, -\frac{b}{|z|^2}  }.
+	\end{align}
+
+Mögliche Darstellungsformen der komplexen Zahlen sind:
+\begin{itemize}
+	\item \textbf{Algebraische Form}\\
+	Um eine komplexe Zahl in Bruchform in die algebraische Form 
+	\begin{equation}
+		z = a+ib
+	\end{equation}	
+	 zu bringen, erweitere mit dem komplex konjugierten des Nenners.\\
+	Bei komplexen Zahlen mit Potenz lohnt es sich zunächst das Innere darzustellen und dann erst die Potenz anzuwenden. Im letzten Schritt hilft der binomische Lehrsatz.
+	
+	\item \textbf{Trigonometrische-/Polardarstellung}\\
+	Um eine komplexe Zahl in die trigonometrische- bzw. Polardarstellung
+		\begin{align}
+			z &= |z| \cdot (\cos\theta + i\sin\theta)\\
+			z &= |z| \cdot e^{i\theta}
+		\end{align}
+	zu bringen, müssen Betrag $|z|$ und Argument $\theta$ über die bzw. eine der folgenden Gleichungen berechnet werden.
+		\begin{align}
+			|z| &= \sqrt{z \cdot z^\star}\\
+			\cos\theta &= \frac{a}{\sqrt{a^2 + b^2}},\quad
+			\sin\theta = \frac{b}{\sqrt{a^2 + b^2}},\quad 
+			\tan\theta = \frac{b}{a}
+		\end{align}
+\end{itemize}
+
+
+\newpage
+
+
+\section{Appendix C: Taylor-Reihe}
+Die Taylor-Reihe ist die Darstellung einer Funktion $f(x)$ durch die Potenzreihe
+	\begin{equation}
+		f(x) = \sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
+	\end{equation}
+mit dem Entwicklungspunkt $x_0$.\\
+\\
+Oft ist es in guter Näherung ausreichend, die Taylor-Reihe nach einem bestimmten Term abzubrechen. Das verbleibende Polynom heißt \textbf{Taylor-Polynom} $n$-ter Ordnung
+	\begin{equation}
+		T_{f,x_0,n}(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!} (x-x_0)^k.
+	\end{equation}
+
+\vspace{0.5cm}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: Taylor-Entwicklung von $f(x) = e^x \sin(x)$ bis zur 4. Ordnung
+		\begin{align*}
+			T_{f,x_0,0}(x) &= \sum_{k=0}^3 \frac{f^{(k)}(0)}{k!}(x-0)^k = \\
+			&= f(0) + f'(0) \cdot x + \frac{f''(0)}{2} \cdot x^2 + \frac{f'''(0)}{6} \cdot x^3
+			\intertext{Berechne die in dem Polynom auftauchenden Ableitungen separat:}
+			f(x) &= e^x \cdot \sin(x) \\
+			f'(x) &= e^x \cdot \sin(x) + e^x \cdot \cos(x) = \\
+			&= e^x( \sin(x) + \cos(x) ) \\
+			f''(x) &= e^x( \cancel{ \sin(x) } + \cos(x) ) + e^x( \cos(x) - \cancel{ \sin(x) } ) = \\
+			&= 2 e^x \cdot \cos(x) \\
+			f'''(x) &= 2 \lr{ e^x \cdot \cos(x) - e^x \cdot \sin(x) } = \\
+			&= 2 e^x \lr{ \cos(x) - \sin(x) }
+			\intertext{Werte nun diese Ableitungen am Entwicklungspunkt $x=x_0=0$ aus:}
+			\bullet \ f(0) &= e^0 \cdot \sin(0) = 0 \\
+			\bullet \ f'(0) &= e^0 \lr{ \sin(0) + \cos(0) } = 1 \cdot ( 0 + 1) = 1 \\
+			\bullet \ f''(0) &= 2e^0 \cdot \cos(0) = 2 \\
+			\bullet \ f'''(0) &= 2e^0 \lr{ \cos(0) - \sin(0) } = 2
+			\intertext{Einsetzen in das Taylor-Polynom ergibt:}
+			T_{f,0,3}(x) &= 0 + 1 \cdot x + \frac{2}{2} \cdot x^2 + \frac{2}{6} \cdot x^3 = \\
+			&= x + x^2 + \frac{1}{3} x^3
+		\end{align*}
+
+
+\newpage
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Grafiken/taylor.pdf}
+	\caption{Darstellung der Funktion $f(x) = e^x \sin(x)$ und das dazugehörige Taylorpolynom bis inklusive der 3. Ordnung $T_{f,0,3}(x)$, entwickelt um $x_0 = 0$}
+\end{figure}
+
+\hrule
+}
+
+
+\newpage
+
+
+%\section*{Anhang}
+%Einige elementare Summenformeln, die mittels vollständiger Induktion bewiesen werden können, sind:
+%	\begin{align}
+%		\sum_{k=1}^n k &= \frac{n(n+1)}{2}\\
+%		\sum_{k=1}^n k^2 &= \frac{n(n+1)(2n+1)}{6}\\
+%		\sum_{k=1}^n k^3 &= \lr{\frac{n(n+1)}{2}}^2\\
+%		\sum_{k=0}^n x^k &= \frac{1 - x^{n+1}}{1 - x} \qquad\text{mit $x\in\mathbb{R}$}
+%	\end{align}
+%
+%
+%\subsection*{Betrag und Dreiecksungleichung}
+%Um Ungleichungen mit Beträgen zu zeigen, nutze die Dreiecksungleichung
+%	\begin{align}
+%		|x + y| &\leq |x| + |y|\\
+%		\Big||x| - |y|\Big| &\leq |x - y|
+%	\end{align}
+%	
+%\begin{itemize}
+%	\item Umformen zu \textbf{wahren Aussage}\\
+%	Um zu zeigen, dass eine Ungl. gilt, muss sie nicht vollständig von einer Seite zur anderen umgeformt werden. Es kann z.B. argumentiert werden, dass alle Terme einer Seite positiv oder negativ sind und es sich daher um eine wahre Aussage handelt (Baum ÜB 4 10b).
+%
+%	\item \textbf{Fallunterscheidung}\\
+%	Um bspw. abzuschätzen, für welche Werte einer Variable die Ungleichung gilt, können Abschätzungen für die Beträge gemacht werden.
+%\end{itemize}
+%
+%\vspace{0.5cm}	
+%
+%{\color{blue}
+%\hrule
+%	\fbox{Beispiel}\\
+%	ges: Werte für $x\in \mathbb{R}\ \{3\}$, für die $\frac{1}{|x - 3|} > \frac{1}{1 + |x - 1|}$ gilt.\\
+%	\\
+%	Umformen der Ungleichung zu $1 + |x - 1| > |x - 3|$\\
+%	\fbox{1. Fall: $x < 1$}
+%		\begin{align*}
+%			1 + |x - 1| = 1 - (x - 1) = 2 - x &\stackrel{!}{>} |x - 3| = -(x - 3) = 3 - x\\
+%			\Leftrightarrow 2 &> 3
+%		\end{align*}				
+%	Die Ungl. gilt also nicht für $x < 1$.\\
+%	\fbox{2. Fall: $1 \leq x < 3$}
+%		\begin{align*}
+%			1 + |x - 1| = 1 + x - 1 = x &\stackrel{!}{>} |x - 3| = -(x - 3) = 3 - x\\
+%			\Leftrightarrow x &> 3/2
+%		\end{align*}
+%	Die Ungl. gilt somit für \underline{$\frac{3}{2} < x < 3$}\\
+%	\fbox{3. Fall: $x<3$}
+%		\begin{align*}
+%			1 + |x - 1| = 1 + x - 1 = x &\stackrel{!}{>} |x - 3| = x - 3\\
+%			\Leftrightarrow 0 > -3
+%		\end{align*}
+%	Die Ungl. gilt somit für $x>3$.\\
+%	Insgesamt gilt die Ungl. somit für $x>3/2$ und $x\neq 3$.
+%\hrule
+%}
+%
+%
+%\section{Beweismethoden}
+%\subsection{Wahrheitstabelle}
+%Um eine Äquivalenz zwischen zwei Aussagen (die jeweils aus den Aussagen $A,B$ zusammengesetzt sind) mittels Wahrheitstabelle zu beweisen, untersuche getrennt ihre Wahrheitswerte für alle Kombinationen von $A,B$. Stimmen sie überein, gilt die Äquivalenz.
+%
+%\begin{center}
+%\begin{minipage}{10cm}
+%\hrule
+%	\fbox{Beispiel}\\
+%	zz: $A \Rightarrow B \Leftrightarrow \neg A \vee B$
+%	\begin{center}
+%	\begin{tabular}{c|c||c|c|c}
+%	\hline
+%		$A$ & $B$ & $A \Rightarrow B$ & $\neg A$ & $\neg A \vee B$\\
+%	\hline
+%		0 & 0 & 1 & 1 & 1\\
+%		1 & 0 & 0 & 0 & 0\\
+%		0 & 1 & 1 & 1 & 1\\
+%		1 & 1 & 1 & 0 & 1\\
+%	\hline
+%	\end{tabular}
+%	\end{center}
+%\hrule
+%\end{minipage}
+%\end{center}
+%
+%\subsection{Direkter Beweis}
+%Jeder Schritt des Beweises ist durch eine Äquivalenzrelation verbunden.
+%
+%\subsection{Implikation in beide Richtungen}
+%Um eine Äquivalenz zu beweisen, kann auch die Implikation in beide Richtungen gezeigt werden.
+%	\begin{equation}
+%		\label{implikation in beide richtungen}
+%		(A \Leftrightarrow B) \Leftrightarrow (A \Rightarrow B) \wedge (B \Rightarrow A)
+%	\end{equation}
+%
+%
+%\subsection{Widerspruch}
+%Nehme das Gegenteil der zu beweisenden Aussage an. Führt diese (auf einem kreativen Wege) zu einem Widerspruch, ist die unverneinte Aussage korrekt.
+%	\begin{equation}
+%		A \Rightarrow B \Leftrightarrow A \wedge \neg B \Rightarrow \text{\Lightning}
+%	\end{equation}
+%
+%
+%\subsection{Kontraposition}
+%Beweismethode für Implikationen.
+%	\begin{equation}
+%	\label{kontraposition}
+%		A \Rightarrow B \Leftrightarrow \neg B \Rightarrow \neg A
+%	\end{equation}	
+%Soll $A \Rightarrow B$ bewiesen werden, kann also stattdessen auch $\neg B \Rightarrow \neg A$ bewiesen werden, was u.U. einfacher ist.
+%
+%
+%\subsection{Vollständige Induktion}
+%Siehe Abschnitt.
+%
+%\subsection{Eindeutigkeitsbeweis}
+%Für Sätze $\exists! x \in P(x)$.\\
+%Man nimmt dabei die Existenz dieses $x$ an und zeigt, dass es $P(x)$ erfüllt, indem man eine der Strategien benutzt:
+%	\begin{itemize}
+%		\setlength{\itemsep}{0cm}
+%		\item $x,y$ genügen $P$; aus logischen Schlüssen folgt, dass $x=y$
+%		\item $x\neq y$ genügen $P$; aus logischen Schlüssen folgt ein Widerspruch
+%	\end{itemize}
+%
+%
+%\subsection{Gegenbeispiel}
+%Um die Aussage $\not (\forall x\ P(x))$ zu zeigen, reicht es, ein $x$ zu finden, für das $P(x)$ nicht erfüllt ist.
+
+
+%\subsection*{Beschränktheit, sup, inf, max, min}
+%Definition max, min, sup, inf.
+%\begin{align}
+%	& \exists y_0 \in Y: \forall y \in Y: y\leq y_0 \equiv \max(Y)\\
+%	& \exists y_0 \in Y: \forall y \in Y: y\geq y_0 \equiv \min(Y)\\
+%	& \forall y\in Y: y\leq \sup(Y)\\
+%	& \forall y\in Y: y\geq \inf(Y)
+%\end{align}
+%
+%\begin{itemize}
+%	\item \textbf{Gegebene Mengen}\\
+%	Für gegebene Mengen lässt sich durch Ausrechenen der ersten Elemente und Grenzwertbetrachtung, sowie ggf. Nutzen anderer Bedingungen feststellen, ob die Menge beschränkt ist und ob sup, inf, max, min existieren und wie sie lauten.
+%	
+%\begin{minipage}{\textwidth}
+%{\color{blue}
+%\hrule
+%	\fbox{Beispiel}\\
+%	geg: $M = \{x\in\mathbb{R} | x^2 +2x + 3 > 6, x < 0 \}$\\
+%	Lös: $x^2 + 2x - 3 = 0 \Rightarrow x_{1,2} = -3,1$. Da die Funktion positiv sein muss, sind alle Elemente unterhalb $-3$ und alles überhalb $1$ erlaubt. Die zweite Bedingung verbietet aber alle Elemente größer 1, weshalb die Menge $M = (-\infty, -3]$ ist.\\
+%	Die Menge ist demnach nicht nach unten beschränkt, es existieren kein inf und min. Die Funktion ist nach oben beschränkt, sup = max = -3.
+%\hrule
+%}
+%\end{minipage}
+%
+%	\item \textbf{Beweise}\\
+%	Ist eine Menge $A$ beschränkt, so existieren sup, inf.	
+%\end{itemize}
+%
+%
+%\subsection*{Binomischer Lehrsatz}
+%	\begin{equation}
+%		(x + y)^n = \sum_{k=0}^{n} \binom{n}{k} x^{n-k} y^k
+%	\end{equation}
+%
+%Die \textbf{Binomialkoeffizienten} lassen sich am Pascal'schen Dreieck ablesen (Zeile  $\hat{=}$ $n=0,1,2,...$, Diagonale von links nach rechts $\hat{=}$ $k=0,1,2,...$).
+%\textcolor{red}{ERGÄNZEN: Pascal'sches Dreieck}
+%%	\begin{center}
+%%		\pascal[radius=0.3cm]{6}
+%%	\end{center}
+%Sie sind dabei die Anzahl der $k$-elementigen Teilmengen, die man aus einer $n$-elementigen Menge bilden kann, wobei $0 < k \leq n$ gilt. Dabei gilt Ziehen ohne Zurücklegen.
+%	\begin{equation}
+%		\binom{n}{k} = \frac{n\cdot (n - 1)\cdot ...\cdot (n - k + 1)}{k!} = \frac{n!}{k!(n - k)!}
+%	\end{equation}
+%mit $\binom{n}{0} := 1$.
+%
+%{\color{blue}
+%\hrule
+%	\fbox{Herleitung}\\
+%	Da jede $k$-komponentige Teilmenge $k!$ Permutationen hat, lässt sich die gesuchte Größe über den Ausdruck
+%		$$\text{\# k-komp. Teilmengen} = \frac{\text{\# alle Teilmengen}}{\text{\# Permutationen pro Teilmenge}}$$
+%	finden.\\
+%	Die Anzahl aller Teilmengen ist bei $k$ ''Ziehungen'' $n\cdot (n - 1)\cdot ...\cdot (n - k + 1)$ (lässt sich an einfachem Baumdiagramm zeigen).\\
+%	Die Anzahl der Permutationen einer Teilmenge errechnet sich über die Fakultät $k!$.
+%\hrule
+%}
+%
+%
+%\subsection*{Elementare Ungleichungen}
+%	\begin{alignat}{2}
+%		1 + x &\leq e^x, &&\forall x\in \mathbb{R}\\
+%		\ln(1 + x) &\leq x, && \text{falls $x > -1$}\\
+%		x - \frac{x^2}{2} &\leq \ln(1 + x), \qquad && \forall x\in \mathbb{R}_{\geq 0}\\
+%		\sin(x) &\leq x, && \forall x\in \mathbb{R}_{\geq 0}\\
+%		1 - \frac{x^2}{2} &\leq \cos(x), && \forall x\in \mathbb{R}\\
+%		1 + x &\leq \frac{1}{1 - x}, && \text{falls $-1\leq x\leq 1$}
+%	\end{alignat}
+
+
+\newpage
+
+
+\section{Glossar}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		Abgeschlossen & Eine Menge $A$ ist abgeschlossen, wenn ihr Komplement $A^c$ offen ist.\\
+	& Bsp: $\{a\}, [a,b,], [a,+\infty), (-\infty, a]$ \\
+	\hline
+		Abschluss &  \\
+	\hline
+		Äquivalenz & Tautologie der Form $A \Leftrightarrow B$ \\
+	\hline
+		Ausdehnung (stetige Ergänzung) & Erweiterung einer Funktion $f:A\rightarrow\mathbb{K}$ an einer unstetigen Stelle $a$ mit $f(a) := \lim_{x\rightarrow a}f(x)$, wodurch die Funktion dort stetig wird. \\
+	\hline
+		Axiom & Aussage, der man den Wahrheitswert ''wahr'' zuordnet \\
+	\hline
+		Beschränkt & Eine Menge $M$ ist beschränkt, wenn eine obere und untere Schranke existieren. \\
+	\hline
+		Bild & Das Bild einer Teilmenge $A$ ist die Menge aller Funktionswerte $f(a)$. \\
+	\hline
+		Cauchy-Folge & Eine Folge ist eine Cauchy-Folge, wenn für alle Abstände $\varepsilon > 0$ ein Folgenglied $u_{n_0}$ gefunden werden kann, s.d. für alle Folgenglieder danach gilt, dass der Abstand zweier beliebiger Folgenglieder kleiner $\varepsilon$ ist.\\
+		& $\varepsilon > 0\ \exists n_0\in \mathbb{N}: \forall m,n\geq n_0: |u_m - u_n| \leq \varepsilon$ \\
+	\hline
+		Charaktersisierung von abgeschl. Mengen durch Folgen & $A$ ist abgeschlossen $\Leftrightarrow$ Alle konv. Folgen $(u_n)_n$, deren Folgenglieder in $A$ liegen, haben auch einen Grenzwert in $A$. \\
+	\hline
+		Differentiationsklasse $C^k$ & Die Differntiationsklasse, genauer das $k$, gibt an, wie oft die Funktion, die dieser Klasse angehört, stetig diff.bar ist. $C^0$ ist eine stetige, nicht diff.bare Fkt., $C^\infty$ eine \textbf{glatte}, also unendlich oft stetig differenzierbare Funktion \\
+	\hline
+		differenzierbar im Punkt $c$ & $f$ ist differenzierbar in $c$, wenn die \textbf{Ableitung}, also der Grenzwert der Steigungsrate
+			$$\lim\limits_{x\rightarrow a,\ x\neq a} \frac{f(x) - f(a)}{x - a} \in\mathbb{R}$$
+			in diesem Punkt existiert und $f$ auf $[a,b]$ stetig und auf $[a,b]\setminus\{c\}$ diff.bar ist. \\
+	\hline
+		Elemente & Objekte, aus der eine Menge besteht \\
+	\hline
+		Fundamentalsatz der Analysis & Seien $a,b\in\mathbb{R}$ s.d. $a < b$ und $f:[a,b]\rightarrow\mathbb{R}$ stetig. Wenn $F$ eine Stammfunktion von $f$ ist, gilt
+			$$\int_a^b f(x)\,\diff x = F(b) - F(a) \equiv [F]_a^b$$
+			Für $f:(a,b)\rightarrow\mathbb{R}$ stetig und int.bar und $a\in\mathbb{R}\cup \{+\infty\},\ b\in\mathbb{R}\cup\{-\infty\}$ s.d $a < b$
+				$$[F]_a^b = \lr{\lim\limits_{x\rightarrow b} F(x)} - \lr{\lim\limits_{x\rightarrow a} F(x)}$$\\
+	\hline
+		Funktion & Beziehung zwischen 2 Mengen, die jedem Element der 1. Menge genau einem Element in der 2. Menge zuordnet.\\
+	\hline
+		globales Extremum & Globales Maximum oder gloables Minimum \\
+	\hline
+		globales Maximum & Im Punkt $c$ existiert ein globales Maximum, wenn
+		$$\forall x\in A: f(x)\leq f(c)$$ \\
+	\hline
+		globales Minimum & Im Punkt $c$ existiert ein globales Maximum, wenn
+		$$\forall x\in A: f(x)\geq f(c)$$ \\
+	\hline
+		Graph & Menge aller geordneten Paare $(x,f(x))$ aus den Elementen $x$ der Definitionsmenge und den zugehörigen Funktionswerten $f(x)$.\\
+	\hline
+		Häufungspunkt & Grenzwert einer konvergenten Teilfolge \\
+	\hline
+		''In der Nähe von $a$'' & In einer gewissen Umgebung von a. D.h. $(a - \varepsilon, a + \varepsilon)\cap A$ für ein bestimmtes $\varepsilon > 0$. \\
+	 \hline
+	 	Infimum & Größte untere Schranke \\
+	 	& $\forall y\in Y: y\geq \sup(Y)$ \\
+	\hline
+		integrierbar & Seien $a\in\mathbb{R}\cup \{-\infty\}$, $b\in\mathbb{R}\cup \{+\infty\}$ und $f:(a,b)\rightarrow\mathbb{C}$. Dann ist $f$ integrierbar falls
+			$$\int_a^b |f(x)|\,\diff x < +\infty$$\\
+		in der Nähe eines Punkts integrierbar & Eine Funktion $f$ ist in der Nähe des Punktes $a$ int.bar, wenn $\exists c\in(a,b)$ s.d. $f$ auf $(a,c]$ int.bar (Analog für $b$). \\
+	\hline
+		Kompaktum bzw. $A$ ist kompakt & $A$ ist ein Kompaktum, wenn $A$ abgeschlossen und beschränkt ist. \\
+	 \hline
+		Konvergenz (Folge) & Eine Folge ist konvergent, wenn für alle Abstände $\varepsilon > 0$ um den Grenzwert $a$ ein bestimmtes Folgenglied $u_{n_0}$ gefunden werden kann, s.d. alle Folgenglieder danach im $\varepsilon$-Bereich um den Grenzwert $a$ liegen.
+		$$\forall \varepsilon > 0\ \exists n_0\in\mathbb{N}: \forall n\geq n_0: |u_n - a| < \varepsilon \quad\Leftrightarrow:\quad \lim_{n\rightarrow\infty} u_n = a$$
+		\includegraphics[width=0.3\textwidth]{Grafiken/konvergenz.jpg} \\
+	\hline
+		Konvergenz (Reihe) mittels Integrabilität & Sei $n_0\in\mathbb{N}$ und $f:[n_0,+\infty)\rightarrow \mathbb{R}_>$ eine stetige, fallende Fkt., dann konvergiert die Reihe $\sum_{n\geq n_0} f(n)$ gdw.  $f$ in der Nähe von $+\infty$ int.bar ist. \\
+	\hline
+		konkav & Eine Funktion ist konkav, wenn\\
+		& $\bullet$ ihr Graph \underline{oberhalb} einer beliebigen Verbindungslinie zweier Funktionspunkte liegt.
+			$$\forall x,y\in I: \forall t\in[0,1] f((1 - t)x + t\cdot y) \geq (1 - t)f(x) + t\cdot f(y)$$
+		\textcolor{gruen}{Falls $f$ (2mal) diff.bar:}\\
+		& $\bullet$ $f'$ fallend ist\\
+		& $\bullet$ $\forall x\in I$ der Graph von $f$ \underline{unterhalb} seiner \underline{Tangente} in x liegt.
+			$$\forall x,y\in I: f(y) \leq f(x) + (y - x)f'(x)$$
+		$\bullet$ $f''(x) \leq 0$ ist \\
+	\hline
+		Konvergenzradius & Grenze für das $z$ in einer Potenzreihe, s.d. diese mit  $|z| < \text{KR}$ absolut konvergenz und mit $|z| > \text{KR}$ divergiert. \\
+	\hline
+		konvex & Eine Funktion $f$ ist konvex, wenn\\
+		& $\bullet$ ihr Graph \underline{unterhalb} einer beliebigen Verbindungslinie zweier Funktionspunkte liegt.
+			$$\forall x,y\in I: \forall t\in[0,1] f((1 - t)x + t\cdot y) \leq (1 - t)f(x) + t\cdot f(y)$$
+		\textcolor{gruen}{Falls $f$ (2mal) diff.bar:}\\
+		& $\bullet$ $f'$ steigend ist\\
+		& $\bullet$ $\forall x\in I$ der Graph von $f$ \underline{oberhalb} seiner \underline{Tangente} in x liegt.
+			$$\forall x,y\in I: f(y) \geq f(x) + (y - x)f'(x)$$
+		$\bullet$ $f''(x) \geq 0$ ist\\
+	\hline
+		kritischer Punkt & Ein kritischer Punkt einer diff.baren Fkt. $f$ ist eine NS von $f'$. \\
+	\hline
+		Landau-Symbole & $f$ ist von $g$ in der Nähe von $a$ \textbf{dominiert}. 
+			$$f(x) \stackrel{x\rightarrow a}{=} O(g(x)) \quad\Leftrightarrow\quad \limsup\limits_{x\rightarrow a} \left|\frac{f(x)}{g(x)}\right| < \infty$$
+
+		$f$ ist in der Nähe von $a$ \textbf{vernachlässigbar} gegenüber $g$.
+			$$f(x) \stackrel{x\rightarrow a}{=} o(g(x)) \quad\Leftrightarrow\quad \lim\limits_{x\rightarrow\infty} \left|\frac{f(x)}{g(x)}\right| = 0$$
+
+		$f$ ist in der Nähe von $a$ \textbf{äquivalent} zu $g$.
+			$$f(x) \stackrel{x\rightarrow a}{\sim} g(x) \quad\Leftrightarrow\quad f(x) - g(x) \stackrel{x\rightarrow a}{=} o(g(x)) \quad\Leftrightarrow\quad \lim\limits_{x\rightarrow\infty} \frac{f(x)}{g(x)} = 1$$ \\
+	\hline
+		Länge eines Graphen & Sei $f:I=[a,b]\rightarrow\mathbb{R}$ und $x_i = \frac{(b - a)i}{n}$
+			$$\lim\limits_{n\rightarrow\infty} L_n,\ L_n = \sum_{i=1}^n \sqrt{(x_i - x_{i-1})^2 + (f(x_i) - f(x_{i-1}))^2} $$ \\
+ 	\hline
+		Limes inferior & $\liminf\limits_{n\rightarrow\infty} u_n := \lim\limits_{n\rightarrow\infty}(\inf\limits_{k\geq n} u_k)$ \\	
+	\hline	
+	 	Limes superior & Grenzwert der Folge $\sup_{k\geq n}u_k$. Ein Folgenglied dieser Folge $\sup_{k\geq n}u_k$ ist dabei das Maximum aller Glieder $u_k$ mit $k\geq n$. Die Glieder davor werden ignoriert. \\
+	 	& \includegraphics[width=0.3\textwidth]{Grafiken/limsup.jpg}
+	 		$$\limsup\limits_{n\rightarrow\infty} u_n := \lim\limits_{n\rightarrow\infty}(\sup\limits_{k\geq n} u_k)$$ \\
+	\hline
+		lokales Extremum & Lokales Maximum oder lokales Minimum \\	
+	\hline
+		lokales Maximum & Im Punkt $c$ existiert ein lokales Maximum, wenn 
+		$$\exists\varepsilon > 0: f(x)\leq f(c)\ \forall x\in A\cap(c-\varepsilon, c+\varepsilon)$$ \\
+	\hline
+		lokales Minimum & Im Punkt $c$ existiert ein lokales Minimum, wenn 
+		$$\exists\varepsilon > 0: f(x)\geq f(c)\ \forall x\in A\cap(c-\varepsilon, c+\varepsilon)$$ \\
+	 \hline
+	 	Maximum & Größter Wert einer Menge \\
+	 	& Alternativ: Obere Schranke, die zu der Menge gehört \\
+	 \hline
+	 	Menge & Abstraktes Objekt bestehend aus einer Anzahl einzelner Objekte \\
+	 \hline
+	 	Minimum & Kleinster Wert einer Menge \\
+	 	& Alternativ: Untere Schranke, die zu der Menge gehört \\
+	\hline
+		Mittel (arithmetisch, geometrisch, harmonisch) & $$\frac{x_1 + ... + x_n}{n} \geq (x_1 \cdot ... \cdot x_n)^{1/n} \geq \frac{n}{\frac{1}{x_1} + ... + \frac{1}{x_n}}$$ \\
+	\hline
+		Mittelwertsatz & Sei $f:[a,b]\rightarrow\mathbb{R}$ stetig mit $a < b$, dann existiert \underline{mindestens} ein $c\in(a,b)$, s.d. die Ableitung an diesem $c$ der Sekantensteigung entspricht
+			$$f'(c) = \frac{f(b) - f(a)}{b - a}$$ \\
+	\hline
+		Obere Schranke der Menge $M$ & Wert in einer Menge $X \supseteq M$, für den gilt, dass alle Werte in der Teilmenge $M$ \underline{kleiner gleich} als er sind.\\
+	\hline
+		offen & Ein Menge $A$ ist offen, wenn für jedes Element der Menge eine offene Kreisscheibe existiert, die wieder in der Menge liegt. \\
+		& \fbox{$A\subseteq \mathbb{R}$} $\forall a\in A\ \exists\eta > 0: (a - \eta, a + \eta) \subseteq A$ \\
+		& \fbox{$A\subseteq \mathbb{C}$} $\forall a\in A\ \exists\eta > 0: D(a,\eta) \subseteq A$ \\
+		& Bsp: $(a,b), (a,+\infty), (-\infty, a)$ \\
+	\hline
+		offen (abg.) in $B$ & $A$ ist offen (abg.) in $B$, wenn $A = B \cup \Omega$ mit $\Omega$ offene (abg.) Menge. \\
+	\hline
+		Partielle Integration & $$\int^x f(x)\cdot g'(x)\,\diff x = f(x)\cdot g(x) - \int^x f'(x)\cdot g(x)\,\diff x$$ \\
+	\hline
+		Polstelle & Definitionslücke mit der Eigentschaft $\lim\limits_{x\rightarrow a} |f(x)| = +\infty$ \\
+	\hline
+		Potenzmenge & Menge aller Teilmengen einer Grundmenge $A$. Dabei sind $\emptyset := \{\}$ und $A$ immer Elemente der Potenzmenge.\\
+		& Bsp: Sei $A = \{1,2\}$ $\mathcal{P}(A) = \{\emptyset,\{1\},\{2\},A\}$ \\
+	\hline
+		Potenzreihe & Reihe der Form $\sum_{k\geq n_0} a_k \cdot z^k$, wobei $(a_k)_k$  eine Folge ist. \\
+	\hline
+		Prädikat & Aussage, die von einer Variablen abhängt \\
+	\hline
+		Regel von De l'Hopital &  \\
+	\hline
+		Satz der differenzierbaren Umkehrfunktionen & Ist die Funktion $f:A\rightarrow B$ diff.bar und ihre Ableitung $f'$ in $A$ stetig und ohne NS, so gilt für die Ableitung ihrer Umkehrfkt. $f^{-1}$
+			$$(f^{-1})' = \frac{1}{f'\circ f^{-1}}$$ \\
+	\hline
+		Satz der Riemann'schen Integrale & Seien $a,b\in\mathbb{R}$ s.d. $a < b$ und $f:[a,b]\rightarrow\mathbb{C}$ stetig, dann gilt
+			$$\lim\limits_{n\rightarrow\infty} \frac{1}{n}\sum_{k=1}^n f\lr{a + (b - a)\frac{k}{n}} = \int_a^b f(x)\,\diff x$$ \\
+	\hline
+		Satz von Bolzano-Weierstraß & Ist eine Folge beschränkt, existiert eine konvergente Teilfolge \\
+	\hline
+		Satz von Rolle & Sei $f:[a,b]\rightarrow\mathbb{R}$ stetig und diff.bar auf $(a,b)$ und $f(a) = f(b)$, dann $\exists x_0 \in [a,b]$ s.d.
+		$$f'(x_0) = 0$$ \\
+	\hline
+		stetig im Punkt $a$ & Eine Funktion $f$ ist \textbf{stetig im Punkt $a$}, falls eines der Kriterien gilt:\\
+		& $\bullet$ $\varepsilon$-$\delta$-Kriterium 
+			$$\forall\varepsilon > 0\ \exists\eta > 0: \forall x\in\mathbb{A}: |x-a| \leq \eta \Rightarrow |f(x) - f(a)| \leq \varepsilon$$
+			
+		$\bullet$  Grenzwert-Kriterium
+			$$f(a) = \lim_{x\rightarrow a} f(x)$$
+			
+		$\bullet$ Folgenkriterium \\
+		&\phantom{$\bullet$} $\forall (u_n)_n \in A$, die gegen $a$ konv. gilt: 
+			$$\lim_{n\rightarrow a} f(u_n) = f(a)$$ \\
+	\hline
+		stetig in $A$ & Eine Funktion $f$ ist \textbf{stetig in einer Menge} $A$, falls eine der Bedingungen S1, S2, S3, S4 (siehe VL) gilt \\
+	\hline
+		streng konvex (konkav) & Ungl. wie bei konvex (konkav), jedoch mit $t\in(0,1)$ in den Ungl. und streng steigend statt nur steigend und $>$ statt $\geq$.\\
+	\hline
+	 	Supremum & Kleinste obere Schranke \\
+	 	& $\forall y\in Y: y\leq \sup(Y)$ \\
+	\hline
+		Stammfunktion & Sei $A\subseteq \mathbb{R}$. Eine Stammfunktion von $f:A\rightarrow\mathbb{R}$ ist eine diff.bare Funktion $F:A\rightarrow\mathbb{R}$ s.d. $f=F'$. \\
+	\hline
+		Tautologie & Aussage, die aus mehreren Bestandteilen zusammengesetzt ist und immer wahr ist, unabhängig von dem Wahrheitswert ihrer Bestandteile. \\
+		& Bsp: $\neg(\neg A) \Leftrightarrow A$ \\
+	\hline
+		Teilfolge & Folge der Form $v_n = u_{\varphi(n)}$ wobei $\varphi(n)$ eine steigende Funktion ist \\
+	\hline
+		Tupel &  \\
+	\hline
+		Umgebung von $a$ in $A$ & Offene Menge $(a - \varepsilon, a + \varepsilon) \cap A$ mit $\varepsilon > 0$. \\
+	\hline
+		Untere Schranke der Menge $M$ & Wert in einer Menge $X \supseteq M$, für den gilt, dass alle Werte in der Teilmenge $M$ \underline{größer gleich} als er sind.\\
+	\hline
+		Urbild & \\
+	\hline
+		Variablentransformation (Integration) & $$\int^y f(y)\,\diff y \stackrel{y = \psi(x)}{=} \int^{\psi^{-1}(y)} f(\psi(x)) \cdot \psi'(x)\,\diff x$$ \\
+	\hline
+		Zwischenwertsatz & Seien $a,b\in\mathbb{R}$ mit $a<b$ und $f:[a,b]\rightarrow\mathbb{R}$ stetig, dann nimmt $f$ jeden beliebigen Wert zwischen $f(a),f(b)$ an mindestens einer Stelle $c\in[a,b]$ an. \\
+	\hline\hline
+\end{xltabular}
+\end{document}
