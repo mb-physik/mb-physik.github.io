@@ -58,7 +58,7 @@ Voraussetzung für dieses Dokument ist die Kenntnis der Mechanik, des Elektromag
 
 
 	\begin{table}[H]
-		\caption{Übersicht von Materialeigenschaften und deren zugehörige physikalische Größen}
+		\caption{Übersicht einiger Materialeigenschaften und deren zugehörige physikalische Größen}
 		\begin{tabularx}{\textwidth}{l|p{4cm}|c|X}
 			\hline\hline
 				Eigenschaften & Größe & Symbol & Beschreibung \\
@@ -429,8 +429,8 @@ Unter einer \textit{chemischen Bindingung} versteht man das Phänomen, durch das
 		Baugruppe bestehend aus Atomen oder Ionen, die den Kristall aufbaut
 		
 		
-		\item \textbf{Translationsgitter}\\
-		Periodisches Gitter, das aus allen Raumpunkten besteht, an denen Basen zum Aufbau des Kristalls platziert werden
+		\item \textbf{Translationsgitter / Bravais-Gitter}\\
+		Periodisches Gitter, das aus allen Raumpunkten besteht, an denen Basen zum Aufbau des Kristalls platziert werden. Es ist invariant unter der Verschiebung um einen Gittervektor.
 
 
 		\item \textbf{primitive Gittervektoren}\\
@@ -451,7 +451,7 @@ Unter einer \textit{chemischen Bindingung} versteht man das Phänomen, durch das
 
 
 		\item \textbf{konventionelle Einheitszelle}\\
-		Von den konventionellen Gittervektoren aufgespannte Zelle, die \underline{größer} ist als die primitve Einheitszelle
+		Von den konventionellen Gittervektoren aufgespannte Zelle, die größer ist als die primitve Einheitszelle
 
 
 		\item \textbf{Gitterkonstante}\\
@@ -584,8 +584,31 @@ Das \textit{reziproke Gitter} ist ein essentielles Konzept, um die Beugungsbedin
 \newpage
 
 
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Zusammenhang reziproker und realer Gittervektoren
+		\begin{align*}
+			\vec{g}_1 &= \frac{2\pi}{V_\text{EZ}}(\vec{a}_2 \times \vec{a}_3) \\
+			\vec{g}_2 &= \frac{2\pi}{V_\text{EZ}}(\vec{a}_3 \times \vec{a}_1) \\
+			\vec{g}_3 &= \frac{2\pi}{V_\text{EZ}}(\vec{a}_1 \times \vec{a}_2)
+		\end{align*}
+
+	Herleitungsskizze:\\
+	1)  \\
+	2)  \\
+	3)  \\
+	4)  \\
+	\\
+\hrule
+}
+
+
+\newpage
+
+
 \subsubsection{Netzebenenschar}
-Eine \textit{Netzebenenschar} ist eine Menge äquidistanter gedachter Ebenen im realen Kristall und stellt ein essentielles Konzept dar, um die Beugungsbedingung nach Bragg zu formulieren. Sie wird durch die Miller'schen Indizes $(h,k,l)$ eindeutig beschrieben.\\
+Eine \textit{Netzebenenschar} ist eine Menge äquidistanter gedachter Ebenen im realen Kristall und stellt ein essentielles Konzept dar, um die Beugungsbedingung nach Bragg oder \textit{Morphologie} eines Kristalls zu formulieren. Sie wird durch die Miller'schen Indizes $(h,k,l)$ eindeutig beschrieben.\\
 \\
 \fbox{Algorithmus}
 	\begin{enumerate}
@@ -618,17 +641,37 @@ Eine \textit{Netzebenenschar} ist eine Menge äquidistanter gedachter Ebenen im 
 	\end{itemize}	
 
 
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.4\textwidth]{Grafiken/netzebenenschar.png}
+		}
+		\caption{Schema einer Netzebenenschar; a) in 3d b) in 2d}
+	\end{figure}
+
+
 \newpage
 
 
 {\color{violet}
 \hrule
 	\fbox{Herleitung}\\
-	zz: $\vec{G}_{hkl} \parallel \vec{e}_N$\\
+	zz: $d_{hkl} = \frac{2\pi}{G_{hkl}}$\\
 	\\
+	Herleitungsskizze:\\
+	1) \\
+	2) \\
+	3) \\
+	4) \\
+
+%	1) Setze den Ursprung des Koordinatensystems auf eine Netzebene\\
+%	2) Betrachte den Schnittpunkt der benachbarten Netzebene mit einer Koordinatenachse\\
+%	3) Projeziere den Vektor, der auf den Schnittpunkt weist auf $\vec{G}_{hkl}$\\
+%	\\
 %	Strategie:\\
 %	1) Etabliere ein Koordinatensystem\\
 %	2) Berechne den zu den Vektoren, die $d_{hkl}$ aufspannen, senkrechten Vektor mittels Kreuzprodukt und erkenne $\vec{G}_{hkl}$\\
+
 	Betrachte eine Netzebene in dem Koordinatensystem $\vec{a}_1, \vec{a}_2, \vec{a}_3$.\\
 	Die Ebene schneide die 1-Achse bei $m \equiv \frac{1}{h'}$, die 2-Achse bei $n \equiv \frac{1}{k'}$ und die 3-Achse bei $o \equiv \frac{1}{l'}$.\\
 	Dann spannen die folgenden Vektoren (oBdA) die Netzebene auf:
@@ -651,14 +694,6 @@ Eine \textit{Netzebenenschar} ist eine Menge äquidistanter gedachter Ebenen im 
 
 	wobei $p$ der ganzzahlige Faktor ist, der die Kehrwerte der Achsenschnittpunkte auf die Miller-Indizes bringt. $\qquad \blacksquare$\\
 	\\
-	\fbox{Herleitung}\\
-	zz: $d_{hkl} = \frac{2\pi}{G_{hkl}}$\\
-	\\
-%	Strategie:\\
-%	1) Setze den Ursprung des Koordinatensystems auf eine Netzebene\\
-%	2) Betrachte den Schnittpunkt der benachbarten Netzebene mit einer Koordinatenachse\\
-%	3) Projeziere den Vektor, der auf den Schnittpunkt weist auf $\vec{G}_{hkl}$\\
-%	\\
 	Betrachte ein Koordinatensystem, dessen Ursprung auf einer Netzebene liegt.\\
 	Die benachbarte Netzebene schneide o.B.d.A. die 1-Achse am Punkt $m\equiv \frac{1}{h'}$.\\
 	Der Vektor, der vom Ursprung auf die Schnittstelle weist, ist somit $\frac{\vec{a}_1}{h'}$.\\
@@ -2716,6 +2751,8 @@ Er liefert die Möglichkeit, die Elektronendichte eines Materials experimentell 
 			$$\frac{1}{\tau} = \sum_i \frac{1}{\tau_i}$$
 		
 		wobei $\tau$ die sog. Stoßzeit ist. \\
+	\hline
+		Morphologie &  \\
 	\hline
 		Netzebene &  \\
 	\hline
