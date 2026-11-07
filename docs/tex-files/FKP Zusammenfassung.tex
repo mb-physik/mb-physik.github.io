@@ -686,9 +686,17 @@ Eine \textit{Netzebenenschar} ist eine Menge äquidistanter gedachter Ebenen im 
 {\color{blue}
 \hrule
 	\fbox{Beispiel}\\
-	geg: \\
-	ges: \\
-	Lös: 
+	geg: kp-Gitter mit konventionellen Gittervektoren $\vec{a}_1, \vec{a}_2, \vec{a}_3$; Achsenschnittpunkte einer Netzebene bei $(x,y,z) = (2a, 4a, 3a)$ \\
+	ges: Miller-Indizes $(hkl)$ \\
+	Lös: Bilde den Kehrwert der Achsenschnittpunkte
+		\begin{align*}
+			\lr{ \frac{1}{2}, \frac{1}{4}, \frac{1}{3} }.
+		\end{align*}
+	
+	Bilde die kleinsten ganzen Zahlen durch Multiplikation mit 12
+		\begin{align*}
+			\lr{ 6, 3, 4 }.
+		\end{align*}
 
 
 \hrule
@@ -768,6 +776,52 @@ Eine \textit{Netzebenenschar} ist eine Menge äquidistanter gedachter Ebenen im 
 \newpage
 
 
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $2 d_{hkl} \sin\theta =n \lambda$ mit $n\in\mathbb{N}$\\
+	\\
+	Herleitungsskizze:\\
+	1) Bilde den Betrag der Laue-Bedingung\\
+	2) Einsetzen von $d_{hkl} = \frac{2\pi}{G_{hkl}}$\\
+	3) Formuliere $|\vec{k}'-\vec{k}|$ mithilfe der Skizze der Laue-Bedingung, Einführung Bragg-Winkel\\
+	\\
+	Wende den Betrag auf die Laue-Bedingung an:
+		\begin{align*}
+			|\vec{G}_{hkl}| &= |\vec{K}| = |\vec{k}'-\vec{k}|
+		\end{align*}
+	
+	Setze die Beziehung $d_{hkl} = \frac{2\pi}{G_{hkl}}$ sowie $|\vec{k}' - \vec{k}| = 2k \cdot \sin\theta$ in die Gleichung ein:
+		\begin{align*}
+			\frac{2\pi}{d_{hkl}} &= 2k \cdot \sin\theta \\
+			\Leftrightarrow \frac{2\pi}{k} &= 2 d_{hkl} \sin\theta
+		\end{align*}
+
+	Erkenne im Ausdruck $\frac{2\pi}{k}$ die Wellenlänge $\lambda$:
+		\begin{align*}
+			\Leftrightarrow \frac{2\pi}{k} = \lambda &= 2d_{hkl} \sin\theta
+		\end{align*}
+	
+	Da die Laue-Bedingung ebenfalls für ganzzahlige Vielfache des reziproken Gittervektors $\vec{G}_{h'k'l'} = n \cdot \vec{G}_{hkl}$ infrage kommen (diese beschreiben dieselbe immer einige Netzebenen der Netzebenenschar), gilt:
+		\begin{align*}
+			|\vec{G}_{h'k'l'}| &= |\vec{K}| \\
+			\Leftrightarrow |n| \cdot |\vec{G}_{hkl}| &= |\vec{k}' - \vec{k}|
+		\end{align*}
+	
+	Setze erneut $d_{hkl} = \frac{2\pi}{G_{hkl}}$ sowie $|\vec{k}' - \vec{k}| = 2k \cdot \sin\theta$ ein:
+		\begin{align*}
+			n \cdot \frac{2\pi}{d_{hkl}} &= 2k \cdot \sin\theta \\
+			\Leftrightarrow n \cdot \lambda &= 2 d_{hkl} \sin\theta,
+		\end{align*}
+	
+	mit $n \in \{1, 2, ...\}$. $\qquad \blacksquare$
+\hrule
+}
+
+
+\newpage
+
+
 \subsubsection{Elastische Streuung}
 Die \textit{elastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektron, Atome oder Neutron) ist diejenige Streuung, bei der sich die Gesamtenergie der Welle nicht ändert.\\
 \\
@@ -783,7 +837,7 @@ Die \textit{elastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektron, 
 		\item \textbf{Bragg'sche Beugungsbedingung}\\
 		Die \textit{Bragg'sche Beugungsbedingung} ist eine äquivalente Formulierung zur Laue'schen, erlaubt jedoch die anschauliche Intepretation der Beugung als eine Reflexion der Welle an der Netzebenenschar $d_{hkl}$, die eindeutig einem $G_{hkl}$ zugeordnet werden kann. Für den Beugungsreflex gilt die Bedingung
 			\begin{equation}
-				2d_{hkl}\sin\theta = n\lambda,
+				2d_{hkl}\sin\theta = n \cdot \lambda,
 			\end{equation}
 		
 		mit $n\in\mathbb{N}$, der Netzebene $d_{hkl}$, dem Bragg-Winkel $\theta$ und der Wellenlänge $\lambda$.
@@ -908,42 +962,6 @@ Die \textit{elastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektron, 
 \newpage
 
 
-{\color{violet}
-\hrule
-	\fbox{Herleitung}\\
-	zz: $2 d_{hkl} \sin\theta =n \lambda$ mit $n\in\mathbb{N}$\\
-	\\
-	Herleitungsskizze:\\
-	1) Bilde den Betrag der Laue-Bedingung\\
-	2) Einsetzen $d_{hkl} = \frac{2\pi}{G_{hkl}}$\\
-	3) Formuliere $|\vec{k}'-\vec{k}|$ mithilfe der Skizze der Laue-Bedingung, Einführung Bragg-Winkel\\
-	\\
-	Wende den Betrag auf die Laue-Bedingung an:
-		\begin{align*}
-			|\vec{G}| &= |\vec{K}| = |\vec{k}'-\vec{k}|
-		\end{align*}
-	
-	\textcolor{red}{ERGÄNZEN Skizze}\\
-	Führe den Bragg-Winkel $\theta$ als Winkel zwischen der Netzebene und dem einlaufenden bzw. auslaufenden Wellenvektors ein.\\
-	Aus der geometrischen Überlegung der Skizze folgt der Zusammenhang
-		\begin{align*}
-			|\vec{k}' - \vec{k}| &= 2k \cdot \sin\theta.
-		\end{align*}
-	
-	Einsetzen dieses Ergebnisses, sowie dem Zusammenhang zwischen der Netzebene und dem zugehörigen reziproken Gittervektor, in die Laue-Bedingung ergibt:
-		\begin{align*}
-			\frac{2\pi}{d_{hkl}} &= 2k \cdot \sin\theta \\
-			\Leftrightarrow \frac{2\pi}{k} = \lambda &= 2d_{hkl} \sin\theta
-		\end{align*}
-	
-	\textcolor{red}{ERGÄNZEN Zustandekommen der Ordnungen $n$}
-\hrule
-}
-
-
-\newpage
-
-
 \subsubsection{Inelastische Streuung}
 Die \textit{inelastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektronen, Atome oder Neutronen) ist diejenige Streuung, bei der die einlaufende Welle mit dem Gitter wechselwirkt und somit Energie abgibt oder aufnimmt.\\\\
 \fbox{Resultate}
@@ -1059,12 +1077,22 @@ Die \textit{inelastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektron
 \subsubsection{Schallgeschwindigkeit (harmonische Gitterdynamik)}
 Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen beschrieben, die ein System aus $3rN$ gekoppelten Differentialgleichungen ergeben.\\
 \\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{Schallgeschwindigkeit}\\
+			Geschwindigkeit, mit der sich Schwingungen, die groß gegenüber der Atomabstände sind, im Festkörper ausbreiten
+				\begin{equation}
+					\vec{v}_s := \lim_{\vec{q} \to \vec{0}} \vec{\nabla}_{\vec{q}} \omega(\vec{q})
+				\end{equation}
+	\end{itemize}
+	
+
 \fbox{Resultate}
 	\begin{itemize}
 		\item \textbf{Ortsvektor}\\
 		Für das $\alpha$-te Atom in der $n$-ten Einheitszelle gilt
 			\begin{equation}
-				\vec{x}_{\vec{n}\alpha}(t) = \vec{x}_n(t) + \vec{x}_{n,\alpha} + \frac{1}{\sqrt{m_\alpha}} \cdot \vec{A}_\alpha(\vec{q}) \cdot e^{i(\vec{q}\vec{x}_n - \omega t)},
+				\vec{x}_{\vec{n}\alpha}(t) = \vec{x}_{\vec{n}}(t) + \vec{x}_{\vec{n},\alpha} + \frac{1}{\sqrt{m_\alpha}} \cdot \vec{A}_\alpha(\vec{q}) \cdot e^{i(\vec{q}\vec{x}_n - \omega t)},
 			\end{equation}
 		
 		wobei die Amplitude der Verschiebung die Eigenvektoren der dynamischen Matrix $\underline{D}$ sind.
@@ -1084,20 +1112,13 @@ Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen 
 %			\begin{equation}
 %				\underline{D} \cdot \vec{A}_{\alpha,i}(\vec{q}) = -\omega^2 \cdot \vec{A}_{\alpha,i}(\vec{q}) \qquad \forall \alpha.
 %			\end{equation}
-		
-		
-		\item \textbf{Schallgeschwindigkeit}\\
-		Geschwindigkeit, mit der sich Schwingungen, die groß gegenüber der Atomabstände sind, ausbreiten
-			\begin{equation}
-				\vec{v}_s := \lim_{\vec{q} \to \vec{0}} \vec{\nabla}_{\vec{q}} \omega(\vec{q})
-			\end{equation}
 	\end{itemize}
 	
 
 	\begin{figure}[h]
 		\centering
 		\fbox{
-			\includegraphics[width=0.3\textwidth]{Grafiken/atomdynamik.pdf}
+			\includegraphics[width=0.4\textwidth]{Grafiken/atomdynamik.pdf}
 		}
 		\caption{Skizze zur Notation der Atomdynamik}
 	\end{figure}
