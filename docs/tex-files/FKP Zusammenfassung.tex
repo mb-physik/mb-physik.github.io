@@ -53,7 +53,7 @@
 
 
 \section*{Abstrakt}
-Die Festkörperphysik beschreibt die physikalischen Eigenschaften von Materialien, die aus etwa $10^{23}$ Teilchen bestehen und im festen Aggregatszustand vorliegen. In diesem Dokument werden Konzepte, physikalische Größen und Modelle zur Beschreibung der Struktur, Beugung, Elastizität, elektrischen, thermischen, dielektrischen und optischen Eigenschaften von Festkörpern diskutiert, siehe Tabelle \ref{tabelle abstrakt}. Abschließend wird die Materialklasse der Halbleiter bezüglich seiner elektrischen Eigenschaften und einiger Anwendungen in der Elektronik behandelt. Die Appendizes beinhalten Messmethoden, die zur Charakterisierung von Festkörpern eingesetzt werden. Schließlich sind im Glossar alle wesentlichen Begriffe aufgeführt kurz definiert. \\
+Die Festkörperphysik beschreibt die physikalischen Eigenschaften von Materialien, die aus etwa $10^{23}$ Teilchen bestehen und im festen Aggregatszustand vorliegen. In diesem Dokument werden Konzepte, physikalische Größen und Modelle zur Beschreibung der Struktur, Beugung, Elastizität, elektrischen, thermischen, dielektrischen und optischen Eigenschaften von Festkörpern diskutiert, siehe Tabelle \ref{tabelle abstrakt}. Abschließend wird die Materialklasse der Halbleiter bezüglich seiner elektrischen Eigenschaften und einiger Anwendungen in der Elektronik behandelt. Die Appendizes beinhalten Messmethoden, die zur Charakterisierung von Festkörpern eingesetzt werden. Schließlich sind im Glossar alle wesentlichen Begriffe aufgeführt und kurz definiert. \\
 Voraussetzung für dieses Dokument ist die Kenntnis der Mechanik, des Elektromagnetismus und der Quantenmechanik sowie einiger Theoreme der mehrdimensionalen Analysis.
 
 
@@ -125,7 +125,7 @@ Die Fourier-Reihe ist die Reihenentwicklung der periodischen Funktion $f(x)$ mit
 	\begin{itemize}
 		\item \textbf{trigonometrische Darstellung}\\
 		Die trigonometrische Darstellung verwendet die diskrete Basis aus Sinus- und Kosinusfunktionen
-		$\{1, \cos \lr{ \frac{2\pi \cdot 1}{T} \cdot x }, \cos \lr{ \frac{2\pi \cdot 2}{T} \cdot x}, ..., \sin \lr{ \frac{2\pi \cdot 1}{T} \cdot x }, \sin \lr{ \frac{2\pi \cdot 2}{T} \cdot x }, ... \}$:
+		$\{1, \cos \lr{ \frac{2\pi \cdot 1}{T} \cdot x }, \cos \lr{ \frac{2\pi \cdot 2}{T} \cdot x}, ..., \sin \lr{ \frac{2\pi \cdot 1}{T} \cdot x }, \sin \lr{ \frac{2\pi \cdot 2}{T} \cdot x }, ... \}$
 			\begin{equation}
 				f(x) = \frac{a_0}{2} + \sum_{n=1}^\infty \lreck{ a_n \cdot \cos \lr{ \frac{2\pi \cdot n}{T} \cdot x } + b_n \cdot \sin \lr{ \frac{2\pi \cdot n}{T} \cdot x } },
 			\end{equation}
@@ -326,7 +326,9 @@ Die Taylor-Entwicklung einer $N$-dimensionalen skalaren Funktion $f(\vec{x} \equ
 \section{Physikalischer Eigenschaften von Festkörpern}
 \subsection{Struktur}
 \subsubsection{Chemische Bindungen}
-Unter einer \textit{chemischen Bindingung} versteht man das Phänomen, durch das zwei oder mehr Atome bzw. Ionen zu einem Material zusammengehalten werden.
+Unter einer \textit{chemischen Bindingung} versteht man das Phänomen, durch das zwei oder mehr Atome bzw. Ionen zu einem Material zusammengehalten werden.\\
+\\
+\fbox{Kategorisierung}
 	\begin{itemize}
 		\item \textbf{kovalente Bindung}\\
 		Bindung, die durch den gerichteten Wellenfunktionsüberlapp benachbarter Atome charakterisiert ist, z.B. $H_2^+$-Molekül, Diamant (sp$^3$-Hybridisierung)
@@ -422,7 +424,7 @@ Unter einer \textit{chemischen Bindingung} versteht man das Phänomen, durch das
 \fbox{Definitionen}
 	\begin{itemize}
 		\item \textbf{Kristall}\\
-		Festkörper, der durch die periodische Anordnung einer Baugruppe beschrieben werden kann
+		Struktur, die durch die periodische Anordnung einer Baugruppe beschrieben werden kann
 
 
 		\item \textbf{Basis}\\
@@ -659,40 +661,36 @@ Eine \textit{Netzebenenschar} ist eine Menge äquidistanter gedachter Ebenen im 
 	zz: $d_{hkl} = \frac{2\pi}{G_{hkl}}$\\
 	\\
 	Herleitungsskizze:\\
-	1) \\
-	2) \\
-	3) \\
-	4) \\
-
-%	1) Setze den Ursprung des Koordinatensystems auf eine Netzebene\\
-%	2) Betrachte den Schnittpunkt der benachbarten Netzebene mit einer Koordinatenachse\\
-%	3) Projeziere den Vektor, der auf den Schnittpunkt weist auf $\vec{G}_{hkl}$\\
-%	\\
-%	Strategie:\\
-%	1) Etabliere ein Koordinatensystem\\
-%	2) Berechne den zu den Vektoren, die $d_{hkl}$ aufspannen, senkrechten Vektor mittels Kreuzprodukt und erkenne $\vec{G}_{hkl}$\\
-
-	Betrachte eine Netzebene in dem Koordinatensystem $\vec{a}_1, \vec{a}_2, \vec{a}_3$.\\
-	Die Ebene schneide die 1-Achse bei $m \equiv \frac{1}{h'}$, die 2-Achse bei $n \equiv \frac{1}{k'}$ und die 3-Achse bei $o \equiv \frac{1}{l'}$.\\
-	Dann spannen die folgenden Vektoren (oBdA) die Netzebene auf:
+	1) Zeige, dass $\vec{G}_{hkl} \perp$ Netzebenenschar $d_{hkl}$ \\
+	1.1) Bestimme Vektoren, die Netzebene aufspannen \\
+	1.2) Bilden des Kreuzprodukts, Erkennen von $G_{hkl}$ \\
+	2)  \\
+	2.1)  \\
+	2.2)  \\
+	\\
+	Betrachte eine Netzebene, die die Gittervektoren einer Einheitszelle $\vec{a}_1$, $\vec{a}_2$ und $\vec{a}_3$ schneidet.\\
+	\\
+	Ein Satz von Vektoren, der diese Netzebene aufspannt ist beispielsweise:
 		\begin{align*}
 			\frac{\vec{a}_1}{h'} - \frac{\vec{a}_2}{k'},\ \frac{\vec{a}_3}{l'} - \frac{\vec{a}_2}{k'}
 		\end{align*}
 	
-	Ihr Kreuzprodukt ist dann
+	Ein Vektor, der senkrecht zu dieser Ebene zeigt, ergibt sich aus dem Kreuzprodukt beider Vektoren:
 		\begin{align*}
 			\lr{ \frac{\vec{a}_1}{h'} - \frac{\vec{a}_2}{k'} } \times \lr{ \frac{\vec{a}_3}{k'} - \frac{\vec{a}_2}{l'} } &= \frac{1}{h'l'} \cdot \vec{a}_1 \times \vec{a}_3 - \frac{1}{h'k'} \cdot \vec{a}_1 \times \vec{a}_2 - \frac{1}{k'l'} \cdot \vec{a}_2 \times \vec{a}_3 = \\
 			&= -\lr{ \frac{1}{k'l'} \vec{a}_2 \times \vec{a}_3 + \frac{1}{h'l'} \cdot \vec{a}_3 \times \vec{a}_1 + \frac{1}{h'k'} \cdot \vec{a}_1 \times \vec{a}_2 }
 		\end{align*}
 
-	Multipliziere diesen Vektor mit $-2\pi \frac{h'k'l'}{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|}$, um den reziproken Gittervektor $G_{h'k'l'}$ zu erkennen:
+	Es ist nun zweckmäßig diesen Vektor mit dem Faktor $-2\pi \frac{h'k'l'}{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|}$ zu multiplizieren, um den reziproken Gittervektor $G_{h'k'l'}$ zu erkennen:
 		\begin{align*}
 			&\phantom{=} -\lr{ \frac{1}{k'l'} \vec{a}_2 \times \vec{a}_3 + \frac{1}{h'l'} \cdot \vec{a}_3 \times \vec{a}_1 + \frac{1}{h'k'} \cdot \vec{a}_1 \times \vec{a}_2 } \cdot \lr{ -2\pi \frac{h'k'l'}{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|} } = \\
 			&= + h' \frac{2\pi \cdot \vec{a}_2 \times \vec{a}_3 }{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|} + k' \frac{2\pi \cdot \vec{a}_3 \times \vec{a}_1 }{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|} + l' \frac{2\pi \cdot \vec{a}_1 \times \vec{a}_2 }{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|} \equiv \\
-			&\equiv h'\vec{b}_1 + k'\vec{b}_2 + l'\vec{b}_3 \equiv \vec{G}_{h'k'l'} = \frac{\vec{G}_{hkl}}{p},
+			&\equiv h'\vec{b}_1 + k'\vec{b}_2 + l'\vec{b}_3 \equiv \\
+			&\equiv \vec{G}_{h'k'l'} \\
+			&= \frac{\vec{G}_{hkl}}{p},
 		\end{align*}
 
-	wobei $p$ der ganzzahlige Faktor ist, der die Kehrwerte der Achsenschnittpunkte auf die Miller-Indizes bringt. $\qquad \blacksquare$\\
+	wobei $p \in \mathbb{Z}$ der ganzzahlige Faktor ist, der die Kehrwerte der Achsenschnittpunkte auf die Miller-Indizes bringt. $\qquad \blacksquare$\\
 	\\
 	Betrachte ein Koordinatensystem, dessen Ursprung auf einer Netzebene liegt.\\
 	Die benachbarte Netzebene schneide o.B.d.A. die 1-Achse am Punkt $m\equiv \frac{1}{h'}$.\\
@@ -2086,9 +2084,9 @@ Es kommt formell auf dieselben Gleichungen wie das Drude-Modell, verwendet jedoc
 
 	\begin{figure}[H]
 		\centering
-		\fbox{
+%		\fbox{
 			\includegraphics[width=\textwidth]{Grafiken/dielektrische festkörper.png}
-		}
+%		}
 		\caption{Darstellung dielektrische und paraelektrische Festkörper; a) Lorentz-Oszillator-Modell dielektrischer Festkörper; b) Ionenkristall-Modell dielektrischer Festkörper; c) Modell eines paraelektrischen Fesktörpers}
 	\end{figure}
 
@@ -2111,14 +2109,17 @@ Es kommt formell auf dieselben Gleichungen wie das Drude-Modell, verwendet jedoc
 \subsubsection{Dielektrische Funktion (Lorentz-Oszilator)}
 Das Lorentz'sche Oszillator-Modell modelliert Elektronen als negative Punktladungen, die an einen Atomkern gebunden sind und mit einem äußeren E-Feld interagieren.\\
 \\
-Die dielektrische Funktion dieses Modells ist:
-	\begin{align}
-		\varepsilon(\omega) &= 1 + \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{1}{(\omega_0^2 - \omega^2) - i\Gamma\omega} \\
-		\varepsilon_\text{R}(\omega) &= 1 + \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{(\omega_0^2 - \omega^2)}{(\omega_0^2 - \omega^2) - \Gamma\omega} \\
-		\varepsilon_\text{I}(\omega) &= \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{\Gamma\omega}{(\omega_0^2 - \omega^2) - \Gamma\omega}
-	\end{align}
-
-mit der Teilchendichte $n_\text{V}$.
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{dielektrische Funktion}
+			\begin{align}
+				\varepsilon(\omega) &= 1 + \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{1}{(\omega_0^2 - \omega^2) - i\Gamma\omega} \\
+				\varepsilon_\text{R}(\omega) &= 1 + \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{(\omega_0^2 - \omega^2)}{(\omega_0^2 - \omega^2) - \Gamma\omega} \\
+				\varepsilon_\text{I}(\omega) &= \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{\Gamma\omega}{(\omega_0^2 - \omega^2) - \Gamma\omega}
+			\end{align}
+	
+		mit der Teilchendichte $n_\text{V}$.
+	\end{itemize}
 
 \vspace{0.5cm}
 
@@ -2330,10 +2331,10 @@ Die optischen Eigenschaften Absorption, Reflexion und Transmission lassen sich u
 \\
 \fbox{Kategorisierung}
 	\begin{itemize}
-		\item \textbf{Direkte Halbleiter}\\
+		\item \textbf{direkte Halbleiter}\\
 		Halbleiter, in denen das Maximum der Valenzbandkante direkt unterhalb des Minimums der Leitungsbandkante liegt
 		
-		\item \textbf{Indirekte Halbleiter}\\
+		\item \textbf{indirekte Halbleiter}\\
 		Halbleiter, in denen das Maximum der Valenzbandkante versetzt zum zum Minimum der Leitungsbandkante liegt
 	\end{itemize}
 
