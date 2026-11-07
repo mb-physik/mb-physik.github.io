@@ -564,7 +564,16 @@ Das \textit{reziproke Gitter} ist ein essentielles Konzept, um die Beugungsbedin
 
 \fbox{Resultate}
 	\begin{itemize}
-		\item \textbf{Zusammenhang reale, reziproke Gittervektoren}\\
+		\item \textbf{definierende Eigenschaft reziproke Gittervektoren}\\
+		Die zu dem Satz von Gittervektoren $\vec{a}_1, \vec{a}_2, \vec{a}_3$ gehörenden reziproken Gittervektoren erfüllen
+			\begin{equation}
+				\vec{a}_i \cdot \vec{g}_j = 2\pi \cdot \delta_{ij},
+			\end{equation}
+		
+		mit $i \in \{1,2,3\}$.
+
+		
+		\item \textbf{nützlicher Zusammenhang reale, reziproke Gittervektoren}\\
 		Ein Satz reziproker Gittervektoren $\vec{g}_1, \vec{g}_2, \vec{g}_3$ lässt sich über die Beziehung
 			\begin{align}
 				\vec{g}_1 &= \frac{2\pi}{V_\text{EZ}}(\vec{a}_2 \times \vec{a}_3) \\
@@ -597,11 +606,30 @@ Das \textit{reziproke Gitter} ist ein essentielles Konzept, um die Beugungsbedin
 		\end{align*}
 
 	Herleitungsskizze:\\
-	1)  \\
-	2)  \\
-	3)  \\
-	4)  \\
+	Für jeden reziproken Gittervektor separat:\\
+	1) Proportionalität zwischen reziprokem Gittervektor und Produkt zweier Gittervektoren \\
+	2) Mutliplikation mit zugehörigem Gittervektor, Erkennen der Proportionalitätskonstante \\
 	\\
+	Betrachte den reziproken Gittervektor $\vec{g}_1$.\\
+	Aus der definierenden Eigenschaft der reziproken Gittervektoren $\vec{a}_i \cdot \vec{g}_j = 2\pi \cdot \delta_{ij}$ folgt, dass $\vec{g}_1$ senkrecht zu $\vec{a}_2$ und $\vec{a}_3$ stehen muss. Mathematisch lässt sich dies über das Kreuzprodukt formulieren. Wähle o.B.d.A. die folgende Reihenfolge an Gittervektoren:
+		\begin{align*}
+			\vec{g}_1 &= C \cdot (\vec{a}_2 \times \vec{a}_3),
+		\end{align*}
+	
+	wobei $C$ eine Proportionalitätskonstante ist.\\
+	\\
+	Multipliziere diesen Ausdruck nun mit dem Vektor $\vec{a}_1$, um die definierende Eigenschaft $\vec{a}_1 \cdot \vec{g}_1 = 2\pi$ verwenden zu können:
+		\begin{align*}
+			\vec{a}_1 \cdot \vec{b}_1 &= C \cdot \underbrace{ \vec{a}_1 \cdot (\vec{a}_2 \times \vec{a}_3) }_{= V_\text{EZ}} \stackrel{!}{=} 2\pi \\
+			\Leftrightarrow C &= \frac{2\pi}{V_\text{EZ}}
+		\end{align*}
+	
+	Somit gilt für den Gittervektor $\vec{g}_1$:
+		\begin{align*}
+			\vec{g}_1 &= \frac{2\pi}{V_\text{EZ}} (\vec{a}_2 \times \vec{a}_3)
+		\end{align*}
+	
+	Analog für die verbleibenden reziproken Gittervektoren. $\qquad \blacksquare$
 \hrule
 }
 
@@ -676,51 +704,62 @@ Eine \textit{Netzebenenschar} ist eine Menge äquidistanter gedachter Ebenen im 
 	zz: $d_{hkl} = \frac{2\pi}{G_{hkl}}$\\
 	\\
 	Herleitungsskizze:\\
-	1) Zeige, dass $\vec{G}_{hkl} \perp$ Netzebenenschar $d_{hkl}$ \\
-	1.1) Bestimme Vektoren, die Netzebene aufspannen \\
-	1.2) Bilden des Kreuzprodukts, Erkennen von $G_{hkl}$ \\
-	2)  \\
-	2.1)  \\
-	2.2)  \\
+	\textcircled{A} Zeige, dass $\vec{G}_{hkl} \perp$ Netzebenenschar $(hkl)$ \\
+	1) Bestimme Vektoren, die Netzebene aufspannen \\
+	2) Bilden des Kreuzprodukts, Erkennen von $G_{hkl}$ \\
+	\textcircled{B} Bestimmung Netzebenenschar-Abstand $d_{hkl}$ \\
+	3) Projektion Vektor eines Achsenschnittes auf $\vec{G}_{hkl}$ \\
 	\\
-	Betrachte eine Netzebene, die die Gittervektoren einer Einheitszelle $\vec{a}_1$, $\vec{a}_2$ und $\vec{a}_3$ schneidet.\\
+	A) Betrachte eine Netzebene der Schar $(hkl)$, die die Gittervektoren einer Einheitszelle $\vec{a}_1$, $\vec{a}_2$ und $\vec{a}_3$ schneidet.\\
 	\\
-	Ein Satz von Vektoren, der diese Netzebene aufspannt ist beispielsweise:
+	1) Ein Satz von Vektoren, der diese Netzebene aufspannt ergibt sich aus der Differenz jeweils zweier Vektoren, die einen Punkt auf der Ebene bezeichnen:
 		\begin{align*}
-			\frac{\vec{a}_1}{h'} - \frac{\vec{a}_2}{k'},\ \frac{\vec{a}_3}{l'} - \frac{\vec{a}_2}{k'}
+			\frac{\vec{a}_1}{h} - \frac{\vec{a}_2}{k},\ \frac{\vec{a}_3}{l} - \frac{\vec{a}_2}{k}
 		\end{align*}
 	
-	Ein Vektor, der senkrecht zu dieser Ebene zeigt, ergibt sich aus dem Kreuzprodukt beider Vektoren:
+	2) Ein Vektor, der senkrecht zu dieser Ebene zeigt, ergibt sich aus dem Kreuzprodukt beider Vektoren:
 		\begin{align*}
-			\lr{ \frac{\vec{a}_1}{h'} - \frac{\vec{a}_2}{k'} } \times \lr{ \frac{\vec{a}_3}{k'} - \frac{\vec{a}_2}{l'} } &= \frac{1}{h'l'} \cdot \vec{a}_1 \times \vec{a}_3 - \frac{1}{h'k'} \cdot \vec{a}_1 \times \vec{a}_2 - \frac{1}{k'l'} \cdot \vec{a}_2 \times \vec{a}_3 = \\
-			&= -\lr{ \frac{1}{k'l'} \vec{a}_2 \times \vec{a}_3 + \frac{1}{h'l'} \cdot \vec{a}_3 \times \vec{a}_1 + \frac{1}{h'k'} \cdot \vec{a}_1 \times \vec{a}_2 }
+			\lr{ \frac{\vec{a}_1}{h} - \frac{\vec{a}_2}{k} } \times \lr{ \frac{\vec{a}_3}{k} - \frac{\vec{a}_2}{l} } &= \frac{1}{hl} \cdot \vec{a}_1 \times \vec{a}_3 - \frac{1}{hk} \cdot \vec{a}_1 \times \vec{a}_2 - \frac{1}{kl} \cdot \vec{a}_2 \times \vec{a}_3 + 0 = \\
+			&= -\lr{ \frac{1}{k'l'} \vec{a}_2 \times \vec{a}_3 + \frac{1}{hl} \cdot \vec{a}_3 \times \vec{a}_1 + \frac{1}{hk} \cdot \vec{a}_1 \times \vec{a}_2 }
 		\end{align*}
 
-	Es ist nun zweckmäßig diesen Vektor mit dem Faktor $-2\pi \frac{h'k'l'}{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|}$ zu multiplizieren, um den reziproken Gittervektor $G_{h'k'l'}$ zu erkennen:
+	Es ist nun zweckmäßig diesen Vektor mit dem Faktor $-2\pi \frac{hkl}{V_\text{EZ}}$ zu multiplizieren, um den reziproken Gittervektor $G_{h'k'l'}$ zu erkennen:
 		\begin{align*}
-			&\phantom{=} -\lr{ \frac{1}{k'l'} \vec{a}_2 \times \vec{a}_3 + \frac{1}{h'l'} \cdot \vec{a}_3 \times \vec{a}_1 + \frac{1}{h'k'} \cdot \vec{a}_1 \times \vec{a}_2 } \cdot \lr{ -2\pi \frac{h'k'l'}{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|} } = \\
-			&= + h' \frac{2\pi \cdot \vec{a}_2 \times \vec{a}_3 }{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|} + k' \frac{2\pi \cdot \vec{a}_3 \times \vec{a}_1 }{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|} + l' \frac{2\pi \cdot \vec{a}_1 \times \vec{a}_2 }{|\vec{a}_1 (\vec{a}_2 \times \vec{a}_3)|} \equiv \\
-			&\equiv h'\vec{b}_1 + k'\vec{b}_2 + l'\vec{b}_3 \equiv \\
-			&\equiv \vec{G}_{h'k'l'} \\
-			&= \frac{\vec{G}_{hkl}}{p},
+			&\phantom{=} -\lr{ \frac{1}{kl} \vec{a}_2 \times \vec{a}_3 + \frac{1}{hl} \cdot \vec{a}_3 \times \vec{a}_1 + \frac{1}{hk} \cdot \vec{a}_1 \times \vec{a}_2 } \cdot \lr{ -2\pi \frac{hkl}{ V_\text{EZ} } } = \\
+			&= + h \frac{2\pi \cdot \vec{a}_2 \times \vec{a}_3 }{ V_\text{EZ} } + k \frac{2\pi \cdot \vec{a}_3 \times \vec{a}_1 }{ V_\text{EZ} } + l \frac{2\pi \cdot \vec{a}_1 \times \vec{a}_2 }{ V_\text{EZ} } \equiv \\
+			&\equiv h\vec{g}_1 + k\vec{g}_2 + l\vec{g}_3 \equiv \\
+			&\equiv \vec{G}_{hkl}
 		\end{align*}
 
-	wobei $p \in \mathbb{Z}$ der ganzzahlige Faktor ist, der die Kehrwerte der Achsenschnittpunkte auf die Miller-Indizes bringt.\\
 	Somit wurde gezeigt, dass $\vec{G}_{hkl}$ senkrecht auf der Netzebenenschar $(hkl)$ steht. $\qquad \checkmark$
 	
 
 \newpage
 
 
-	Betrachte ein Koordinatensystem, dessen Ursprung auf einer Netzebene liegt.\\
-	Die benachbarte Netzebene schneide o.B.d.A. die 1-Achse am Punkt $m\equiv \frac{1}{h'}$.\\
-	Der Vektor, der vom Ursprung auf die Schnittstelle weist, ist somit $\frac{\vec{a}_1}{h'}$.\\
+	B) Bestimme nun den interessierenden Abstand benachbarter Netzebenen $d_{hkl}$. Projeziere dafür den Vektor, der einen Schnittpunkt zwischen einer Koordinatenachse und der nächsten vom Ursprung gelegenen Netzebene beschreibt, auf den Vektor $\vec{G}_{hkl}$.\\
 	\\
-	Der Betrag der Projektion dieses Vektors auf die Flächennormale ergibt, da die andere Netzebene im Ursprung liegt, den Abstand der Netzebenen. Im Beweis zuvor wurde gezeigt, dass die Flächennormale proportional zu $\vec{G}_{hkl}$ ist.\\
-	Sei $\alpha$ der Winkel zwischen $\vec{G}_{hkl}$ und $\frac{\vec{a}_1}{h'}$, dann folgt aus der Definition des Kosinus:
+	3) Wähle o.B.d.A. den Achsenschnittpunkt $\frac{\vec{a}_1}{h}$. Aus der Definition des Kosinus folgt, der Zusammenhang
 		\begin{align*}
-			d_{hkl} &= \left| \frac{\vec{a}_1}{h} \right| \cdot \cos\alpha = \left| \frac{ \cancel{ \vec{a}_1} }{h} \right| \cdot \frac{ \vec{a}_1 \vec{G}_{hkl} }{ \cancel{a_1} G_{hkl} } = \frac{1}{h G_{hkl}} \cdot \vec{a}_1 \cdot \lr{ h\vec{b}_1 + k\vec{b}_2 + l\vec{b}_3 } = \\
-			&= \frac{1}{\cancel{h} G_{hkl}} \cdot 2\pi \cdot \cancel{h} = \frac{2\pi}{G_{hkl}} \qquad \blacksquare
+			\cos\lr{ \measuredangle( \vec{a}_1, \vec{G}_{hkl} ) } &= \frac{d_{hkl}}{\lr{ \frac{a_1}{h} }} \\
+			\Leftrightarrow d_{hkl} &= \frac{a_1}{h} \cdot \cos\lr{ \measuredangle ( \vec{a}_1, \vec{G}_{hkl} ) }
+		\end{align*}
+	
+	Verwende den Kosinussatz $\cos\lr{ \measuredangle ( \vec{a}_1, \vec{G}_{hkl} ) } = \frac{\vec{a}_1 \cdot \vec{G}_{hjk}}{a_1 \cdot G_{hkl}}$:
+		\begin{align*}
+			d_{hkl} &= \frac{ \cancel{a_1}}{h} \cdot \frac{\vec{a}_1 \cdot \vec{G}_{hjk}}{ \cancel{a_1} \cdot G_{hkl} } \\
+			&= \frac{1}{h \cdot G_{hkl}} \cdot \vec{a}_1 \cdot \vec{G}_{hkl}
+		\end{align*}
+	
+	Drücke nun den reziproken Gittervektor als Linearkombination $\vec{G}_{hkl} := h \vec{g}_1 + k \vec{g}_2 + l \vec{g}_3$ aus:
+		\begin{align*}
+			d_{hkl} &= \frac{1}{h \cdot G_{hkl}} \cdot \vec{a}_1 \cdot ( h \vec{g}_1 + k \vec{g}_2 + l \vec{g}_3 )
+		\end{align*}
+	
+	Aus der definierenden Eigenschaft der reziproken Gittervektoren $\vec{a}_i \vec{g}_j = 2\pi \delta_{ij}$ folgt, dass lediglich der erste Term der Klammer von null verschieden ist:
+		\begin{align*}
+			d_{hkl} &= \frac{1}{ \cancel{h} G_{hkl}} ( \cancel{h} \cdot 2\pi + 0 + 0 ) \\
+			d_{hkl} &= \frac{2\pi}{G_{hkl}} \qquad \blacksquare
 		\end{align*}
 \hrule
 }
