@@ -687,7 +687,7 @@ Eine \textit{Netzebenenschar} ist eine Menge äquidistanter gedachter Ebenen im 
 \hrule
 	\fbox{Beispiel}\\
 	geg: kp-Gitter mit konventionellen Gittervektoren $\vec{a}_1, \vec{a}_2, \vec{a}_3$; Achsenschnittpunkte einer Netzebene bei $(x,y,z) = (2a, 4a, 3a)$ \\
-	ges: Miller-Indizes $(hkl)$ \\
+	ges: Miller-Indizes $(hkl)$; Abstand der Netzebenen $d_{hkl}$\\
 	Lös: Bilde den Kehrwert der Achsenschnittpunkte
 		\begin{align*}
 			\lr{ \frac{1}{2}, \frac{1}{4}, \frac{1}{3} }.
@@ -695,10 +695,76 @@ Eine \textit{Netzebenenschar} ist eine Menge äquidistanter gedachter Ebenen im 
 	
 	Bilde die kleinsten ganzen Zahlen durch Multiplikation mit 12
 		\begin{align*}
-			\lr{ 6, 3, 4 }.
+			(634).
+		\end{align*}
+	
+	Bestimme den Abstand zweier aufeinanderfolgender Netzebenen aus dem reziproken Gittervektor
+		\begin{align*}
+			d_{hkl} &= \frac{2\pi}{G_{hkl}} = \frac{2\pi}{|h\vec{g}_1 + k \vec{g}_2 + l \vec{g}_3|}
 		\end{align*}
 
+	Bestimme zunächst die reziproken Gittervektoren des kp-Gitters:
+		\begin{align*}
+			\bullet\ \vec{g}_1 &= \frac{2\pi}{ | \vec{a}_1 (\vec{a}_2 \times \vec{a}_3) | } \vec{a}_2 \times \vec{a}_3 \\
+			&= \frac{2\pi}{a^3} \cdot a^2
+			\begin{pmatrix}
+				0\\1\\0
+			\end{pmatrix}
+			\times
+			\begin{pmatrix}
+				0\\0\\1
+			\end{pmatrix}
+			=
+			\frac{2\pi}{a}
+			\begin{pmatrix}
+				1\\0\\0
+			\end{pmatrix}
+			\\
+			\bullet\ \vec{g}_2 &= ... = \frac{2\pi}{a}
+			\begin{pmatrix}
+				0\\1\\0
+			\end{pmatrix}
+			\\
+			\bullet\ \vec{g}_3 &= ... = \frac{2\pi}{a}
+			\begin{pmatrix}
+				0\\0\\1
+			\end{pmatrix}
+		\end{align*}
 
+	Einsetzen in $d_{hkl}$ ergibt:
+		\begin{align*}
+			d_{hkl} &= \frac{2\pi}{
+			\left| 
+			h \frac{2\pi}{a}
+			\begin{pmatrix}
+				1\\0\\0
+			\end{pmatrix}
+			+
+			k \frac{2\pi}{a}
+			\begin{pmatrix}
+				0\\1\\0
+			\end{pmatrix}
+			+
+			l \frac{2\pi}{a}
+			\begin{pmatrix}
+				0\\0\\1
+			\end{pmatrix}
+			\right| }
+			\\
+			&= \frac{2\pi}{
+			\left|
+			\frac{2\pi}{a}
+			\begin{pmatrix}
+				h\\k\\l
+			\end{pmatrix}
+			\right| } \\
+			&= \frac{a}{\sqrt{h^2 + k^2 + l^2}}
+		\end{align*}
+	
+	Somit folgt für $(hkl) = (634)$
+		\begin{align*}
+			d_{634} &= \frac{a}{\sqrt{6^2 + 3^2 + 4^2}} = \frac{a}{\sqrt{61}}
+		\end{align*}
 \hrule
 }
 
