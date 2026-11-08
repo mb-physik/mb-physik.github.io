@@ -65,6 +65,8 @@ cp "$SOURCE/Master/QMA/Zusammenfassung/Quantenmaterialien Zusammenfassung.tex" "
 cp "$SOURCE/Master/NLD/Zusammenfassung/Nichtlineare Dynamik Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
 cp "$SOURCE/Master/NLD/Zusammenfassung/Nichtlineare Dynamik Zusammenfassung.tex" "$REPO/docs/tex-files/"
 
+cp "$SOURCE/Zusammenfassung/Grafiken/übersicht.png" "$REPO/docs/"
+
 echo "Dateien wurden kopiert."
 echo "Jetzt im Repo committen und pushen:"
 echo "  cd \"$REPO\""
