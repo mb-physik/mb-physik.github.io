@@ -44,6 +44,9 @@ cp "$SOURCE/Bachelor/Theo IV: Fortgeschrittene Quantenmechanik/Zusammenfassung/T
 cp "$SOURCE/Bachelor/Theo V: Phänomenologische Thermodynamik/Zusammenfassung/Theo V Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
 cp "$SOURCE/Bachelor/Theo V: Phänomenologische Thermodynamik/Zusammenfassung/Theo V Zusammenfassung.tex" "$REPO/docs/tex-files/"
 
+cp "$SOURCE/Bachelor/Elektronik/Zusammenfassung/Elektronik Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
+cp "$SOURCE/Bachelor/Elektronik/Zusammenfassung/Elektronik Zusammenfassung.tex" "$REPO/docs/tex-files/"
+
 cp "$SOURCE/Master/Theo VI: Statistische Physik/Zusammenfassung/Theo VI Zusammenfassung.pdf" "$REPO/docs/zusammenfassungen/"
 cp "$SOURCE/Master/Theo VI: Statistische Physik/Zusammenfassung/Theo VI Zusammenfassung.tex" "$REPO/docs/tex-files/"
 

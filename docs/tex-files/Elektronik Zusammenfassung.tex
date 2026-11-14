@@ -1,0 +1,1093 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{tabularx}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{geometry}	% [textwidth=17cm,textheight = 24.5cm]
+% Um die Dokumentränder zu sehen: [showframe] vor {geometry} einfügen
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{mathtools}
+\usepackage{xltabular}
+\usepackage{float}
+\usepackage{MnSymbol}
+\usepackage{multirow}
+\usepackage{chemformula}
+
+\renewcommand{\cellalign}{tl}
+
+\setlength{\columnsep}{1cm}
+\setlength\parindent{0pt}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\konst}{\mathrm{konst.}}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\lreck}[1]{\left[#1\right]}
+\newcommand{\dkon}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+\definecolor{gruen}{HTML}{038133}
+\newcommand{\commenttext}[1]{\textcolor{gruen}{\text{#1}}}
+\newcommand{\comment}[1]{{\color{gruen} {#1}}}
+
+\begin{document}
+\begin{center}
+	\Large{\textbf{Elektronik}}\\
+	\small{613348}\\
+	\small{\today}
+\end{center}
+
+
+\tableofcontents
+
+
+\newpage
+
+
+\section*{Abstrakt}
+Die Elektronik ist die Disziplin, die sich mit der Beschreibung und Konstruktion von Systemen aus elektrischen Bauteilen, wie Spannungsquelle, Widerständen, Kondensatoren, Spulen, Transistoren, Operationsverstärkern, etc. beschäftigt.\\
+In diesem Dokument werden zunächst die mathematischen Grundlagen diskutiert, die sich im Wesentlichen auf die komplexen Zahlen sowie die Fourier-Reihe und -Transformation beschränken. Im Anschluss werden die Grundannahmen der Elektronik und die zentralen Definitionen der Wechselstromlehre aufgelistet. Hauptaugenmerk ist dann die Charakterisierung der oben genannten elektrischen Bauteile, gefolgt von deren Anwendung in sogenannten passiven und aktiven Schaltkreisen. \\
+In den Appendices wird in das Thema der Regelungstechnik, der Sensoren und des Rauschens eingeführt.
+
+
+\newpage
+
+
+\section{Mathematische Grundlagen}
+\subsection{Komplexe Zahlen}
+Komplexe Zahlen sind Tupel $z = (a,b) \in \mathbb{R} \times \mathbb{R}$, für die die Addition und Multiplikation als
+	\begin{align}
+		(a_1, b_1) + (a_2, b_2) &:= (a_1 + a_2, b_1 + b_2) \\
+		(a_1, b_1) \cdot (a_2, b_2) &:= (a_1 \cdot a_2 - b_1 \cdot b_2, a_1 \cdot b_2 + a_2 \cdot b_1).
+	\end{align}
+
+
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{imaginäre Einheit}
+			\begin{equation}
+				i := (0,1)
+			\end{equation}
+		
+		
+		\item \textbf{komplexe Konjugation}\\
+		Die zu $z = (a,b)$ komplex konjugierte Zahl ist definiert als
+			\begin{equation}
+				z^\star := (a,-b).
+			\end{equation}
+		
+		
+		\item \textbf{komplexer Betrag}
+			\begin{equation}
+				|z| := \sqrt{z \cdot z^\star} = \sqrt{a^2 + b^2}
+			\end{equation}
+		
+		
+		\item \textbf{komplexe Exponentialfunktion}
+			\begin{equation}
+				\exp(z) := (e^a \cdot \cos(b), e^a \cdot \sin(b))
+			\end{equation}
+	\end{itemize}
+
+
+\fbox{Darstellungen}
+	\begin{itemize}
+		\item \textbf{Algebraische Form}\\
+			\begin{equation}
+				z = a+ib
+			\end{equation}	
+
+
+		\item \textbf{Trigonometrische-/Polardarstellung}
+			\begin{align}
+				z &= |z| \cdot (\cos\theta + i\sin\theta)\\
+				z &= |z| \cdot e^{i\theta},
+			\end{align}
+			
+		mit dem Argument $\theta$, das sich wie folgt ergibt:
+			\begin{align}
+				\cos\theta &= \frac{a}{\sqrt{a^2 + b^2}},\quad
+				\sin\theta = \frac{b}{\sqrt{a^2 + b^2}},\quad 
+				\tan\theta = \frac{b}{a}.
+			\end{align}
+	\end{itemize}
+
+
+\fbox{Rechenregeln}
+	\begin{itemize}
+		\item \textbf{Imaginärteil}
+			\begin{equation}
+				\Im z = \frac{z - z^\star}{2i}
+			\end{equation}
+
+
+		\item \textbf{Realteil}
+			\begin{equation}
+				\Re z = \frac{z + z^\star}{2}
+			\end{equation}
+		
+		
+%		\item \textbf{Aufteilen in Real- und Imaginärteil}
+%			\begin{equation}
+%				\frac{1}{z} = \frac{z^\star}{|z|^2} = \lr{\frac{a}{|z|^2}, -\frac{b}{|z|^2}  }.
+%			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+\subsection{Fourier-Reihe}
+Die Fourier-Reihe ist die Reihenentwicklung der periodischen Funktion $f(x)$ mit Periodendauer $T$ in Sinus- und Kosinus- bzw. Exponentialfunktionen.\\
+\\
+\fbox{Darstellungen}
+	\begin{itemize}
+		\item \textbf{trigonometrische Darstellung}\\
+		Die trigonometrische Darstellung verwendet die diskrete Basis aus Sinus- und Kosinusfunktionen
+		$\{1, \cos \lr{ \frac{2\pi \cdot 1}{T} \cdot x }, \cos \lr{ \frac{2\pi \cdot 2}{T} \cdot x}, ..., \sin \lr{ \frac{2\pi \cdot 1}{T} \cdot x }, \sin \lr{ \frac{2\pi \cdot 2}{T} \cdot x }, ... \}$:
+			\begin{equation}
+				f(x) = \frac{a_0}{2} + \sum_{n=1}^\infty \lreck{ a_n \cdot \cos \lr{ \frac{2\pi \cdot n}{T} \cdot x } + b_n \cdot \sin \lr{ \frac{2\pi \cdot n}{T} \cdot x } },
+			\end{equation}
+
+		mit den Fourier-Koeffizienten
+			\begin{align}
+				a_0 &= \frac{2}{T} \int_T \diff x \, f(x) \\
+				a_n &= \frac{2}{T} \int_T \diff x \, f(x) \cdot \cos \lr{ \frac{2\pi \cdot n}{T} \cdot x } \\
+				b_n &= \frac{2}{T} \int_T \diff x \, f(x) \cdot \sin \lr{ \frac{2\pi \cdot n}{T} \cdot x },
+			\end{align}
+
+		mit $n \in \{1, 2, ... \}$.\\
+		Die Integration über die Periodendauer gilt dabei für jedes Intervall der Länge $T$, z.B. $[0,T]$, $[a,a+T]$, $[-T/2,T/2]$, etc.
+		
+		
+		\item \textbf{Exponentialdarstellung}\\
+		Die Exponentialdarstellung verwendet die diskrete Basis aus Exponentialfunktionen\\
+		$\{1, \exp\lr{ \pm i \frac{2\pi \cdot 1}{T}x }, \exp\lr{ \pm i \frac{2\pi \cdot 2}{T}x }, ... \}$:
+			\begin{equation}
+				f(x) = \sum_{q=-\infty}^{+\infty} c_q \cdot e^{i\frac{2\pi \cdot q}{T} \cdot x}
+			\end{equation}
+
+		mit dem Entwicklungskoeffizienten
+			\begin{equation}
+				c_q = \frac{1}{T} \int_T f(x) \cdot e^{-i \frac{2\pi \cdot q}{T} x} \, \diff x.
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	ges: Fourier-Reihe für die Rechteckfunktion
+		\begin{align*}
+			f(x) =
+			\begin{cases}
+				1, & 1 \leq x \leq T/2 \\
+				0, & T/2 < x \leq T
+			\end{cases}
+		\end{align*}
+
+	Lös: Die Fourier-Koeffizienten sind
+		\begin{align*}
+			\bullet \ a_0 &= \frac{2}{T} \int_0^{T/2} \diff x \, 1 \cdot 1 = \frac{2}{T} \cdot \frac{T}{2} = 1 \\
+			\bullet \ a_n &= \frac{2}{T} \int_0^{T/2} \diff x \, 1 \cdot \cos \lr{ \frac{2\pi \cdot n}{T} \cdot x } = \frac{\cancel{2}}{\cancel{T}} \cdot \frac{\cancel{T}}{\cancel{2}\pi \cdot n} \int_0^{u(T/2) = \pi \cdot n} \diff u \, \cos(u) = \\
+			&= \frac{1}{\pi \cdot n} \lreck{ \sin \lr{ \pi \cdot n } - \sin(0) } = 0 \\
+			\bullet \ b_n &= \frac{2}{T} \int_0^{T/2} \diff x \, 1 \cdot \sin \lr{ \frac{2\pi \cdot n}{T} \cdot x } = \frac{\cancel{2}}{\cancel{T}} \cdot \frac{\cancel{T}}{\cancel{2}\pi \cdot n} \int_0^{u(T/2) = \pi \cdot n} \diff u \, \sin(u) = \\
+			&= -\frac{1}{\pi \cdot n} \lreck{ \cos (\pi \cdot n) - \cos(0) } = \frac{ 1 - \cos(\pi \cdot n) }{ \pi \cdot n } =
+			\begin{cases}
+				\frac{2}{\pi \cdot n}, & \text{$n$ ungerade} \\
+				0, & \text{$n$ gerade}
+			\end{cases}
+		\end{align*}
+	
+	Somit ist die Fourier-Reihe:
+		\begin{align*}
+			f(x) = \frac{1}{2} + \sum_{n=1}^\infty \frac{2}{\pi \cdot (2n-1)} \cdot \sin \lr{ \frac{2\pi \cdot (2n-1) }{T} \cdot x }
+		\end{align*}
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/fourier-reihe.pdf}
+		}
+		\caption{Darstellung der Rechteckfunktion $f(x)$ sowie deren Fourier-Reihen bis zur 4-ten und 40-ten Ordnung $f_4(x)$ und $f_{40}(x)$ über dem Intervall $[0,T=4]$}
+	\end{figure}
+
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsection{Fourier-Transformation}
+Die Fourier-Transformation ist die Darstellung einer Funktion $f(x)$ in der \underline{kontinuierlichen} Basis $\{ e^{i \frac{2\pi \cdot q}{T} x} \ | \ q \in \mathbb{R} \}$:
+	\begin{alignat}{2}
+		\tilde{f}(k) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} \diff x \, f(x) \cdot e^{-i k x} &&\equiv \mathcal{F}\{ f(x) \}(k) \\
+		f(x) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} \diff k \, \tilde{f}(k) \cdot e^{i k x} &&\equiv \mathcal{F}^{-1}\{ \tilde{f}(k) \}(x)
+	\end{alignat}
+
+
+\fbox{Beispiele}
+	\begin{itemize}
+		\item \textbf{Gauß-Funktion}
+			\begin{equation}
+				f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \cdot e^{-\frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}} \longleftrightarrow \tilde{f}(k) = \frac{1}{\sqrt{2 \pi}} \cdot e^{- \frac{\sigma^2}{2} k^2 - i \mu k}.
+			\end{equation}
+
+
+		\item \textbf{Delta-Funktion}
+			\begin{equation}
+				f(x) = \delta(x-x_0) \longleftrightarrow \tilde{f}(k) = \frac{1}{\sqrt{2\pi}} \cdot e^{ikx_0}
+			\end{equation}
+		
+		
+		\item \textbf{Box-Funktion}
+			\begin{equation}
+				f(x) = 
+				\begin{cases}
+					A, & -a \leq x \leq a \\
+					0, & \text{sonst}
+				\end{cases}
+				\longleftrightarrow
+				\tilde{f}(k) = \frac{1}{\sqrt{2\pi a^2}} \cdot \text{sinc} \lr{ \frac{\omega}{2\pi a} }
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
+\section{Grundlegende Definitionen und Konzepte}
+\subsection{Annahmen und Begriffe der Elektronik}
+\fbox{Begriffe}
+	\begin{itemize}
+		\item \textbf{Bauelement}\\
+		...
+	
+	
+		\item \textbf{Netzwerk / Schaltung}\\
+		...
+	\end{itemize}
+
+
+\fbox{Annahmen}
+	\begin{itemize}
+		\item \textbf{Axiome der Elektrodynamik}
+			\begin{itemize}
+				\item \textbf{Ladungserhaltung}
+				\item \textbf{Coulomb-Gesetz}
+				\item \textbf{Ampèresches Kraftgesetz}
+				\item \textbf{Faraday'sches Induktionsgesetz}
+			\end{itemize}
+
+		
+		\item \textbf{quasistationäre Näherung}\\
+		Spannungen und Ströme breiten sich quasi instantan über die Geometrie der Schaltung aus 		
+		
+		
+		\item \textbf{ideale Leiter}
+		
+		
+		\item \textbf{keine Ladungsakkumulation in den Leitungen}
+		
+		
+		\item \textbf{keine Streufelder}		
+	\end{itemize}
+
+
+\newpage
+
+
+\subsection{Kirchhoff'sche Gesetze}
+Die \textit{Kirchhoff'schen Gesetze} sind 2 Regeln zur Beschreibung von Strom und Spannung in einem Netzwerk.\\
+\\
+\fbox{Regeln}
+	\begin{itemize}
+		\item \textbf{Knotenregel}\\
+		Die Summe der Teilströme, die in bzw. aus einen bzw. einem Knoten fließen ist null
+			\begin{equation}
+				\sum_{i \in \text{Knoten}} I_i = 0,
+			\end{equation}
+		
+		wobei Teilströme, die in den Knoten laufen ein negatives und Ströme, die herausfließen ein positives Vorzeichen haben.
+
+
+		\item \textbf{Maschenregel}\\
+		Die Summe der Teilspannungen in einer \textit{Masche} ergibt null
+			\begin{equation}
+				\sum_{i \in \text{Masche}} U_i = 0
+			\end{equation}
+	\end{itemize}
+
+
+\fbox{Algorithmus}
+	\begin{enumerate}
+		\item \textbf{•}
+	
+	
+		\item \textbf{•}
+	\end{enumerate}
+
+\textcolor{red}{ERGÄNZEN Bild Knoten, Masche}
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Knotenregel $\sum_{i \in \text{Knoten}} I_i = 0$ \\
+	\\
+	Der Knotensatz ist eine direkte Konsequenz der Annahme, dass keine Ladungsakkumulationen in den Leitungen stattfinden. Mathematisch ausgedrückt bedeutet dies, dass die zeitliche Änderung der Ladungsdichte verschwindet
+		\begin{align*}
+			\frac{\partial \rho}{\partial t} &= 0.
+		\end{align*}
+	
+	
+	Somit vereinfacht sicht die Kontinuitätsgleichung (die der Ladungserhaltung entspricht) auf den folgenden Ausdruck:
+		\begin{align*}
+			\vec{\nabla} \vec{j} = 0,
+		\end{align*}
+	
+	Integriere einen gedachten Knoten in einem kleinen gedachten Volumen $\diff V$ und wende anschließend den Satz von Gauß an:
+		\begin{align*}
+			\int_V \vec{\nabla} \vec{j} \, \diff V &= 0 \\
+			\Leftrightarrow \oint_{\partial V} \vec{j} \, \diff \vec{A} &= 0
+		\end{align*}
+	
+		Die Stromstärke nimmt nur an den Punkten auf der Oberfläche einen nichtverschwindenden Wert an, an denen sich ein stromdurchflossener Leiter befindet.
+		\begin{align*}
+			\sum_i \int_{A_i} \vec{j} \cdot \diff \vec{A} &= 0
+		\end{align*}
+	
+	Da die makroskopische Stromstärke $I_i$ im $i$-ten Leiter als der Fluss der Stromdichte durch dessen Querschnittsfläche definiert ist ($I_i = \int_{A_i} \vec{j} \cdot \diff \vec{A}$), folgt unmittelbar die Knotenregel:
+		\begin{align*}
+			\sum_i I_i &= 0 \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: Maschenregel $\sum_{i \in \text{Masche}} U_i = 0$\\
+	\\
+	Die Maschenregel ergibt sich unmittelbar aus dem Faraday'schen Induktionsgesetz sowie der quasistatischen Annahme und der Abwesenheit von Streufeldern. Beginne mit der Integralform des Induktionsgesetzes
+		\begin{align*}
+			\int_A \vec{\nabla} \times \vec{E} \, \diff \vec{A} &= - \frac{\partial}{\partial t} \int_A \vec{B} \, \diff \vec{A} \equiv -\frac{\partial\Phi_\text{m}}{\partial t},
+		\end{align*}
+	
+	wobei $A$ die von der Masche eingeschlossene Fläche ist.\\
+	Der Stokes'sche Integralsatz erlaubt es das Oberflächenintegral in ein Linienintegral zu überführen:
+		\begin{align*}
+			\oint_{\partial A} \vec{E} \, \diff \vec{l} &= -\frac{\partial}{\partial t} \Phi_m
+		\end{align*}
+	
+	Die Abwesenheit von Streufeldern lässt den magnetischen Fluss auf der rechten Seite verschwinden. Teile zudem das Ringintegral der linken Seite in kleine Segmente auf, wobei jedes Segment einem elementaren Bauteil entspricht:
+		\begin{align*}
+			\sum_i \int_{A_i}^{B_i} \vec{E} \, \diff \vec{l} &= 0,
+		\end{align*}
+	
+	wobei $A_i$ bzw. $B_i$ die Position vor bzw. nach dem $i$-ten Bauelement (im Maschenumlauf) sind.\\	
+	Drücke das Integral über das E-Feld nun durch die Differenz des elektrischen Potential $\varphi$ und schließlich durch die Spannung $U$ aus.
+		\begin{align*}
+			\sum_i (\varphi(A_i) - \varphi(B_i)) &= 0 \\
+			\Leftrightarrow \sum_i U_i &= 0 \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+%\subsection{Vierpol}
+%Unter einem \textit{Vierpol} versteht man ein elektrisches Bauelement, das über vier Anschlüssen/Klemmen verfügt, die paarweise zum Eingangs- und Ausgangstor zusammengefasst werden. \\
+%\\
+%\fbox{Definitionen}
+%	\begin{itemize}
+%		\item \textbf{Eingangskennlinie}\\
+%			\begin{equation}
+%				U_\text{ein}(I_\text{ein})
+%			\end{equation}
+%	
+%	
+%		\item \textbf{Ausgangskennlinie}
+%			\begin{equation}
+%				U_\text{aus}(I_\text{aus})
+%			\end{equation}
+%		
+%		\item \textbf{Übertragungskennlinie}
+%			\begin{equation}
+%				U_\text{aus}(U_\text{ein})
+%			\end{equation}
+%	\end{itemize}
+%
+%\textcolor{red}{ERGÄNZEN}
+
+
+\newpage
+
+
+\subsection{Wechselstromlehre}
+Die \textit{Wechselstromlehre} behandelt Netzwerke mit zeitlich periodischen Spannung und Strömen.\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{komplexer Wechselstrom} (sinusoidal) \\
+		Komplexe Hilfsgröße, dessen Imaginärteil den Wechselstrom ergibt
+			\begin{equation}
+				\underline{i}(t) = \hat{i} \cdot e^{j (\omega t + \varphi_i)} \equiv \underline{I} \cdot e^{j \omega t},
+			\end{equation}
+		
+		mit dem \textit{Scheitelwert} $\hat{i}$, dem Phasenwinkel $\varphi_i$, der komplexen Zahl $j$ und dem \textit{Phasor} $\underline{I}$.
+		
+		
+		\item \textbf{komplexe Wechselspannung} (sinusoidal)  \\
+		Komplexe Hilfsgröße, dessen Imaginärteil die Wechselspannung ergibt
+			\begin{equation}
+				\underline{u}(t) = \hat{u} \cdot e^{j (\omega t +  \varphi_u)} \equiv \underline{U} \cdot e^{j \omega t},
+			\end{equation}
+		
+		mit dem Scheitelwert $\hat{u}$, dem Phasenwinkel $\varphi_u$, der komplexen Zahl $j$ und dem Phasor $\underline{U}$.
+		
+		\item \textbf{Impedanz}\\
+		Die Impedanz ist definiert als das Verhältnis der komplexen Spannung und des komplexen Stroms und nimmt im sinusoidalen Fall den folgenden Wert an
+			\begin{equation}
+				\underline{Z} := \frac{\underline{u}}{\underline{i}} = |Z| \cdot e^{j\varphi} = R + j X,
+			\end{equation}
+		
+		mit \textit{Scheinwiderstand} $|\underline{Z}|$, dem \textit{Wirkwiderstand} $R$ und dem \textit{Blindwiderstand} $X$.
+		
+		
+		\item \textbf{Phasenverschiebung}
+			\begin{equation}
+				\varphi := \varphi_u - \varphi_i
+			\end{equation}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Kirchhoff'sche Regeln der Wechselstromlehre}
+			\begin{align}
+				\sum_{i\in\text{Knoten}} \underline{I}_k &= 0 \\
+				\sum_{i\in\text{Masche}} \underline{U}_k &= 0
+			\end{align}
+		
+		
+		\item \textbf{Impedanzen elementarer Bauteile}
+			\begin{align}
+				\underline{Z}(R) &= R \\
+				\underline{Z}(L) &= j \omega L \\
+				\underline{Z}(C) &= \frac{1}{j \omega C}
+			\end{align}
+		
+		
+		\item \textbf{Phasenverschiebungen elementarer Bauteile}
+			\begin{align}
+				\varphi(R) &= 0 \\
+				\varphi(L) &= \frac{\pi}{2} \\
+				\varphi(C) &= -\frac{\pi}{2}
+			\end{align}
+	\end{itemize}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+\fbox{Herleitung}\\
+	\textbf{zz:} Maschenregel der Wechselstromlehre $\sum_{i} \underline{U}_i = 0$ \\
+	\\
+	Herleitungsskizze:\\
+	1) Gleichstrom Maschenregel eines festen Zeitpunkts $t$ \\
+	2) Einsetzen des Realteils der komplexen Spannung \\
+	3) Herausziehen von Realteil und $e^{j\omega t}$ \\
+	\\
+	Die Maschenregel der Wechselstromlehre folgt aus der Maschenregel der Gleichstromlehre. Gemäß quasistationärer Näherung gilt für jeden Zeitpunkt $t$:
+		\begin{align*}
+			\sum_i u_i(t) &= 0
+		\end{align*}
+	
+	Die Wechselspannung kann als Realteil der komplexen Wechselspannung ausgedrückt werden:
+		\begin{align*}
+			u_i(t) = \Re \lr{ \underline{U}_i \cdot e^{j\omega t} }
+		\end{align*}
+	
+	
+	Einsetzen in die Summe ergibt:
+		\begin{align*}
+			\sum_i \Re \lr{ \underline{U}_i \cdot e^{j\omega t} } = 0
+		\end{align*}
+	
+	Da die Summe der Realteile gleich dem Realteil der Summe ist und der gemeinsame Zeitfaktor $e^{j\omega t}$ ausgeklammert werden kann, folgt:
+		\begin{align*}
+			\Re \lr{ e^{j\omega t} \sum_i \underline{U}_i } &= 0
+		\end{align*}
+	
+	Damit diese Gleichung zu jedem beliebigen Zeitpunkt $t$ erfüllt ist, muss die Summe der zeitunabhängigen komplexen Zeiger in der Klammer zwingend den Betrag null haben:
+		\begin{align*}
+			\sum_i \underline{U}_i &= 0 \qquad \blacksquare
+		\end{align*}
+\hrule
+}
+
+
+\newpage
+
+
+\section{Elementare Bauteile}
+\subsection{Spannungsquelle}
+Die \textit{Spannungsquelle} ist ein elementares Bauteil, das ein seinen Klemmen eine charakteristische elektrische Spannung bereitstellt.\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{ideale Spannungsquelle}\\
+		Spannungsquelle, die unabhängig vom Verbraucher dieselbe Spannung bereitstellt
+	
+
+		\item \textbf{reale Spannungsquelle}\\
+		...
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{$I$-$U$-Kennlinie}
+			\begin{equation}
+				U_\text{aus} = U_0 - I R_i,
+			\end{equation}
+			
+		mit der Spannung der idealen Spannungsquelle $U_0$ und dem Innenwiderstand $R_i$.
+	\end{itemize}
+
+	
+	\begin{figure}[H]
+		\centering
+%		\fbox{
+			\includegraphics[width=\textwidth]{Grafiken/spannungsquelle.png}
+%		}
+		\caption{links: ideale Spannungsquelle; rechts: reale Spannungsquelle mit Innenwiderstand $R_i$}
+	\end{figure}
+
+
+
+\newpage
+
+
+\subsection{Stromquelle}
+Die \textit{Stromquelle} ist eine elementares Bauteil, das an seinen Klemmen eine charakteristischen Strom bereitstellt.\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{ideale Stromquelle}\\
+		...
+	
+	
+		\item \textbf{reale Stromquelle}\\
+		...
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{$I$-$U$-Kennlinie}
+			\begin{equation}
+				I = I_0 - \frac{U}{R_i}
+			\end{equation}
+		
+		mit dem Strom der idealen Stromquelle $I_0$, der Spannung an den Klemmen $U$ und dem Innenwiderstand $R_i$.
+	\end{itemize}
+
+
+	\begin{figure}[H]
+		\centering
+%		\fbox{
+			\includegraphics[width=\textwidth]{Grafiken/stromquelle.png}
+%		}
+		\caption{links: ideale Stromquelle; rechts: reale Stromquelle mit Innenwiderstand $R_i$}
+	\end{figure}
+
+
+\newpage
+
+
+\subsection{Ohm'scher Widerstand}
+Der \textit{Ohm'sche Widerstand} ist ein elektronisches Bauteil, das durch dessen Widerstand charakterisiert wird.\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{Widerstand}\\
+		Die charakteristische Eigenschaft eines Ohm'schen Widerstands das gleichnamige Verhältnis aus Spannung und Strom
+			\begin{equation}
+				R := \frac{U}{I}.
+			\end{equation}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{$I$-$U$-Kennlinie}\\
+		...
+	
+		\item \textbf{•}
+	\end{itemize}
+
+
+	\begin{figure}[H]
+		\centering
+%		\fbox{
+			\includegraphics[width=0.4\textwidth]{Grafiken/widerstand.png}
+%		}
+		\caption{Symbol eines Widerstands}
+	\end{figure}
+
+
+\newpage
+
+
+\subsection{Kondensator}
+...\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{Kapazität}\\
+		...
+			\begin{equation}
+				C := \frac{Q}{U},
+			\end{equation}
+		
+		...
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{•}
+	
+		\item \textbf{•}
+	\end{itemize}
+
+
+	\begin{figure}[H]
+		\centering
+%		\fbox{
+			\includegraphics[width=0.4\textwidth]{Grafiken/kondensator.png}
+%		}
+		\caption{Symbol eines Kondensators}
+	\end{figure}
+
+
+\newpage
+
+
+\subsection{Spule}
+...\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{Induktivität}\\
+		Die \textit{Induktivität} $L$ beschreibt für eine Spule den Zusammenhang zwischen Stromstärke und magnetischem Fluss bzw. der induzierten Spannung und der zeitlichen Änderung der Stromstärke
+			\begin{equation}
+				L := \frac{\phi_m}{I} = -\frac{U_\text{ind}}{\dot{I}}
+			\end{equation}
+	\end{itemize}
+	
+
+	\begin{figure}[H]
+		\centering
+%		\fbox{
+			\includegraphics[width=0.4\textwidth]{Grafiken/spule.png}
+%		}
+		\caption{Symbol einer Spule}
+	\end{figure}
+
+
+\newpage
+
+
+\subsection{Diode}
+...\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{•}
+	
+		\item \textbf{•}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{$I$-$U$-Kennlinie}
+	
+		\item \textbf{•}
+	\end{itemize}
+
+	\begin{figure}[H]
+		\centering
+%		\fbox{
+			\includegraphics[width=0.4\textwidth]{Grafiken/diode.png}
+%		}
+		\caption{•}
+	\end{figure}
+
+
+\newpage
+
+
+\subsection{Bipolartransistor}
+Der \textit{Bipolartransistor} ist ein aktives Bauelement bestehend aus zwei aufeinanderfolgenden $pn$-Übergängen.\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{•}
+	
+		\item \textbf{•}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Betriebsbereiche}
+			\begin{itemize}
+				\item \textbf{Sättigung}\\
+				...
+			
+				\item \textbf{normale Verstärkung}\\
+				...
+				
+				\item \textbf{inverse Verstärkung}\\
+				...
+				
+				\item \textbf{Sperrbereich}\\
+				...
+			\end{itemize}
+	
+		\item \textbf{Grundschaltungen}
+			\begin{itemize}
+				\item \textbf{Emitterschaltung}\\
+				...
+			
+				\item \textbf{Kollektorschaltung}\\
+				...
+				
+				\item \textbf{Basisschaltung}\\
+				...
+			\end{itemize}
+	\end{itemize}
+
+
+	\begin{figure}[H]
+		\centering
+%		\fbox{
+			\includegraphics[width=0.4\textwidth]{Grafiken/bipolartransistor.png}
+%		}
+		\caption{Symbol des Bipolartransistors}
+	\end{figure}
+
+\newpage
+
+
+\subsection{Operationsverstärker}
+...\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{•}
+	
+		\item \textbf{•}
+	\end{itemize}
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{•}
+	
+		\item \textbf{•}
+	\end{itemize}
+
+
+	\begin{figure}[H]
+		\centering
+%		\fbox{
+			\includegraphics[width=0.4\textwidth]{Grafiken/operationsverstärker.png}
+%		}
+		\caption{Symbol des Operationsverstärkers}
+	\end{figure}
+
+
+\newpage
+
+
+\section{Schaltkreise}
+\subsection{Passive Schaltkreise}
+\subsubsection{Spannungsteiler}
+Der \textit{Spannungsteiler} ist ein Vierpol, dessen Ausgangsspannung $U_\text{aus}$ ein Bruchteil der Eingangsspannung $U_\text{ein}$ ist.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Ausgangsspannung}
+			\begin{equation} 
+			\label{spannungsteiler ausgangsspannung}
+				U_\text{aus} = U_\text{ein} \cdot \frac{R_2}{R_1 + R_2}
+			\end{equation}
+		
+		
+		\item \textbf{Ersatzschaltbild}\\
+		Der Spannungsteiler kann im Ersatzschaltbild durch eine Spannungsquelle mit der Ausgangsspannung aus Gl. (\ref{spannungsteiler ausgangsspannung}) sowie dem folgenden Widerstand dargestellt werden:
+			\begin{equation}
+				R_i = R_1 + R_2
+			\end{equation}
+	\end{itemize}
+
+
+\fbox{Anwendungen}
+	\begin{itemize}
+		\item \textbf{Potentiometer}
+	\end{itemize}
+
+
+	\begin{figure}[H]
+		\centering
+%		\fbox{
+			\includegraphics[width=\textwidth]{Grafiken/spannungsteiler.png}
+%		}
+		\caption{links: Schaltkreis eines Spannungsteilers; links: Ersatzschaltbild des Spannungsteilers; die Ausgangsspannung $U_\text{aus}$ fällt über den Klemmen am Widerstand $R_2$ ab}
+		\label{spannungsteiler}
+	\end{figure}
+
+
+\newpage
+
+
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	zz: $U_\text{aus} = U_\text{ein} \cdot \frac{R_2}{R_1 + R_2}$\\
+\\
+	Herleitungsskizze:\\
+	1) Anwendung der Knoten- oder Maschenregel \\
+	2) Formulierung der Ausgangsspannung \\
+	3) Lösen des Gleichungssystems \\
+	\\
+	Betrachte die Schaltung des Spannungsteilers in Abbildung \ref{spannungsteiler}.\\
+	\\
+	Die Maschenregel ergibt den Zusammenhang
+		\begin{align*}
+			\sum_i U_i = U_\text{ein} + U_{R_1} + U_{R_2} &\stackrel{!}{=} 0 \\
+			U_\text{ein} - R_1 I - R_2 I &= 0 \\
+			\Leftrightarrow U_\text{ein} - (R_1 + R_2) I &= 0 \\
+			\Leftrightarrow I &= \frac{U_\text{ein}}{R_1 + R_2},
+		\end{align*}
+	
+	wobei im zweiten Schritt das Ohm'sche Gesetz verwendet und die Vorzeichenkonvention der Maschenregel beachtet wurde.\\
+	\\
+	Die Ausgangsspannung $U_\text{aus}$ hängt wie folgt mit dem Widerstand $R_2$ zusammen:
+		\begin{align*}
+			U_\text{aus} &= R_2 \cdot I
+		\end{align*}
+	
+	Einsetzen des Stromes in die letzte Gleichung ergibt schließlich die Ausgangsspannung des Spannungsteilers in Abhängigkeit der charakteristischen Bauelementgrößen:
+		\begin{align*}
+			U_\text{aus} = U_\text{ein} \cdot \frac{R_2}{R_1 + R_2} \qquad \blacksquare
+		\end{align*}
+
+\hrule
+}
+
+
+\newpage
+
+
+\subsubsection{Wheatstone'sche Brücke}
+Die Wheatstone'sche Brückenschaltung ermöglicht die Messung eines unbekannten Widerstands $R_x$ gemäß
+	\begin{equation}
+		R_x = \frac{d - x}{x} \cdot R_1
+	\end{equation}
+
+mit der Gesamtlänge des Potentiometers $d$, der abgegriffenen Länge $x$ und einem bekannten Widerstand $R_1$.
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/wheatstone-brücke.pdf}
+		}
+		\caption{Schaltplan einer Wheatstone'schen Brücke}
+	\end{figure}
+
+
+\newpage
+
+
+\subsubsection{Passiver Tief-, Hoch- und Bandpass-Filter}
+\subsubsection{Gleichrichter}
+
+
+\newpage
+
+
+\subsection{Aktive Schaltkreise}
+\subsubsection{Verstärker} % ÜB6 invertierend, nicht-invertierend
+\subsubsection{Komparator} % ÜB6 schmitt-Trigger
+\subsubsection{Aktiver Tief-, Hoch- und Bandpass-Filter}
+\subsubsection{Analog-Digital-Wandler}
+\subsubsection{Digital-Analog-Wandler}
+\subsubsection{Wien-Robinson-Oszillator}
+
+
+\newpage
+
+
+%\section{Messgeräte}
+%\subsection{Voltmeter}
+%\subsection{Amperemeter}
+%
+%
+%\newpage
+%
+%
+%\subsection{Lock-In-Verstärker}
+%Der Lock-In-Verstärker ist ein Messgerät, das sehr kleine Wechselströme in einem Signal messen kann. Für die Messung ist zum einen die über dem interessierenden Experiment abfallende sowie die angelegte Wechselspannung, die als Referenz dient, nötig.\\
+%\\
+%Der Anteil in $V_I$, der mit der Referenzfrequenz $\omega_\text{R}$ oszilliert, wird durch die Amplitude $R$ und die Phase $\theta$ bzw. durch die In-Phase- und Quadraturkomponente $X$ und $Y$
+%	\begin{align}
+%		R &= \frac{2}{ V_\text{R} } \cdot \sqrt{ V_\text{M1+Filt}^2 + V_\text{M2 + Filt}^2 } \\
+%		\theta := \theta_\text{R} - \theta_\text{I} &= \arctan \lr{ \frac{ V_\text{M2+Filt} }{ V_\text{M1+Filt} } } \\
+%		X &= R \cdot \cos \theta \\
+%		Y &= R \cdot \sin \theta
+%	\end{align}
+%
+%beschrieben, mit der Referenzspannung $V_\text{R}$ und dem nach dem $i$-ten Mixer gefilterten Signal $V_\text{M$i$+Filter}$.
+%
+%
+%	\begin{figure}[h]
+%		\centering
+%		\fbox{
+%			\includegraphics[width=0.6\textwidth]{Grafiken/lock-in-verstärker schema.png}
+%		}
+%		\caption{Schema eines Lock-In-Verstärkers; a) Ein Frequenzgenerator erzeugt das Signal $V_R(t)$, das über dem Experiment die Spannung $V_I(t)$ erzeugt. Beide Spannungen werden in den Lock-In eingespeist und der Anteil in $V_I$, der mit $\omega_R$ oszilliert in Form von $R$ und $\theta$ durch das Messgerät bestimmt.}
+%	\end{figure}
+
+
+\newpage
+
+
+%\section{Appendix A: Regelung}
+%\section{Appendix B: Sensoren}
+%\section{Appendix C: Rauschen}
+
+
+\newpage
+
+
+\section{Glossar}
+\begin{xltabular}{\linewidth}{p{6cm}|X}
+	\hline\hline
+		Begriff & Erklärung \\
+	\hline
+		aktive Bauelemente & Bauelemente, die mithilfe einer externen Energiequelle Signale verstärken können \\
+	\hline
+		Arbeitspunkt & Satz von Strom- und Spannungswert an einem bestimmten Punkt $A$ in der Schaltung
+			$$(U_{AB},I_A)$$,
+		
+		wobei der Punkt $B$ auf der \textit{Erde} liegt. \\
+	\hline
+		Blindleistung & Leistung, die zum Auf-/Abbau von E- und B-Feldern umgesetzt wird
+			$$P_S = \Im(P)$$ \\
+	\hline
+		Dezibel (dB) & Einheit eines Verhältnisses $T$, das gemäß
+			\begin{equation*}
+				20 \cdot \log_{10}(T) = x \, \text{dB}
+			\end{equation*}
+		
+		definiert ist, wobei sich der Zahlenwert $x$ durch Einsetzen von $T$ ergibt. \\
+	\hline
+		effektive Spannung & die einer Wechselspannung zugeordnete Gleichspannung, die in einem Ohm'schen Verbraucher dieselbe Leistung verrichtet wie die Wechselspannung
+			$$U_\text{eff} = \frac{U_0}{\sqrt{2}}$$ \\
+	\hline
+		Erde & Referenzpotential mit $\varphi=0$ \\
+	\hline
+		Ersatzschaltbild & Vereinfachte Darstellung eines elektonischen Schaltkreises, der sich genau so verhält wie der unvereinfachte Schaltkreis \\
+	\hline
+		Grundstromkreis & Schaltkreis bestehend aus einer realen Spannungsquelle (ideale Spannungsquelle mit Innenwiderstand) sowie einem Lastwiderstand \\
+	\hline
+		idealer Draht & \textit{Leiter} mit dem Widerstand $0 \, \Omega$ \\
+	\hline
+		Induktivität & Größe $L$, die eine Spule charakterisiert
+			$$L = \frac{U}{\frac{\diff I}{\diff t}} = \text{konst.}$$ \\
+	\hline
+		Knoten & Punkt in einem Stromkreis, an dem mindestens 3 Leiter verbunden werden \\
+	\hline
+		Kapazität & Größe $C$, die einen Kondensator charakterisiert
+			$$C = \frac{Q}{U} = \text{konst.}$$ \\
+	\hline
+		Kurzschlussstrom & Strom, der durch einen \textit{Zweipol} fließt, sobald die Klemmen kurzgeschlossen sind \\
+	\hline
+		Leerlaufspannung & Spannung, die an den Klemmen eines \textit{Zweipols} (z.B. Spannungsquelle) anliegt \\
+	\hline
+		Leistung & Arbeit, die pro Zeit verrichtet wird
+			$$P := \frac{\diff W}{\diff t}$$ \\
+	\hline
+		Leiter & Material, in dem unter der Wirkung eines E-Felds bzw. einer Spannung Strom fließen kann \\
+	\hline
+		Masche & geschlossener Umlauf in einer elekronischen Schaltung \\
+	\hline
+		Masse & \textcolor{blue}{siehe \textit{Erde}} \\
+	\hline
+		Netzwerk & Zusammenschluss mehrerer elektronischer Bauelemente \\
+	\hline
+		Operationsverstärker &  \\
+	\hline
+		passives Bauelement & Bauelemente, die Signale nicht verstärken können \\
+	\hline
+		Phasor & Komplexe Zahl, die die Amplitude und Phase einer sinusoidalen Wechselspannung bzw. eines sinusoidalen Wechselstroms angibt \\
+	\hline
+		Scheinleistung &  \\
+	\hline
+		Scheitelwert & Amplitude der Wechselspannung bzw. des Wechselstroms \\
+	\hline
+		Spannnung & Differenz $U$ des elektrischen Potentials
+			$$U_{AB} := \varphi(A) - \varphi(B)$$ \\
+	\hline
+		Spannungsquelle &  \\
+	\hline
+		Strom & Ladung $Q$, die pro Zeit $t$ durch eine Querschnittsfläche bzw. einen Punkt fließt
+			$$I := \frac{\diff Q}{\diff t}$$ \\
+	\hline
+		Stromquelle &  \\
+	\hline
+		Übertragungsfunktion & Verhältnis aus Eingangs- zu Ausgangsspannung
+			$$T := \frac{U_\text{aus}}{U_\text{ein}}$$ \\
+	\hline
+		Vierpol & elektrisches Bauelement mit vier Anschlüssen/Klemmen \\
+	\hline
+		Wirkleistung & Leistung, die in Wärme/Arbeit umgesetzt wird
+			$$P_W = \Re(P)$$ \\
+	\hline
+		Zweipol & elektrisches Bauelement mit zwei Anschlüssen/Klemmen \\
+	\hline\hline
+\end{xltabular}
+\end{document}
