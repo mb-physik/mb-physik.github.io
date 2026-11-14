@@ -54,7 +54,7 @@
 
 
 \begin{center}
-	\Large{\textbf{Lineare Algebra Zusammenfassung}}\\
+	\Large{\textbf{Lineare Algebra}}\\
 	\small{613348}\\
 	\small{\today}
 \end{center}
@@ -66,9 +66,9 @@
 \newpage
 
 
-\section{Grundbegriffe}
-\section{Beweise}
-Die grundlegenden Beweismethoden sind:
+\section{Mathematische Grundlagen}
+\subsection{Beweise}
+\fbox{Methoden}
 \begin{itemize}	
 	\item \textbf{Wahrheitstafel}\\
 	Die Wahrheitstafel definiert die Symbole $\neg$, $\wedge$, $\vee$, $\Rightarrow$, $\Leftrightarrow$ und kann dazu genutzt werden einfache logische Aussagen, darunter einige der nachfolgenden Beweismethoden, zu zeigen:
@@ -229,30 +229,96 @@ Die grundlegenden Beweismethoden sind:
 \newpage
 
 
-\section{Lineare Gleichungssysteme}
-Ein lineares Gleichungssystem hat die Form
-\begin{align}
-	&\begin{array}{cccccccccc}
-			a_{11}x_1 &+& a_{12}x_2 &+& ... &+& a_{1n}x_n &=& b_1 \\
-			a_{21}x_1 &+& a_{22}x_2 &+& ... &+& a_{2n}x_n &=& b_2 \\
-			\vdots & & \vdots & & \vdots & & \vdots & & \vdots \\
-			a_{m1}x_1 &+& a_{m2}x_2 &+& ... &+& a_{mn}x_n &=& b_m
-	\end{array}
-\intertext{Zwei Notationen davon sind:}
-	&(A,b) \equiv
-	\left(\begin{array}{cccc|c}
-		a_{11} & a_{12} & ... & a_{1n} & b_1\\
-		a_{21} & a_{22} & \dots & a_{2n} & b_2\\
-		\vdots & \vdots & \ddots & \vdots & \vdots\\
-		a_{m1} & a_{m2} & \dots & a_{mn} & b_m
-	\end{array}\right)
-\end{align}
-Die \textbf{Lösungsmenge} ist die Menge aller $x$, die das LGS erfüllen.
+\section{Grundlegende Konzepte: Vektorräume und Basen}
+\subsection{Vektorräume}
+...
+
+\subsection{Lineare Abbdilungen}
+Eine \textit{lineare Abbildung} $F:V\to W$ bildet von einem $K$-Vektorraum auf einen anderen $K$-Vektorraum ab und erfüllt dabei
 	\begin{equation}
-		\text{Lös}(A,b) = \{x\ |\ \text{$x$ erfüllt LGS}\}
+		F(\lambda\cdot v + \mu \cdot w) = \lambda F(v) + \mu F(w)
 	\end{equation}
 
-Sie kann mit dem Gauß'schen Eliminationsverfahren gefunden werden. Dabei werden mittels Addition/Subtraktion zwischen Zeilen Nullen unterhalb der Hauptdiagonalen der Matrix $A$ erzeugt und anschließend die Bedingung(en) für $x$ abgelesen.
+mit $v\in V$, $w\in W$ und $\lambda,\mu \in K$.
+
+
+\subsection{Basis}
+Eine \textit{Basis} eines Vektorraums ist eine linear unabhängige Familie von Vektoren, dessen Linearkombination jedes Element des Vektorraums beschreiben kann.
+
+
+
+\newpage
+
+
+\section{Lineare Gleichungssysteme und Matrizen}
+\subsection{Lineare Gleichungssysteme}
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{lineares Gleichungssystem}\\
+		Unter einem \textit{linearen Gleichungssystem} (LGS) versteht man eine Menge von linearen Gleichungen mit einer oder mehreren Variablen $x_1, ..., x_n$
+			\begin{align}
+				\left\{
+				\begin{array}{cccccccccc}
+						a_{11}x_1 &+& a_{12}x_2 &+& ... &+& a_{1n}x_n &=& b_1 \\
+						a_{21}x_1 &+& a_{22}x_2 &+& ... &+& a_{2n}x_n &=& b_2 \\
+						\vdots & & \vdots & & \vdots & & \vdots & & \vdots \\
+						a_{m1}x_1 &+& a_{m2}x_2 &+& ... &+& a_{mn}x_n &=& b_m
+				\end{array}
+				\right.,
+			\end{align}
+		
+		mit den \textit{Koeffizienten} $a_{ij}$ und den Konstanten $b_i$.
+
+
+		\item \textbf{Lösungsmenge}\\
+		Die \textit{Lösungsmenge} ist die Menge aller $x = (x_1, ..., x_n)$, die das LGS erfüllen.
+			\begin{equation}
+				\text{Lös}(A,b) = \{x\ |\ \text{$x$ erfüllt LGS}\}
+			\end{equation}
+	\end{itemize}
+
+
+\fbox{Notationen}
+	\begin{itemize}
+		\item \textbf{Koeffizientenmatrix-Notation}\\
+		Die Gleichungen werden durch runde Klammern eingefasst, die Gleichheitszeichen durch einen senkrechten Trennstrich ersetzt und die Variablen weggelassen - man denkt sie sich oberhalb ihrer entsprechenden Spalte
+			\begin{align}
+				\left(\begin{array}{cccc|c}
+					a_{11} & a_{12} & ... & a_{1n} & b_1\\
+					a_{21} & a_{22} & \dots & a_{2n} & b_2\\
+					\vdots & \vdots & \ddots & \vdots & \vdots\\
+					a_{m1} & a_{m2} & \dots & a_{mn} & b_m
+				\end{array}\right)
+			\end{align}
+	\end{itemize}
+
+
+\fbox{Lösungsverfahren}\\
+Zur Lösung von LGS werden die einzelnen Gleichungssysteme so miteinander verrechnet, dass Variablen eliminiert werden. Dies wird so lange fortgeführt, bis nur noch eine Variable übrig bleibt, wodurch diese bestimmt wird. Rückeinsetzen in das LGS liefert Lösungen für die anderen Varialben.
+	\begin{itemize}
+		\item \textbf{Additions-/Subtraktionsverfahren}
+
+
+		\item \textbf{Gleichsetzungsverfahren}
+
+
+	\end{itemize}
+
+
+\newpage
+
+
+\fbox{Algorithmus}\\
+Ein Algorithmus zum Lösen von LGS stellt das sogenannte \textit{Gauß'sche Eliminationsverfahren} dar:
+	\begin{enumerate}
+		\item Notiere das LGS in der Koeffizientenmatrix-Notation
+		
+		
+		\item 
+	\end{enumerate}
+
+\newpage
+
 
 {\color{blue}
 \hrule
@@ -325,146 +391,324 @@ Sie kann mit dem Gauß'schen Eliminationsverfahren gefunden werden. Dabei werden
 }
 
 
-\subsection{Cramer'sche Regel}
-Für invertierbare Matrizen $A$ ($\det A\neq 0$) kann das LGS $A\cdot x = b$ über die Cramer'sche Regel gelöst werden
-	\begin{equation}
-		x_i = \frac{\det(a^1, ..., a^{i-1}, b, a^{i+1}, ..., a^n)}{\det A}
-	\end{equation}
-
-wobei die $a^i$ Spaltenvektoren sind.
-
-
 \newpage
 
 
-{\color{blue}
-\hrule
-	\fbox{Beispiel}\\
-	geg: $(A,b) =
-	\left(\begin{array}{ccc|c}
-		1 & 1 & 0 & 1 \\
-		0 & 1 & 1 & 0 \\
-		3 & 2 & 1 & 1
-	\end{array}\right)$
-	\begin{align*}
-		\det A &=
-		\begin{vmatrix}
-			1 & 1 & 0 \\
-			0 & 1 & 1 \\
-			3 & 2 & 1
-		\end{vmatrix}
-		= 1 + 3 + 0 - 0 - 2 - 0 = 2 \neq 0
-	\intertext{$A$ ist invertierbar.}
-		x_1 &= \frac{\det({\color{gruen}b}, a^1, a^2)}{\det A} =
-		\frac{1}{2} \cdot 
-		\begin{vmatrix}
-			{\color{gruen}1} & 1 & 0 \\
-			{\color{gruen}0} & 1 & 1 \\
-			{\color{gruen}1} & 2 & 1
-		\end{vmatrix}
-		=
-		\frac{1}{2} (1+0+0-0-2-1) = -1 \\
-		x_2 &= \frac{\det(a^1, {\color{gruen}b}, a^3)}{\det A} =
-		\frac{1}{2} \cdot 
-		\begin{vmatrix}
-			1 & {\color{gruen}1} & 0 \\
-			0 & {\color{gruen}0} & 1 \\
-			3 & {\color{gruen}1} & 1
-		\end{vmatrix}
-		=
-		\frac{1}{2} (1+3+0-0-0-0) = 2 \\
-		x_3 &= \frac{\det(a^1, a^2, {\color{gruen}b})}{\det A} =
-		\frac{1}{2} \cdot 
-		\begin{vmatrix}
-			1 & 1 & {\color{gruen}1} \\
-			0 & 1 & {\color{gruen}0} \\
-			3 & 2 & {\color{gruen}1}
-		\end{vmatrix}
-		=
-		\frac{1}{2} (0+3+0-3-2-0) = -1 \\
-		\Rightarrow \text{Lös}(A,b) &= \{(-1, 2, -1)\}
-	\end{align*}
+\subsection{Matrix}
+Unter einer \textit{Matrix} versteht man eine rechteckige Tabelle bestehend aus \textit{Elementen}. Sie kann eindeutig einer linearen Abbildung zugeordnet werden und stellt somit ein zentrales Konzept zum Lösen LGS dar.\\
+\\
+\fbox{Definitionen}
+	\begin{itemize}
+		\item \textbf{inverse Matrix}\\
+		Die zu $\underline{A}$ \textit{inverse Matrix} $\underline{A}^{-1}$ ist definiert über
+			\begin{equation}
+				\underline{A} \cdot \underline{A}^{-1} = \underline{A}^{-1} \cdot \underline{A} = \mathbb{1}_n,
+			\end{equation}
+		
+		wobei $\mathbb{1}_n \equiv (\delta_{ij})$ die \textit{Einheitsmatrix} ist.
 
 
-
-\hrule
-}
-
-
-
-
+		\item \textbf{komplementäre Matrix}
+		
+		
+		\item \textbf{transponierte Matrix}
+	\end{itemize}
 
 
-\newpage
-
-
-\section{Basis}
-Die Basis eines Vektorraums ist eine linear unabhängige Familie von Vektoren, dessen Linearkombination jedes Element des Vektorraums beschreiben kann.
-
-\subsection{Linear (un)abhängige Familie von Vektoren}
-Um zu überprüfen, ob eine Familie von Vektoren linear unabhängig ist, stellt man die Linearkombination für den Nullvektor auf und schaut, ob folgt, dass dies nur möglich ist, wenn alle Koeffizienten null sind (trivialer Fall) oder ob es auch andere Möglichkeiten gibt.
+\fbox{Notationen}
 	\begin{equation}
-		\alpha_1 v_1 + ... + \alpha_r v_r = \vec{0} \Rightarrow
-		\begin{cases}
-			\text{nur für $\alpha_1 = ... = \alpha_r = 0$},& \text{linear unabhängig} \\
-			\text{sonst},& \text{linear abhängig}
-		\end{cases}
+		A \equiv
+		\begin{pmatrix}
+			a_{11} & \dots & a_{1n} \\
+			\vdots & \ddots & \vdots \\
+			a_{m1} & \dots & a_{mn} \\
+		\end{pmatrix}
+		\equiv
+		\begin{pmatrix}
+			v_1 \\
+			\vdots \\
+			v_m \\
+		\end{pmatrix}
+		\equiv
+		(w_1\ \dots\ w_n)
+		\equiv
+		 (a_{ij})
 	\end{equation}
 
-{\color{blue}
-\hrule
-	\fbox{Beispiel}\\
-	ges: $(1,2,3), (4,5,6), (7,8,9)$ in $V$ linear unabhängig?
+wobei $v_i$ Zeilenvektoren und $w_j$ Spaltenvektoren sind.\\
+\\
+\fbox{Rechenoperationen}
+	\begin{itemize}
+		\item \textbf{Addition von Matrizen}
+			\begin{equation}
+				\underline{A} + \underline{B} \equiv (a_{ij}) + (b_{ij}) := (a_{ij} + b_{ij})
+			\end{equation}
+		
+		
+		\item \textbf{skalara Multiplikation}
+			\begin{equation}
+				\lambda\cdot \underline{A} \equiv \lambda\cdot (a_{ij}) := (\lambda a_{ij})
+			\end{equation}			
+		
+		
+		\item \textbf{Matrixmultiplikation}\\
+		Für $A\in M(m\times n; K), B\in M(n\times r; K)$ ...:
+			\begin{equation}
+				\underline{A} \cdot \underline{B} := \sum_{j=1}^n a_{ij} b_{jk}
+			\end{equation}
+	\end{itemize}
 	
-	\begin{align*}
-		\alpha_1 (1,2,3) + \alpha_2 (4,5,6) + \alpha_3 (7,8,9) = (0,0,0) \Rightarrow
-		\begin{cases}
-			\alpha_1 + 4\alpha_2 + 7\alpha_3 = 0\\
-			2\alpha_1 + 5\alpha_2 + 8\alpha_3 = 0\\
-			3\alpha_1 + 6\alpha_2 + 9\alpha_3 = 0
-		\end{cases}
-		\Rightarrow\\
-		\Rightarrow
-		\lr{
-			\begin{array}{ccc|c}
-			1 & 4 & 7 & 0 \\
-			2 & 5 & 8 & 0 \\
-			3 & 6 & 9 & 0
-			\end{array}
-		}
-		\Rightarrow ... \Rightarrow
-		\lr{
-			\begin{array}{ccc|c}
-			1 & 0 & -1 & 0 \\
-			0 & 1 & 2 & 0 \\
-			0 & 0 & 0 & 0
-			\end{array}
-		}
-		\Rightarrow
-		\begin{cases}
-			\alpha_1 = \alpha_3\\
-			\alpha_2 = -2\alpha_3\\
-			\alpha_3 \in \mathbb{R}
-		\end{cases}
-	\end{align*}
-	Somit kann der Nullvektor durch Linearkombinationen beschrieben werden, die von der trivialen abweichen wie z.B. $\alpha_1 = 1, \alpha_2 = -2, \alpha_3 = 1$. Die Familie ist also linear abhängig.
-\hrule
-}
+
+\fbox{Rechenregeln}
+	\begin{itemize}
+		\item \textbf{Distributivgesetz}
+			\begin{equation}
+				A\cdot (B + B') = A\cdot B + A\cdot B'\quad \wedge\quad (A + A')\cdot B = A\cdot B + A'\cdot B
+			\end{equation}
+
+
+		\item \textbf{Verträglichkeit}
+			\begin{equation}
+				A\cdot (\lambda\cdot B) = (\lambda\cdot A)\cdot B = \lambda\cdot (A\cdot B)
+			\end{equation}
+
+
+		\item \textbf{Assoziativgesetz}
+			\begin{equation}
+				(A\cdot B)\cdot C = A\cdot (B\cdot C)
+			\end{equation}
+
+
+		\item \textbf{Keine Kommutativität} (im Allgemeinen)
+			\begin{equation}
+				A\cdot B \neq B\cdot A
+			\end{equation}
+
+
+		\item \textbf{Neutralität der Einheitsmatrix}
+			\begin{equation}
+				E_m\cdot A = A\cdot E_n = A
+			\end{equation}
+	\end{itemize}
+
+
+\fbox{Algorithmen}
+	\begin{itemize}
+		\item \textbf{Bestimmtung der inversen Matrix}
+			\begin{enumerate}
+				\item Notiere $\underline{A}$ neben der Einheitsmatrix $\mathbb{1}$\\
+					\begin{equation}
+						\left(\begin{array}{cccc|cccc}
+							a_{11} & a_{12} & ... & a_{1n} & 1 & 0 &... & 0\\
+							a_{21} & a_{22} & ... & a_{2n} & 0 & 1 &... & 0\\
+							\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+							a_{n1} & a_{n2} & ... & a_{nn} & 0 & 0 & ... & 1
+						\end{array}\right)
+					\end{equation}
+
+
+				\item Forme die linke Seite durch elementare Zeilenoperationen so um, dass dort die Einheitsmatrix entsteht. Auf der rechten Seite steht dann die Inverse.
+					\begin{equation}
+						\Rightarrow
+	\left(\begin{array}{cccc|cccc}
+		1 & 0 &... & 0 & c_{11} & c_{12} & ... & c_{1n} \\
+		0 & 1 &... & 0 & c_{21} & c_{22} & ... & c_{2n} \\
+		\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+		0 & 0 & ... & 1 & c_{n1} & c_{n2} & ... & c_{nn}
+	\end{array}\right)
+					\end{equation}
+
+			\end{enumerate}
+	\end{itemize}
 
 
 \newpage
 
 
-\section{Lineare Abbildung und darstellende Matrix}
-Eine lineare Abbildung $F:V\to W$ bildet von einem $K$-Vektorraum auf einen anderen $K$-Vektorraum ab und erfüllt dabei
+{\color{violet}
+\hrule
+	\fbox{Herleitung}\\
+	$A$ kann durch elementare Zeilenoperationen in die Einheitsmatrix $E_n$ überführt werden. Dabei kann jede elementare Zeilenoperationen kann durch eine Matrix $L_i$ beschrieben werden. Multipliziert man alle Matrizen der Zeilenoperationen zusammen, erhält man die Inverse $A^{-1}$.
+	\begin{align*}
+		A &\Rightarrow L_1\cdot A \Rightarrow L_2\cdot L_1\cdot A \Rightarrow ...\Rightarrow L_s\cdot ...\cdot L_2\cdot L_1\cdot A = E_n\\
+		\Rightarrow A^{-1} &= L_s\cdot ...\cdot L_2\cdot L_1
+	\end{align*}
+\hrule
+}
+
+\vspace{0.5cm}
+
+Die Inverse einer Matrix $A$ lässt sich aber auch über komplementäre Matrix und Determinante berechnen. Die allgemeine Formel für $n\times n$-Matrizen, gefolgt von den Fällen einer $2\times 2$ und $3\times 3$ Matrix, ist
+	\begin{align}
+		A^{-1} &= \frac{1}{\det A}\cdot A^\# \\
+		A_{\color{gruen}2\times 2}^{-1} &= \frac{1}{\det A}
+		\begin{pmatrix}
+			d & -b\\
+			-c & a
+		\end{pmatrix} \\
+		A_{\color{gruen}3\times 3}^{-1} &= \frac{1}{\det A}
+		\begin{pmatrix}
+			\phantom{-}
+			\begin{vmatrix}
+				e & f\\
+				h & i
+			\end{vmatrix}
+			& 
+			-
+			\begin{vmatrix}
+				d & f\\
+				g & i
+			\end{vmatrix}
+			&
+			\phantom{-}
+			\begin{vmatrix}
+				d & e\\
+				g & h
+			\end{vmatrix} \\[1em]
+			-
+			\begin{vmatrix}
+				b & c\\
+				h & i
+			\end{vmatrix}
+			&
+			\phantom{-}
+			\begin{vmatrix}
+				a & c\\
+				g & i
+			\end{vmatrix}
+			&
+			-
+			\begin{vmatrix}
+				a & b\\
+				g & h
+			\end{vmatrix} \\[1em]
+			\phantom{-}
+			\begin{vmatrix}
+				b & c\\
+				e & f
+			\end{vmatrix}
+			& 
+			-
+			\begin{vmatrix}
+				a & c\\
+				d & f
+			\end{vmatrix}
+			&
+			\phantom{-}
+			\begin{vmatrix}
+				a & b\\
+				d & e
+			\end{vmatrix} \\
+		\end{pmatrix}
+	\end{align}
+
+
+\newpage
+
+
+\subsection{Komplementäre Matrix}
+Die komplementäre Matrix $A^\#$ einer Matrix $A$ wird mittels einer der beiden Hilfsmatrizen
 	\begin{equation}
-		F(\lambda\cdot v + \mu \cdot w) = \lambda F(v) + \mu F(w)
+	\label{hilfsmatrix}
+		A_{ij} :=
+		\begin{pmatrix}
+			  & & & 0 & & & \\
+			  & & & \vdots & & & \\
+			  & & & \vdots & & & \\
+			  & & & \vdots & & & \\
+			  & & & 0 & & & \\
+			0 & ... & 0 & 1 & 0 & ... & 0\\
+			  & & & 0 & & & \\
+			  & & & \vdots & & & \\
+			  & & & 0 & & &
+		\end{pmatrix}
+		,\quad
+		A_{ij}' :=
+		\left(\begin{array}{cccc|cccc}
+			  & & & & & & & \\
+			  & & & & & & & \\
+			  & & & & & & & \\
+			  & & & & & & & \\
+			  & & & & & & & \\
+			\hline
+			  & & & & & & & \\
+			  & & & & & & & \\
+			  & & & & & & &
+		\end{array}\right)
 	\end{equation}
 
-mit $v\in V$, $w\in W$ und $\lambda,\mu \in K$.\\
-Die Abbildungsvorschrift lässt sich (für festgelegte Basen $\mathcal{A},\mathcal{B}$ in $V,W$) kompakt mittels einer Matrix $A$ und Matrixmultiplikation schreiben, siehe Motivation. Diese Matrix nennt man \textbf{darstellende Matrix}.
+berechnet werden, wobei $A_{ij}$ alle Elemente von $A$ beibehält, außer die $i-te$ Zeile und $j-te$ Spalte, die wie in Gl. \ref{hilfsmatrix} gezeigt besetzt sind und $A_{ij}'$ die $i_te$ Zeile und $j-te$ Spalte von $A$ ''löscht''.\\
+Die komplementären Matrixelemente sind dann definiert als
+	\begin{equation}
+		\label{komplementäre matrix}
+		a_{ij}^\# := \det A_{ji} = (-1)^{i+j}\det A_{ji}'
+	\end{equation}
 
-\subsection{Bestimmung darstellende Matrix}
+\textcolor{gruen}{WICHTIG: $i,j$ sind in $A$ vertauscht!}
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $A
+	\begin{pmatrix}
+		a & b \\
+		c & d
+	\end{pmatrix}$,\quad ges: $A^\#$\\
+	Benutze Gl. \ref{komplementäre matrix}, um die komplementären Matrixelemente zu bestimmen
+	\begin{align*}
+		a_{11}^\# &= \det A_{11} =
+		\begin{vmatrix}
+			1 & 0\\
+			0 & d
+		\end{vmatrix}
+		= d \\
+				a_{12}^\# &= \det A_{21} =
+		\begin{vmatrix}
+			0 & b\\
+			1 & 0
+		\end{vmatrix}
+		= -b \\
+		a_{22}^\# &= \det A_{22} =
+		\begin{vmatrix}
+			a & 0\\
+			0 & 1
+		\end{vmatrix}
+		= a \\
+		a_{21}^\# &= \det A_{12} =
+		\begin{vmatrix}
+			0 & 1\\
+			c & 0
+		\end{vmatrix}
+		= -c\\
+		\Rightarrow A^\# &=
+		\begin{pmatrix}
+			a_{11}^\# & a_{12}^\#\\
+			a_{21}^\# & a_{22}^\#
+		\end{pmatrix}
+		= 
+		\begin{pmatrix}
+			d & -b\\
+			-c & a
+		\end{pmatrix}
+	\end{align*}
+
+
+\hrule
+}
+\subsection{Transponierte Matrix}
+Die zu einer Matrix $A=(a_{ij})$ gehörende Transponierte $A^T$ ist definiert als
+	\begin{equation}
+		a_{ji}^T = a_{ij}
+	\end{equation}
+	
+wobei $a^T$ das Element der transponierten Matrix ist.\\
+Für nicht-quadratische Matrizen, verändert sich also die Form der Matrix.
+
+
+\newpage
+
+
+\subsection{Darstellende Matrix}
 Seien $F:V\to W$ und $\mathcal{A} = \{b_1, b_2, ..., b_n\}$, $\mathcal{B} = \{\tilde{b}_1, \tilde{b}_2, ..., \tilde{b}_n\}$ Basen von $V,W$.
 \begin{enumerate}
 	\item Bilde die Basisvektoren der Ausgangsbasis $\mathcal{A}$ mittels $F$ ab
@@ -503,6 +747,10 @@ Die alten, abgebildeten Basisvektoren $F(b_i)$ ausgedrückt in der neuen Basis $
 		\end{array}\right)
 	\end{equation}
 
+
+\newpage
+
+
 {\color{blue}
 \hrule
 	\fbox{Beispiel}\\
@@ -523,7 +771,9 @@ Die alten, abgebildeten Basisvektoren $F(b_i)$ ausgedrückt in der neuen Basis $
 	\begin{pmatrix}
 		2\\3
 	\end{pmatrix}
-	\right\}$, ges: $M_\mathcal{B}^\mathcal{A}(F)$
+	\right\}$\\
+	ges: $M_\mathcal{B}^\mathcal{A}(F)$\\
+	Lös:
 	\begin{align*}
 		&		
 		\left(\begin{array}{cc|c|c|c}
@@ -567,7 +817,7 @@ Die alten, abgebildeten Basisvektoren $F(b_i)$ ausgedrückt in der neuen Basis $
 \newpage
 
 
-{\color{blue}
+{\color{violet}
 \hrule
 	\fbox{Motivation}\\
 	Betrachte den allgemeinen Fall.\\
@@ -641,7 +891,10 @@ Die alten, abgebildeten Basisvektoren $F(b_i)$ ausgedrückt in der neuen Basis $
 }
 
 
-\subsection{Bestimmung Basiswechselmatrix}
+\newpage
+
+
+\subsection{Basiswechselmatrix}
 Seien $V$ ein Vektorraum und $\mathcal{A} = \{b_1, b_2, ..., b_n\}$, $\mathcal{B} = \{\tilde{b}_1, \tilde{b}_2, ..., \tilde{b}_n\}$ Basen.
 \begin{enumerate}
 	\item Stelle die Basisvektoren der Ausgangsbasis $\mathcal{A}$ in der Koordinatenform der neuen Basis $\mathbb{B}$ dar
@@ -852,306 +1105,16 @@ Die lineare Abbildung, ihre Koordinatentransformationen, Basiswechsel und darste
 	\end{tabularx}
 \end{table}
 
-\begin{figure}[H]
-	\centering
-	\fbox{\includegraphics[width=0.7\textwidth]{Grafiken/kommutatives diagramm.pdf}}
-	\caption{Kommutatives Diagramm für eine lineare Abbildung zwischen zwei Vektorräumen und jeweils einem Basiswechsel.\\ Im unteren Beispiel ist, neben konkreten Vektorräumen, ein Element dargestellt, wie es in welchem Raum vorliegt.}
-\end{figure}
 
-
-\newpage
-
-
-\section{Matrix}
-Notationen einer $m\times n$ Matrix $A$ sind
-	\begin{equation}
-		A \equiv
-		\begin{pmatrix}
-			a_{11} & \dots & a_{1n} \\
-			\vdots & \ddots & \vdots \\
-			a_{m1} & \dots & a_{mn} \\
-		\end{pmatrix}
-		\equiv
-		\begin{pmatrix}
-			v_1 \\
-			\vdots \\
-			v_m \\
-		\end{pmatrix}
-		\equiv
-		(w_1\ \dots\ w_n)
-		\equiv
-		 (a_{ij})
-	\end{equation}
-
-wobei $v_i$ Zeilenvektoren und $w_j$ Spaltenvektoren sind.
-
-\subsection{Rechenregeln}
-\begin{itemize}
-	\item Addition
-		\begin{equation}
-			A + B \equiv (a_{ij}) + (b_{ij}) = (a_{ij} + b_{ij})
-		\end{equation}
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.7\textwidth]{Grafiken/kommutatives diagramm.pdf}
+		}
+		\caption{Kommutatives Diagramm für eine lineare Abbildung zwischen zwei Vektorräumen und jeweils einem Basiswechsel.\\ Im unteren Beispiel ist, neben konkreten Vektorräumen, ein Element dargestellt, wie es in welchem Raum vorliegt.}
+	\end{figure}
 	
 	
-	\item skalara Multiplikation
-		\begin{equation}
-			\lambda\cdot A \equiv \lambda\cdot (a_{ij}) := (\lambda a_{ij})
-		\end{equation}			
-	
-	
-	\item Matrixmultiplikation\\
-	Für $A\in M(m\times n; K), B\in M(n\times r; K)$
-		\begin{equation}
-			A\cdot B := \sum_{j=1}^n a_{ij} b_{jk}
-		\end{equation}
-
-	Die entstehende Matrix hat die Dimension $m\times r$.\\
-	\textcolor{gruen}{Tipp: Die Matrixmultiplikation einer ${\color{blue}a}\times {\color{red}b}$ und ${\color{red}c}\times {\color{blue}d}$ Matrix (In dieser Reihenfolge!) ist nur möglich, wenn ${\color{red}b\stackrel{!}{=}c}$ gilt. Die Dimension der entstehenden Matrix ist dann ${\color{blue}a\times d}$.}
-	
-	
-	\item Rechenregeln\\
-	\textbf{Distributivgesetz}
-		\begin{equation}
-			A\cdot (B + B') = A\cdot B + A\cdot B'\quad \wedge\quad (A + A')\cdot B = A\cdot B + A'\cdot B
-		\end{equation}
-		
-	\textbf{Verträglichkeit}
-		\begin{equation}
-			A\cdot (\lambda\cdot B) = (\lambda\cdot A)\cdot B = \lambda\cdot (A\cdot B)
-		\end{equation}
-		
-	\textbf{Assoziativgesetz}
-		\begin{equation}
-			(A\cdot B)\cdot C = A\cdot (B\cdot C)
-		\end{equation}
-		
-	\textbf{Keine Kommutativität} (im Allgemeinen)
-		\begin{equation}
-			A\cdot B \neq B\cdot A
-		\end{equation}
-		
-	\textbf{Neutralität der Einheitsmatrix}
-		\begin{equation}
-			E_m\cdot A = A\cdot E_n = A
-		\end{equation}
-\end{itemize}
-
-
-\subsection{Inverse Matrix}
-Die zu einer Matrix $A$ gehörende Inverse $A^{-1}$ ist definiert über
-	\begin{equation}
-		A\cdot A^{-1} = A^{-1}\cdot A = E_n
-	\end{equation}
-	
-mit der Einheitsmatrix $E_n = (\delta_{ij})$.\\
-Sie existiert, wenn
-	\begin{equation}
-		\det A \neq 0
-	\end{equation}
-
-und kann wie folgt bestimmt werden:
-\begin{itemize}
-	\item Schreibe auf die linke Seite einer erweiterte Matrix die Matrix $A$ und rechts die Einheitsmatrix
-\begin{equation}
-	(A|E_n) =
-	\left(\begin{array}{cccc|cccc}
-		a_{11} & a_{12} & ... & a_{1n} & 1 & 0 &... & 0\\
-		a_{21} & a_{22} & ... & a_{2n} & 0 & 1 &... & 0\\
-		\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots\\
-		a_{n1} & a_{n2} & ... & a_{nn} & 0 & 0 & ... & 1
-	\end{array}\right)
-\end{equation}
-	\item Forme die linke Seite durch elementare Zeilenoperationen so um, dass dort die Einheitsmatrix entsteht. Auf der rechten Seite steht dann die Inverse.
-	$$\Rightarrow
-	\left(\begin{array}{cccc|cccc}
-		1 & 0 &... & 0 & c_{11} & c_{12} & ... & c_{1n} \\
-		0 & 1 &... & 0 & c_{21} & c_{22} & ... & c_{2n} \\
-		\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots\\
-		0 & 0 & ... & 1 & c_{n1} & c_{n2} & ... & c_{nn}
-	\end{array}\right) = (E_n|A^{-1})$$
-\end{itemize}
-
-
-{\color{blue}
-\hrule
-	\fbox{Herleitung}\\
-	$A$ kann durch elementare Zeilenoperationen in die Einheitsmatrix $E_n$ überführt werden. Dabei kann jede elementare Zeilenoperationen kann durch eine Matrix $L_i$ beschrieben werden. Multipliziert man alle Matrizen der Zeilenoperationen zusammen, erhält man die Inverse $A^{-1}$.
-	\begin{align*}
-		A &\Rightarrow L_1\cdot A \Rightarrow L_2\cdot L_1\cdot A \Rightarrow ...\Rightarrow L_s\cdot ...\cdot L_2\cdot L_1\cdot A = E_n\\
-		\Rightarrow A^{-1} &= L_s\cdot ...\cdot L_2\cdot L_1
-	\end{align*}
-\hrule
-}
-
-\vspace{0.5cm}
-
-Die Inverse einer Matrix $A$ lässt sich aber auch über komplementäre Matrix und Determinante berechnen. Die allgemeine Formel für $n\times n$-Matrizen, gefolgt von den Fällen einer $2\times 2$ und $3\times 3$ Matrix, ist
-	\begin{align}
-		A^{-1} &= \frac{1}{\det A}\cdot A^\# \\
-		A_{\color{gruen}2\times 2}^{-1} &= \frac{1}{\det A}
-		\begin{pmatrix}
-			d & -b\\
-			-c & a
-		\end{pmatrix} \\
-		A_{\color{gruen}3\times 3}^{-1} &= \frac{1}{\det A}
-		\begin{pmatrix}
-			\phantom{-}
-			\begin{vmatrix}
-				e & f\\
-				h & i
-			\end{vmatrix}
-			& 
-			-
-			\begin{vmatrix}
-				d & f\\
-				g & i
-			\end{vmatrix}
-			&
-			\phantom{-}
-			\begin{vmatrix}
-				d & e\\
-				g & h
-			\end{vmatrix} \\[1em]
-			-
-			\begin{vmatrix}
-				b & c\\
-				h & i
-			\end{vmatrix}
-			&
-			\phantom{-}
-			\begin{vmatrix}
-				a & c\\
-				g & i
-			\end{vmatrix}
-			&
-			-
-			\begin{vmatrix}
-				a & b\\
-				g & h
-			\end{vmatrix} \\[1em]
-			\phantom{-}
-			\begin{vmatrix}
-				b & c\\
-				e & f
-			\end{vmatrix}
-			& 
-			-
-			\begin{vmatrix}
-				a & c\\
-				d & f
-			\end{vmatrix}
-			&
-			\phantom{-}
-			\begin{vmatrix}
-				a & b\\
-				d & e
-			\end{vmatrix} \\
-		\end{pmatrix}
-	\end{align}
-
-
-\newpage
-
-
-\subsection{Komplementäre Matrix}
-Die komplementäre Matrix $A^\#$ einer Matrix $A$ wird mittels einer der beiden Hilfsmatrizen
-	\begin{equation}
-	\label{hilfsmatrix}
-		A_{ij} :=
-		\begin{pmatrix}
-			  & & & 0 & & & \\
-			  & & & \vdots & & & \\
-			  & & & \vdots & & & \\
-			  & & & \vdots & & & \\
-			  & & & 0 & & & \\
-			0 & ... & 0 & 1 & 0 & ... & 0\\
-			  & & & 0 & & & \\
-			  & & & \vdots & & & \\
-			  & & & 0 & & &
-		\end{pmatrix}
-		,\quad
-		A_{ij}' :=
-		\left(\begin{array}{cccc|cccc}
-			  & & & & & & & \\
-			  & & & & & & & \\
-			  & & & & & & & \\
-			  & & & & & & & \\
-			  & & & & & & & \\
-			\hline
-			  & & & & & & & \\
-			  & & & & & & & \\
-			  & & & & & & &
-		\end{array}\right)
-	\end{equation}
-
-berechnet werden, wobei $A_{ij}$ alle Elemente von $A$ beibehält, außer die $i-te$ Zeile und $j-te$ Spalte, die wie in Gl. \ref{hilfsmatrix} gezeigt besetzt sind und $A_{ij}'$ die $i_te$ Zeile und $j-te$ Spalte von $A$ ''löscht''.\\
-Die komplementären Matrixelemente sind dann definiert als
-	\begin{equation}
-		\label{komplementäre matrix}
-		a_{ij}^\# := \det A_{ji} = (-1)^{i+j}\det A_{ji}'
-	\end{equation}
-
-\textcolor{gruen}{WICHTIG: $i,j$ sind in $A$ vertauscht!}
-
-{\color{blue}
-\hrule
-	\fbox{Beispiel}\\
-	geg: $A
-	\begin{pmatrix}
-		a & b \\
-		c & d
-	\end{pmatrix}$,\quad ges: $A^\#$\\
-	Benutze Gl. \ref{komplementäre matrix}, um die komplementären Matrixelemente zu bestimmen
-	\begin{align*}
-		a_{11}^\# &= \det A_{11} =
-		\begin{vmatrix}
-			1 & 0\\
-			0 & d
-		\end{vmatrix}
-		= d \\
-				a_{12}^\# &= \det A_{21} =
-		\begin{vmatrix}
-			0 & b\\
-			1 & 0
-		\end{vmatrix}
-		= -b \\
-		a_{22}^\# &= \det A_{22} =
-		\begin{vmatrix}
-			a & 0\\
-			0 & 1
-		\end{vmatrix}
-		= a \\
-		a_{21}^\# &= \det A_{12} =
-		\begin{vmatrix}
-			0 & 1\\
-			c & 0
-		\end{vmatrix}
-		= -c\\
-		\Rightarrow A^\# &=
-		\begin{pmatrix}
-			a_{11}^\# & a_{12}^\#\\
-			a_{21}^\# & a_{22}^\#
-		\end{pmatrix}
-		= 
-		\begin{pmatrix}
-			d & -b\\
-			-c & a
-		\end{pmatrix}
-	\end{align*}
-
-
-\hrule
-}
-\subsection{Transponierte Matrix}
-Die zu einer Matrix $A=(a_{ij})$ gehörende Transponierte $A^T$ ist definiert als
-	\begin{equation}
-		a_{ji}^T = a_{ij}
-	\end{equation}
-	
-wobei $a^T$ das Element der transponierten Matrix ist.\\
-Für nicht-quadratische Matrizen, verändert sich also die Form der Matrix.
-
-
 \newpage
 
 
@@ -1237,6 +1200,73 @@ mit der Hilfsmatrix $A_{ij}'$, die definiert ist als die Matrix, die die $i-te$ 
 }
 
 
+\newpage
+
+
+\subsection{Cramer'sche Regel}
+Für invertierbare Matrizen $A$ ($\det A\neq 0$) kann das LGS $A\cdot x = b$ über die Cramer'sche Regel gelöst werden
+	\begin{equation}
+		x_i = \frac{\det(a^1, ..., a^{i-1}, b, a^{i+1}, ..., a^n)}{\det A}
+	\end{equation}
+
+wobei die $a^i$ Spaltenvektoren sind.
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	geg: $(A,b) =
+	\left(\begin{array}{ccc|c}
+		1 & 1 & 0 & 1 \\
+		0 & 1 & 1 & 0 \\
+		3 & 2 & 1 & 1
+	\end{array}\right)$
+	\begin{align*}
+		\det A &=
+		\begin{vmatrix}
+			1 & 1 & 0 \\
+			0 & 1 & 1 \\
+			3 & 2 & 1
+		\end{vmatrix}
+		= 1 + 3 + 0 - 0 - 2 - 0 = 2 \neq 0
+	\intertext{$A$ ist invertierbar.}
+		x_1 &= \frac{\det({\color{gruen}b}, a^1, a^2)}{\det A} =
+		\frac{1}{2} \cdot 
+		\begin{vmatrix}
+			{\color{gruen}1} & 1 & 0 \\
+			{\color{gruen}0} & 1 & 1 \\
+			{\color{gruen}1} & 2 & 1
+		\end{vmatrix}
+		=
+		\frac{1}{2} (1+0+0-0-2-1) = -1 \\
+		x_2 &= \frac{\det(a^1, {\color{gruen}b}, a^3)}{\det A} =
+		\frac{1}{2} \cdot 
+		\begin{vmatrix}
+			1 & {\color{gruen}1} & 0 \\
+			0 & {\color{gruen}0} & 1 \\
+			3 & {\color{gruen}1} & 1
+		\end{vmatrix}
+		=
+		\frac{1}{2} (1+3+0-0-0-0) = 2 \\
+		x_3 &= \frac{\det(a^1, a^2, {\color{gruen}b})}{\det A} =
+		\frac{1}{2} \cdot 
+		\begin{vmatrix}
+			1 & 1 & {\color{gruen}1} \\
+			0 & 1 & {\color{gruen}0} \\
+			3 & 2 & {\color{gruen}1}
+		\end{vmatrix}
+		=
+		\frac{1}{2} (0+3+0-3-2-0) = -1 \\
+		\Rightarrow \text{Lös}(A,b) &= \{(-1, 2, -1)\}
+	\end{align*}
+
+
+
+\hrule
+}
 
 
 \newpage
@@ -1311,20 +1341,30 @@ Der EV $v$ zum EW $\lambda$ kann über das folgende LGS gefunden werden
 
 
 \section{Diagonalisierbarkeit}
-Mit dem folgenden Verfahren lässt sich überprüfen, ob eine Matrix $A\in M(n\times n;K)$ bzw. Funktion $F\in\text{End}_K(V)$ (mit $\dim V = n < \infty$) diagonalisierbar ist oder nicht.
-\begin{enumerate}
-	\item Berechne das char. Polynom $P_A(\lambda)$
-	\item Berechne dessen Nullstellen $P_A(\lambda) = 0$
-	\item Wenn die Anzahl der Nullstellen < $n$, ist $A$ bzw. $F$ nicht diagonalisierbar. \textcolor{blue}{Breche ab}.\\
-	Wenn die Anzahl der Nullstellen = $n$, gehe weiter.
-	\item Finde Eig$(A,\lambda_j) = $ Lös$(A - \lambda_j E_n, \vec{0})$ und deren Basen $\mathcal{B}_j$ für alle Nullstellen $\lambda_j$.\\
-	Wenn für mindestens ein $\lambda_j$ die Dimension des Eigenraums kleiner als dessen Vielfachheit ist ($\dim$ Eig$(A,\lambda_j) < \mu(P_F,\lambda_j)$), so ist $A$ bzw. $F$ nicht diagonalisierbar.\\
-	Andernfalls ist $\mathcal{B}' = \mathcal{B}_1, \mathcal{B}_2, ...$ die Basis aus EW von $V$ und $A$ bzw. $F$ damit diagonalisiert.
-\end{enumerate}
+...\\
+\\
+Mit dem folgenden Verfahren lässt sich überprüfen, ob eine Matrix $A\in M(n\times n;K)$ bzw. Funktion $F\in\text{End}_K(V)$ (mit $\dim V = n < \infty$) diagonalisierbar ist oder nicht.\\
+\\
+\fbox{Algorithmus}
+	\begin{enumerate}
+		\item Berechne das char. Polynom $P_A(\lambda)$
+		
+		
+		\item Berechne dessen Nullstellen $P_A(\lambda) = 0$
+		
+		
+		\item Wenn die Anzahl der Nullstellen < $n$, ist $A$ bzw. $F$ nicht diagonalisierbar. \textcolor{blue}{Breche ab}.\\
+		Wenn die Anzahl der Nullstellen = $n$, gehe weiter.
+		
+		
+		\item Finde Eig$(A,\lambda_j) = $ Lös$(A - \lambda_j E_n, \vec{0})$ und deren Basen $\mathcal{B}_j$ für alle Nullstellen $\lambda_j$.\\
+		Wenn für mindestens ein $\lambda_j$ die Dimension des Eigenraums kleiner als dessen Vielfachheit ist ($\dim$ Eig$(A,\lambda_j) < \mu(P_F,\lambda_j)$), so ist $A$ bzw. $F$ nicht diagonalisierbar.\\
+		Andernfalls ist $\mathcal{B}' = \mathcal{B}_1, \mathcal{B}_2, ...$ die Basis aus EW von $V$ und $A$ bzw. $F$ damit diagonalisiert.
+	\end{enumerate}
 
-Man u.U. früher erkennen, ob eine Matrix bzw. Funktion diagonalisierbar ist. Nämlich dann, wenn, wenn die gefundenen EW paarweise verschieden sind ($\lambda_i \neq \lambda_j\ \forall i\neq j$) und das char. Polynom in Linearfaktoren zerfällt (die auch alle paarweise verschieden sind).
 
-\vspace{0.5cm}
+\newpage
+
 
 {\color{blue}
 \hrule
@@ -1393,224 +1433,6 @@ Man u.U. früher erkennen, ob eine Matrix bzw. Funktion diagonalisierbar ist. N�
 		\end{pmatrix}	
 		\right\}
 	\end{align*}
-\hrule
-}
-
-
-\newpage
-
-
-\section{Jordan'sche Normalform}
-Zerfällt das char. Polynom einer Matrix in Linearfaktoren, so existiert eine Basis, in der sie die Jordan'sche Normalform annimmt.
-
-\begin{center}
-\begin{tikzpicture}[node distance = 2cm, auto]
-	\node [rect, fill=green!20] (1) {Berechne char. Polynom $P_A(\lambda)$};
-	\node [rect, below of=1, node distance = 1.5cm] (2) {Berechne EW $\lambda$ und $\mu(\lambda)$};
-	\node [rect, below of=2, node distance = 1.5cm] (3) {Nehme ein $\lambda_i$ und bestimme ker$(A-\lambda_i E_n)$};
-	\node [diam, below of=3,node distance = 2.5cm] (4) {dim ker$(A-\lambda_i E_n)$ = $\mu(\lambda_i)$?};
-	\node [rect, left of=4, node distance=7cm, text width=5cm, align=left] (5) {Male den(die) Jordan-Block (Blöcke) $J_l(\lambda_i)$ auf die Hauptdiagonale. Schreibe weiter den (die) Basisvektor(en) in die Basis $\mathcal{B}$, falls mehrere, in der Reihenfolge $..., w_{j-2}, w_{j-1}, w_j$.};
-	\node [diam, left of=3, node distance=7cm] (6) {Gibt es weitere EW $\lambda_i$?};
-	\node [rect, below of=4] (7) {Bestimme ker$((A-\lambda_i E_n)^k)$};
-	\node [diam, below of=7] (8) {dim ker$((A-\lambda_i E_n)^k) = \mu(\lambda_i)$?};
-	\node [rect, below of=8, node distance=2.5cm] (9) {
-	\begin{tabular}{l l}
-		\multicolumn{2}{c}{Erstelle ein Kästchendiagramm. } \\
-		\hline
-		 $\vdots$ & $\vdots$\\
-		 ker($(A-\lambda_i E_n)^2$) & $\boxed{\phantom{w_i}}$ ...\\
-		 ker($A-\lambda_i E_n$) & $\boxed{\phantom{w_i}}$ $\boxed{\phantom{w_i}}$ ...
-	\end{tabular}};
-	\node [rect, below of=9, node distance=2.5cm, text width=5cm] (10) {Jede Spalte des Diagramms gibt einen Jordan-Block $J_l(\lambda_i)$, wobei $l$ durch die Anzahl der Kästchen der Spalte bestimmt ist.};
-	\node [rect, left of=10, text width=5cm, node distance=7cm, align=left] (11) {Für jede Spalte des Diagramms: Gehe zum höchsten ker$((A-\lambda_1 E_n)^k)$ und wähle einen Basisvektor $w_j$, der nicht in den andern Kernen mit $<k$ liegt. Berechne dann $w_{j-1}=(A-\lambda_i E_n)w_j$, $w_{j-2}=(A-\lambda_i E_n)w_{j-1}$, ..., bis zum unteren Kästchen.};
-	\node [rect, above of=5, node distance=4.5cm, fill=red!20] (12) {fertig};
-		
-	\path [line] (1) -- (2);
-	\path [line] (2) -- (3);
-	\path [line] (3) -- (4);
-	\path [line] (4.west) -- node [above, near start] {Ja} (5.east);
-	\path [line] (5) -- (6);
-	\path [line] (6) -- node [above, near start] {Ja} (3);
-	\path [line] (4.south) -- node [right, near start] {Nein; Setze $k=2$} (7);
-	\path [line] (7) -- (8);
-	\path [line] (8.east) |- (7.east) node [near start, right] {Nein; $k\to k+1$};
-	\path [line] (8) -- (9) node [near start, right]{Ja};
-	\path [line] (9) -- (10);
-	\path [line] (10) -- (11);
-	\path [line] (11) -- (5);
-	\path [line] (6) -- node {Nein} (12);
-\end{tikzpicture}
-\end{center}
-
-
-\newpage
-
-
-{\color{blue}
-\hrule
-	\fbox{Beispiel}\\
-	\begin{align*}
-		A &=
-		\begin{pmatrix}
-			-2 & 1 & 0 & -1\\
-			0 & -1 & 0 & -1\\
-			1 & 0 & -2 & -1 \\
-			2 & -3 & 0 & -1
-		\end{pmatrix}\\
-		P_A(\lambda) &= \lambda(2+\lambda)^3
-	\intertext{Die EW sind $\lambda_1=0\ (\mu(P_A;0)=1$) und $\lambda_1=-2\ (\mu(P_A;-2)=3$).\endgraf
-	Bestimme die EV zum EW $\lambda_2=-2$.}
-		(A+2E_4, \vec{0}) &=
-		\left(\begin{array}{cccc|c}
-			0 & 1 & 0 & -1 & 0\\
-			0 & 1 & 0 & -1 & 0\\
-			1 & 0 & 0 & -1 & 0\\
-			2 & -3 & 0 & 1 & 0
-		\end{array}\right) \Rightarrow ... \Rightarrow
-		\left(\begin{array}{cccc|c}
-			1 & 0 & 0 & -1 & 0\\
-			0 & 1 & 0 & -1 & 0\\
-			0 & 0 & 0 & 0 & 0\\
-			0 & 0 & 0 & 0 & 0
-		\end{array}\right)
-		\Rightarrow
-		\begin{cases}
-			x=t\\ y=t\\ z\in\mathbb{C}\\ t\in\mathbb{C}
-		\end{cases}\\
-		\Rightarrow \ker(A+2E_4) &= \text{span}\lr{
-		\begin{pmatrix}
-			1\\1\\0\\1
-		\end{pmatrix}
-		,
-		\begin{pmatrix}
-			0\\0\\1\\0
-		\end{pmatrix}
-		}\\
-		\Rightarrow \dim \ker(A+2E_4) &= 2 < \mu(P_A;-2) = 3
-	\intertext{Da die Dimension kleiner als die Vielfachheit ist, untersuche die nächsthöhere Potenz von $(A+2E_4)$.}
-		((A+2E_4)^2, \vec{0}) &=
-		\left(\begin{array}{cccc|c}
-			-2 & 4 & 0 & -2 & 0\\
-			-2 & 4 & 0 & -2 & 0\\
-			-2 & 4 & 0 & -2 & 0\\
-			2 & -4 & 0 & 2 & 0
-		\end{array}\right) \Rightarrow ... \Rightarrow
-		\left(\begin{array}{cccc|c}
-			1 & -2 & 0 & 1 & 0\\
-			0 & 0 & 0 & 0 & 0\\
-			0 & 0 & 0 & 0 & 0\\
-			0 & 0 & 0 & 0 & 0
-		\end{array}\right)
-		\Rightarrow
-		\begin{cases}
-			x=2y-t\\ y\in\mathbb{C}\\ z\in\mathbb{C}\\ t\in\mathbb{C}
-		\end{cases}\\
-		\Rightarrow \ker((A+2E_4)^2) &= \text{span}\lr{
-		\begin{pmatrix}
-			1\\1\\0\\1
-		\end{pmatrix}
-		,
-		\begin{pmatrix}
-			0\\0\\1\\0
-		\end{pmatrix}
-		,
-		\begin{pmatrix}
-			-1\\0\\0\\1
-		\end{pmatrix}
-		}\\
-		\Rightarrow \dim \ker((A+2E_4)^2) &= 3 = \mu(P_A;-2)\quad \checkmark
-	\end{align*}
-	
-	Erstelle nun das Kästchendiagramm für $\lambda=-2$.
-	\begin{alignat*}{2}
-		{\ker((A+2E_4)^2)}: &\qquad \boxed{\phantom{v_i}} &&\\
-		{\ker(A+2E_4)}: &\qquad \boxed{\phantom{v_i}} && \boxed{\phantom{v_i}}
-	\end{alignat*}
-
-	Die 1. Spalte hat 2 Kästchen und nimmt daher in der Jordan'sche Normalform einen 2x2 großen Jordan-Block ein. Dieser wird $B_2(-2)$ notiert, wobei der Index die Blockgröße und das Argument den EW angibt. Die zweite Spalte hat nur ein Kästchen und daher nur einen 1x1 Jordan-Block $B_1(-2)$.\\
-	\\
-	Bestimme den EV zum EW $\lambda_1=0$.
-	\begin{align*}
-		(A+0E_4,\vec{0}) &=
-		\left(\begin{array}{cccc|c}
-			-2 & 1 & 0 & -1 & 0\\
-			0 & -1 & 0 & -1 & 0\\
-			1 & 0 & -2 & -1 & 0 \\
-			2 & -3 & 0 & -1 & 0
-		\end{array}\right)
-		\Rightarrow ...\Rightarrow
-		\left(\begin{array}{cccc|c}
-			1 & 0 & 0 & 1 & 0\\
-			0 & 1 & 0 & 1 & 0\\
-			0 & 0 & 1 & 1 & 0\\
-			0 & 0 & 0 & 0 & 0
-		\end{array}\right)
-		\Rightarrow
-		\begin{cases}
-			x=-t\\ y=-t\\ z=-t\\ t\in\mathbb{C}
-		\end{cases}\\
-		\Rightarrow 
-		\ker(A+0E_4) &= \text{span}\lr{
-		\begin{pmatrix}
-			-1\\-1\\-1\\1
-		\end{pmatrix}
-		}\\		
-		\dim \ker(A+0E_4) &= 1 \mu(P_A;0)\quad \checkmark
-	\intertext{Der EW $\lambda=0$ erhält einen 1x1 Jordan-Block $B_1(0)$. Die gefundenen Jordan-Blöcke können beliebig in der Matrix platziert werden. Für die Basis ist diese hier festgelegte Reihenfolge allerdings bindend.}
-		\Rightarrow
-		J &=
-		\begin{pmatrix}
-			B_1(0) & 0 & 0 \\
-			0 & B_2(-2) & 0 \\
-			0 & 0 & B_1(-2) &
-		\end{pmatrix}
-		=
-		\left(\begin{array}{c|cc|c}
-			0 & 0 & 0 & 0\\
-			\hline
-			0 & -2 & 1 & 0\\
-			0 & 0 & -2 & 0\\
-			\hline
-			0 & 0 & 0 & -2
-		\end{array}\right)
-	\intertext{Berechne nun die Basisvektoren. Gehe dabei von Block zu Block. Beim $B_2(-2)$ Jordan-Block muss ein Vektor aus $\ker((A+2E_4)^2)$ gewählt werden, der nicht in $\ker(A+2E_4)$ liegt. Anschließend wird er auf $(A+2E_4)$ angewendet, um den anderen Basisvektor zu finden. Dabei wird der Vektor, den man zuletzt gefunden hat vor dem anderen in die Basis einsortiert (hier: $b_2$ vor $b_3$).}
-		b_1 &= 
-		\begin{pmatrix}
-			-1\\ -1\\ -1\\ 1
-		\end{pmatrix}
-		,\
-		b_3 =
-		\begin{pmatrix}
-			-1\\ 0\\ 0\\ 1
-		\end{pmatrix}
-		,\
-		b_2 = (A+2E_4)^2b_3 =
-		\begin{pmatrix}
-			-1\\ -1\\ -2\\ -1
-		\end{pmatrix}
-		,\
-		b_4 =
-		\begin{pmatrix}
-			0\\ 0\\ 1\\ 0
-		\end{pmatrix}\\
-		\Rightarrow \mathcal{B} &= \left\{ b_1, b_2, b_3, b_4 \right\}\\
-		\Rightarrow S^{-1} &= (b_1\ b_2\ b_3\ b_4) =
-		\begin{pmatrix}
-			-1 & -1 & -1 & 0\\
-			-1 & -1 & 0 & 0\\
-			-1 & -2 & 0 & 1\\
-			1 & -1 & 1 & 0
-		\end{pmatrix}\\
-		\Rightarrow S &=
-		\frac{1}{2}
-		\begin{pmatrix}
-			1 & -2 & 0 & 1\\
-			-1 & 0 & 0 & -1\\
-			-2 & 2 & 0 & 0\\
-			-1 & -2 & 2 & -1
-		\end{pmatrix}
-	\end{align*}
-	Dann gilt $J = S\cdot A\cdot S^{-1}$.
 \hrule
 }
 
@@ -1795,7 +1617,226 @@ $v_1,v_2$ bilden ein Orthonormalsystem.
 \newpage
 
 
-\section{Stichwortverzeichnis}
+\section{Appendix A: Jordan'sche Normalform}
+...\\
+\\
+\fbox{Algorithmus}
+	\begin{center}
+	\begin{tikzpicture}[node distance = 2cm, auto]
+		\node [rect, fill=green!20] (1) {Berechne char. Polynom $P_A(\lambda)$};
+		\node [rect, below of=1, node distance = 1.5cm] (2) {Berechne EW $\lambda$ und $\mu(\lambda)$};
+		\node [rect, below of=2, node distance = 1.5cm] (3) {Nehme ein $\lambda_i$ und bestimme ker$(A-\lambda_i E_n)$};
+		\node [diam, below of=3,node distance = 2.5cm] (4) {dim ker$(A-\lambda_i E_n)$ = $\mu(\lambda_i)$?};
+		\node [rect, left of=4, node distance=7cm, text width=5cm, align=left] (5) {Male den(die) Jordan-Block (Blöcke) $J_l(\lambda_i)$ auf die Hauptdiagonale. Schreibe weiter den (die) Basisvektor(en) in die Basis $\mathcal{B}$, falls mehrere, in der Reihenfolge $..., w_{j-2}, w_{j-1}, w_j$.};
+		\node [diam, left of=3, node distance=7cm] (6) {Gibt es weitere EW $\lambda_i$?};
+		\node [rect, below of=4] (7) {Bestimme ker$((A-\lambda_i E_n)^k)$};
+		\node [diam, below of=7] (8) {dim ker$((A-\lambda_i E_n)^k) = \mu(\lambda_i)$?};
+		\node [rect, below of=8, node distance=2.5cm] (9) {
+		\begin{tabular}{l l}
+			\multicolumn{2}{c}{Erstelle ein Kästchendiagramm. } \\
+			\hline
+			 $\vdots$ & $\vdots$\\
+			 ker($(A-\lambda_i E_n)^2$) & $\boxed{\phantom{w_i}}$ ...\\
+			 ker($A-\lambda_i E_n$) & $\boxed{\phantom{w_i}}$ $\boxed{\phantom{w_i}}$ ...
+		\end{tabular}};
+		\node [rect, below of=9, node distance=2.5cm, text width=5cm] (10) {Jede Spalte des Diagramms gibt einen Jordan-Block $J_l(\lambda_i)$, wobei $l$ durch die Anzahl der Kästchen der Spalte bestimmt ist.};
+		\node [rect, left of=10, text width=5cm, node distance=7cm, align=left] (11) {Für jede Spalte des Diagramms: Gehe zum höchsten ker$((A-\lambda_1 E_n)^k)$ und wähle einen Basisvektor $w_j$, der nicht in den andern Kernen mit $<k$ liegt. Berechne dann $w_{j-1}=(A-\lambda_i E_n)w_j$, $w_{j-2}=(A-\lambda_i E_n)w_{j-1}$, ..., bis zum unteren Kästchen.};
+		\node [rect, above of=5, node distance=4.5cm, fill=red!20] (12) {fertig};
+			
+		\path [line] (1) -- (2);
+		\path [line] (2) -- (3);
+		\path [line] (3) -- (4);
+		\path [line] (4.west) -- node [above, near start] {Ja} (5.east);
+		\path [line] (5) -- (6);
+		\path [line] (6) -- node [above, near start] {Ja} (3);
+		\path [line] (4.south) -- node [right, near start] {Nein; Setze $k=2$} (7);
+		\path [line] (7) -- (8);
+		\path [line] (8.east) |- (7.east) node [near start, right] {Nein; $k\to k+1$};
+		\path [line] (8) -- (9) node [near start, right]{Ja};
+		\path [line] (9) -- (10);
+		\path [line] (10) -- (11);
+		\path [line] (11) -- (5);
+		\path [line] (6) -- node {Nein} (12);
+	\end{tikzpicture}
+	\end{center}
+
+
+\newpage
+
+
+{\color{blue}
+\hrule
+	\fbox{Beispiel}\\
+	\begin{align*}
+		A &=
+		\begin{pmatrix}
+			-2 & 1 & 0 & -1\\
+			0 & -1 & 0 & -1\\
+			1 & 0 & -2 & -1 \\
+			2 & -3 & 0 & -1
+		\end{pmatrix}\\
+		P_A(\lambda) &= \lambda(2+\lambda)^3
+	\intertext{Die EW sind $\lambda_1=0\ (\mu(P_A;0)=1$) und $\lambda_1=-2\ (\mu(P_A;-2)=3$).\endgraf
+	Bestimme die EV zum EW $\lambda_2=-2$.}
+		(A+2E_4, \vec{0}) &=
+		\left(\begin{array}{cccc|c}
+			0 & 1 & 0 & -1 & 0\\
+			0 & 1 & 0 & -1 & 0\\
+			1 & 0 & 0 & -1 & 0\\
+			2 & -3 & 0 & 1 & 0
+		\end{array}\right) \Rightarrow ... \Rightarrow
+		\left(\begin{array}{cccc|c}
+			1 & 0 & 0 & -1 & 0\\
+			0 & 1 & 0 & -1 & 0\\
+			0 & 0 & 0 & 0 & 0\\
+			0 & 0 & 0 & 0 & 0
+		\end{array}\right)
+		\Rightarrow
+		\begin{cases}
+			x=t\\ y=t\\ z\in\mathbb{C}\\ t\in\mathbb{C}
+		\end{cases}\\
+		\Rightarrow \ker(A+2E_4) &= \text{span}\lr{
+		\begin{pmatrix}
+			1\\1\\0\\1
+		\end{pmatrix}
+		,
+		\begin{pmatrix}
+			0\\0\\1\\0
+		\end{pmatrix}
+		}\\
+		\Rightarrow \dim \ker(A+2E_4) &= 2 < \mu(P_A;-2) = 3
+	\intertext{Da die Dimension kleiner als die Vielfachheit ist, untersuche die nächsthöhere Potenz von $(A+2E_4)$.}
+		((A+2E_4)^2, \vec{0}) &=
+		\left(\begin{array}{cccc|c}
+			-2 & 4 & 0 & -2 & 0\\
+			-2 & 4 & 0 & -2 & 0\\
+			-2 & 4 & 0 & -2 & 0\\
+			2 & -4 & 0 & 2 & 0
+		\end{array}\right) \Rightarrow ... \Rightarrow
+		\left(\begin{array}{cccc|c}
+			1 & -2 & 0 & 1 & 0\\
+			0 & 0 & 0 & 0 & 0\\
+			0 & 0 & 0 & 0 & 0\\
+			0 & 0 & 0 & 0 & 0
+		\end{array}\right)
+		\Rightarrow
+		\begin{cases}
+			x=2y-t\\ y\in\mathbb{C}\\ z\in\mathbb{C}\\ t\in\mathbb{C}
+		\end{cases}\\
+		\Rightarrow \ker((A+2E_4)^2) &= \text{span}\lr{
+		\begin{pmatrix}
+			1\\1\\0\\1
+		\end{pmatrix}
+		,
+		\begin{pmatrix}
+			0\\0\\1\\0
+		\end{pmatrix}
+		,
+		\begin{pmatrix}
+			-1\\0\\0\\1
+		\end{pmatrix}
+		}\\
+		\Rightarrow \dim \ker((A+2E_4)^2) &= 3 = \mu(P_A;-2)\quad \checkmark
+	\end{align*}
+	
+	Erstelle nun das Kästchendiagramm für $\lambda=-2$.
+	\begin{alignat*}{2}
+		{\ker((A+2E_4)^2)}: &\qquad \boxed{\phantom{v_i}} &&\\
+		{\ker(A+2E_4)}: &\qquad \boxed{\phantom{v_i}} && \boxed{\phantom{v_i}}
+	\end{alignat*}
+
+	Die 1. Spalte hat 2 Kästchen und nimmt daher in der Jordan'sche Normalform einen 2x2 großen Jordan-Block ein. Dieser wird $B_2(-2)$ notiert, wobei der Index die Blockgröße und das Argument den EW angibt. Die zweite Spalte hat nur ein Kästchen und daher nur einen 1x1 Jordan-Block $B_1(-2)$.\\
+	\\
+	Bestimme den EV zum EW $\lambda_1=0$.
+	\begin{align*}
+		(A+0E_4,\vec{0}) &=
+		\left(\begin{array}{cccc|c}
+			-2 & 1 & 0 & -1 & 0\\
+			0 & -1 & 0 & -1 & 0\\
+			1 & 0 & -2 & -1 & 0 \\
+			2 & -3 & 0 & -1 & 0
+		\end{array}\right)
+		\Rightarrow ...\Rightarrow
+		\left(\begin{array}{cccc|c}
+			1 & 0 & 0 & 1 & 0\\
+			0 & 1 & 0 & 1 & 0\\
+			0 & 0 & 1 & 1 & 0\\
+			0 & 0 & 0 & 0 & 0
+		\end{array}\right)
+		\Rightarrow
+		\begin{cases}
+			x=-t\\ y=-t\\ z=-t\\ t\in\mathbb{C}
+		\end{cases}\\
+		\Rightarrow 
+		\ker(A+0E_4) &= \text{span}\lr{
+		\begin{pmatrix}
+			-1\\-1\\-1\\1
+		\end{pmatrix}
+		}\\		
+		\dim \ker(A+0E_4) &= 1 \mu(P_A;0)\quad \checkmark
+	\intertext{Der EW $\lambda=0$ erhält einen 1x1 Jordan-Block $B_1(0)$. Die gefundenen Jordan-Blöcke können beliebig in der Matrix platziert werden. Für die Basis ist diese hier festgelegte Reihenfolge allerdings bindend.}
+		\Rightarrow
+		J &=
+		\begin{pmatrix}
+			B_1(0) & 0 & 0 \\
+			0 & B_2(-2) & 0 \\
+			0 & 0 & B_1(-2) &
+		\end{pmatrix}
+		=
+		\left(\begin{array}{c|cc|c}
+			0 & 0 & 0 & 0\\
+			\hline
+			0 & -2 & 1 & 0\\
+			0 & 0 & -2 & 0\\
+			\hline
+			0 & 0 & 0 & -2
+		\end{array}\right)
+	\intertext{Berechne nun die Basisvektoren. Gehe dabei von Block zu Block. Beim $B_2(-2)$ Jordan-Block muss ein Vektor aus $\ker((A+2E_4)^2)$ gewählt werden, der nicht in $\ker(A+2E_4)$ liegt. Anschließend wird er auf $(A+2E_4)$ angewendet, um den anderen Basisvektor zu finden. Dabei wird der Vektor, den man zuletzt gefunden hat vor dem anderen in die Basis einsortiert (hier: $b_2$ vor $b_3$).}
+		b_1 &= 
+		\begin{pmatrix}
+			-1\\ -1\\ -1\\ 1
+		\end{pmatrix}
+		,\
+		b_3 =
+		\begin{pmatrix}
+			-1\\ 0\\ 0\\ 1
+		\end{pmatrix}
+		,\
+		b_2 = (A+2E_4)^2b_3 =
+		\begin{pmatrix}
+			-1\\ -1\\ -2\\ -1
+		\end{pmatrix}
+		,\
+		b_4 =
+		\begin{pmatrix}
+			0\\ 0\\ 1\\ 0
+		\end{pmatrix}\\
+		\Rightarrow \mathcal{B} &= \left\{ b_1, b_2, b_3, b_4 \right\}\\
+		\Rightarrow S^{-1} &= (b_1\ b_2\ b_3\ b_4) =
+		\begin{pmatrix}
+			-1 & -1 & -1 & 0\\
+			-1 & -1 & 0 & 0\\
+			-1 & -2 & 0 & 1\\
+			1 & -1 & 1 & 0
+		\end{pmatrix}\\
+		\Rightarrow S &=
+		\frac{1}{2}
+		\begin{pmatrix}
+			1 & -2 & 0 & 1\\
+			-1 & 0 & 0 & -1\\
+			-2 & 2 & 0 & 0\\
+			-1 & -2 & 2 & -1
+		\end{pmatrix}
+	\end{align*}
+	Dann gilt $J = S\cdot A\cdot S^{-1}$.
+\hrule
+}
+
+
+\newpage
+
+
+\section{Glossar}
 \begin{xltabular}{\linewidth}{p{0.33\textwidth}|X}
 	\hline\hline
 		Begriff & Erklärung \\
@@ -1882,6 +1923,8 @@ $v_1,v_2$ bilden ein Orthonormalsystem.
 		& Für $F:K^n\to K^n$, $x\mapsto A\cdot x$ gilt 
 			$$A\cdot x = \lambda \cdot x$$
 		mit $A\in M(n\times n; K)$.\\
+	\hline
+		Einheitsmatrix &  \\
 	\hline
 		Elementarmatrizen & Definierte Matrizen $S_i, Q_i^j, P_i^j$, die durch Matrixmultiplikation Elementarumformungen (wie Zeilenaddition, -multiplikation) auf einer Matrix $A$ bewirken \\
 	\hline
@@ -2164,6 +2207,55 @@ $v_1,v_2$ bilden ein Orthonormalsystem.
 			$$\mu(P_F;\lambda) \quad\text{bzw.}\quad \mu(P_A(\lambda))$$ \\
 	\hline\hline
 \end{xltabular}
-
-
 \end{document}
+
+
+%\subsection{Linear (un)abhängige Familie von Vektoren}
+%Um zu überprüfen, ob eine Familie von Vektoren linear unabhängig ist, stellt man die Linearkombination für den Nullvektor auf und schaut, ob folgt, dass dies nur möglich ist, wenn alle Koeffizienten null sind (trivialer Fall) oder ob es auch andere Möglichkeiten gibt.
+%	\begin{equation}
+%		\alpha_1 v_1 + ... + \alpha_r v_r = \vec{0} \Rightarrow
+%		\begin{cases}
+%			\text{nur für $\alpha_1 = ... = \alpha_r = 0$},& \text{linear unabhängig} \\
+%			\text{sonst},& \text{linear abhängig}
+%		\end{cases}
+%	\end{equation}
+%
+%{\color{blue}
+%\hrule
+%	\fbox{Beispiel}\\
+%	ges: $(1,2,3), (4,5,6), (7,8,9)$ in $V$ linear unabhängig?
+%	
+%	\begin{align*}
+%		\alpha_1 (1,2,3) + \alpha_2 (4,5,6) + \alpha_3 (7,8,9) = (0,0,0) \Rightarrow
+%		\begin{cases}
+%			\alpha_1 + 4\alpha_2 + 7\alpha_3 = 0\\
+%			2\alpha_1 + 5\alpha_2 + 8\alpha_3 = 0\\
+%			3\alpha_1 + 6\alpha_2 + 9\alpha_3 = 0
+%		\end{cases}
+%		\Rightarrow\\
+%		\Rightarrow
+%		\lr{
+%			\begin{array}{ccc|c}
+%			1 & 4 & 7 & 0 \\
+%			2 & 5 & 8 & 0 \\
+%			3 & 6 & 9 & 0
+%			\end{array}
+%		}
+%		\Rightarrow ... \Rightarrow
+%		\lr{
+%			\begin{array}{ccc|c}
+%			1 & 0 & -1 & 0 \\
+%			0 & 1 & 2 & 0 \\
+%			0 & 0 & 0 & 0
+%			\end{array}
+%		}
+%		\Rightarrow
+%		\begin{cases}
+%			\alpha_1 = \alpha_3\\
+%			\alpha_2 = -2\alpha_3\\
+%			\alpha_3 \in \mathbb{R}
+%		\end{cases}
+%	\end{align*}
+%	Somit kann der Nullvektor durch Linearkombinationen beschrieben werden, die von der trivialen abweichen wie z.B. $\alpha_1 = 1, \alpha_2 = -2, \alpha_3 = 1$. Die Familie ist also linear abhängig.
+%\hrule
+%}
