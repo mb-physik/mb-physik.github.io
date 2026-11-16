@@ -25,6 +25,7 @@
 \usepackage{MnSymbol}
 \usepackage{multirow}
 \usepackage{chemformula}
+\usepackage{listings}
 
 \renewcommand{\cellalign}{tl}
 
@@ -273,18 +274,7 @@ Die Fourier-Transformation ist die Darstellung einer Funktion $f(x)$ in der \und
 
 
 \section{Grundlegende Definitionen und Konzepte}
-\subsection{Annahmen und Begriffe der Elektronik}
-\fbox{Begriffe}
-	\begin{itemize}
-		\item \textbf{Bauelement}\\
-		...
-	
-	
-		\item \textbf{Netzwerk / Schaltung}\\
-		...
-	\end{itemize}
-
-
+\subsection{Annahmen der Elektronik}
 \fbox{Annahmen}
 	\begin{itemize}
 		\item \textbf{Axiome der Elektrodynamik}
@@ -580,6 +570,10 @@ Die \textit{Spannungsquelle} ist ein elementares Bauteil, das ein seinen Klemmen
 			\end{equation}
 			
 		mit der Spannung der idealen Spannungsquelle $U_0$ und dem Innenwiderstand $R_i$.
+		
+		
+		\item \textbf{Ersatzspannungsquelle (Thénin-Äquivalent)}\\
+		Ein Netzwerk aus Spannungsquellen kann durch eine einzelne ideale Ersatzspannungsquelle $U_0$ mit Innenwiderstand $R_i$ ersetzt werden. Bestimme dazu die Leerlaufspannung des Netzwerks
 	\end{itemize}
 
 	
@@ -740,7 +734,19 @@ Der \textit{Ohm'sche Widerstand} ist ein elektronisches Bauteil, das durch desse
 
 \fbox{Resultate}
 	\begin{itemize}
-		\item \textbf{$I$-$U$-Kennlinie}
+		\item \textbf{Betriebsbereiche}
+			\begin{itemize}
+				\item \textbf{Sperrbereich}\\
+				...
+			
+			
+				\item \textbf{Schwellspannung}\\
+				...
+				
+				
+				\item \textbf{Durchlassbereich}\\
+				...
+			\end{itemize}
 	
 		\item \textbf{•}
 	\end{itemize}
@@ -961,6 +967,59 @@ mit der Gesamtlänge des Potentiometers $d$, der abgegriffenen Länge $x$ und ei
 \newpage
 
 
+\section{Appendix A: LTspice}
+LTspice ist ein kostenfreies Simulationsprogramm für elektronische Schaltungen.
+
+
+	\begin{table}[H]
+		\centering
+		\caption{Übersicht einiger Analysemethoden}
+		\begin{tabular}{l|l|l}
+			\hline\hline
+				Analyse & Befehl & Bedeutung \\
+			\hline
+				Transient & \texttt{.tran t\_step t\_stop t\_start t\_maxstep} & ... \\
+			\hline
+				Gleichstrom (DC)-Sweep & \texttt{.dc name start stop schritt} & ... \\
+			\hline
+				Wechselstrom (AC)-Sweep & \texttt{.ac ...} & ... \\
+			\hline
+				Transferfunktion & ... & ... \\
+			\hline
+				Arbeitspunkt & .op & ... \\
+			\hline\hline
+		\end{tabular}
+	\end{table}
+
+
+\newpage
+
+
+\section{Appendix B: Python}
+
+
+	\begin{itemize}
+		\item \textbf{Datenimport}
+		\begin{lstlisting}[language=Python]
+			df = pd.read_csv('LTspice/QUELLE', sep='\t')
+			df.columns = [ANDERE SPALTENNAMEN]
+			df
+		\end{lstlisting}
+
+
+		\item \textbf{Plotten}
+		\begin{lstlisting}[language=Python]
+			plt.plot(X, Y)
+			plt.xlabel(r'GROESSE in EINHEIT')
+			plt.ylabel(r'GROESSE in EINHEIT')
+			plt.title(TITEL)
+			plt.show()
+		\end{lstlisting}
+	\end{itemize}
+
+\newpage
+
+
 %\section{Messgeräte}
 %\subsection{Voltmeter}
 %\subsection{Amperemeter}
@@ -1011,7 +1070,7 @@ mit der Gesamtlänge des Potentiometers $d$, der abgegriffenen Länge $x$ und ei
 		aktive Bauelemente & Bauelemente, die mithilfe einer externen Energiequelle Signale verstärken können \\
 	\hline
 		Arbeitspunkt & Satz von Strom- und Spannungswert an einem bestimmten Punkt $A$ in der Schaltung
-			$$(U_{AB},I_A)$$,
+			$$(U_{AB},I_A),$$
 		
 		wobei der Punkt $B$ auf der \textit{Erde} liegt. \\
 	\hline
