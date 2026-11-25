@@ -1198,27 +1198,63 @@ Die \textit{inelastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektron
 
 \subsection{Elastische Eigenschaften}
 \subsubsection{Schallgeschwindigkeit (harmonische Gitterdynamik)}
-Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen beschrieben, die ein System aus $3rN$ gekoppelten Differentialgleichungen ergeben.\\
-\\
 \fbox{Definitionen}
 	\begin{itemize}
 		\item \textbf{Schallgeschwindigkeit}\\
 			Geschwindigkeit, mit der sich Schwingungen, die groß gegenüber der Atomabstände sind, im Festkörper ausbreiten
-				\begin{equation}
-					\vec{v}_s := \lim_{|\vec{q}| \to 0} \frac{\partial\omega(\vec{q})}{\partial |\vec{q}|}
-				\end{equation}
+				\begin{align}
+					\left.\vec{v}_s \right|_{1\text{d}} &:= \lim_{q \to 0} \frac{\diff \omega_-(q)}{\diff q} \\
+					\left.\vec{v}_s \right|_{3\text{d}} &:= \lim_{|\vec{q}| \to 0} \frac{\partial\omega_-(\vec{q})}{\partial |\vec{q}|},
+				\end{align}
+		
+		mit dem Wellenvektor $\vec{q}$ bzw. $q$.
+		
+		
+		\item \textbf{Atomposition}\\
+		Die Position des $\alpha$-ten Atoms in der $n$-ten Einheitszelle setzt sich aus der Ruhelage der Einheitszelle $\vec{x}_{\vec{n}}$, der Ruhelage des $\alpha$-ten Atoms in der Einheitszelle $\vec{x}_{\vec{n}\alpha}$ sowie der Auslenkung aus dieser Ruhelage $u_{\vec{n}\alpha}(t)$ zusammen
+			\begin{equation}
+				\vec{x}_{\vec{n}\alpha}(t) = \vec{x}_{\vec{n}} + \vec{x}_{\vec{n}\alpha} + \vec{u}_{\vec{n}\alpha}(t).
+			\end{equation}
 	\end{itemize}
 	
 
-\fbox{Resultate}
+\fbox{Annahmen}	
 	\begin{itemize}
-		\item \textbf{Ortsvektor}\\
-		Für das $\alpha$-te Atom in der $n$-ten Einheitszelle gilt
+		\item \textbf{Newton'sche Mechanik}
+
+
+		\item \textbf{Born-von-Karmán-Randbedingungen}\\
+		Periodische Randbedingungen, die es erlauben einen endlichen Kristall zu betrachten ohne Ober- oder Grenzflächeneffekte zu modellieren
 			\begin{equation}
-				\vec{x}_{\vec{n}\alpha}(t) = \vec{x}_{\vec{n}} + \vec{x}_{\vec{n},\alpha} + \frac{1}{\sqrt{m_\alpha}} \cdot \vec{A}_\alpha(\vec{q}) \cdot e^{i(\vec{q}\vec{x}_n - \omega t)},
+				\vec{u}(\vec{x}_{\vec{n},\alpha},t) \stackrel{!}{=} \vec{u}(\vec{x}_{\vec{n},\alpha} + L_i \cdot \vec{e}_i, t), \qquad i \in \{x,y,z\},
 			\end{equation}
 		
-		wobei die Amplitude der Verschiebung die Eigenvektoren der dynamischen Matrix $\underline{D}$ sind.
+		wobei $L_x, L_y, L_z$ die Länge des Kristalls in die entsprechende Raumrichtung ist.
+	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.29\textwidth]{Grafiken/atomdynamik.pdf}
+		}
+		\caption{Skizze zur Notation der Atomdynamik}
+		\label{skizze atomdynamik}
+	\end{figure}
+	
+
+\newpage
+
+
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Auslenkung}\\
+		Die Auslenkung des $\alpha$-te Atom in der $n$-ten Einheitszelle ist:
+			\begin{equation}
+				\vec{u}_{\vec{n}\alpha}(t) = \frac{1}{\sqrt{m_\alpha}} \cdot \vec{A}_\alpha(\vec{q}) \cdot e^{i(\vec{q}\vec{x}_n - \omega t)},
+			\end{equation}
+		
+		mit der Amplitude der Verschiebung $\vec{A}_\alpha(\vec{q})$.
 
 		
 		\item \textbf{dynamische Matrix}\\
@@ -1226,26 +1262,23 @@ Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen 
 			\begin{equation}
 				D_{\beta,j}^{\alpha,i} := \sum_{ \vec{m} } \frac{1}{\sqrt{m_\alpha \cdot m_\beta}} \cdot \Phi_{ \vec{m}, \beta, j }^{ \vec{n}, \alpha, i } \cdot e^{ i\vec{q}(\vec{x}_{ \vec{m} } - \vec{x}_{ \vec{n} }) },
 			\end{equation}
+		
+		mit der \textit{Kopplungskonstanten} $\Phi_{ \vec{m}, \beta, j}^{ \vec{n}, \alpha, i } := \frac{\partial^2\Phi}{\partial u_{ \vec{n}, \alpha, i } \partial u_{ \vec{m}, \beta, j }}$ (mit der potentiellen Energie des Kristalls $\Phi$) sowie der Atommasse des $\alpha$-ten Atoms $m_\alpha$.\\
+		\\
+		Die zugehörige Eigenwertgleichung lautet:		
+			\begin{equation}
+				\underline{D}(\vec{q}) \cdot \vec{A}_{\alpha,i}(\vec{q}) = -\omega^2 \cdot \vec{A}_{\alpha,i}(\vec{q}) \qquad \forall \alpha.
+			\end{equation}
 	
-		mit der \textit{Kopplungskonstanten} $\Phi_{ \vec{m}, \beta, j}^{ \vec{n}, \alpha, i } := \frac{\partial^2\Phi}{\partial u_{ \vec{n}, \alpha, i } \partial u_{ \vec{m}, \beta, j }}$ (mit der potentiellen Energie des Kristalls $\Phi$) sowie der Atommasse des $\alpha$-ten Atoms $m_\alpha$.
-	
-	
-%		\item \textbf{Eigenwertgleichung Amplitude Ortsvektor}\\
-%		Die Amplitude des Verschiebungsterms im Ortsvektor ergibt sich aus der Eigenwertgleichung der dynamischen Matrix
-%			\begin{equation}
-%				\underline{D} \cdot \vec{A}_{\alpha,i}(\vec{q}) = -\omega^2 \cdot \vec{A}_{\alpha,i}(\vec{q}) \qquad \forall \alpha.
-%			\end{equation}
+		
+		
+		
+		\item \textbf{Zustandsdichte}\\
+		Aus den periodischen Born-von-Karmán-Bedingungen folgt eine Diskretisierung der erlaubten Schwingungszustände und somit diskrete Frequenzen $\omega_i$ bzw. Wellenvektoren $\vec{q}_i$ bzw. Energien $E_i$. Die Anzahl der erlaubten Zustände im $\omega$- bzw. $\vec{q}$- bzw. $E$-Raum wird durch die Zustandsdichte beschrieben:
+			\begin{equation}
+				Z(\omega)
+			\end{equation}
 	\end{itemize}
-	
-
-	\begin{figure}[h]
-		\centering
-		\fbox{
-			\includegraphics[width=0.35\textwidth]{Grafiken/atomdynamik.pdf}
-		}
-		\caption{Skizze zur Notation der Atomdynamik}
-		\label{skizze atomdynamik}
-	\end{figure}
 
 
 \newpage
@@ -1344,8 +1377,10 @@ Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen 
 		\item \textbf{Ort}\\
 		Das $\alpha$-te Atom der $n$-ten Einheitszelle hat die Position
 			\begin{equation}
-				x_{n\alpha}(t) = x_n + x_\alpha + \frac{1}{\sqrt{m_\alpha}} \cdot A_\alpha(q) \cdot e^{i \lreck{ qan - \omega_\pm(q) t} }.
+				x_{n\alpha}(t) = x_n + x_\alpha + \frac{1}{\sqrt{m_\alpha}} \cdot A_\alpha(q) \cdot e^{i \lreck{ qan - \omega_\pm(q) t} },
 			\end{equation}
+		
+		mit der Masse des $\alpha$-ten Atoms $m_\alpha$, dessen Amplitude $A_\alpha$, dem Wellenvektor $q$ und dem Gitterparameter $a$.
 		
 		
 		\item \textbf{Dispersionsrelation}
@@ -1505,14 +1540,119 @@ Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen 
 			w_\pm \equiv \omega_\pm^2 &= - \frac{-2f\lr{ \frac{1}{m_1} + \frac{1}{m_2} }}{2} \pm \sqrt{ \lr{ \frac{-2f\lr{ \frac{1}{m_1} + \frac{1}{m_2} }}{2} }^2 - \frac{4f^2}{m_1 m_2} \sin^2 \lr{ \frac{qa}{2} } } \\
 			\Leftrightarrow \omega_\pm(q) &= \sqrt{ f\lr{ \frac{1}{m_1} + \frac{1}{m_2} } \pm f \sqrt{ \lr{ \frac{1}{m_1} + \frac{1}{m_2} }^2 - \frac{4f^2}{m_1 m_2} \sin^2 \lr{ \frac{qa}{2} } } } \qquad \blacksquare
 		\end{align*}
-\hrule
+
+
+	\fbox{Herleitung}\\
+	zz: Schallgeschwindigkeit $v_S = a \sqrt{ \frac{f}{ 2(m_1 + m_2) } }$\\
+	\\
+	Die Schallgeschwindigkeit ist die Gruppengeschwindigkeit der akustischen Schwingungen für kleine $q$.\\
+	Entwickle daher den Sinus in der Disperionsrelation um $q=0$:
+		\begin{align*}
+			\sin\lr{ \frac{qa}{2} } &\approx \frac{qa}{2}
+		\end{align*}
+	
+	Somit ergibt sich für die Disperionsrelation des akustischen Zweigs
+		\begin{align*}
+			\omega_-(q) &= \sqrt{ f\lr{ \frac{1}{m_1} + \frac{1}{m_2} } - f \sqrt{ \lr{ \frac{1}{m_1} + \frac{1}{m_2} }^2 - \frac{4f^2}{m_1 m_2}  \lr{ \frac{qa}{2} }^2 } } \\
+			&=...
+		\end{align*}
+	
+		\hrule
 }
 
 
 \newpage
 
 
+\subsubsection{Lineare einatomige Kette}
+Die lineare einatomige Kette ist ein Modell, dass durch die Anpassungen $a \to 2a$ und $m_1 = m_2 \equiv m$ aus der linearen zweiatomigen Kette abgeleitet werden kann.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Dispersionsrelation akustischer Zweig}
+			\begin{equation}
+				\omega_\pm(q) = \frac{2f}{m} \left| \sin \lr{ \frac{qa}{2} } \right|
+			\end{equation}
+		
+		
+		\item \textbf{Schallgeschwindigkeit}
+			\begin{equation}
+				v_s = a \sqrt{ \frac{f}{m} }
+			\end{equation}
+	\end{itemize}
+
+
+	\begin{figure}[H]
+		\centering
+		\fbox{
+			\includegraphics[width=0.6\textwidth]{Grafiken/dispersionsrelation einatomige kette.pdf}
+		}
+		\caption{Dispersionsrelation des akustischer Zweigs der linearen atomigen Kette}
+	\end{figure}
+
+\newpage
+
+
 \subsection{Thermische Eigenschaften}
+\subsubsection{Klassische Gitterschwingung}
+
+
+\newpage
+
+
+\subsubsection{Phonon}
+Das \textit{Phonon} ist ein bosonisches Quasiteilchen und entspringt der Quantisierung der klassischen Gitterschwingungen.\\
+\\
+\fbox{Resultate}
+	\begin{itemize}
+		\item \textbf{Bose-Einstein-Verteilung}
+			\begin{equation}
+				f_\text{BE}(E) = \frac{1}{e^{\frac{E}{k_\text{B}T}} - 1}
+			\end{equation}
+		
+		
+		\item \textbf{Zustandsdichte}
+			\begin{equation}
+				Z(E) = \frac{3V}{2\pi^2 \hbar^3 v_S^3} E^2
+			\end{equation}
+		
+		
+		\item \textbf{Energie}
+			\begin{itemize}
+				\item \textbf{Energie einer Mode}
+				Die Energie einer Mode ergibt sich aus 
+			\begin{equation}
+				E = \hbar \omega \lr{ n + \frac{1}{2} },
+			\end{equation}
+			
+			
+				\item \textbf{Energie eines Phonons}
+				
+				
+				\item \textbf{Gesamtenergie}
+				
+			\end{itemize}
+		
+		
+		
+		mit der Anzahl der Anregungen $n$.\\
+		\\
+		In einem System mehrerer Phononen ist die Gesamtenergie:
+			\begin{equation}
+				U \equiv \braket{E} = \sum_i \hbar\omega_i \lr{ f_\text{BE}(E_i) + \frac{1}{2} } \to U_0 + \int f_\text{BE}(E) \cdot \hbar\omega \cdot Z(\omega)  \, \diff \omega
+			\end{equation}
+		
+		
+		\item \textbf{Quasiimpuls}
+			\begin{equation}
+				\vec{p} = \hbar \vec{q}
+			\end{equation}
+	\end{itemize}
+
+
+\newpage
+
+
 \subsubsection{Wärmekapazität (Debye-Modell)}
 \fbox{Annahmen}
 	\begin{itemize}
@@ -3092,7 +3232,7 @@ Er liefert die Möglichkeit, die Elektronendichte eines Materials experimentell 
 		
 		wobei die Atome als Kugeln mit dem Radius $r$ behandelt werden und $N_\text{EZ}$ die Anzahl der Atome in der Einheitszelle beschreibt. \\
 	\hline
-		Phonon &  \\
+		Phonon & bosonisches Quasiteilchen, das der Quantisierung der Gitterschwingungen entspringt \\
 	\hline
 		primitive Einheitszelle & \textcolor{blue}{siehe Elementarzelle} \\
 	\hline
