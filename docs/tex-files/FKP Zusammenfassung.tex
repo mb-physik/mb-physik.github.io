@@ -1198,6 +1198,21 @@ Die \textit{inelastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektron
 
 \subsection{Elastische Eigenschaften}
 \subsubsection{Schallgeschwindigkeit (harmonische Gitterdynamik)}
+\fbox{Annahmen}	
+	\begin{itemize}
+		\item \textbf{Newton'sche Mechanik}
+
+
+		\item \textbf{Born-von-Karmán-Randbedingungen}\\
+		Periodische Randbedingungen, die es erlauben einen endlichen Kristall zu betrachten ohne Ober- oder Grenzflächeneffekte zu modellieren
+			\begin{equation}
+				\vec{u}(\vec{x}_{\vec{n},\alpha},t) \stackrel{!}{=} \vec{u}(\vec{x}_{\vec{n},\alpha} + L_i \cdot \vec{e}_i, t), \qquad i \in \{x,y,z\},
+			\end{equation}
+		
+		wobei $L_x, L_y, L_z$ die Länge des Kristalls in die entsprechende Raumrichtung ist.
+	\end{itemize}
+	
+	
 \fbox{Definitionen}
 	\begin{itemize}
 		\item \textbf{Schallgeschwindigkeit}\\
@@ -1215,33 +1230,12 @@ Die \textit{inelastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektron
 			\begin{equation}
 				\vec{x}_{\vec{n}\alpha}(t) = \vec{x}_{\vec{n}} + \vec{x}_{\vec{n}\alpha} + \vec{u}_{\vec{n}\alpha}(t).
 			\end{equation}
-	\end{itemize}
-	
-
-\fbox{Annahmen}	
-	\begin{itemize}
-		\item \textbf{Newton'sche Mechanik}
-
-
-		\item \textbf{Born-von-Karmán-Randbedingungen}\\
-		Periodische Randbedingungen, die es erlauben einen endlichen Kristall zu betrachten ohne Ober- oder Grenzflächeneffekte zu modellieren
-			\begin{equation}
-				\vec{u}(\vec{x}_{\vec{n},\alpha},t) \stackrel{!}{=} \vec{u}(\vec{x}_{\vec{n},\alpha} + L_i \cdot \vec{e}_i, t), \qquad i \in \{x,y,z\},
-			\end{equation}
 		
-		wobei $L_x, L_y, L_z$ die Länge des Kristalls in die entsprechende Raumrichtung ist.
+		
+		\item \textbf{Zustandsdichte}\\
+		Aus den periodischen Born-von-Karmán-Bedingungen folgt eine Diskretisierung der erlaubten Schwingungszustände und somit diskrete Frequenzen $\omega_i$ bzw. Wellenvektoren $\vec{q}_i$ bzw. Energien $E_i$. Die Anzahl der erlaubten Zustände im $\omega$-Raum $Z(\omega)$ bzw. $\vec{q}$-Raum $Z(\vec{q})$ bzw. $E$-Raum $Z(E)$ wird durch die Zustandsdichte beschrieben.
 	\end{itemize}
 
-
-	\begin{figure}[h]
-		\centering
-		\fbox{
-			\includegraphics[width=0.29\textwidth]{Grafiken/atomdynamik.pdf}
-		}
-		\caption{Skizze zur Notation der Atomdynamik}
-		\label{skizze atomdynamik}
-	\end{figure}
-	
 
 \newpage
 
@@ -1269,16 +1263,18 @@ Die \textit{inelastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektron
 			\begin{equation}
 				\underline{D}(\vec{q}) \cdot \vec{A}_{\alpha,i}(\vec{q}) = -\omega^2 \cdot \vec{A}_{\alpha,i}(\vec{q}) \qquad \forall \alpha.
 			\end{equation}
-	
-		
-		
-		
-		\item \textbf{Zustandsdichte}\\
-		Aus den periodischen Born-von-Karmán-Bedingungen folgt eine Diskretisierung der erlaubten Schwingungszustände und somit diskrete Frequenzen $\omega_i$ bzw. Wellenvektoren $\vec{q}_i$ bzw. Energien $E_i$. Die Anzahl der erlaubten Zustände im $\omega$- bzw. $\vec{q}$- bzw. $E$-Raum wird durch die Zustandsdichte beschrieben:
-			\begin{equation}
-				Z(\omega)
-			\end{equation}
 	\end{itemize}
+
+
+	\begin{figure}[h]
+		\centering
+		\fbox{
+			\includegraphics[width=0.45\textwidth]{Grafiken/atomdynamik.pdf}
+			\includegraphics[width=0.45\textwidth]{Grafiken/zustandsdichte.png}
+		}
+		\caption{links: Skizze zur Notation der Atomdynamik; rechts: Skizze der diskreten Schwingungszustände eines Kristalls mit Born-van-Karmán-Randbedingungen}
+		\label{skizze atomdynamik}
+	\end{figure}
 
 
 \newpage
@@ -1374,7 +1370,7 @@ Die \textit{inelastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektron
 
 \fbox{Resultate}
 	\begin{itemize}
-		\item \textbf{Ort}\\
+		\item \textbf{Atomposition}\\
 		Das $\alpha$-te Atom der $n$-ten Einheitszelle hat die Position
 			\begin{equation}
 				x_{n\alpha}(t) = x_n + x_\alpha + \frac{1}{\sqrt{m_\alpha}} \cdot A_\alpha(q) \cdot e^{i \lreck{ qan - \omega_\pm(q) t} },
@@ -1594,55 +1590,47 @@ Die lineare einatomige Kette ist ein Modell, dass durch die Anpassungen $a \to 2
 
 
 \subsection{Thermische Eigenschaften}
-\subsubsection{Klassische Gitterschwingung}
-
-
-\newpage
-
-
 \subsubsection{Phonon}
-Das \textit{Phonon} ist ein bosonisches Quasiteilchen und entspringt der Quantisierung der klassischen Gitterschwingungen.\\
+Das \textit{Phonon} ist ein bosonisches Quasiteilchen und entspringt der Quantisierung der klassischen Gitterschwingungen. Es entspricht einer Anregung einer Schwingungsmode.\\
 \\
 \fbox{Resultate}
 	\begin{itemize}
-		\item \textbf{Bose-Einstein-Verteilung}
+		\item \textbf{Bose-Einstein-Verteilung}\\
+		Die Bose-Einstein-Verteilung beschreibt die mittlere Besetzungszahl eines bosonischen Systems, worunter die Phononen fallen:
 			\begin{equation}
-				f_\text{BE}(E) = \frac{1}{e^{\frac{E}{k_\text{B}T}} - 1}
+				f_\text{BE}(E) := \braket{n} = \frac{1}{e^{\frac{E}{k_\text{B}T}} - 1}
 			\end{equation}
 		
 		
-		\item \textbf{Zustandsdichte}
-			\begin{equation}
-				Z(E) = \frac{3V}{2\pi^2 \hbar^3 v_S^3} E^2
-			\end{equation}
+		\item \textbf{Zustandsdichte}\\
+		Die Zustandsdichte der Phononen ist völlig analog zu der der klassischen Gitterschwingungen.
 		
 		
 		\item \textbf{Energie}
 			\begin{itemize}
-				\item \textbf{Energie einer Mode}
-				Die Energie einer Mode ergibt sich aus 
-			\begin{equation}
-				E = \hbar \omega \lr{ n + \frac{1}{2} },
-			\end{equation}
-			
-			
-				\item \textbf{Energie eines Phonons}
+				\item \textbf{Phonon}
+					\begin{equation}
+						E = \hbar\omega
+					\end{equation}
 				
 				
-				\item \textbf{Gesamtenergie}
+				\item \textbf{Energie einer Mode}\\
+				Die Energie der Mode $\omega$ bzw. dessen Erwartungswert ergibt sich über
+					\begin{align}
+						E &= \hbar \omega \lr{ n + \frac{1}{2} } \\
+						\braket{E} &= \hbar \omega \lr{ f_\text{BE}(\omega) + \frac{1}{2} },
+					\end{align}
 				
+				mit der Phononenergie $\hbar\omega$ und der Anzahl der Phononen in dieser Mode $n$.
+				
+				\item \textbf{Gesamtenergie}\\
+				In einem System mehrerer Moden ergibt sich die Gesamtenergie durch Summation über alle Modenenergien:
+			\begin{align}
+				U \equiv \braket{E} = \sum_i \hbar\omega_i \lr{ f_\text{BE}(\omega_i) + \frac{1}{2} } \to U_0 + \int f_\text{BE}(\omega) \cdot \hbar\omega \cdot Z(\omega)  \, \diff \omega
+			\end{align}
 			\end{itemize}
-		
-		
-		
-		mit der Anzahl der Anregungen $n$.\\
-		\\
-		In einem System mehrerer Phononen ist die Gesamtenergie:
-			\begin{equation}
-				U \equiv \braket{E} = \sum_i \hbar\omega_i \lr{ f_\text{BE}(E_i) + \frac{1}{2} } \to U_0 + \int f_\text{BE}(E) \cdot \hbar\omega \cdot Z(\omega)  \, \diff \omega
-			\end{equation}
-		
-		
+
+
 		\item \textbf{Quasiimpuls}
 			\begin{equation}
 				\vec{p} = \hbar \vec{q}
