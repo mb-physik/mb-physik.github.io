@@ -574,7 +574,7 @@ Das \textit{reziproke Gitter} ist ein essentielles Konzept, um die Beugungsbedin
 
 		
 		\item \textbf{nützlicher Zusammenhang reale, reziproke Gittervektoren}\\
-		Ein Satz reziproker Gittervektoren $\vec{g}_1, \vec{g}_2, \vec{g}_3$ lässt sich über die Beziehung
+		Ein Satz reziproker Gittervektoren $\vec{g}_1, \vec{g}_2, \vec{g}_3$ lässt sich über die Beziehung:
 			\begin{align}
 				\vec{g}_1 &= \frac{2\pi}{V_\text{EZ}}(\vec{a}_2 \times \vec{a}_3) \\
 				\vec{g}_2 &= \frac{2\pi}{V_\text{EZ}}(\vec{a}_3 \times \vec{a}_1) \\
@@ -585,9 +585,9 @@ Das \textit{reziproke Gitter} ist ein essentielles Konzept, um die Beugungsbedin
 		
 		
 		\item \textbf{Zusammenhang reales, reziprokes Volumen}\\
-		Für die Volumen einer Einheitszelle im Ortsraum bzw. reziproken Raum gilt der Zusammenhang
+		Für die Volumen einer Einheitszelle im Ortsraum bzw. reziproken Raum gilt der Zusammenhang:
 			\begin{equation}
-				V_\text{rez. EZ} = \frac{(2\pi)^3}{V_\text{EZ}}.
+				V_\text{rez. EZ} = \frac{(2\pi)^3}{V_\text{EZ}}
 			\end{equation}
 	\end{itemize}
 
@@ -938,11 +938,68 @@ Die \textit{elastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektron, 
 {\color{blue}
 \hrule
 	\fbox{Beispiel}\\
-	geg: ... \\
+	geg: kfz-Gitter atomig \\
 	ges: Strukturfaktor $S_{hkl}$\\
-	Lös: \textcolor{red}{ERGÄNZEN ÜB3}
+	Lös:\\
+	\\
+	Strategie:\\
+	1) Atome in der Einheitszelle bestimmen \\
+	2) Atomfaktoren bestimmen \\
+	3) Strukturfaktor formulieren \\
+	\\
+	1) Das kfz-Gitter hat
+		\begin{align*}
+			N = 8 \cdot \frac{1}{8} + 6 \cdot \frac{1}{2} = 1 + 3 = 4
+		\end{align*}
+	
+	Atome pro konventioneller Einheitszelle.\\
+	\\
+	Wähle o.B.d.A. die 4 Atome, die an den folgenden Gitterpunkten der Einheitszelle sitzen als diejenigen Atome, die zur Einheitszelle gehören:
+		\begin{align*}
+			\vec{x}_1 =
+			\begin{pmatrix}
+				0\\0\\0
+			\end{pmatrix},
+			\quad
+			\vec{x}_2
+			=
+			\frac{a}{2}
+			\begin{pmatrix}
+				0\\1\\1
+			\end{pmatrix},
+			\quad
+			\vec{x}_3
+			=
+			\frac{a}{2}
+			\begin{pmatrix}
+				0\\1\\1
+			\end{pmatrix},
+			\quad
+			\vec{x}_4
+			=
+			\frac{a}{2}
+			\begin{pmatrix}
+				1\\1\\0
+			\end{pmatrix}
+		\end{align*}
+	
+	2) Die Atomfaktoren sind aufgrund der einatomigen Basis für alle Atome gleich:
+		\begin{align*}
+			f_i \equiv f \qquad \forall i \in \{1,2,3,4\}
+		\end{align*}
 
-
+	3) Somit ergibt sich der Strukturfaktor:
+		\begin{align*}
+			S_{hkl} &= \sum_{\alpha=1}^4 f \cdot e^{ -i 2\pi (hu_\alpha + kv_\alpha + lw_\alpha) } \\
+			&= f \cdot 1 + f \cdot e^{-i 2\pi \frac{1}{2}(k+l)} + f \cdot e^{-i 2\pi \frac{1}{2}(h+l)} + f \cdot e^{-i 2\pi \frac{1}{2}(h+k)} \\
+			&= f \lreck{ 1 + \lr{ e^{-i\pi} }^{k+l} + \lr{ e^{-i\pi} }^{h+l} + \lr{ e^{-i\pi} }^{h+k} } \\
+			&= f \lreck{ 1 + \lr{ -1 }^{k+l} + \lr{ -1 }^{h+l} + \lr{ -1 }^{h+k} } \\
+			&=
+			\begin{cases}
+				4f, & \text{$h+k+l$ gerade} \\
+				0, & \text{$h+k+l$ ungerade}
+			\end{cases}
+		\end{align*}
 \hrule
 }
 
@@ -1148,7 +1205,7 @@ Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen 
 		\item \textbf{Schallgeschwindigkeit}\\
 			Geschwindigkeit, mit der sich Schwingungen, die groß gegenüber der Atomabstände sind, im Festkörper ausbreiten
 				\begin{equation}
-					\vec{v}_s := \lim_{\vec{q} \to \vec{0}} \vec{\nabla}_{\vec{q}} \omega(\vec{q})
+					\vec{v}_s := \lim_{|\vec{q}| \to 0} \frac{\partial\omega(\vec{q})}{\partial |\vec{q}|}
 				\end{equation}
 	\end{itemize}
 	
@@ -1158,19 +1215,19 @@ Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen 
 		\item \textbf{Ortsvektor}\\
 		Für das $\alpha$-te Atom in der $n$-ten Einheitszelle gilt
 			\begin{equation}
-				\vec{x}_{\vec{n}\alpha}(t) = \vec{x}_{\vec{n}}(t) + \vec{x}_{\vec{n},\alpha} + \frac{1}{\sqrt{m_\alpha}} \cdot \vec{A}_\alpha(\vec{q}) \cdot e^{i(\vec{q}\vec{x}_n - \omega t)},
+				\vec{x}_{\vec{n}\alpha}(t) = \vec{x}_{\vec{n}} + \vec{x}_{\vec{n},\alpha} + \frac{1}{\sqrt{m_\alpha}} \cdot \vec{A}_\alpha(\vec{q}) \cdot e^{i(\vec{q}\vec{x}_n - \omega t)},
 			\end{equation}
 		
 		wobei die Amplitude der Verschiebung die Eigenvektoren der dynamischen Matrix $\underline{D}$ sind.
 
 		
-		\item \textbf{Dynamische Matrix}\\
+		\item \textbf{dynamische Matrix}\\
 		Matrix, dessen Eigenvektoren die Amplitude $\vec{A}_{\alpha,i}(\vec{q})$ des Ortsvektors ergeben
 			\begin{equation}
-				D_{\beta,j}^{\alpha,i} := \sum_m \frac{1}{\sqrt{m_\alpha \cdot m_\beta}} \cdot \Phi_{m,\beta,j}^{n,\alpha,i} \cdot e^{i\vec{q}(\vec{x}_m-\vec{x}_n)},
+				D_{\beta,j}^{\alpha,i} := \sum_{ \vec{m} } \frac{1}{\sqrt{m_\alpha \cdot m_\beta}} \cdot \Phi_{ \vec{m}, \beta, j }^{ \vec{n}, \alpha, i } \cdot e^{ i\vec{q}(\vec{x}_{ \vec{m} } - \vec{x}_{ \vec{n} }) },
 			\end{equation}
 	
-		mit der \textit{Kopplungskonstanten} $\Phi_{m,\beta,j}^{n,\alpha,i} := \frac{\partial^2\Phi}{\partial u_{n,\alpha,i} \partial u_{m,\beta,j}}$ (mit der potentiellen Energie des Kristalls $\Phi$) sowie der Atommasse des $\alpha$-ten Atoms $m_\alpha$.
+		mit der \textit{Kopplungskonstanten} $\Phi_{ \vec{m}, \beta, j}^{ \vec{n}, \alpha, i } := \frac{\partial^2\Phi}{\partial u_{ \vec{n}, \alpha, i } \partial u_{ \vec{m}, \beta, j }}$ (mit der potentiellen Energie des Kristalls $\Phi$) sowie der Atommasse des $\alpha$-ten Atoms $m_\alpha$.
 	
 	
 %		\item \textbf{Eigenwertgleichung Amplitude Ortsvektor}\\
@@ -1184,9 +1241,10 @@ Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen 
 	\begin{figure}[h]
 		\centering
 		\fbox{
-			\includegraphics[width=0.4\textwidth]{Grafiken/atomdynamik.pdf}
+			\includegraphics[width=0.35\textwidth]{Grafiken/atomdynamik.pdf}
 		}
 		\caption{Skizze zur Notation der Atomdynamik}
+		\label{skizze atomdynamik}
 	\end{figure}
 
 
@@ -1205,11 +1263,11 @@ Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen 
 	4) Einsetzen eines ebene-Wellen-Ansatzes in die Bewegungsgleichungen\\
 	5) Definition der dynamischen Matrix\\
 	\\
-	Betrachte die \textcolor{red}{ERGÄNZEN Skizze ...}.\\
+	Betrachte die Abbildung \ref{skizze atomdynamik}.\\
 	\\
-	Die Position eines Atoms zum Zeitpunkt $t$ wird beschrieben durch
+	Die Position des $\alpha$-ten Atoms in der $n$-ten Einheitszelle zum Zeitpunkt $t$ wird beschrieben durch
 		\begin{align*}
-			\vec{x}(t) &= \vec{x}_n + \vec{x}_\alpha + \vec{u}_{n,\alpha}(t) \equiv \vec{x}_{n,\alpha} + \vec{u}_{n,\alpha}(t),
+			\vec{x}_{\vec{n}\alpha}(t) &= \vec{x}_n + \vec{x}_\alpha + \vec{u}_{n,\alpha}(t) \equiv \vec{x}_{n,\alpha} + \vec{u}_{n,\alpha}(t),
 		\end{align*}
 		
 	mit dem Ortsvektor der $n$-ten EZ $\vec{x}_n$, dem Ortsvektor von der $n$-ten EZ zur $\alpha$-ten Ruheposition des Atoms und der Auslenkung des Atoms aus seiner Ruheposition $\vec{u}_{n,\alpha}(t)$.\\
@@ -1268,12 +1326,16 @@ Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen 
 \subsubsection{Lineare zweiatomige Kette}
 \fbox{Annahmen}
 	\begin{itemize}
-		\item \textbf{nur longitudinale Schwingungen}
-	
-		\item \textbf{abwechelnde Atomtypen}
+		\item \textbf{abwechelnde Atommassen}
 		
-		\item \textbf{Nächste-Nachbar-Näherung}\\
-		Ausschließlich nächste Nachbarn üben eine Kraft aufeinander aus
+		
+		\item \textbf{longitudinale Schwingungen}
+		
+		
+		\item \textbf{Nächste-Nachbar-Näherung}
+		
+		
+		\item \textbf{einheitliche Federkonstante}
 	\end{itemize}
 
 
@@ -1288,8 +1350,10 @@ Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen 
 		
 		\item \textbf{Dispersionsrelation}
 			\begin{equation}
-				\omega_\pm(q) = \sqrt{ f \lr{ \frac{1}{m_1} + \frac{1}{m_2} } \pm f \lreck{ \lr{ \frac{1}{m_1} + \frac{1}{m_2} }^2 - \frac{4}{m_1 m_2} \sin^2\lr{ \frac{qa}{2} } } }
+				\omega_\pm(q) = \sqrt{ f \lr{ \frac{1}{m_1} + \frac{1}{m_2} } \pm f \lreck{ \lr{ \frac{1}{m_1} + \frac{1}{m_2} }^2 - \frac{4}{m_1 m_2} \sin^2\lr{ \frac{qa}{2} } } },
 			\end{equation}
+		
+		mit der Federkonstante $f$, dem Gitterparameter $a$ und den Atommasen $m_1, m_2$.
 		
 		
 		\item \textbf{Schallgeschwindigkeit}
@@ -1302,9 +1366,10 @@ Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen 
 \begin{figure}[h]
 	\centering
 	\fbox{
-		\includegraphics[width=0.6\textwidth]{Grafiken/dispersion lineare zweiatomige kette.pdf}
+		\includegraphics[width=0.45\textwidth]{Grafiken/skizze atomdynamik.pdf}
+		\includegraphics[width=0.45\textwidth]{Grafiken/dispersion lineare zweiatomige kette.pdf}
 	}
-	\caption{Qualitativer Plot der Dispersionsrelation einer linearen zweiatomigen Kette; blau: \textit{optischer} Zweig; orange: \textit{akkustischer} Zweig}
+	\caption{links: Skizze der linearen zweiatomigen Kette; rechts: Qualitativer Plot der Dispersionsrelation einer linearen zweiatomigen Kette; blau: \textit{optischer} Zweig; orange: \textit{akkustischer} Zweig}
 \end{figure}
 
 
@@ -1314,19 +1379,132 @@ Klassisch werden Gitterschwingungen durch die Newton'schen Bewegungsgleichungen 
 {\color{violet}
 \hrule
 	\fbox{Herleitung}\\
+	zz: Dispersionsrelation $\omega_\pm(q)$\\
 	\\
 	Herleitungsskizze:\\
-	1) Formuliere die Kraft auf das $n$-te Atom von Typ 1 bzw. 2\\
-	2) Einsetzen des ebene Welle Ansatzes in das Gleichungssystem\\
-	3) Lösen des Gleichungssystems durch Nullsetzen der Determinante\\
+	1) Newton'sche Bewegungsgleichung für Atompositionen $x_n, y_n$ bzw. Auslenkungen $u_n, v_n$ \\
+	2) Ebene-Welle-Ansatz für Auslenkungen \\
+	3) Matrixformulierung des Gleichungssystems $\underline{M} \vec{A} = \vec{0} $ \\
+	4) Nicht-triviale Lösung $\det \vec{M} = 0$ \\
 	\\
-	\textcolor{red}{ERGÄNZEN Herleitung Ibach, Lüth S. 56}
+	Betrachte die lineare Kette mit zweiatomiger Basis. Die Position der Atome mit Masse $m_1$ seien durch $x$, die der Masse $m_2$ mit $y$ beschrieben. Die Kette lässt sich in Einheitszellen unterteilen, wobei immer ein Atom der jeweiligen Sorte in einer Zelle sitzt. Die Positionen der Atome der $n$-ten Einheitszelle werden im Folgenden mit $x_n, y_n$ bezeichnet.\\
+	\\
+	1) Stelle nun die Newton'sche Bewegungsgleichung für das Atom $x_n, y_n$ auf.\\
+	Beginne mit $x_n$.\\
+	Aufgrund der Nächsten-Nachbar-Näherung wirkt auf das Atom $x_n$ das linke Nachbaratom $y_{n-1}$ sowie $y_n$.\\
+	Die Kraft, die durch das jeweilige Nachbaratom auf $x_n$ wirkt sei durch $F_{y_n}, F_{y_{n-1}}$ beschrieben, wobei zur Formulierung das Hook'sche Gesetz
+		\begin{align*}
+			F = k( R  - x )
+		\end{align*}
+	
+	verwendet wird, wobei $R$ die Ruhelage von $x$ darstellt.\\
+	\\
+	Betrachte nun die Kraft $F_{y_{n-1}}$. Die Ruhelage des zugehörigen Hook'schen Gesetzes ergibt sich aus der Bedingung, dass die Positionen $x_n, y_n$ dem Abstand ihrer Ruhelagen, d.h.
+		\begin{align*}
+			x_n - y_n = \frac{a}{2}
+		\end{align*}
+	
+	entsprechen.\\
+	Umstellen nach $x_n$ liefert die entsprechende Ruhelage:
+		\begin{align*}
+			x_n \equiv R = \frac{a}{2} + y_n
+		\end{align*}
+
+	Einsetzen in die Federkraft ergibt:
+		\begin{align*}
+			F_{y_n} &= f( R - x_n) \\
+			&= f \lr{ \frac{a}{2} + y_n - x_n }
+		\end{align*}
+
+	Weiter können die Positionen $x_n(t) = x_{n0} + u_n(t), y_n(t) = y_{n0} + v_n(t)$ durch ihrer Ruhelage und Auslenkung aus der Ruhelage formuliert werden
+		\begin{align*}
+			F_{y_{n-1}} &= f \lr{ \cancel{ \frac{a}{2} } + \cancel{ y_{n0} } + v_n(t) - \cancel{ x_{n0} } - u_n(t) } \\
+			&= f \lr{ v_{n-1}(t) - u_n(t) }
+		\end{align*}
 
 
+\newpage
 
 
+	Analog ergibt sich für die Kraft auf das Atom $x_n$ durch das rechte Nachbaratom $y_n$:
+		\begin{align*}
+			F_{y_n} &= f \lr{ v_n(t) - u_n(t) }
+		\end{align*}
+	
+	Gemäß 1. Newton'schen Axiom ergibt sich die Bewegungsgleichung
+		\begin{align*}
+			m_1 \ddot{x}_n(t) = m_1 \ddot{u}_n(t) &= F_{y_{n-1}} + F_{y_n} \\
+			&= f \lr{ v_{n-1} - u_n } + f \lr{ v_n - u_n } \\
+	 		&= f \lr{ -2u_n + v_{n-1} + v_n }
+		\end{align*}
+
+	Analog ergibt sich die Bewegungsgleichung für das Atom $y_n$:
+		\begin{align*}
+			m_2 \ddot{y}_n(t) &= f \lr{ -v_n + u_n + u_{n+1} }
+		\end{align*}
+		
+	2) Wähle nun einen Ebene-Welle-Ansatz für die Auslenkungen $u_n, v_n$:
+		\begin{align*}
+			u_n &= \frac{1}{\sqrt{m_1}} \cdot A_1(q) \cdot e^{i(qna - \omega t)} \\
+			v_n &= \frac{1}{\sqrt{m_2}} \cdot A_2(q) \cdot e^{i(qna - \omega t)},
+		\end{align*}
+	
+	wobei angenommen wird, dass sowohl das $x_n$ als auch das $y_n$ derselben Einheitszelle dieselbe Phase haben.\\
+	\\
+	Einsetzen des Ansatzes in die Bewegungsgleichung für $u_n(t)$ ergibt:
+		\begin{align*}
+			m_1 \ddot{u}_n(t) &= m_1 \frac{\diff^2}{\diff t^2} \lr{ \frac{1}{\sqrt{m_1}} \cdot A_1(q) \cdot e^{i(qna - \omega t)} } = - \sqrt{m_1} A_1 \omega^2 e^{i(qna - \omega t)} \\
+			&\stackrel{!}{=} f \Bigg[ -2 \lr{ \frac{1}{\sqrt{m_1}} \cdot A_1(q) \cdot e^{i(qna - \omega t)} }  + \frac{1}{\sqrt{m_2}} \cdot A_2(q) \cdot e^{i(qna - \omega t)} + \\
+			&\phantom{=} + \frac{1}{\sqrt{m_2}} \cdot A_2(q) \cdot e^{i(q(n-1)a - \omega t)} \Bigg] \\
+			\stackrel{ \comment{ :\sqrt{m_1}, e^{...} } }{\Leftrightarrow} -\omega^2 A_1 &= f \lreck{ -2\frac{1}{m_1} A_1 + \frac{1}{\sqrt{m_1 m_2}} \lr{ 1 + e^{-iqa} } A_2 } \\
+			\Leftrightarrow 0 &= \lr{ \frac{2f}{m_1} - \omega^2 } A_1 - \frac{f}{\sqrt{m_1 m_2}} \lr{1 + e^{-iqa}} A_2
+		\end{align*}
+	
+	Analog für das Einsetzen des Ansatzes in die Bewegungsgleichung $v_n(t)$:
+		\begin{align*}
+			0 &= - \frac{f}{\sqrt{m_1 m_2}} \lr{ 1 + e^{+iqa} } A_1 + \lr{ \frac{2f}{m_2} - \omega^2 } A_2
+		\end{align*}
 
 
+	3) Das Gleichungssystem, bestehend aus den letzten beiden Gleichungen, kann wie folgt in Matrixnotation dargestellt werden:
+		\begin{align*}
+			\underbrace{
+			\begin{pmatrix}
+				\frac{2f}{m_1} - \omega^2 & -\frac{f}{\sqrt{m_1 m_2}} \lr{ 1 + e^{-iqa} } \\
+				-\frac{f}{\sqrt{m_1 m_2}} \lr{ 1 + e^{+iqa} } & \frac{2f}{m_2} - \omega^2
+			\end{pmatrix}
+			}_{=:\underline{M}}
+			\cdot
+			\begin{pmatrix}
+				A_1 \\ A_2
+			\end{pmatrix}
+			&=
+			\begin{pmatrix}
+				0 \\ 0
+			\end{pmatrix}
+		\end{align*}
+
+
+\newpage
+
+
+	4) Die nicht-triviale Lösung dieses Gleichungsssytems erfüllt $\det \underline{M} = 0$:
+		\begin{align*}
+			\det \underline{M} &= 
+			\begin{vmatrix}
+				\frac{2f}{m_1} - \omega^2 & -\frac{f}{\sqrt{m_1 m_2}} \lr{ 1 + e^{-iqa} } \\
+				-\frac{f}{\sqrt{m_1 m_2}} \lr{ 1 + e^{+iqa} } & \frac{2f}{m_2} - \omega^2
+			\end{vmatrix} \\
+			&= \underbrace{ \lr{ \frac{2f}{m_1} - \omega^2 } \lr{ \frac{2f}{m_2} - \omega^2 } }_{ = \omega^4 - \frac{2f}{m_1} \omega^2 - \frac{2f}{m_2} \omega^2 + \frac{4f^2}{m_1 m_2} } - \frac{f^2}{m_1 m_2} \underbrace{ \lr{ 1 + e^{+iqa} } \lr{ 1 + e^{-iqa} } }_{ = 2 + 2 \cos(qa)}  \\
+			&= \omega^4 + 2f \lr{ \frac{1}{m_1} + \frac{1}{m_2} } \omega^2 + \frac{4f^2}{m_1 m_2} - \frac{2f^2}{m_1 m_2} \lr{ 1 + \cos(qa) } \\
+			&= \omega^4 + 2f \lr{ \frac{1}{m_1} + \frac{1}{m_2} } \omega^2 + \frac{4f^2}{m_1 m_2} \sin^2 \lr{ \frac{qa}{2} }
+		\end{align*}
+	
+	Substituiere $w := \omega^2$, um die $p$-$q$-Formel anzuwenden:
+		\begin{align*}
+			w_\pm \equiv \omega_\pm^2 &= - \frac{-2f\lr{ \frac{1}{m_1} + \frac{1}{m_2} }}{2} \pm \sqrt{ \lr{ \frac{-2f\lr{ \frac{1}{m_1} + \frac{1}{m_2} }}{2} }^2 - \frac{4f^2}{m_1 m_2} \sin^2 \lr{ \frac{qa}{2} } } \\
+			\Leftrightarrow \omega_\pm(q) &= \sqrt{ f\lr{ \frac{1}{m_1} + \frac{1}{m_2} } \pm f \sqrt{ \lr{ \frac{1}{m_1} + \frac{1}{m_2} }^2 - \frac{4f^2}{m_1 m_2} \sin^2 \lr{ \frac{qa}{2} } } } \qquad \blacksquare
+		\end{align*}
 \hrule
 }
 
