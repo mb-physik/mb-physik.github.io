@@ -1197,7 +1197,7 @@ Die \textit{inelastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektron
 
 
 \subsection{Elastische Eigenschaften}
-\subsubsection{Schallgeschwindigkeit (harmonische Gitterdynamik)}
+\subsubsection{Schallgeschwindigkeit (klassische Gitterdynamik)}
 \fbox{Annahmen}	
 	\begin{itemize}
 		\item \textbf{Newton'sche Mechanik}
@@ -1373,7 +1373,7 @@ Die \textit{inelastische Streuung} einer Welle (z.B. Röntgenstrahlung, Elektron
 		\item \textbf{Atomposition}\\
 		Das $\alpha$-te Atom der $n$-ten Einheitszelle hat die Position
 			\begin{equation}
-				x_{n\alpha}(t) = x_n + x_\alpha + \frac{1}{\sqrt{m_\alpha}} \cdot A_\alpha(q) \cdot e^{i \lreck{ qan - \omega_\pm(q) t} },
+				x_{n\alpha}(t) = x_n + x_{n\alpha} + \frac{1}{\sqrt{m_\alpha}} \cdot A_\alpha(q) \cdot e^{i \lreck{ qan - \omega_\pm(q) t} },
 			\end{equation}
 		
 		mit der Masse des $\alpha$-ten Atoms $m_\alpha$, dessen Amplitude $A_\alpha$, dem Wellenvektor $q$ und dem Gitterparameter $a$.
@@ -1595,15 +1595,15 @@ Das \textit{Phonon} ist ein bosonisches Quasiteilchen und entspringt der Quantis
 \\
 \fbox{Resultate}
 	\begin{itemize}
-		\item \textbf{Bose-Einstein-Verteilung}\\
+		\item \textbf{Zustandsdichte}\\
+		Die Zustandsdichte der Phononen ist identisch zu der der klassischen Gitterschwingungen.
+		
+		
+		\item \textbf{mittlere Besetzungszahl (Bose-Einstein-Verteilung)}\\
 		Die Bose-Einstein-Verteilung beschreibt die mittlere Besetzungszahl eines bosonischen Systems, worunter die Phononen fallen:
 			\begin{equation}
 				f_\text{BE}(E) := \braket{n} = \frac{1}{e^{\frac{E}{k_\text{B}T}} - 1}
 			\end{equation}
-		
-		
-		\item \textbf{Zustandsdichte}\\
-		Die Zustandsdichte der Phononen ist völlig analog zu der der klassischen Gitterschwingungen.
 		
 		
 		\item \textbf{Energie}
@@ -1617,17 +1617,17 @@ Das \textit{Phonon} ist ein bosonisches Quasiteilchen und entspringt der Quantis
 				\item \textbf{Energie einer Mode}\\
 				Die Energie der Mode $\omega$ bzw. dessen Erwartungswert ergibt sich über
 					\begin{align}
-						E &= \hbar \omega \lr{ n + \frac{1}{2} } \\
-						\braket{E} &= \hbar \omega \lr{ f_\text{BE}(\omega) + \frac{1}{2} },
+						E_\text{Mode} &= \hbar \omega \lr{ n + \frac{1}{2} },
 					\end{align}
 				
 				mit der Phononenergie $\hbar\omega$ und der Anzahl der Phononen in dieser Mode $n$.
 				
-				\item \textbf{Gesamtenergie}\\
-				In einem System mehrerer Moden ergibt sich die Gesamtenergie durch Summation über alle Modenenergien:
-			\begin{align}
-				U \equiv \braket{E} = \sum_i \hbar\omega_i \lr{ f_\text{BE}(\omega_i) + \frac{1}{2} } \to U_0 + \int f_\text{BE}(\omega) \cdot \hbar\omega \cdot Z(\omega)  \, \diff \omega
-			\end{align}
+				
+				\item \textbf{thermische Energie}\\
+				Summe der mittleren Modenenergien
+					\begin{align}
+						U = \sum_{i \in \text{Mode}} \hbar\omega_i \lr{ f_\text{BE}(\omega_i) + \frac{1}{2} } \to \int  \hbar\omega \cdot f_\text{BE}(\omega) \cdot Z(\omega)  \, \diff \omega + U_0
+					\end{align}
 			\end{itemize}
 
 
@@ -1643,18 +1643,20 @@ Das \textit{Phonon} ist ein bosonisches Quasiteilchen und entspringt der Quantis
 
 \subsubsection{Wärmekapazität (Debye-Modell)}
 \fbox{Annahmen}
-	\begin{itemize}
-		\item \textbf{lineare Dispersionsrelation}\\
-		Der Zusammenhang zwischen der Frequenz $\omega$ und der Wellenzahl $q$ wird durch
+	\begin{itemize}		
+		\item \textbf{endlicher $3$d Kristall aus $N$ Atomen mit BvK-RB}
+		
+		
+		\item \textbf{lineare Dispersionsrelation}
 			\begin{equation}
-				\omega = v_s \cdot q
+				\omega = v_s \cdot q,
 			\end{equation}
 		
-		modelliert, wobei $v_s$ die Schallgeschwindigkeit ist.
+		mit der mittleren Schallgeschwindigkeit $v_s$.
 		
 
 		\item \textbf{Debye-Frequenz}\\
-		Die Gitterschwingungen können maximal die Debye-Frequenz $\omega_D$ erreichen
+		Die Gitterschwingungen können maximal die Debye-Frequenz $\omega_D$ annehmen
 	\end{itemize}
 
 
@@ -1670,21 +1672,28 @@ Das \textit{Phonon} ist ein bosonisches Quasiteilchen und entspringt der Quantis
 				\end{cases}
 			\end{equation}
 
-		mit der \textit{Debye-Temperatur]} $T_D = \frac{\hbar\omega_D}{k_B}$ als charakteristische Größe.
+		mit der \textit{Debye-Temperatur} $T_D = \frac{\hbar\omega_D}{k_B}$ als charakteristische Größe.
 		
 		
-		\item \textbf{Debye-Frequenz}\\
-		Höchste besetzbare Frequenz
+		\item \textbf{Debye-Frequenz}
 			\begin{equation}
 				\omega_\text{D} = (6\pi^2 v_s^3 n)^{1/3}
 			\end{equation}
+		
+		
+		\item \textbf{Zustandsdichte}
+			\begin{equation}
+				Z(\omega) = \frac{V}{2\pi^2} \cdot \lr{ \frac{1}{v_L^3} + \frac{2}{v_T^3} } \equiv \frac{V}{2\pi^2} \frac{3}{v_s^3},
+			\end{equation}
+		
+		mit der Schallgeschwindigkeit der longitudinalen bzw. transversalen Schwingung $v_L, v_T$ sowie der mittleren Schallgeschwindigkeit $v_s$.
 	\end{itemize}
 
 
 	\begin{figure}[h]
 		\centering
 		\fbox{
-			\includegraphics[width=0.6\textwidth]{Grafiken/debye-modell.png}
+			\includegraphics[width=0.45\textwidth]{Grafiken/debye-modell.png}
 		}
 		\caption{Skizze Wärmekapazität im Debye-Modell}
 	\end{figure}
@@ -1774,8 +1783,7 @@ Das \textit{Phonon} ist ein bosonisches Quasiteilchen und entspringt der Quantis
 \subsubsection{Wärmekapazität (Metallelektronen-Beitrag)}
 \fbox{Annahmen}
 	\begin{itemize}
-		\item \textbf{Fermi-Gas}\\
-		Quantenmechanisches freies Elektronengas
+		\item \textbf{quantenmechanisches freies Elektronengas (Fermi-Gas)}
 		
 		
 		\item \textbf{niedrige Temperaturen}\\
@@ -2195,8 +2203,7 @@ Es kommt formell auf dieselben Gleichungen wie das Drude-Modell, verwendet jedoc
 \\
 \fbox{Annahmen}
 	\begin{itemize}
-		\item \textbf{Fermi-Gas}\\
-		Quantenmechanisches freies Elektronengas
+		\item \textbf{quantenmechanisches freies Elektronengas (Fermi-Gas)}
 		
 		
 		\item \textbf{ausgewählte Elektronen am Transport beteiligt}\\
@@ -2471,301 +2478,301 @@ Es kommt formell auf dieselben Gleichungen wie das Drude-Modell, verwendet jedoc
 \newpage
 
 
-\subsection{Dielektrische Eigenschaften}
-\subsubsection{Grundlegende Begriffe und Definitionen}
-\fbox{Kategorisierung}
-	\begin{itemize}
-		\item \textbf{dielektrische Festkörper}\\
-		Festkörper ohne permanente elektrische Dipole oder spontane Polarisation, die durch ein äußeres Feld polarisiert werden können
-		
-		
-		\item \textbf{paraelektrische Festkörper}\\
-		Festkörper, die aus permanenten elektrischen Dipolen bestehen, die durch ein äußeres elektrisches Feld ausgerichtet werden können
-		
-		
-		\item \textbf{ferro- und antiferroelektrische Festkörper}\\
-		Festkörper, die unterhalb einer spezifischen Temperatur spontane Polarisation aufweisen		
-	\end{itemize}
-
-
-\fbox{Definitionen}
-	\begin{itemize}
-		\item \textbf{Elektrische Suszeptbilität}\\
-		Die \textit{elektrische Suszeptibilität} $\chi$ beschreibt den Zusammenhang zwischen Polarisation $\vec{P}$ und E-Feld $\vec{E}$ und ist im Allgemeinen ein Tensor:
-			\begin{equation}
-				\vec{P}(\vec{r},t) = \chi \cdot \vec{E}(\vec{r},t)
-			\end{equation}
-		
-		
-		\item \textbf{Dielektrische Funktion}\\
-		Die \textit{dielektrische Funktion} hängt wie folgt mit der elektrischen Suszeptibilität zusammen und ist ebenfalls im Allgemeinen ein Tensor
-			\begin{equation}
-				\varepsilon_{ij} := 1 + \chi_{ij}.
-			\end{equation}
-		
-		
-		\item \textbf{lokales E-Feld}\\
-		Das \textit{lokale E-Feld} in einem Festkörper $\vec{E}_\text{lok}$, der durch ein externes E-Feld $\vec{E}_\text{ext}$ polarisiert wird, ist
-			\begin{equation}
-				\vec{E}_\text{lok} = \vec{E}_\text{ext} + \vec{E}_\text{L} + \vec{E}_\text{N},
-			\end{equation}
-		
-		mit dem Lorentz-Feld $\vec{E}_\text{L}$ und dem Depolarisationsfeld $\vec{E}_\text{N}$.
-		
-	
-%		\item \textbf{Polarisation}\\
-%		Die Polarisation ist definiert als das elektrische Dipolmoment pro Volumen
-%			\begin{equation}
-%				\vec{P} := \frac{\vec{p}_\text{el}}{V} = \frac{\sum_i \vec{p}_\text{el,i}}{V}
-%			\end{equation}
-
+%\subsection{Dielektrische Eigenschaften}
+%\subsubsection{Grundlegende Begriffe und Definitionen}
+%\fbox{Kategorisierung}
+%	\begin{itemize}
+%		\item \textbf{dielektrische Festkörper}\\
+%		Festkörper ohne permanente elektrische Dipole oder spontane Polarisation, die durch ein äußeres Feld polarisiert werden können
+%		
+%		
+%		\item \textbf{paraelektrische Festkörper}\\
+%		Festkörper, die aus permanenten elektrischen Dipolen bestehen, die durch ein äußeres elektrisches Feld ausgerichtet werden können
+%		
+%		
+%		\item \textbf{ferro- und antiferroelektrische Festkörper}\\
+%		Festkörper, die unterhalb einer spezifischen Temperatur spontane Polarisation aufweisen		
+%	\end{itemize}
 %
-%		\item \textbf{Dielektrische Verschiebung}
+%
+%\fbox{Definitionen}
+%	\begin{itemize}
+%		\item \textbf{Elektrische Suszeptbilität}\\
+%		Die \textit{elektrische Suszeptibilität} $\chi$ beschreibt den Zusammenhang zwischen Polarisation $\vec{P}$ und E-Feld $\vec{E}$ und ist im Allgemeinen ein Tensor:
 %			\begin{equation}
-%				\vec{D}(\vec{r},t) := \varepsilon_0 \vec{E}(\vec{r},t) + \vec{P}(\vec{r},t)
+%				\vec{P}(\vec{r},t) = \chi \cdot \vec{E}(\vec{r},t)
 %			\end{equation}
 %		
 %		
-%		\item \textbf{Polarisierbarkeit}\\
-%		Die Polarisierbarkeit $\alpha$ beschreibt den Zusammenhang zwischen dem induzierten elektrischen Dipolmoment $\vec{p}_\text{el}$ und dem E-Feld $\vec{E}$
+%		\item \textbf{Dielektrische Funktion}\\
+%		Die \textit{dielektrische Funktion} hängt wie folgt mit der elektrischen Suszeptibilität zusammen und ist ebenfalls im Allgemeinen ein Tensor
 %			\begin{equation}
-%				\vec{p}_\text{el} = \alpha \cdot \vec{E}
+%				\varepsilon_{ij} := 1 + \chi_{ij}.
 %			\end{equation}
-	\end{itemize}
-
-
-	\begin{figure}[H]
-		\centering
-%		\fbox{
-			\includegraphics[width=\textwidth]{Grafiken/dielektrische festkörper.png}
-%		}
-		\caption{Darstellung dielektrische und paraelektrische Festkörper; a) Lorentz-Oszillator-Modell dielektrischer Festkörper; b) Ionenkristall-Modell dielektrischer Festkörper; c) Modell eines paraelektrischen Fesktörpers}
-	\end{figure}
-
-
-%\hrule
-%	\fbox{Theorem}\\
-%	Die \textit{Kramers-Kronig-Relation} beschreibt den Zusammenhang zwischen Real- und Imaginärteil der dielektrischen Funktion $\varepsilon_\text{R}$ bzw. $\varepsilon_\text{I}$
-%		\begin{align}
-%			\varepsilon_\text{R}(\omega) &= \frac{2}{\pi} \mathcal{P} \lrschweif{ \int_0^\infty \diff\omega' \, \frac{ \omega' \cdot \varepsilon_\text{I}(\omega) }{ \omega'^2 - \omega^2 } } \\
-%			\varepsilon_\text{I}(\omega) &= -\frac{2\omega}{\pi} \mathcal{P} \lrschweif{ \int_0^\infty \diff\omega' \, \frac{ \varepsilon_\text{R}(\omega') }{ \omega'^2 - \omega^2 }},
-%		\end{align}
+%		
+%		
+%		\item \textbf{lokales E-Feld}\\
+%		Das \textit{lokale E-Feld} in einem Festkörper $\vec{E}_\text{lok}$, der durch ein externes E-Feld $\vec{E}_\text{ext}$ polarisiert wird, ist
+%			\begin{equation}
+%				\vec{E}_\text{lok} = \vec{E}_\text{ext} + \vec{E}_\text{L} + \vec{E}_\text{N},
+%			\end{equation}
+%		
+%		mit dem Lorentz-Feld $\vec{E}_\text{L}$ und dem Depolarisationsfeld $\vec{E}_\text{N}$.
+%		
 %	
-%	wobei $\mathcal{P}$ den Hauptwert des Integrals berechnet.
+%%		\item \textbf{Polarisation}\\
+%%		Die Polarisation ist definiert als das elektrische Dipolmoment pro Volumen
+%%			\begin{equation}
+%%				\vec{P} := \frac{\vec{p}_\text{el}}{V} = \frac{\sum_i \vec{p}_\text{el,i}}{V}
+%%			\end{equation}
+%
+%%
+%%		\item \textbf{Dielektrische Verschiebung}
+%%			\begin{equation}
+%%				\vec{D}(\vec{r},t) := \varepsilon_0 \vec{E}(\vec{r},t) + \vec{P}(\vec{r},t)
+%%			\end{equation}
+%%		
+%%		
+%%		\item \textbf{Polarisierbarkeit}\\
+%%		Die Polarisierbarkeit $\alpha$ beschreibt den Zusammenhang zwischen dem induzierten elektrischen Dipolmoment $\vec{p}_\text{el}$ und dem E-Feld $\vec{E}$
+%%			\begin{equation}
+%%				\vec{p}_\text{el} = \alpha \cdot \vec{E}
+%%			\end{equation}
+%	\end{itemize}
+%
+%
+%	\begin{figure}[H]
+%		\centering
+%%		\fbox{
+%			\includegraphics[width=\textwidth]{Grafiken/dielektrische festkörper.png}
+%%		}
+%		\caption{Darstellung dielektrische und paraelektrische Festkörper; a) Lorentz-Oszillator-Modell dielektrischer Festkörper; b) Ionenkristall-Modell dielektrischer Festkörper; c) Modell eines paraelektrischen Fesktörpers}
+%	\end{figure}
+%
+%
+%%\hrule
+%%	\fbox{Theorem}\\
+%%	Die \textit{Kramers-Kronig-Relation} beschreibt den Zusammenhang zwischen Real- und Imaginärteil der dielektrischen Funktion $\varepsilon_\text{R}$ bzw. $\varepsilon_\text{I}$
+%%		\begin{align}
+%%			\varepsilon_\text{R}(\omega) &= \frac{2}{\pi} \mathcal{P} \lrschweif{ \int_0^\infty \diff\omega' \, \frac{ \omega' \cdot \varepsilon_\text{I}(\omega) }{ \omega'^2 - \omega^2 } } \\
+%%			\varepsilon_\text{I}(\omega) &= -\frac{2\omega}{\pi} \mathcal{P} \lrschweif{ \int_0^\infty \diff\omega' \, \frac{ \varepsilon_\text{R}(\omega') }{ \omega'^2 - \omega^2 }},
+%%		\end{align}
+%%	
+%%	wobei $\mathcal{P}$ den Hauptwert des Integrals berechnet.
+%%\hrule
+%
+%
+%\newpage
+%
+
+%\subsubsection{Dielektrische Funktion (Lorentz-Oszilator)}
+%Das Lorentz'sche Oszillator-Modell modelliert Elektronen als negative Punktladungen, die an einen Atomkern gebunden sind und mit einem äußeren E-Feld interagieren.\\
+%\\
+%\fbox{Resultate}
+%	\begin{itemize}
+%		\item \textbf{dielektrische Funktion}
+%			\begin{align}
+%				\varepsilon(\omega) &= 1 + \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{1}{(\omega_0^2 - \omega^2) - i\Gamma\omega} \\
+%				\varepsilon_\text{R}(\omega) &= 1 + \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{(\omega_0^2 - \omega^2)}{(\omega_0^2 - \omega^2) - \Gamma\omega} \\
+%				\varepsilon_\text{I}(\omega) &= \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{\Gamma\omega}{(\omega_0^2 - \omega^2) - \Gamma\omega}
+%			\end{align}
+%	
+%		mit der Teilchendichte $n_\text{V}$.
+%	\end{itemize}
+%
+%\vspace{0.5cm}
+%
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=0.6\textwidth]{Grafiken/reflexivität lorentz.png}
+%	\caption{Real- und Imaginärteil der dielektrischen Funktion eines durch Lorentz-Oszillatoren modellierten Festkörpers mit 2 Resonanzfrequenzen}
+%\end{figure}
+%
+%
+%\newpage
+%
+%
+%\subsubsection{Dielektrische Funktion (Ionische Polarisation)}
+%\fbox{Annahmen}
+%	\begin{itemize}
+%		\item \textbf{zweiatomige Basis aus Anion und Kation}
+%		
+%		
+%		\item \textbf{harmonische Näherung}
+%	\end{itemize}
+%
+%
+%\fbox{Resultate}
+%	\begin{itemize}
+%		\item \textbf{dielektrische Funktion}
+%			\begin{align}
+%			\varepsilon(\omega) = \varepsilon_\text{stat} \frac{\omega_L^2 - \omega^2}{\omega_T^2 - \omega^2}
+%			\end{align}
+%
+%		mit der freien longitudinalen bzw. freien transversalen Schwingungsfrequenz
+%			\begin{align}
+%				\omega_L &= \omega_0 \sqrt{ 1 + \frac{ \frac{2}{3} n_V \alpha_\text{ion}(0) }{ 1 + \frac{2}{3} n_V \alpha_\text{el}(0) } } \\
+%				\omega_T &= \omega_0 \sqrt{ 1 - \frac{ \frac{1}{3} n_V \alpha_\text{ion}(0) }{ 1 + \frac{1}{3} n_V \alpha_\text{el}(0) } },
+%			\end{align}
+%
+%		wobei $\alpha$ die Polarisierbarkeit ist.
+%	\end{itemize}
+%
+%\vspace{0.5cm}
+%
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=0.6\textwidth]{Grafiken/reflexivität ion.png}
+%	\caption{Reflexivität eines Ionkristalls}
+%\end{figure}
+%
+%
+%\newpage
+%
+%
+%\subsubsection{Dielektrische Funktion (Orientierungspolarisation)}
+%Die \textit{Orientierungspolarisation} ist die Polarisation, die aufgrund der Ausrichtung von permanenten elektrischen Dipolen in einem Material auftritt.\\
+%\\
+%\fbox{Annahmen}
+%	\begin{itemize}
+%		\item \textbf{permanente elektrische Dipole}
+%	\end{itemize}
+%
+%
+%\fbox{Resultate}
+%	\begin{itemize}
+%		\item \textbf{elektrische Suszeptibilität}
+%			\begin{align}
+%				\chi_\text{dip,r}(\omega) &= \frac{1}{1 + \omega^2\tau^2} \chi_\text{dip}(0) \\
+%				\chi_\text{dip,i}(\omega) &= \frac{\omega\tau}{1 + \omega^2\tau^2} \chi_\text{dip}(0)
+%			\end{align}
+%	\end{itemize}
+%
+%
+%	\begin{figure}[h]
+%		\centering
+%		\fbox{
+%			\includegraphics[width=0.6\textwidth]{Grafiken/orientierungspolarisation.png}
+%		}
+%		\caption{Elektrische Suszeptiblität aufgrund von Orientierungspolarisation}
+%	\end{figure}
+%
+%
+%\newpage
+%
+
+%\subsubsection{Dielektrische Funktion (Freies Elektronengas)}
+%\fbox{Annahmen}
+%	\begin{itemize}
+%		\item \textbf{Effektive-Masse-Näherung}
+%		
+%		
+%		\item \textbf{Reibungsterm}
+%	\end{itemize}
+%
+%
+%\fbox{Resultate}
+%	\begin{itemize}
+%		\item \textbf{dielektrische Funktion}
+%			\begin{align}
+%				\varepsilon_\text{R}(\omega) &= \varepsilon_\text{el}(\omega) \cdot \lreck{ 1 - \lr{\frac{\omega_p}{\omega}^2} \frac{(\omega\tau)^2}{1 + (\omega\tau)^2} } \\
+%				\varepsilon_\text{I}(\omega) &= \varepsilon_\text{el}(\omega) \cdot \lr{\frac{\omega_p}{\omega}}^2 \cdot \frac{\omega\tau}{1 + (\omega\tau)^2}
+%			\end{align}
+%	\end{itemize}
+%
+%\vspace{0.5cm}
+%
+%	\begin{figure}[h]
+%		\centering
+%		\includegraphics[width=0.6\textwidth]{Grafiken/reflexivität feg.png}
+%		\caption{Reflexivität $R$ und Realteil der dielektrischen Funktion $\varepsilon_\text{R}(\omega)$ eines freien Elektronengases}
+%	\end{figure}
+%
+%
+%\newpage
+%
+%
+%{\color{violet}
 %\hrule
-
-
-\newpage
-
-
-\subsubsection{Dielektrische Funktion (Lorentz-Oszilator)}
-Das Lorentz'sche Oszillator-Modell modelliert Elektronen als negative Punktladungen, die an einen Atomkern gebunden sind und mit einem äußeren E-Feld interagieren.\\
-\\
-\fbox{Resultate}
-	\begin{itemize}
-		\item \textbf{dielektrische Funktion}
-			\begin{align}
-				\varepsilon(\omega) &= 1 + \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{1}{(\omega_0^2 - \omega^2) - i\Gamma\omega} \\
-				\varepsilon_\text{R}(\omega) &= 1 + \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{(\omega_0^2 - \omega^2)}{(\omega_0^2 - \omega^2) - \Gamma\omega} \\
-				\varepsilon_\text{I}(\omega) &= \frac{ n_\text{V} e^2 }{\varepsilon_0 m} \frac{\Gamma\omega}{(\omega_0^2 - \omega^2) - \Gamma\omega}
-			\end{align}
-	
-		mit der Teilchendichte $n_\text{V}$.
-	\end{itemize}
-
-\vspace{0.5cm}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.6\textwidth]{Grafiken/reflexivität lorentz.png}
-	\caption{Real- und Imaginärteil der dielektrischen Funktion eines durch Lorentz-Oszillatoren modellierten Festkörpers mit 2 Resonanzfrequenzen}
-\end{figure}
-
-
-\newpage
-
-
-\subsubsection{Dielektrische Funktion (Ionische Polarisation)}
-\fbox{Annahmen}
-	\begin{itemize}
-		\item \textbf{zweiatomige Basis aus Anion und Kation}
-		
-		
-		\item \textbf{harmonische Näherung}
-	\end{itemize}
-
-
-\fbox{Resultate}
-	\begin{itemize}
-		\item \textbf{dielektrische Funktion}
-			\begin{align}
-			\varepsilon(\omega) = \varepsilon_\text{stat} \frac{\omega_L^2 - \omega^2}{\omega_T^2 - \omega^2}
-			\end{align}
-
-		mit der freien longitudinalen bzw. freien transversalen Schwingungsfrequenz
-			\begin{align}
-				\omega_L &= \omega_0 \sqrt{ 1 + \frac{ \frac{2}{3} n_V \alpha_\text{ion}(0) }{ 1 + \frac{2}{3} n_V \alpha_\text{el}(0) } } \\
-				\omega_T &= \omega_0 \sqrt{ 1 - \frac{ \frac{1}{3} n_V \alpha_\text{ion}(0) }{ 1 + \frac{1}{3} n_V \alpha_\text{el}(0) } },
-			\end{align}
-
-		wobei $\alpha$ die Polarisierbarkeit ist.
-	\end{itemize}
-
-\vspace{0.5cm}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.6\textwidth]{Grafiken/reflexivität ion.png}
-	\caption{Reflexivität eines Ionkristalls}
-\end{figure}
-
-
-\newpage
-
-
-\subsubsection{Dielektrische Funktion (Orientierungspolarisation)}
-Die \textit{Orientierungspolarisation} ist die Polarisation, die aufgrund der Ausrichtung von permanenten elektrischen Dipolen in einem Material auftritt.\\
-\\
-\fbox{Annahmen}
-	\begin{itemize}
-		\item \textbf{permanente elektrische Dipole}
-	\end{itemize}
-
-
-\fbox{Resultate}
-	\begin{itemize}
-		\item \textbf{elektrische Suszeptibilität}
-			\begin{align}
-				\chi_\text{dip,r}(\omega) &= \frac{1}{1 + \omega^2\tau^2} \chi_\text{dip}(0) \\
-				\chi_\text{dip,i}(\omega) &= \frac{\omega\tau}{1 + \omega^2\tau^2} \chi_\text{dip}(0)
-			\end{align}
-	\end{itemize}
-
-
-	\begin{figure}[h]
-		\centering
-		\fbox{
-			\includegraphics[width=0.6\textwidth]{Grafiken/orientierungspolarisation.png}
-		}
-		\caption{Elektrische Suszeptiblität aufgrund von Orientierungspolarisation}
-	\end{figure}
-
-
-\newpage
-
-
-\subsubsection{Dielektrische Funktion (Freies Elektronengas)}
-\fbox{Annahmen}
-	\begin{itemize}
-		\item \textbf{Effektive-Masse-Näherung}
-		
-		
-		\item \textbf{Reibungsterm}
-	\end{itemize}
-
-
-\fbox{Resultate}
-	\begin{itemize}
-		\item \textbf{dielektrische Funktion}
-			\begin{align}
-				\varepsilon_\text{R}(\omega) &= \varepsilon_\text{el}(\omega) \cdot \lreck{ 1 - \lr{\frac{\omega_p}{\omega}^2} \frac{(\omega\tau)^2}{1 + (\omega\tau)^2} } \\
-				\varepsilon_\text{I}(\omega) &= \varepsilon_\text{el}(\omega) \cdot \lr{\frac{\omega_p}{\omega}}^2 \cdot \frac{\omega\tau}{1 + (\omega\tau)^2}
-			\end{align}
-	\end{itemize}
-
-\vspace{0.5cm}
-
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.6\textwidth]{Grafiken/reflexivität feg.png}
-		\caption{Reflexivität $R$ und Realteil der dielektrischen Funktion $\varepsilon_\text{R}(\omega)$ eines freien Elektronengases}
-	\end{figure}
-
-
-\newpage
-
-
-{\color{violet}
-\hrule
-	\fbox{Herleitung}\\
-	zz: dielektrische Funktion $\varepsilon(\omega)$\\
-	\\
-	Herleitungsskizze: \\
-	1) Newton'sche Bewegungsgleichung aufstellen \\
-	2) Polarisation formulieren \\
-	3) Elektrische Suszeptibilität berechnen \\
-	4) Dielektrische Funktion berechnen \\
-	\\
-	In der Effektive-Masse-Näherung kann die Bewegung des Elektrons durch die Newton'sche Physik, unter Verwendung der effektiven Masse $m^\star$, beschrieben werden
-		\begin{align*}
-			m^\star \frac{\diff^2 x}{\diff t^2} + \frac{m^\star}{\tau} \frac{\diff x}{\diff t} = -e E_0 e^{i\omega\tau},
-		\end{align*}
-
-	wobei der Reibungsterm durch Stoßprozesse zustande kommt.\\
-\\
-	Die Lösung diese Problems ist aus der Mechanik bekannt:
-		\begin{align*}
-			x(t) = \frac{e}{m^\star} \frac{1}{\omega \lr{ \omega + i \frac{1}{\tau}} } \cdot E_0 e^{-i\omega t}
-		\end{align*}
-	
-	Die Polarisation ergibt sich durch Multiplikation mit der Ladungsdichte und der negativen Elementarladung:
-		\begin{align*}
-			P_\text{L}(t) = -e n_V x(t) = -\frac{n_V e^2}{\varepsilon_0 m^\star} \frac{1}{\omega \lr{ \omega + i \frac{1}{\tau} } } E_0 e^{-i\omega t}
-		\end{align*}
-	
-	Die elektrische Suszeptibilität ergibt sich aus dessen Definition:
-		\begin{align*}
-			\chi_\text{L}(\omega) = \frac{P_\text{L}}{\varepsilon_0 E} = -\frac{n_V e^2}{\varepsilon_0 m^\star} \frac{1}{\omega \lr{\omega + i \frac{1}{\tau}} }
-		\end{align*}
-	
-	Schließlich ist die dielektrische Funktion
-		\begin{align*}
-			\varepsilon(\omega) &= 1 + \chi_\text{el}(\omega) + \chi_\text{L}(\omega) = \varepsilon_\text{el}(\omega) + \chi_\text{L}(\omega) = \\
-			&= \varepsilon_\text{el}(\omega) -\frac{n_V e^2}{\varepsilon_0 m^\star} \frac{1}{\omega \lr{\omega + i \frac{1}{\tau}} } = \\
-			&= \varepsilon_\text{el}(\omega) \lr{ 1 - \frac{n_V e^2}{\varepsilon_0 \varepsilon_\text{el}(\omega) m^\star} \frac{1}{\omega \lr{\omega + i \frac{1}{\tau}} } } \equiv \\
-			&\equiv \varepsilon_\text{el}(\omega) \lr{ 1 - (\omega_p\tau)^2  \frac{1-i\frac{1}{\omega\tau}}{1 + (\omega\tau)^2} }
-		\end{align*}
-	
-	mit der Plasmafrequenz $\omega_p := \sqrt{\frac{n_V e^2}{\varepsilon_0\varepsilon_\text{el}(\omega)m^\star}}$ und $\varepsilon_\text{el}(\omega)$ die dielektrische Funktion aufgrund von an die Ionen gebundenen Elektronen ist. $\qquad \blacksquare$
-\hrule
-}
-
-
-\newpage
-
-
-\subsection{Optische Eigenschaften}
-\subsubsection{Absorption, Reflexion und Transmission}
-Die optischen Eigenschaften Absorption, Reflexion und Transmission lassen sich unmittelbar aus den dielektrischen Eigenschaften ableiten.\\
-\\
-\fbox{Resultate}
-	\begin{itemize}
-		\item \textbf{Absorptionskoeffizient}\\
-		Der \textit{Absorptionskoeffizient} $K$ ist die Energie, die beim Durchlauf eines Materials der Länge $1$ absorbiert wird:
-			\begin{align}
-				K(\omega) &= \frac{2\omega n_\text{I}}{c} = \frac{4\pi n_\text{I}}{\lambda} = 2k n_\text{I} = \frac{\varepsilon_\text{I}(\omega)}{c}
-			\end{align}
-		
-		
-		\item \textbf{Reflexionskoeffizient}\\
-		Der \textit{Reflexionskoeffizient} ist definert als das Verhältnis der reflektierten und einfallenden Intensität.\\
-		Im Falle normaler Inzidenz gilt:
-			\begin{equation}
-				R(\omega) = \left| \frac{n_\text{R}-1}{n_\text{R}+1} \right|^2 = \frac{(n_\text{R}-1)^2 + n_\text{I}^2}{(n_\text{R}+1)^2 + n_\text{I}^2}
-			\end{equation}
-		
-		
-		\item \textbf{Transmissionskoeffizient}\\
-		Der \textit{Transmissionskoeffizient} ist definiert als das Verhältnis der transmittierten und einfallenden Intensität.\\
-		Im Falle normaler Inzidenz gilt:
-			\begin{equation}
-				T(\omega) = \left| \frac{2}{n_\text{R}+1} \right|^2 = \frac{4n_\text{R}(\omega)}{(n_\text{R}+1)^2 + n_\text{I}^2}
-			\end{equation}
-	\end{itemize}
-	
-	
-\newpage
-
+%	\fbox{Herleitung}\\
+%	zz: dielektrische Funktion $\varepsilon(\omega)$\\
+%	\\
+%	Herleitungsskizze: \\
+%	1) Newton'sche Bewegungsgleichung aufstellen \\
+%	2) Polarisation formulieren \\
+%	3) Elektrische Suszeptibilität berechnen \\
+%	4) Dielektrische Funktion berechnen \\
+%	\\
+%	In der Effektive-Masse-Näherung kann die Bewegung des Elektrons durch die Newton'sche Physik, unter Verwendung der effektiven Masse $m^\star$, beschrieben werden
+%		\begin{align*}
+%			m^\star \frac{\diff^2 x}{\diff t^2} + \frac{m^\star}{\tau} \frac{\diff x}{\diff t} = -e E_0 e^{i\omega\tau},
+%		\end{align*}
+%
+%	wobei der Reibungsterm durch Stoßprozesse zustande kommt.\\
+%\\
+%	Die Lösung diese Problems ist aus der Mechanik bekannt:
+%		\begin{align*}
+%			x(t) = \frac{e}{m^\star} \frac{1}{\omega \lr{ \omega + i \frac{1}{\tau}} } \cdot E_0 e^{-i\omega t}
+%		\end{align*}
+%	
+%	Die Polarisation ergibt sich durch Multiplikation mit der Ladungsdichte und der negativen Elementarladung:
+%		\begin{align*}
+%			P_\text{L}(t) = -e n_V x(t) = -\frac{n_V e^2}{\varepsilon_0 m^\star} \frac{1}{\omega \lr{ \omega + i \frac{1}{\tau} } } E_0 e^{-i\omega t}
+%		\end{align*}
+%	
+%	Die elektrische Suszeptibilität ergibt sich aus dessen Definition:
+%		\begin{align*}
+%			\chi_\text{L}(\omega) = \frac{P_\text{L}}{\varepsilon_0 E} = -\frac{n_V e^2}{\varepsilon_0 m^\star} \frac{1}{\omega \lr{\omega + i \frac{1}{\tau}} }
+%		\end{align*}
+%	
+%	Schließlich ist die dielektrische Funktion
+%		\begin{align*}
+%			\varepsilon(\omega) &= 1 + \chi_\text{el}(\omega) + \chi_\text{L}(\omega) = \varepsilon_\text{el}(\omega) + \chi_\text{L}(\omega) = \\
+%			&= \varepsilon_\text{el}(\omega) -\frac{n_V e^2}{\varepsilon_0 m^\star} \frac{1}{\omega \lr{\omega + i \frac{1}{\tau}} } = \\
+%			&= \varepsilon_\text{el}(\omega) \lr{ 1 - \frac{n_V e^2}{\varepsilon_0 \varepsilon_\text{el}(\omega) m^\star} \frac{1}{\omega \lr{\omega + i \frac{1}{\tau}} } } \equiv \\
+%			&\equiv \varepsilon_\text{el}(\omega) \lr{ 1 - (\omega_p\tau)^2  \frac{1-i\frac{1}{\omega\tau}}{1 + (\omega\tau)^2} }
+%		\end{align*}
+%	
+%	mit der Plasmafrequenz $\omega_p := \sqrt{\frac{n_V e^2}{\varepsilon_0\varepsilon_\text{el}(\omega)m^\star}}$ und $\varepsilon_\text{el}(\omega)$ die dielektrische Funktion aufgrund von an die Ionen gebundenen Elektronen ist. $\qquad \blacksquare$
+%\hrule
+%}
+%
+%
+%\newpage
+%
+%
+%\subsection{Optische Eigenschaften}
+%\subsubsection{Absorption, Reflexion und Transmission}
+%Die optischen Eigenschaften Absorption, Reflexion und Transmission lassen sich unmittelbar aus den dielektrischen Eigenschaften ableiten.\\
+%\\
+%\fbox{Resultate}
+%	\begin{itemize}
+%		\item \textbf{Absorptionskoeffizient}\\
+%		Der \textit{Absorptionskoeffizient} $K$ ist die Energie, die beim Durchlauf eines Materials der Länge $1$ absorbiert wird:
+%			\begin{align}
+%				K(\omega) &= \frac{2\omega n_\text{I}}{c} = \frac{4\pi n_\text{I}}{\lambda} = 2k n_\text{I} = \frac{\varepsilon_\text{I}(\omega)}{c}
+%			\end{align}
+%		
+%		
+%		\item \textbf{Reflexionskoeffizient}\\
+%		Der \textit{Reflexionskoeffizient} ist definert als das Verhältnis der reflektierten und einfallenden Intensität.\\
+%		Im Falle normaler Inzidenz gilt:
+%			\begin{equation}
+%				R(\omega) = \left| \frac{n_\text{R}-1}{n_\text{R}+1} \right|^2 = \frac{(n_\text{R}-1)^2 + n_\text{I}^2}{(n_\text{R}+1)^2 + n_\text{I}^2}
+%			\end{equation}
+%		
+%		
+%		\item \textbf{Transmissionskoeffizient}\\
+%		Der \textit{Transmissionskoeffizient} ist definiert als das Verhältnis der transmittierten und einfallenden Intensität.\\
+%		Im Falle normaler Inzidenz gilt:
+%			\begin{equation}
+%				T(\omega) = \left| \frac{2}{n_\text{R}+1} \right|^2 = \frac{4n_\text{R}(\omega)}{(n_\text{R}+1)^2 + n_\text{I}^2}
+%			\end{equation}
+%	\end{itemize}
+%	
+%	
+%\newpage
+%
 
 %\subsection{Supraleitung}
 %\subsubsection{Phänomene}
